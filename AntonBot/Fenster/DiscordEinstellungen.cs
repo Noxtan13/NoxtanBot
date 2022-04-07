@@ -1,0 +1,587 @@
+﻿using System;
+using System.Drawing;
+using System.Net;
+using System.Windows.Forms;
+using AntonBot.PlatformAPI;
+
+namespace AntonBot.Fenster
+{
+    public partial class DiscordEinstellungen : Form
+    {
+        string sClientID;
+        bool Erststart = true;
+        bool bAccessTokenChange;
+
+        HttpListener http = new HttpListener();
+
+        long Summe = 0x0000000000;
+        private bool bÄnderung;
+        private bool bÄnderungAusIndex;
+        private int iEventIndex;
+        private int iAltIndex;
+        private int iVariablenInhaltEvent;
+        private int iVariablenInhaltTextFeld;
+
+        public DiscordEinstellungen()
+        {
+            InitializeComponent();
+        }
+
+        private void DiscordEinstellungen_Load(object sender, EventArgs e)
+        {
+            sClientID = SettingsGroup.Instance.DSclientID;
+            txtClientID.Text = sClientID;
+            //txtStandardChannel.Text = Properties.DiscordScopes.Default.StandardChannel;
+            txtToken.Text = SettingsGroup.Instance.DSAccessToken;
+
+            lblSumme.Text = Summe.ToString();
+            Erststart = false;
+
+            //Änderung des Index, damit der erste Wert auch eingelesen wird (onStreamOnline) und nicht manuell geklickt werden muss
+            LstEvents.SelectedIndex = 1;
+            LstEvents.SelectedIndex = 0;
+        }
+
+        private void DiscordEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (bAccessTokenChange)
+            {
+                if (MessageBox.Show("Der Token wurde geändert." + Environment.NewLine + "Soll dieser übernommen werden? (Bot muss sich neu anmelden)", "Geänderte Daten", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    SettingsGroup.Instance.DSclientID = txtClientID.Text.Trim();
+                    SettingsGroup.Instance.DSAccessToken = txtToken.Text.Trim();
+
+                    SettingsGroup.Instance.Save();
+                }
+            }
+        }
+
+
+        #region Einrichtung
+        private void btnScopesAnfordern_Click(object sender, EventArgs e)
+        {
+            SummeBerechnen();
+            JoinDiscordServer(txtClientID.Text.Trim(), Summe.ToString());
+        }
+
+        public void JoinDiscordServer(string ClientID, string Abfrage)
+        {
+
+            // Creates a redirect URI using an available port on the loopback address.
+
+
+            // Creates an HttpListener to listen for requests on that redirect URI.
+            if (ClientID.Equals(""))
+            {
+                MessageBox.Show("Es ist keine ClientID für den Bot eingetragen" + Environment.NewLine + "Ohne ClientID kann keine Abfrage erfolgen.", "ClientID eingeben", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, "8443"); //Port 8443 ist der https Port am Rechner selber
+
+                http.Prefixes.Clear();
+                http.Prefixes.Add(redirectURI);
+                http.Start();
+
+                // Creates the OAuth 2.0 authorization request.
+                string authorizationRequest = string.Format("http://discord.com/api/oauth2/authorize?client_id={0}&permissions={1}&scope=bot",
+                    ClientID,
+                    Abfrage);
+
+                // Opens request in the browser.
+                System.Diagnostics.Process.Start(authorizationRequest);
+
+                //Hier muss was für das Zertifikat gemacht werden
+                //Im nächsten Schritt scheitert die Abfrage der Anfrage
+
+
+            }
+
+        }
+        private void SummeBerechnen()
+        {
+            long NeueSumme = 0x0000000000;
+            foreach (var item in ChkListAllgemein.CheckedItems)
+            {
+                switch (item.ToString())
+                {
+                    case "Administrator":
+                        NeueSumme = NeueSumme + 0x0000000008;
+                        break;
+                    case "View Audit Log":
+                        NeueSumme = NeueSumme + 0x0000000080;
+                        break;
+                    case "View Server Insights":
+                        NeueSumme = NeueSumme + 0x0000080000;
+                        break;
+                    case "Manage Server":
+                        NeueSumme = NeueSumme + 0x0000000020;
+                        break;
+                    case "Manage Roles":
+                        NeueSumme = NeueSumme + 0x0010000000;
+                        break;
+                    case "Manage Channels":
+                        NeueSumme = NeueSumme + 0x0000000010;
+                        break;
+                    case "Kick Members":
+                        NeueSumme = NeueSumme + 0x0000000002;
+                        break;
+                    case "Ban Members":
+                        NeueSumme = NeueSumme + 0x0000000004;
+                        break;
+                    case "Create Instant Invite":
+                        NeueSumme = NeueSumme + 0x0000000001;
+                        break;
+                    case "Change Nickname":
+                        NeueSumme = NeueSumme + 0x0004000000;
+                        break;
+                    case "Manage Nicknames":
+                        NeueSumme = NeueSumme + 0x0008000000;
+                        break;
+                    case "Manage Emojis":
+                        NeueSumme = NeueSumme + 0x0040000000;
+                        break;
+                    case "Manage Webhooks":
+                        NeueSumme = NeueSumme + 0x0020000000;
+                        break;
+                    case "View Channels":
+                        NeueSumme = NeueSumme + 0x0000000400;
+                        break;
+                }
+            }
+            foreach (var item in ChkListText.CheckedItems)
+            {
+                switch (item.ToString())
+                {
+                    case "Send Messages":
+                        NeueSumme = NeueSumme + 0x0000000800;
+                        break;
+                    case "Send TTS Messages":
+                        NeueSumme = NeueSumme + 0x0000001000;
+                        break;
+                    case "Manage Messages":
+                        NeueSumme = NeueSumme + 0x0000002000;
+                        break;
+                    case "Embed Links":
+                        NeueSumme = NeueSumme + 0x0000004000;
+                        break;
+                    case "Attach Files":
+                        NeueSumme = NeueSumme + 0x0000008000;
+                        break;
+                    case "Read Message History":
+                        NeueSumme = NeueSumme + 0x0000010000;
+                        break;
+                    case "Mention Everyone":
+                        NeueSumme = NeueSumme + 0x0000020000;
+                        break;
+                    case "Use External Emojis":
+                        NeueSumme = NeueSumme + 0x0000040000;
+                        break;
+                    case "Add Reactions":
+                        NeueSumme = NeueSumme + 0x0000000040;
+                        break;
+                    case "Use Slash Commands":
+                        NeueSumme = NeueSumme + 0x0080000000;
+                        break;
+                }
+            }
+            foreach (var item in ChkListSprache.CheckedItems)
+            {
+                switch (item.ToString())
+                {
+                    case "Connect":
+                        NeueSumme = NeueSumme + 0x0000100000;
+                        break;
+                    case "Speak":
+                        NeueSumme = NeueSumme + 0x0000200000;
+                        break;
+                    case "Video":
+                        NeueSumme = NeueSumme + 0x0000000200;
+                        break;
+                    case "Mute Members":
+                        NeueSumme = NeueSumme + 0x0000400000;
+                        break;
+                    case "Deafen Members":
+                        NeueSumme = NeueSumme + 0x0010000000;
+                        break;
+                    case "Move Members":
+                        NeueSumme = NeueSumme + 0x0000800000;
+                        break;
+                    case "Use Voice Activity":
+                        NeueSumme = NeueSumme + 0x0002000000;
+                        break;
+                    case "Priority Speaker":
+                        NeueSumme = NeueSumme + 0x0000000100;
+                        break;
+                }
+            }
+
+            Summe = NeueSumme;
+            lblSumme.Text = Summe.ToString();
+        }
+
+        private void ChkListAllgemein_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SummeBerechnen();
+        }
+
+        private void ChkListText_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SummeBerechnen();
+        }
+
+        private void ChkListSprache_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SummeBerechnen();
+        }
+
+        private void chkAdmin_CheckedChanged(object sender, EventArgs e)
+        {
+            ChkListAllgemein.Enabled = !chkAdmin.Checked;
+            ChkListSprache.Enabled = !chkAdmin.Checked;
+            ChkListText.Enabled = !chkAdmin.Checked;
+            if (chkAdmin.Checked)
+            {
+                long Summe = 0x0000000008;
+                lblSumme.Text = "8";
+            }
+            else
+            {
+                SummeBerechnen();
+            }
+        }
+
+        private void txtToken_TextChanged(object sender, EventArgs e)
+        {
+            if (!Erststart)
+            {
+                bAccessTokenChange = true;
+            }
+            
+        }
+        private void txtClientID_TextChanged(object sender, EventArgs e)
+        {
+            if (!Erststart)
+            {
+                bAccessTokenChange = true;
+            }
+            sClientID = txtClientID.Text;
+        }
+        private void btnToken_Click(object sender, EventArgs e)
+        {
+            sClientID = SettingsGroup.Instance.DSclientID;
+            if (sClientID.Equals(""))
+            {
+                MessageBox.Show("Es ist keine ClientID für den Bot eingetragen" + Environment.NewLine + "Ohne ClientID kann die richtige Seite nicht aufgerufen werden.", "ClientID eingeben", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                string authorizationRequest = string.Format("https://discord.com/developers/applications/{0}/bot",
+                sClientID);
+                // Opens request in the browser.
+                System.Diagnostics.Process.Start(authorizationRequest);
+            }
+        }
+
+
+        #endregion
+
+        #region Events
+
+        private void txtDiscordChat_MouseClick(object sender, MouseEventArgs e)
+        {
+            iEventIndex = 1;
+        }
+
+        private void txtDiscordChat_TextChanged(object sender, EventArgs e)
+        {
+            Änderungchange(true);
+        }
+
+        private void chkDiscordAusgabe_CheckedChanged(object sender, EventArgs e)
+        {
+            Änderungchange(true);
+            btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
+        }
+
+        private void txtKonsolenFenster_MouseClick(object sender, MouseEventArgs e)
+        {
+            iEventIndex = 2;
+        }
+
+        private void txtKonsolenFenster_TextChanged(object sender, EventArgs e)
+        {
+            Änderungchange(true);
+        }
+
+        private void chkKonsoleAusgabe_CheckedChanged(object sender, EventArgs e)
+        {
+            Änderungchange(true);
+        }
+
+        private void btnVariable_Click(object sender, EventArgs e)
+        {
+            if (cmbVariable.Text != "---------------------------------") //"---------------------------------" Dient als Platzhalter zwischen den Event-Variablen und den Feldeigenen Variablen, daher soll dieser nicht eingefügt werden können
+            {
+                switch (iEventIndex)
+                {
+                    case 1:
+
+                        txtDiscordChat.Text = txtDiscordChat.Text + "°" + cmbVariable.Text;
+                        break;
+                    case 2:
+                        txtKonsolenFenster.Text = txtKonsolenFenster.Text + "°" + cmbVariable.Text;
+                        break;
+                    case 3:
+                        txtChatReaktion.Text = txtChatReaktion.Text + "°" + cmbVariable.Text; 
+                        break;
+                }
+            }
+        }
+
+        private void txtChatReaktion_MouseClick(object sender, MouseEventArgs e)
+        {
+            iEventIndex = 3;
+        }
+
+        private void txtChatReaktion_TextChanged(object sender, EventArgs e)
+        {
+            Änderungchange(true);
+        }
+
+        private void chkTextReaction_CheckedChanged(object sender, EventArgs e)
+        {
+            Änderungchange(true);
+        }
+
+        private void LstEvents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (bÄnderung == true && bÄnderungAusIndex == false)
+            {
+                if (MessageBox.Show("Es sind nicht gespeicherte Änderungen vorhanden. Fortfahren?", "Achtung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    IndexChange();
+                    bÄnderungAusIndex = true; //Damit wird festgestellt, dass die Änderung der Felder durch den Index erfolgt ist. Diese Änderungen in den Felern, die in diesem Fall keine sind, werden nicht als zu Speichern angezeigt.
+                }
+                else
+                {
+                    bÄnderungAusIndex = true; //Damit die MessageBox der Abfrage nicht zweimal erscheint
+                    LstEvents.SelectedIndex = iAltIndex;
+
+                    Änderungchange(true);
+                }
+            }
+            else if (LstEvents.SelectedIndex != iAltIndex)
+            { //Wenn sich der Index geändert hat, sollen sich die Daten aktualisieren. Umgekehrt, würden nicht gespeicherte Änderungen verloren gehen
+                IndexChange();
+                bÄnderungAusIndex = true; //Damit wird festgestellt, dass die Änderung der Felder durch den Index erfolgt ist. Diese Änderungen in den Felern, die in diesem Fall keine sind, werden nicht als zu Speichern angezeigt.
+
+            }
+        }
+
+        private void btnDiscordChannel_Click(object sender, EventArgs e)
+        {
+            using (DiscordChannelAuswahl Fenster = new DiscordChannelAuswahl())
+            {
+
+                switch (LstEvents.SelectedIndex)
+                {
+                    case 0:
+                        Fenster.Channels = SettingsGroup.Instance.DsJoinUserChannel;
+                        break;
+                    case 1:
+                        Fenster.Channels = SettingsGroup.Instance.DsLeftUserChannel;
+                        break;
+                }
+
+                DialogResult dr = Fenster.ShowDialog();
+
+                if (dr == DialogResult.OK)
+                {
+                    switch (LstEvents.SelectedIndex)
+                    {
+                        case 0:
+                            SettingsGroup.Instance.DsJoinUserChannel = Fenster.Channels;
+                            break;
+                        case 1:
+                            SettingsGroup.Instance.DsLeftUserChannel = Fenster.Channels;
+                            break;
+                    }
+                    SettingsGroup.Instance.Save();
+                    Änderungchange(true);
+                }
+
+            }
+        }
+        private void Änderungchange(bool bArt)
+        {
+
+            if (bArt)
+            {
+                bÄnderung = true;
+                bÄnderungAusIndex = false;
+                btnÜbernehmen.BackColor = Color.Tomato;
+            }
+            else
+            {
+                bÄnderung = false;
+                btnÜbernehmen.BackColor = Color.LightGreen;
+            }
+        }
+        private void IndexChange()
+        {
+            /* Index:
+            0 = OnUserJoined
+            1 = OnUserLeft
+            */
+
+            //Die Felder werden als erstes alle aktiviert, für den Fall, dass diese vorher deaktiviert wurden...
+            chkTextReaction.Enabled = true;
+            txtChatReaktion.Enabled = true;
+            chkDiscordAusgabe.Enabled = true;
+            txtDiscordChat.Enabled = true;
+            chkKonsoleAusgabe.Enabled = true;
+            txtKonsolenFenster.Enabled = true;
+            grpEvent.Enabled = true;
+            switch (LstEvents.SelectedIndex)
+            {
+                case 0:
+                    chkUse.Checked = SettingsGroup.Instance.DsJoinUser;
+                    chkTextReaction.Checked = SettingsGroup.Instance.DsJoinUserTwitch;
+                    txtChatReaktion.Text = SettingsGroup.Instance.DsJoinUserTwitchText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.DsJoinUserDiscord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.DsJoinUserDiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsJoinUserKonsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.DsJoinUserKonsoleText;
+                    break;
+                case 1:
+                    chkUse.Checked = SettingsGroup.Instance.DsLeftUser;
+                    chkTextReaction.Checked = SettingsGroup.Instance.DsLeftUserTwitch;
+                    txtChatReaktion.Text = SettingsGroup.Instance.DsLeftUserTwitchText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.DsLeftUserDiscord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.DsLeftUserDiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsLeftUserKonsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.DsLeftUserKonsoleText;
+                    break;
+                
+            }
+            btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
+
+            iAltIndex = LstEvents.SelectedIndex;
+
+            VariableBefüllen(1, LstEvents.SelectedIndex);
+        }
+
+        private void VariableBefüllen(int Teil, int Inhalt)
+        {
+            //Die Variable Teil wird verwendet, um anzugeben, welchen Part der Variablen "Neu" beschrieben wird
+            //Es gibt zwei Teile:
+            // 1) Die Variablen aus den Events
+            // 2) Die Variablen aus den Textfeldern
+            // Je nach dem, soll nur eines der beiden Feldern befüllt werden
+
+            cmbVariable.Text = "";
+
+            if (Teil == 1)
+            {
+                iVariablenInhaltEvent = Inhalt;
+            }
+            else if (Teil == 2)
+            {
+                iVariablenInhaltTextFeld = Inhalt;
+            }
+
+            cmbVariable.Items.Clear();
+
+            switch (iVariablenInhaltEvent)
+            {
+                case 0:
+                    //OnUserJoin
+                    cmbVariable.Items.Add("Username");
+                    cmbVariable.Items.Add("DisplayName");
+                    cmbVariable.Items.Add("Guild");
+                    cmbVariable.Items.Add("JoinedAt");
+                    cmbVariable.Items.Add("Nickname");
+                    break;
+                case 1:
+                    //OnStreamOffline
+                    cmbVariable.Items.Add("GuildName");
+                    cmbVariable.Items.Add("UserName");
+
+                    break;
+                
+            }
+
+            cmbVariable.Items.Add("---------------------------------");
+
+            /*
+             * Das hier ist die Switch-Prüfung für die Variablen, die es für die einzelnen Ziele (Twitch, Discord, Konsole) gibt
+            switch (iVariablenInhaltTextFeld) { 
+            
+            }
+            */
+        }
+
+        private void chkUse_CheckedChanged(object sender, EventArgs e)
+        {
+            grpEvent.Enabled = chkUse.Checked;
+            Änderungchange(true);
+        }
+
+        
+
+        private void btnÜbernehmen_Click(object sender, EventArgs e)
+        {
+            bool Validierung = false;
+            if (SettingsGroup.Instance.Tschat_read && SettingsGroup.Instance.Tschat_edit)
+            {
+                switch (LstEvents.SelectedIndex)
+                {
+                    case 0:
+                        SettingsGroup.Instance.DsJoinUser = chkUse.Checked;
+                        SettingsGroup.Instance.DsJoinUserTwitch = chkTextReaction.Checked;
+                        SettingsGroup.Instance.DsJoinUserTwitchText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.DsJoinUserDiscord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.DsJoinUserDiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.DsJoinUserKonsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.DsJoinUserKonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.DsJoinUserChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        {
+                            Validierung = false;
+                        }
+                        else { Validierung = true; }
+                        break;
+                    case 1:
+                        SettingsGroup.Instance.DsLeftUser = chkUse.Checked;
+                        SettingsGroup.Instance.DsLeftUserTwitch = chkTextReaction.Checked;
+                        SettingsGroup.Instance.DsLeftUserTwitchText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.DsLeftUserDiscord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.DsLeftUserDiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.DsLeftUserKonsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.DsLeftUserKonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.DsLeftUserChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        {
+                            Validierung = false;
+                        }
+                        else { Validierung = true; }
+                        break;
+                }
+
+                if (Validierung == true)
+                {
+                    SettingsGroup.Instance.Save();
+                    Änderungchange(false);
+                }
+                else
+                {
+                    MessageBox.Show("Es wurde eine Discord-Nachricht eingestellt, aber keine Channels. Bitte wähle Channels aus", "Fehlende Kanäle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Der Bot besitzt nicht die Standard-Berechtigungen für 'chat_read' und 'chat_edit'. Ein Einstellen ist nicht möglich", "Fehlende Berechtigung", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+    }
+}

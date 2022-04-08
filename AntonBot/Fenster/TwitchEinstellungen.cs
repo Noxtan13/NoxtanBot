@@ -183,29 +183,29 @@ namespace AntonBot.Fenster
             {
                 SettingsGroup.Instance.TeOnNewSubscriberChannel = new System.Collections.Specialized.StringCollection();
             }
-            if (SettingsGroup.Instance.TeOnConnectedChannel == null)
+            if (SettingsGroup.Instance.TeOnConnected.Channel == null)
             {
-                SettingsGroup.Instance.TeOnConnectedChannel = new System.Collections.Specialized.StringCollection();
+                SettingsGroup.Instance.TeOnConnected.Channel = new System.Collections.Specialized.StringCollection();
             }
-            if (SettingsGroup.Instance.TeOnBeingHostedChannel == null)
+            if (SettingsGroup.Instance.TeOnBeingHosted.Channel == null)
             {
-                SettingsGroup.Instance.TeOnBeingHostedChannel = new System.Collections.Specialized.StringCollection();
+                SettingsGroup.Instance.TeOnBeingHosted.Channel = new System.Collections.Specialized.StringCollection();
             }
             if (SettingsGroup.Instance.TeOnRaidNotificationChannel == null)
             {
                 SettingsGroup.Instance.TeOnRaidNotificationChannel = new System.Collections.Specialized.StringCollection();
             }
-            if (SettingsGroup.Instance.TeOnJoinedChannelChannel == null)
+            if (SettingsGroup.Instance.TeOnJoinedChannel.Channel == null)
             {
-                SettingsGroup.Instance.TeOnJoinedChannelChannel = new System.Collections.Specialized.StringCollection();
+                SettingsGroup.Instance.TeOnJoinedChannel.Channel = new System.Collections.Specialized.StringCollection();
             }
             if (SettingsGroup.Instance.TeOnUserJoinedChannel == null)
             {
                 SettingsGroup.Instance.TeOnUserJoinedChannel = new System.Collections.Specialized.StringCollection();
             }
-            if (SettingsGroup.Instance.TeOnExistingUsersDetectedChannel == null)
+            if (SettingsGroup.Instance.TeOnExistingUsersDetected.Channel == null)
             {
-                SettingsGroup.Instance.TeOnExistingUsersDetectedChannel = new System.Collections.Specialized.StringCollection();
+                SettingsGroup.Instance.TeOnExistingUsersDetected.Channel = new System.Collections.Specialized.StringCollection();
             }
             if (SettingsGroup.Instance.TeOnRewardRedeemedChannel == null)
             {
@@ -219,9 +219,9 @@ namespace AntonBot.Fenster
             {
                 SettingsGroup.Instance.TeOnUserLeftChannel = new System.Collections.Specialized.StringCollection();
             }
-            if (SettingsGroup.Instance.TeOnClipCreatedChannel == null)
+            if (SettingsGroup.Instance.TeOnClipCreated.Channel == null)
             {
-                SettingsGroup.Instance.TeOnClipCreatedChannel = new System.Collections.Specialized.StringCollection();
+                SettingsGroup.Instance.TeOnClipCreated.Channel = new System.Collections.Specialized.StringCollection();
             }
 
             SettingsGroup.Instance.Save();
@@ -777,7 +777,7 @@ namespace AntonBot.Fenster
             switch (LstEvents.SelectedIndex)
             {
                 case 0:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnStreamOnline;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnStreamOnlineUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnStreamOnlineChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnStreamOnlineChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnStreamOnlineDiscord;
@@ -786,7 +786,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnStreamOnlineKonsoleText;
                     break;
                 case 1:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnStreamOffline;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnStreamOfflineUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnStreamOfflineChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnStreamOfflineChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnStreamOfflineDiscord;
@@ -795,7 +795,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnStreamOfflineKonsoleText;
                     break;
                 case 2:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnStreamUpdate;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnStreamUpdateUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnStreamUpdateChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnStreamUpdateChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnStreamUpdateDiscord;
@@ -804,7 +804,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnStreamUpdateKonsoleText;
                     break;
                 case 3:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnNewFollowersDetected;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnNewFollowersDetectedUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnNewFollowersDetectedChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnNewFollowersDetectedChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnNewFollowersDetectedDiscord;
@@ -813,7 +813,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnNewFollowersDetectedKonsoleText;
                     break;
                 case 4:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnMessageReceived;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnMessageReceivedUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnMessageReceivedChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnMessageReceivedChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnMessageReceivedDiscord;
@@ -825,7 +825,7 @@ namespace AntonBot.Fenster
                     grpEvent.Enabled = false;
                     break;
                 case 5:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnWhisperReceived;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnWhisperReceivedUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnWhisperReceivedChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnWhisperReceivedChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnWhisperReceivedDiscord;
@@ -837,7 +837,7 @@ namespace AntonBot.Fenster
                     grpEvent.Enabled = false;
                     break;
                 case 6:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnNewSubscriber;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnNewSubscriberUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnNewSubscriberChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnNewSubscriberChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnNewSubscriberDiscord;
@@ -846,25 +846,25 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnNewSubscriberKonsoleText;
                     break;
                 case 7:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnConnected;
-                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnConnectedChat;
-                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnConnectedChatText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnConnectedDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnConnectedDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnConnectedKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnConnectedKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnConnected.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnConnected.Chat;
+                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnConnected.ChatText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnConnected.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnConnected.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnConnected.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnConnected.KonsoleText;
                     break;
                 case 8:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnBeingHosted;
-                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnBeingHostedChat;
-                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnBeingHostedChatText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnBeingHostedDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnBeingHostedDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnBeingHostedKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnBeingHostedKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnBeingHosted.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnBeingHosted.Chat;
+                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnBeingHosted.ChatText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnBeingHosted.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnBeingHosted.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnBeingHosted.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnBeingHosted.KonsoleText;
                     break;
                 case 9:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnRaidNotification;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnRaidNotificationUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnRaidNotificationChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnRaidNotificationChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnRaidNotificationDiscord;
@@ -873,13 +873,13 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnRaidNotificationKonsoleText; ;
                     break;
                 case 10:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnJoinedChannel;
-                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnJoinedChannelChat;
-                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnJoinedChannelChatText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnJoinedChannelDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnJoinedChannelDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnJoinedChannelKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnJoinedChannelKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnJoinedChannel.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnJoinedChannel.Chat;
+                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnJoinedChannel.ChatText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnJoinedChannel.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnJoinedChannel.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnJoinedChannel.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnJoinedChannel.KonsoleText;
 
                     //onUserJoined wird nur in der Konsole ausgegeben
                     
@@ -889,7 +889,7 @@ namespace AntonBot.Fenster
                     txtDiscordChat.Enabled = false;
                     break;
                 case 11:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnUserJoined;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnUserJoinedUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnUserJoinedChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnUserJoinedChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnUserJoinedDiscord;
@@ -898,16 +898,16 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnUserJoinedKonsoleText;
                     break;
                 case 12:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnExistingUsersDetected;
-                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnExistingUsersDetectedChat;
-                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnExistingUsersDetectedChatText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnExistingUsersDetectedDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnExistingUsersDetectedDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnExistingUsersDetectedKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnExistingUsersDetectedKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnExistingUsersDetected.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnExistingUsersDetected.Chat;
+                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnExistingUsersDetected.ChatText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnExistingUsersDetected.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnExistingUsersDetected.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnExistingUsersDetected.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnExistingUsersDetected.KonsoleText;
                     break;
                 case 13:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnRewardRedeemed;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnRewardRedeemedUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnRewardRedeemedChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnRewardRedeemedChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnRewardRedeemedDiscord;
@@ -916,7 +916,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnRewardRedeemedKonsoleText;
                     break;
                 case 14:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnRaidGo;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnRaidGoUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnRaidGoChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnRaidGoChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnRaidGoDiscord;
@@ -925,7 +925,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnRaidGoKonsoleText;
                     break;
                 case 15:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnUserLeft;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnUserLeftUse;
                     chkTextReaction.Checked = SettingsGroup.Instance.TeOnUserLeftChat;
                     txtChatReaktion.Text = SettingsGroup.Instance.TeOnUserLeftChatText;
                     chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnUserLeftDiscord;
@@ -934,13 +934,13 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnUserLeftKonsoleText;
                     break;
                 case 16:
-                    chkUse.Checked = SettingsGroup.Instance.TeOnClipCreated;
-                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnClipCreatedChat;
-                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnClipCreatedChatText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnClipCreatedDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnClipCreatedDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnClipCreatedKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnClipCreatedKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.TeOnClipCreated.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnClipCreated.Chat;
+                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnClipCreated.ChatText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnClipCreated.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnClipCreated.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnClipCreated.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnClipCreated.KonsoleText;
                     break;
             }
             btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
@@ -1163,7 +1163,7 @@ namespace AntonBot.Fenster
                 switch (LstEvents.SelectedIndex)
                 {
                     case 0:
-                        SettingsGroup.Instance.TeOnStreamOnline = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnStreamOnlineUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnStreamOnlineChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnStreamOnlineChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnStreamOnlineDiscord = chkDiscordAusgabe.Checked;
@@ -1176,7 +1176,7 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 1:
-                        SettingsGroup.Instance.TeOnStreamOffline = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnStreamOfflineUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnStreamOfflineChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnStreamOfflineChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnStreamOfflineDiscord = chkDiscordAusgabe.Checked;
@@ -1190,7 +1190,7 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 2:
-                        SettingsGroup.Instance.TeOnStreamUpdate = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnStreamUpdateUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnStreamUpdateChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnStreamUpdateChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnStreamUpdateDiscord = chkDiscordAusgabe.Checked;
@@ -1204,7 +1204,7 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 3:
-                        SettingsGroup.Instance.TeOnNewFollowersDetected = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnNewFollowersDetectedUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnNewFollowersDetectedChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnNewFollowersDetectedChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnNewFollowersDetectedDiscord = chkDiscordAusgabe.Checked;
@@ -1218,7 +1218,7 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 4:
-                        SettingsGroup.Instance.TeOnMessageReceived = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnMessageReceivedUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnMessageReceivedChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnMessageReceivedChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnMessageReceivedDiscord = chkDiscordAusgabe.Checked;
@@ -1232,7 +1232,7 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 5:
-                        SettingsGroup.Instance.TeOnWhisperReceived = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnWhisperReceivedUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnWhisperReceivedChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnWhisperReceivedChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnWhisperReceivedDiscord = chkDiscordAusgabe.Checked;
@@ -1246,7 +1246,7 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 6:
-                        SettingsGroup.Instance.TeOnNewSubscriber = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnNewSubscriberUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnNewSubscriberChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnNewSubscriberChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnNewSubscriberDiscord = chkDiscordAusgabe.Checked;
@@ -1260,35 +1260,35 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 7:
-                        SettingsGroup.Instance.TeOnConnected = chkUse.Checked;
-                        SettingsGroup.Instance.TeOnConnectedChat = chkTextReaction.Checked;
-                        SettingsGroup.Instance.TeOnConnectedChatText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.TeOnConnectedDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnConnectedDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.TeOnConnectedKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnConnectedKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.TeOnConnectedChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.TeOnConnected.Use = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnConnected.Chat = chkTextReaction.Checked;
+                        SettingsGroup.Instance.TeOnConnected.ChatText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.TeOnConnected.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnConnected.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.TeOnConnected.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnConnected.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.TeOnConnected.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }
                         else { Validierung = true; }
                         break;
                     case 8:
-                        SettingsGroup.Instance.TeOnBeingHosted = chkUse.Checked;
-                        SettingsGroup.Instance.TeOnBeingHostedChat = chkTextReaction.Checked;
-                        SettingsGroup.Instance.TeOnBeingHostedChatText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.TeOnBeingHostedDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnBeingHostedDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.TeOnBeingHostedKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnBeingHostedKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.TeOnBeingHostedChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.TeOnBeingHosted.Use = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnBeingHosted.Chat = chkTextReaction.Checked;
+                        SettingsGroup.Instance.TeOnBeingHosted.ChatText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.TeOnBeingHosted.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnBeingHosted.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.TeOnBeingHosted.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnBeingHosted.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.TeOnBeingHosted.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }
                         else { Validierung = true; }
                         break;
                     case 9:
-                        SettingsGroup.Instance.TeOnRaidNotification = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnRaidNotificationUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnRaidNotificationChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnRaidNotificationChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnRaidNotificationDiscord = chkDiscordAusgabe.Checked;
@@ -1302,21 +1302,21 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 10:
-                        SettingsGroup.Instance.TeOnJoinedChannel = chkUse.Checked;
-                        SettingsGroup.Instance.TeOnJoinedChannelChat = chkTextReaction.Checked;
-                        SettingsGroup.Instance.TeOnJoinedChannelChatText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.TeOnJoinedChannelDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnJoinedChannelDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.TeOnJoinedChannelKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnJoinedChannelKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.TeOnJoinedChannelChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.TeOnJoinedChannel.Use = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnJoinedChannel.Chat = chkTextReaction.Checked;
+                        SettingsGroup.Instance.TeOnJoinedChannel.ChatText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.TeOnJoinedChannel.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnJoinedChannel.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.TeOnJoinedChannel.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnJoinedChannel.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.TeOnJoinedChannel.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }
                         else { Validierung = true; }
                         break;
                     case 11:
-                        SettingsGroup.Instance.TeOnUserJoined = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnUserJoinedUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnUserJoinedChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnUserJoinedChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnUserJoinedDiscord = chkDiscordAusgabe.Checked;
@@ -1330,14 +1330,14 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 12:
-                        SettingsGroup.Instance.TeOnExistingUsersDetected = chkUse.Checked;
-                        SettingsGroup.Instance.TeOnExistingUsersDetectedChat = chkTextReaction.Checked;
-                        SettingsGroup.Instance.TeOnExistingUsersDetectedChatText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.TeOnExistingUsersDetectedDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnExistingUsersDetectedDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.TeOnExistingUsersDetectedKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnExistingUsersDetectedKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.TeOnExistingUsersDetectedChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.Use = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.Chat = chkTextReaction.Checked;
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.ChatText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnExistingUsersDetected.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.TeOnExistingUsersDetected.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }
@@ -1346,7 +1346,7 @@ namespace AntonBot.Fenster
                     case 13:
                         if (SettingsGroup.Instance.Tschannel_read_redemptions)
                         {
-                            SettingsGroup.Instance.TeOnRewardRedeemed = chkUse.Checked;
+                            SettingsGroup.Instance.TeOnRewardRedeemedUse = chkUse.Checked;
                             SettingsGroup.Instance.TeOnRewardRedeemedChat = chkTextReaction.Checked;
                             SettingsGroup.Instance.TeOnRewardRedeemedChatText = txtChatReaktion.Text;
                             SettingsGroup.Instance.TeOnRewardRedeemedDiscord = chkDiscordAusgabe.Checked;
@@ -1368,7 +1368,7 @@ namespace AntonBot.Fenster
                     case 14:
                         if (SettingsGroup.Instance.Tsuser_edit)
                         {
-                            SettingsGroup.Instance.TeOnRaidGo = chkUse.Checked;
+                            SettingsGroup.Instance.TeOnRaidGoUse = chkUse.Checked;
                             SettingsGroup.Instance.TeOnRaidGoChat = chkTextReaction.Checked;
                             SettingsGroup.Instance.TeOnRaidGoChatText = txtChatReaktion.Text;
                             SettingsGroup.Instance.TeOnRaidGoDiscord = chkDiscordAusgabe.Checked;
@@ -1388,7 +1388,7 @@ namespace AntonBot.Fenster
                         }
                         break;
                     case 15:
-                        SettingsGroup.Instance.TeOnUserLeft = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnUserLeftUse = chkUse.Checked;
                         SettingsGroup.Instance.TeOnUserLeftChat = chkTextReaction.Checked;
                         SettingsGroup.Instance.TeOnUserLeftChatText = txtChatReaktion.Text;
                         SettingsGroup.Instance.TeOnUserLeftDiscord = chkDiscordAusgabe.Checked;
@@ -1402,14 +1402,14 @@ namespace AntonBot.Fenster
                         else { Validierung = true; }
                         break;
                     case 16:
-                        SettingsGroup.Instance.TeOnClipCreated = chkUse.Checked;
-                        SettingsGroup.Instance.TeOnClipCreatedChat = chkTextReaction.Checked;
-                        SettingsGroup.Instance.TeOnClipCreatedChatText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.TeOnClipCreatedDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnClipCreatedDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.TeOnClipCreatedKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.TeOnClipCreatedKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.TeOnClipCreatedChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.TeOnClipCreated.Use = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnClipCreated.Chat = chkTextReaction.Checked;
+                        SettingsGroup.Instance.TeOnClipCreated.ChatText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.TeOnClipCreated.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnClipCreated.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.TeOnClipCreated.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnClipCreated.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.TeOnClipCreated.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }
@@ -1460,22 +1460,22 @@ namespace AntonBot.Fenster
                         Fenster.Channels = SettingsGroup.Instance.TeOnNewSubscriberChannel;
                         break;
                     case 7:
-                        Fenster.Channels = SettingsGroup.Instance.TeOnConnectedChannel;
+                        Fenster.Channels = SettingsGroup.Instance.TeOnConnected.Channel;
                         break;
                     case 8:
-                        Fenster.Channels = SettingsGroup.Instance.TeOnBeingHostedChannel;
+                        Fenster.Channels = SettingsGroup.Instance.TeOnBeingHosted.Channel;
                         break;
                     case 9:
                         Fenster.Channels = SettingsGroup.Instance.TeOnRaidNotificationChannel;
                         break;
                     case 10:
-                        Fenster.Channels = SettingsGroup.Instance.TeOnJoinedChannelChannel;
+                        Fenster.Channels = SettingsGroup.Instance.TeOnJoinedChannel.Channel;
                         break;
                     case 11:
                         Fenster.Channels = SettingsGroup.Instance.TeOnUserJoinedChannel;
                         break;
                     case 12:
-                        Fenster.Channels = SettingsGroup.Instance.TeOnExistingUsersDetectedChannel;
+                        Fenster.Channels = SettingsGroup.Instance.TeOnExistingUsersDetected.Channel;
                         break;
                     case 13:
                         Fenster.Channels = SettingsGroup.Instance.TeOnRewardRedeemedChannel;
@@ -1487,7 +1487,7 @@ namespace AntonBot.Fenster
                         Fenster.Channels = SettingsGroup.Instance.TeOnUserLeftChannel;
                         break;
                     case 16:
-                        Fenster.Channels = SettingsGroup.Instance.TeOnClipCreatedChannel;
+                        Fenster.Channels = SettingsGroup.Instance.TeOnClipCreated.Channel;
                         break;
                 }
 
@@ -1519,22 +1519,22 @@ namespace AntonBot.Fenster
                             SettingsGroup.Instance.TeOnNewSubscriberChannel = Fenster.Channels;
                             break;
                         case 7:
-                            SettingsGroup.Instance.TeOnConnectedChannel = Fenster.Channels;
+                            SettingsGroup.Instance.TeOnConnected.Channel = Fenster.Channels;
                             break;
                         case 8:
-                            SettingsGroup.Instance.TeOnBeingHostedChannel = Fenster.Channels;
+                            SettingsGroup.Instance.TeOnBeingHosted.Channel = Fenster.Channels;
                             break;
                         case 9:
                             SettingsGroup.Instance.TeOnRaidNotificationChannel = Fenster.Channels;
                             break;
                         case 10:
-                            SettingsGroup.Instance.TeOnJoinedChannelChannel = Fenster.Channels;
+                            SettingsGroup.Instance.TeOnJoinedChannel.Channel = Fenster.Channels;
                             break;
                         case 11:
                             SettingsGroup.Instance.TeOnUserJoinedChannel = Fenster.Channels;
                             break;
                         case 12:
-                            SettingsGroup.Instance.TeOnExistingUsersDetectedChannel = Fenster.Channels;
+                            SettingsGroup.Instance.TeOnExistingUsersDetected.Channel = Fenster.Channels;
                             break;
                         case 13:
                             SettingsGroup.Instance.TeOnRewardRedeemedChannel = Fenster.Channels;
@@ -1546,7 +1546,7 @@ namespace AntonBot.Fenster
                             SettingsGroup.Instance.TeOnUserLeftChannel = Fenster.Channels;
                             break;
                         case 16:
-                            SettingsGroup.Instance.TeOnClipCreatedChannel = Fenster.Channels;
+                            SettingsGroup.Instance.TeOnClipCreated.Channel = Fenster.Channels;
                             break;
                     }
                     SettingsGroup.Instance.Save();

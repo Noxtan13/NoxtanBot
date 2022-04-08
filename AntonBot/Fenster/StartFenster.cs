@@ -48,7 +48,7 @@ namespace AntonBot
         private void MainWindow_Load(object sender, EventArgs e)
         {
             //SettingsGroup.Instance.LoadSettings();
-
+            
             EventTimer = SettingsGroup.Instance.SEventTimer;
             DiscordStatusStrip.Text = "Discord: " + Discord.getClientStatus();
             TwitchStatusStrip.Text = "Twitch: Disconnected - Online:" + SettingsGroup.Instance.TsOnline.ToString();

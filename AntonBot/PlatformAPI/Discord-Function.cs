@@ -45,11 +45,6 @@ namespace AntonBot
                 .AddSingleton(commands)
                 .BuildServiceProvider();
 
-
-
-
-            //string token = "NzM1MTYzNzMxNTI4NTE1NzE2.XxiVOw.BV2mP71-JjkcUxGKJuVTCbhcCa0";
-
             if (!FirstStart)
             {
                 client.Log += Client_Log;

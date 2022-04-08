@@ -1174,92 +1174,92 @@ namespace AntonBot
         {
             string Befehlteil = getBefehlTeil(chatMessage.Message);
 
-            if (SettingsGroup.Instance.TeSOUse)
+            if (SettingsGroup.Instance.TeSO.Use)
             {
-                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeSOCommand)
+                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeSO.Command)
                 {
-                    if (SettingsGroup.Instance.TeSOAdmin == true && SettingsGroup.Instance.TeSOAdmin == chatMessage.IsModerator)
+                    if (SettingsGroup.Instance.TeSO.Admin == true && SettingsGroup.Instance.TeSO.Admin == chatMessage.IsModerator)
                     {
                         Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeSOBoardcast == true && SettingsGroup.Instance.TeSOBoardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeSO.Boardcast == true && SettingsGroup.Instance.TeSO.Boardcast == chatMessage.IsBroadcaster)
                     {
                         Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeSOAdmin == false && SettingsGroup.Instance.TeSOBoardcast == false)
+                    else if (SettingsGroup.Instance.TeSO.Admin == false && SettingsGroup.Instance.TeSO.Boardcast == false)
                     {
                         Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
                 }
             }
-            if (SettingsGroup.Instance.TeUpdateTitleUse)
+            if (SettingsGroup.Instance.TeUpdateTitle.Use)
             {
-                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateTitleCommand.ToLower())
+                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateTitle.Command.ToLower())
                 {
-                    if (SettingsGroup.Instance.TeUpdateTitleAdmin == true && SettingsGroup.Instance.TeUpdateTitleAdmin == chatMessage.IsModerator)
+                    if (SettingsGroup.Instance.TeUpdateTitle.Admin == true && SettingsGroup.Instance.TeUpdateTitle.Admin == chatMessage.IsModerator)
                     {
                         setStreamTitle(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateTitleBroadcaster == true && SettingsGroup.Instance.TeUpdateTitleBroadcaster == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeUpdateTitle.Boardcast == true && SettingsGroup.Instance.TeUpdateTitle.Boardcast == chatMessage.IsBroadcaster)
                     {
                         setStreamTitle(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateTitleAdmin == false && SettingsGroup.Instance.TeUpdateTitleBroadcaster == false)
+                    else if (SettingsGroup.Instance.TeUpdateTitle.Admin == false && SettingsGroup.Instance.TeUpdateTitle.Boardcast == false)
                     {
                         setStreamTitle(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
                 }
             }
-            if (SettingsGroup.Instance.TeGoRaidTextUse)
+            if (SettingsGroup.Instance.TeGoRaid.Use)
             {
-                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeGoRaidTextCommand.ToLower())
+                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeGoRaid.Command.ToLower())
                 {
-                    if (SettingsGroup.Instance.TeGoRaidTextAdmin == true && SettingsGroup.Instance.TeGoRaidTextAdmin == chatMessage.IsModerator)
+                    if (SettingsGroup.Instance.TeGoRaid.Admin == true && SettingsGroup.Instance.TeGoRaid.Admin == chatMessage.IsModerator)
                     {
                         setRaidMessage(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeGoRaidTextBroadcaster == true && SettingsGroup.Instance.TeGoRaidTextBroadcaster == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeGoRaid.Boardcast == true && SettingsGroup.Instance.TeGoRaid.Boardcast == chatMessage.IsBroadcaster)
                     {
                         setRaidMessage(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeGoRaidTextAdmin == false && SettingsGroup.Instance.TeGoRaidTextBroadcaster == false)
+                    else if (SettingsGroup.Instance.TeGoRaid.Admin == false && SettingsGroup.Instance.TeGoRaid.Boardcast == false)
                     {
                         setRaidMessage(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
                 }
             }
-            if (SettingsGroup.Instance.TeUpdateGameUse)
+            if (SettingsGroup.Instance.TeUpdateGame.Use)
             {
-                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateGameCommand.ToLower())
+                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateGame.Command.ToLower())
                 {
-                    if (SettingsGroup.Instance.TeUpdateGameAdmin == true && SettingsGroup.Instance.TeUpdateGameAdmin == chatMessage.IsModerator)
+                    if (SettingsGroup.Instance.TeUpdateGame.Admin == true && SettingsGroup.Instance.TeUpdateGame.Admin == chatMessage.IsModerator)
                     {
                         setStreamGame(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateGameBoardcaster == true && SettingsGroup.Instance.TeUpdateGameBoardcaster == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeUpdateGame.Boardcast == true && SettingsGroup.Instance.TeUpdateGame.Boardcast == chatMessage.IsBroadcaster)
                     {
                         setStreamGame(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateGameAdmin == false && SettingsGroup.Instance.TeUpdateGameBoardcaster == false)
+                    else if (SettingsGroup.Instance.TeUpdateGame.Admin == false && SettingsGroup.Instance.TeUpdateGame.Boardcast == false)
                     {
                         setStreamGame(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
                 }
             }
-            if (SettingsGroup.Instance.TeClipCreateUse)
+            if (SettingsGroup.Instance.TeClipCreate.Use)
             {
-                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeClipCreateCommand.ToLower())
+                if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeClipCreate.Command.ToLower())
                 {
                     KonsolenAusgabe("ClipCreate wird nun ausgeführt.");
-                    if (SettingsGroup.Instance.TeClipCreateAdmin == true && SettingsGroup.Instance.TeClipCreateAdmin == chatMessage.IsModerator)
+                    if (SettingsGroup.Instance.TeClipCreate.Admin == true && SettingsGroup.Instance.TeClipCreate.Admin == chatMessage.IsModerator)
                     {
                         ClipCreate();
                     }
-                    else if (SettingsGroup.Instance.TeClipCreateBoardcast == true && SettingsGroup.Instance.TeClipCreateBoardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeClipCreate.Boardcast == true && SettingsGroup.Instance.TeClipCreate.Boardcast == chatMessage.IsBroadcaster)
                     {
                         ClipCreate();
                     }
-                    else if (SettingsGroup.Instance.TeClipCreateAdmin == false && SettingsGroup.Instance.TeClipCreateBoardcast == false)
+                    else if (SettingsGroup.Instance.TeClipCreate.Admin == false && SettingsGroup.Instance.TeClipCreate.Boardcast == false)
                     {
                         ClipCreate();
                     }
@@ -1912,7 +1912,7 @@ namespace AntonBot
             if (ChannelDaten == null)
             {
                 //Nicht gefunden
-                String Text = SettingsGroup.Instance.TeSOFailText;
+                String Text = SettingsGroup.Instance.TeSO.FailText;
                 Text = Text.Replace("°User", User);
                 Text = Text.Replace("°TargetName", Channel);
 
@@ -1921,7 +1921,7 @@ namespace AntonBot
             else
             {
                 //Gefunden
-                String Text = SettingsGroup.Instance.TeSOChatText;
+                String Text = SettingsGroup.Instance.TeSO.ChatText;
                 
                 Text = Text.Replace("°TargetName", ChannelDaten.DisplayName);
                 // Text = Text.Replace("°TargetFollowers", ChannelDaten.Followers.ToString());
@@ -1985,7 +1985,7 @@ namespace AntonBot
                     string AltTitle = StreamData.Title;
                     try
                     {
-                        Message = SettingsGroup.Instance.TeUpdateTitleChatText;
+                        Message = SettingsGroup.Instance.TeUpdateTitle.ChatText;
                         //StreamData.GameName
                         TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest request = new TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest();
 
@@ -2003,7 +2003,7 @@ namespace AntonBot
                         Message = Message.Replace("°User", User);
                     }
                     catch (Exception e) {
-                        Message = SettingsGroup.Instance.TeUpdateTitleFailText;
+                        Message = SettingsGroup.Instance.TeUpdateTitle.FailText;
                         Message = Message.Replace("°AltTitel", AltTitle);
                         Message = Message.Replace("°NeuTitel", Title);
                         Message = Message.Replace("°User", User);
@@ -2015,7 +2015,7 @@ namespace AntonBot
                 }
                 else
                 {
-                    string Message = SettingsGroup.Instance.TeUpdateTitleFailText;
+                    string Message = SettingsGroup.Instance.TeUpdateTitle.FailText;
 
                     Message = Message.Replace("°Exception", "No StreamData");
                     Message = Message.Replace("°NeuTitel", Title);
@@ -2043,7 +2043,7 @@ namespace AntonBot
 
                     try
                     {
-                        Message = SettingsGroup.Instance.TeUpdateGameChatText;
+                        Message = SettingsGroup.Instance.TeUpdateGame.ChatText;
                         var GameData = TwitchAPI.Helix.Games.GetGamesAsync(gameNames: new List<string> { Game });
 
 
@@ -2069,7 +2069,7 @@ namespace AntonBot
                     }
                     catch (Exception e)
                     {
-                        Message = SettingsGroup.Instance.TeUpdateTitleFailText;
+                        Message = SettingsGroup.Instance.TeUpdateTitle.FailText;
                         Message = Message.Replace("°AltGame", AltGame);
                         Message = Message.Replace("°NeuGame", Game);
                         Message = Message.Replace("°User", User);
@@ -2081,7 +2081,7 @@ namespace AntonBot
                 }
                 else
                 {
-                    string Message = SettingsGroup.Instance.TeUpdateGameFailText;
+                    string Message = SettingsGroup.Instance.TeUpdateGame.FailText;
 
                     Message = Message.Replace("°NeuGame", Game);
                     Message = Message.Replace("°User", User);
@@ -2108,7 +2108,7 @@ namespace AntonBot
             {
                 sRaidMessage = Message;
 
-                String Antwort = SettingsGroup.Instance.TeGoRaidTextChat;
+                String Antwort = SettingsGroup.Instance.TeGoRaid.ChatText;
                 Antwort = Antwort.Replace("°NeuText", Message);
                 Antwort = Antwort.Replace("°User", User);
 
@@ -2265,21 +2265,21 @@ namespace AntonBot
         {
             string Ergebnis = "";
 
-            if (SettingsGroup.Instance.TeUpdateTitleUse)
+            if (SettingsGroup.Instance.TeUpdateTitle.Use)
             {
-                Ergebnis += SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateTitleCommand;
+                Ergebnis += SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateTitle.Command;
             }
-            if (SettingsGroup.Instance.TeUpdateGameUse)
+            if (SettingsGroup.Instance.TeUpdateGame.Use)
             {
-                Ergebnis += ", " + SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateGameCommand;
+                Ergebnis += ", " + SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeUpdateGame.Command;
             }
-            if (SettingsGroup.Instance.TeGoRaidTextUse)
+            if (SettingsGroup.Instance.TeGoRaid.Use)
             {
-                Ergebnis += ", " + SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeGoRaidTextCommand;
+                Ergebnis += ", " + SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeGoRaid.Command;
             }
-            if (SettingsGroup.Instance.TeSOUse)
+            if (SettingsGroup.Instance.TeSO.Use)
             {
-                Ergebnis += ", " + SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeSOCommand;
+                Ergebnis += ", " + SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.TeSO.Command;
             }
 
             return Ergebnis;
@@ -2411,12 +2411,12 @@ namespace AntonBot
             {
                 var test = TwitchAPI.Helix.Clips.CreateClipAsync(sChannelID, SettingsGroup.Instance.TsAccessToken);
                 KonsolenAusgabe("Clip-Create-Result:" + test.Result.CreatedClips.ToString());
-                SendMessage(SettingsGroup.Instance.TeClipCreateChatText, sStandardChannel);
+                SendMessage(SettingsGroup.Instance.TeClipCreate.ChatText, sStandardChannel);
             }
             catch (Exception e)
             {
                 KonsolenAusgabe("Clip konnte nicht erstellt werden:" + Environment.NewLine + e.InnerException);
-                SendMessage(SettingsGroup.Instance.TeClipCreateFailText, sStandardChannel);
+                SendMessage(SettingsGroup.Instance.TeClipCreate.FailText, sStandardChannel);
             }
 
         }

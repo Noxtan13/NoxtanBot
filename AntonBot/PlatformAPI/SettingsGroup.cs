@@ -65,6 +65,7 @@ namespace AntonBot.PlatformAPI
         #region TwitchEvents
 
         public bool TeBitsReaction;
+        public TwitchAdminBefehl TeClipCreate;
         public bool TeClipCreateAdmin;
         public bool TeClipCreateBoardcast;
         public bool TeClipCreateVIP;
@@ -72,6 +73,7 @@ namespace AntonBot.PlatformAPI
         public String TeClipCreateCommand;
         public String TeClipCreateFailText;
         public bool TeClipCreateUse;
+        public TwitchAdminBefehl TeGoRaid;
         public bool TeGoRaidTextAdmin;
         public bool TeGoRaidTextBroadcaster;
         public bool TeGoRaidTextVIP;
@@ -215,6 +217,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnWhisperReceivedDiscordText;
         public bool TeOnWhisperReceivedKonsole;
         public String TeOnWhisperReceivedKonsoleText;
+
+        public TwitchAdminBefehl TeSO;
         public bool TeSOAdmin;
         public bool TeSOBoardcast;
         public bool TeSOVIP;
@@ -222,6 +226,8 @@ namespace AntonBot.PlatformAPI
         public String TeSOCommand;
         public String TeSOFailText;
         public bool TeSOUse;
+
+        public TwitchAdminBefehl TeUpdateGame;
         public bool TeUpdateGameAdmin;
         public bool TeUpdateGameBoardcaster;
         public bool TeUpdateGameVIP;
@@ -229,6 +235,8 @@ namespace AntonBot.PlatformAPI
         public String TeUpdateGameCommand;
         public String TeUpdateGameFailText;
         public bool TeUpdateGameUse;
+
+        public TwitchAdminBefehl TeUpdateTitle;
         public bool TeUpdateTitleAdmin;
         public bool TeUpdateTitleBroadcaster;
         public bool TeUpdateTitleVIP;
@@ -274,6 +282,12 @@ namespace AntonBot.PlatformAPI
         #region Skill
         public bool SkillUse;
 
+        public TwitchAdminBefehl SkillMain;
+        public TwitchAdminBefehl SkillSub;
+        public TwitchAdminBefehl SkillClear;
+        public TwitchAdminBefehl SkillStatus;
+        public TwitchAdminBefehl SkillUpdate;
+        public TwitchAdminBefehl SkillList;
         #endregion
 
         public void LoadSettings()
@@ -508,6 +522,13 @@ namespace AntonBot.PlatformAPI
                 TsOnline = load.TsOnline;
 
                 SkillUse = load.SkillUse;
+
+                SkillMain = load.SkillMain;
+                SkillSub = load.SkillSub;
+                SkillClear = load.SkillClear;
+                SkillList = load.SkillList;
+                SkillUpdate = load.SkillUpdate;
+                SkillStatus = load.SkillStatus;
             }
             else {
                 setStandardSettings();
@@ -552,6 +573,7 @@ namespace AntonBot.PlatformAPI
             SDiscordOtherChannelChannel = 0;
 
             TeBitsReaction = false;
+            TeClipCreate = new TwitchAdminBefehl("CreateClip");
             TeClipCreateAdmin = true;
             TeClipCreateBoardcast = true;
             TeClipCreateChatText = "";
@@ -559,6 +581,7 @@ namespace AntonBot.PlatformAPI
             TeClipCreateFailText = "";
             TeClipCreateUse = false;
             TeClipCreateVIP = false;
+            TeGoRaid = new TwitchAdminBefehl("Update GoRaid-Message");
             TeGoRaidTextAdmin = true;
             TeGoRaidTextBroadcaster = true;
             TeGoRaidTextVIP = false;
@@ -702,6 +725,8 @@ namespace AntonBot.PlatformAPI
             TeOnWhisperReceivedDiscordText = "Auf eine Twitch Nachricht, sollte am Besten auch auf Twitch reagiert werden und nicht auf Discord";
             TeOnWhisperReceivedKonsole = false;
             TeOnWhisperReceivedKonsoleText = "Die Ausgabe würde bei vielen Nachrichten sehr schnell voll laufen, daher ist hier keine Einstellung möglich";
+
+            TeSO = new TwitchAdminBefehl("ShoutOut");
             TeSOAdmin = true;
             TeSOBoardcast = true;
             TeSOVIP = true;
@@ -709,6 +734,7 @@ namespace AntonBot.PlatformAPI
             TeSOCommand = "";
             TeSOFailText = "";
             TeSOUse = false;
+            TeUpdateGame = new TwitchAdminBefehl("Update StreamGame");
             TeUpdateGameAdmin = true;
             TeUpdateGameBoardcaster = true;
             TeUpdateGameVIP = true;
@@ -716,6 +742,7 @@ namespace AntonBot.PlatformAPI
             TeUpdateGameCommand = "";
             TeUpdateGameFailText = "";
             TeUpdateGameUse = false;
+            TeUpdateTitle = new TwitchAdminBefehl("Update StreamTitle");
             TeUpdateTitleAdmin = true;
             TeUpdateTitleBroadcaster = true;
             TeUpdateTitleVIP = false;
@@ -745,6 +772,13 @@ namespace AntonBot.PlatformAPI
             TsOnline = false;
 
             SkillUse = false;
+
+            SkillMain = new TwitchAdminBefehl("Skill - Mainquest");
+            SkillSub = new TwitchAdminBefehl("Skill - Subquest");
+            SkillClear = new TwitchAdminBefehl("Skill - Clear");
+            SkillList = new TwitchAdminBefehl("Skill - Status");
+            SkillUpdate = new TwitchAdminBefehl("Skill - Update");
+            SkillStatus = new TwitchAdminBefehl("Skill - List");
         }
 
         public void Update()
@@ -785,6 +819,8 @@ namespace AntonBot.PlatformAPI
             SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
 
             TeBitsReaction = load.TeBitsReaction;
+            if (load.TeClipCreate != null) { TeClipCreate = load.TeClipCreate; }
+            TeClipCreate.UebernahmeWerte(load.TeClipCreateUse, load.TeClipCreateAdmin, load.TeClipCreateBoardcast, load.TeClipCreateVIP, load.TeClipCreateChatText, load.TeClipCreateCommand, load.TeClipCreateFailText);
             TeClipCreateAdmin = load.TeClipCreateAdmin;
             TeClipCreateBoardcast = load.TeClipCreateBoardcast;
             TeClipCreateVIP = load.TeClipCreateVIP;
@@ -792,6 +828,9 @@ namespace AntonBot.PlatformAPI
             if (load.TeClipCreateCommand != null) { TeClipCreateCommand = load.TeClipCreateCommand; }
             if (load.TeClipCreateFailText != null) { TeClipCreateFailText = load.TeClipCreateFailText; }
             TeClipCreateUse = load.TeClipCreateUse;
+
+            if (load.TeGoRaid != null) { TeGoRaid = load.TeGoRaid; }
+            TeGoRaid.UebernahmeWerte(load.TeGoRaidTextUse, load.TeGoRaidTextAdmin, load.TeGoRaidTextBroadcaster, load.TeGoRaidTextVIP, load.TeGoRaidTextChat, load.TeGoRaidTextCommand, load.TeGoRaidTextFail);
             TeGoRaidTextAdmin = load.TeGoRaidTextAdmin;
             TeGoRaidTextBroadcaster = load.TeGoRaidTextBroadcaster;
             TeGoRaidTextVIP = load.TeGoRaidTextVIP;
@@ -800,6 +839,7 @@ namespace AntonBot.PlatformAPI
             if (load.TeGoRaidTextFail != null) { TeGoRaidTextFail = load.TeGoRaidTextFail; }
             TeGoRaidTextUse = load.TeGoRaidTextUse;
             TeOnBeingHosted = load.TeOnBeingHosted;
+
             if (load.TeOnBeingHostedChannel != null) { TeOnBeingHostedChannel = load.TeOnBeingHostedChannel; }
             TeOnBeingHostedChat = load.TeOnBeingHostedChat;
             if (load.TeOnBeingHostedChatText != null) { TeOnBeingHostedChatText = load.TeOnBeingHostedChatText; }
@@ -935,6 +975,10 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnWhisperReceivedDiscordText != null) { TeOnWhisperReceivedDiscordText = load.TeOnBeingHostedDiscordText; }
             TeOnWhisperReceivedKonsole = load.TeOnWhisperReceivedKonsole;
             if (load.TeOnWhisperReceivedKonsoleText != null) { TeOnWhisperReceivedKonsoleText = load.TeOnWhisperReceivedKonsoleText; }
+
+            if (load.TeSO != null) { TeSO = load.TeSO; } //Das ist auch für Später nach dem Übertrag
+            //TeSO.UpdateCommand(load.TeSO); //Wenn umgestellt ist, kann dies verwendet werden, anstatt alles einzeln zu machen
+            TeSO.UebernahmeWerte(load.TeSOUse, load.TeSOAdmin, load.TeSOBoardcast, load.TeSOVIP, load.TeSOChatText, load.TeSOCommand, load.TeSOFailText);
             TeSOAdmin = load.TeSOAdmin;
             TeSOBoardcast = load.TeSOBoardcast;
             TeSOVIP = load.TeSOVIP;
@@ -942,6 +986,9 @@ namespace AntonBot.PlatformAPI
             if (load.TeSOCommand != null) { TeSOCommand = load.TeSOCommand; }
             if (load.TeSOFailText != null) { TeSOFailText = load.TeSOFailText; }
             TeSOUse = load.TeSOUse;
+
+            if(load.TeUpdateGame != null) { TeUpdateGame = load.TeUpdateGame; }
+            TeUpdateGame.UebernahmeWerte(load.TeUpdateGameUse, load.TeUpdateGameAdmin, load.TeUpdateGameBoardcaster, load.TeUpdateGameVIP, load.TeUpdateGameChatText, load.TeUpdateGameCommand, load.TeUpdateGameFailText);
             TeUpdateGameAdmin = load.TeUpdateGameAdmin;
             TeUpdateGameBoardcaster = load.TeUpdateGameBoardcaster;
             TeUpdateGameVIP = load.TeUpdateGameVIP;
@@ -949,6 +996,9 @@ namespace AntonBot.PlatformAPI
             if (load.TeUpdateGameCommand != null) { TeUpdateGameCommand = load.TeUpdateGameCommand; }
             if (load.TeUpdateGameFailText != null) { TeUpdateGameFailText = load.TeUpdateGameFailText; }
             TeUpdateGameUse = load.TeUpdateGameUse;
+
+            if (load.TeUpdateTitle != null) { TeUpdateTitle = load.TeUpdateTitle; }
+            TeUpdateTitle.UebernahmeWerte(load.TeUpdateTitleUse, load.TeUpdateTitleAdmin, load.TeUpdateTitleBroadcaster, load.TeUpdateTitleVIP, load.TeUpdateTitleChatText, load.TeUpdateTitleCommand, load.TeUpdateTitleFailText);
             TeUpdateTitleAdmin = load.TeUpdateTitleAdmin;
             TeUpdateTitleBroadcaster = load.TeUpdateTitleBroadcaster;
             TeUpdateTitleVIP = load.TeUpdateTitleVIP;
@@ -978,6 +1028,13 @@ namespace AntonBot.PlatformAPI
             TsOnline = load.TsOnline;
 
             SkillUse = load.SkillUse;
+
+            if (load.SkillMain != null) { SkillMain = load.SkillMain; }
+            if (load.SkillSub != null) { SkillMain = load.SkillSub; }
+            if (load.SkillClear != null) { SkillMain = load.SkillClear; }
+            if (load.SkillList != null) { SkillMain = load.SkillList; }
+            if (load.SkillUpdate != null) { SkillMain = load.SkillUpdate; }
+            if (load.SkillStatus != null) { SkillMain = load.SkillStatus; }
 
             Save(DefaultSavePath);
         }
@@ -1073,6 +1130,8 @@ namespace AntonBot.PlatformAPI
             //twitchEvent
 
             SettingsGroup.Instance.TeBitsReaction = Import.TeBitsReaction;
+            SettingsGroup.Instance.TeGoRaid = Import.TeGoRaid;
+            SettingsGroup.Instance.TeClipCreate = Import.TeClipCreate;
             SettingsGroup.Instance.TeClipCreateAdmin = Import.TeClipCreateAdmin;
             SettingsGroup.Instance.TeClipCreateBoardcast = Import.TeClipCreateBoardcast;
             SettingsGroup.Instance.TeClipCreateChatText = Import.TeClipCreateChatText;
@@ -1223,6 +1282,8 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnBeingHostedDiscordText = Import.TeOnWhisperReceivedDiscordText;
             SettingsGroup.Instance.TeOnWhisperReceivedKonsole = Import.TeOnWhisperReceivedKonsole;
             SettingsGroup.Instance.TeOnWhisperReceivedKonsoleText = Import.TeOnWhisperReceivedKonsoleText;
+
+            SettingsGroup.Instance.TeSO = Import.TeSO;
             SettingsGroup.Instance.TeSOAdmin = Import.TeSOAdmin;
             SettingsGroup.Instance.TeSOBoardcast = Import.TeSOBoardcast;
             SettingsGroup.Instance.TeSOVIP = Import.TeSOVIP;
@@ -1230,6 +1291,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeSOCommand = Import.TeSOCommand;
             SettingsGroup.Instance.TeSOFailText = Import.TeSOFailText;
             SettingsGroup.Instance.TeSOUse = Import.TeSOUse;
+            SettingsGroup.Instance.TeUpdateGame = Import.TeUpdateGame;
             SettingsGroup.Instance.TeUpdateGameAdmin = Import.TeUpdateGameAdmin;
             SettingsGroup.Instance.TeUpdateGameBoardcaster = Import.TeUpdateGameBoardcaster;
             SettingsGroup.Instance.TeUpdateGameVIP = Import.TeUpdateGameVIP;
@@ -1237,6 +1299,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeUpdateGameCommand = Import.TeUpdateGameCommand;
             SettingsGroup.Instance.TeUpdateGameFailText = Import.TeUpdateGameFailText;
             SettingsGroup.Instance.TeUpdateGameUse = Import.TeUpdateGameUse;
+            SettingsGroup.Instance.TeUpdateTitle = Import.TeUpdateTitle;
             SettingsGroup.Instance.TeUpdateTitleAdmin = Import.TeUpdateTitleAdmin;
             SettingsGroup.Instance.TeUpdateTitleBroadcaster = Import.TeUpdateTitleBroadcaster;
             SettingsGroup.Instance.TeUpdateTitleVIP = Import.TeUpdateTitleVIP;
@@ -1269,6 +1332,13 @@ namespace AntonBot.PlatformAPI
 
             //Skills
             SettingsGroup.Instance.SkillUse = Import.SkillUse;
+
+            SettingsGroup.Instance.SkillMain = Import.SkillMain;
+            SettingsGroup.Instance.SkillSub = Import.SkillSub;
+            SettingsGroup.Instance.SkillClear = Import.SkillClear;
+            SettingsGroup.Instance.SkillList = Import.SkillList;
+            SettingsGroup.Instance.SkillUpdate = Import.SkillUpdate;
+            SettingsGroup.Instance.SkillStatus = Import.SkillStatus;
 
             Save(DefaultSavePath);
 

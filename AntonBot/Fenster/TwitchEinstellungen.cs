@@ -2072,13 +2072,13 @@ namespace AntonBot.Fenster
             cmbAdminVariable.Items.Clear();
             switch (cmbAdmin.SelectedItem) {
                 case "Update StreamTitle":
-                    chkAdminUse.Checked = SettingsGroup.Instance.TeUpdateTitleUse;
-                    txtAdminKommando.Text = SettingsGroup.Instance.TeUpdateTitleCommand;
-                    txtAdminChat.Text = SettingsGroup.Instance.TeUpdateTitleChatText;
-                    txtAdminFalsch.Text = SettingsGroup.Instance.TeUpdateTitleFailText;
-                    chkForAdmin.Checked = SettingsGroup.Instance.TeUpdateTitleAdmin;
-                    chkBroadcaster.Checked = SettingsGroup.Instance.TeUpdateTitleBroadcaster;
-                    chkVIP.Checked = SettingsGroup.Instance.TeUpdateTitleVIP;
+                    chkAdminUse.Checked = SettingsGroup.Instance.TeUpdateTitle.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.TeUpdateTitle.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.TeUpdateTitle.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.TeUpdateTitle.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.TeUpdateTitle.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.TeUpdateTitle.Boardcast;
+                    chkVIP.Checked = SettingsGroup.Instance.TeUpdateTitle.VIP;
 
                     cmbAdminVariable.Items.Add("AltTitel");
                     cmbAdminVariable.Items.Add("NeuTitel");
@@ -2086,38 +2086,39 @@ namespace AntonBot.Fenster
                     cmbAdminVariable.Items.Add("Exception");
                     break;
                 case "Update StreamGame":
-                    chkAdminUse.Checked = SettingsGroup.Instance.TeUpdateGameUse;
-                    txtAdminKommando.Text = SettingsGroup.Instance.TeUpdateGameCommand;
-                    txtAdminChat.Text = SettingsGroup.Instance.TeUpdateGameChatText;
-                    txtAdminFalsch.Text = SettingsGroup.Instance.TeUpdateGameFailText;
-                    chkForAdmin.Checked = SettingsGroup.Instance.TeUpdateGameAdmin;
-                    chkBroadcaster.Checked = SettingsGroup.Instance.TeUpdateGameBoardcaster;
-                    chkVIP.Checked = SettingsGroup.Instance.TeUpdateGameVIP;
+                    chkAdminUse.Checked = SettingsGroup.Instance.TeUpdateGame.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.TeUpdateGame.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.TeUpdateGame.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.TeUpdateGame.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.TeUpdateGame.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.TeUpdateGame.Boardcast;
+                    chkVIP.Checked = SettingsGroup.Instance.TeUpdateGame.VIP;
 
                     cmbAdminVariable.Items.Add("AltGame");
                     cmbAdminVariable.Items.Add("NeuGame");
                     cmbAdminVariable.Items.Add("User");
                     break;
                 case "Update GoRaid-Message":
-                    chkAdminUse.Checked = SettingsGroup.Instance.TeGoRaidTextUse;
-                    txtAdminKommando.Text = SettingsGroup.Instance.TeGoRaidTextCommand;
-                    txtAdminChat.Text = SettingsGroup.Instance.TeGoRaidTextChat;
-                    txtAdminFalsch.Text = SettingsGroup.Instance.TeGoRaidTextFail;
-                    chkForAdmin.Checked = SettingsGroup.Instance.TeGoRaidTextAdmin;
-                    chkBroadcaster.Checked = SettingsGroup.Instance.TeGoRaidTextBroadcaster;
-                    chkVIP.Checked = SettingsGroup.Instance.TeGoRaidTextVIP;
+                    chkAdminUse.Checked = SettingsGroup.Instance.TeGoRaid.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.TeGoRaid.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.TeGoRaid.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.TeGoRaid.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.TeGoRaid.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.TeGoRaid.Boardcast;
+                    chkVIP.Checked = SettingsGroup.Instance.TeGoRaid.VIP;
 
                     cmbAdminVariable.Items.Add("NeuText");
                     cmbAdminVariable.Items.Add("User");
                     break;
                 case "ShoutOut":
-                    chkAdminUse.Checked = SettingsGroup.Instance.TeSOUse;
-                    txtAdminKommando.Text = SettingsGroup.Instance.TeSOCommand;
-                    txtAdminChat.Text = SettingsGroup.Instance.TeSOChatText;
-                    txtAdminFalsch.Text = SettingsGroup.Instance.TeSOFailText;
-                    chkForAdmin.Checked = SettingsGroup.Instance.TeSOAdmin;
-                    chkBroadcaster.Checked = SettingsGroup.Instance.TeSOBoardcast;
-                    chkVIP.Checked = SettingsGroup.Instance.TeSOVIP;
+                    chkAdminUse.Checked = SettingsGroup.Instance.TeSO.Use;
+                    chkAdminUse.Checked = SettingsGroup.Instance.TeSO.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.TeSO.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.TeSO.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.TeSO.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.TeSO.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.TeSO.Boardcast;
+                    chkVIP.Checked = SettingsGroup.Instance.TeSO.VIP;
 
                     cmbAdminVariable.Items.Add("TargetName");
                     cmbAdminVariable.Items.Add("TargetFollowers");
@@ -2126,15 +2127,22 @@ namespace AntonBot.Fenster
                     cmbAdminVariable.Items.Add("User");
                     break;
                 case "CreateClip":
-                    chkAdminUse.Checked = SettingsGroup.Instance.TeClipCreateUse;
-                    txtAdminKommando.Text = SettingsGroup.Instance.TeClipCreateCommand;
-                    txtAdminChat.Text = SettingsGroup.Instance.TeClipCreateChatText;
-                    txtAdminFalsch.Text = SettingsGroup.Instance.TeClipCreateFailText;
-                    chkForAdmin.Checked = SettingsGroup.Instance.TeClipCreateAdmin;
-                    chkBroadcaster.Checked = SettingsGroup.Instance.TeClipCreateBoardcast;
-                    chkVIP.Checked = SettingsGroup.Instance.TeClipCreateVIP;
+                    chkAdminUse.Checked = SettingsGroup.Instance.TeClipCreate.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.TeClipCreate.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.TeClipCreate.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.TeClipCreate.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.TeClipCreate.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.TeClipCreate.Boardcast;
+                    chkVIP.Checked = SettingsGroup.Instance.TeClipCreate.VIP;
                     break;
                 case "Skill - Mainquest":
+                    chkAdminUse.Checked = SettingsGroup.Instance.SkillMain.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.SkillMain.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.SkillMain.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.SkillMain.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.SkillMain.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.SkillMain.Boardcast;
+                    chkVIP.Checked = SettingsGroup.Instance.SkillMain.VIP;
                     break;
                 case "Skill - Subquest":
                     break;
@@ -2160,13 +2168,13 @@ namespace AntonBot.Fenster
                     case "Update StreamTitle":
                         if (SettingsGroup.Instance.Tschannel_editor && SettingsGroup.Instance.Tsuser_edit_broadcast)
                         {
-                            SettingsGroup.Instance.TeUpdateTitleUse = chkAdminUse.Checked;
-                            SettingsGroup.Instance.TeUpdateTitleCommand = txtAdminKommando.Text;
-                            SettingsGroup.Instance.TeUpdateTitleChatText = txtAdminChat.Text;
-                            SettingsGroup.Instance.TeUpdateTitleFailText = txtAdminFalsch.Text;
-                            SettingsGroup.Instance.TeUpdateTitleAdmin = chkForAdmin.Checked;
-                            SettingsGroup.Instance.TeUpdateTitleBroadcaster = chkBroadcaster.Checked;
-                            SettingsGroup.Instance.TeUpdateTitleVIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeUpdateTitle.Use = chkAdminUse.Checked;
+                            SettingsGroup.Instance.TeUpdateTitle.Command = txtAdminKommando.Text;
+                            SettingsGroup.Instance.TeUpdateTitle.ChatText = txtAdminChat.Text;
+                            SettingsGroup.Instance.TeUpdateTitle.FailText = txtAdminFalsch.Text;
+                            SettingsGroup.Instance.TeUpdateTitle.Admin = chkForAdmin.Checked;
+                            SettingsGroup.Instance.TeUpdateTitle.Boardcast = chkBroadcaster.Checked;
+                            SettingsGroup.Instance.TeUpdateTitle.VIP = chkVIP.Checked;
                         }
                         else
                         {
@@ -2176,13 +2184,13 @@ namespace AntonBot.Fenster
                     case "Update StreamGame":
                         if (SettingsGroup.Instance.Tschannel_editor && SettingsGroup.Instance.Tsuser_edit_broadcast)
                         {
-                            SettingsGroup.Instance.TeUpdateGameUse = chkAdminUse.Checked;
-                            SettingsGroup.Instance.TeUpdateGameCommand = txtAdminKommando.Text;
-                            SettingsGroup.Instance.TeUpdateGameChatText = txtAdminChat.Text;
-                            SettingsGroup.Instance.TeUpdateGameFailText = txtAdminFalsch.Text;
-                            SettingsGroup.Instance.TeUpdateGameAdmin = chkForAdmin.Checked;
-                            SettingsGroup.Instance.TeUpdateGameBoardcaster = chkBroadcaster.Checked;
-                            SettingsGroup.Instance.TeUpdateGameVIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeUpdateGame.Use = chkAdminUse.Checked;
+                            SettingsGroup.Instance.TeUpdateGame.Command = txtAdminKommando.Text;
+                            SettingsGroup.Instance.TeUpdateGame.ChatText = txtAdminChat.Text;
+                            SettingsGroup.Instance.TeUpdateGame.FailText = txtAdminFalsch.Text;
+                            SettingsGroup.Instance.TeUpdateGame.Admin = chkForAdmin.Checked;
+                            SettingsGroup.Instance.TeUpdateGame.Boardcast = chkBroadcaster.Checked;
+                            SettingsGroup.Instance.TeUpdateGame.VIP = chkVIP.Checked;
                         }
                         else
                         {
@@ -2192,13 +2200,13 @@ namespace AntonBot.Fenster
                     case "Update GoRaid-Message":
                         if (SettingsGroup.Instance.Tsuser_edit)
                         {
-                            SettingsGroup.Instance.TeGoRaidTextUse = chkAdminUse.Checked;
-                            SettingsGroup.Instance.TeGoRaidTextCommand = txtAdminKommando.Text;
-                            SettingsGroup.Instance.TeGoRaidTextChat = txtAdminChat.Text;
-                            SettingsGroup.Instance.TeGoRaidTextFail = txtAdminFalsch.Text;
-                            SettingsGroup.Instance.TeGoRaidTextAdmin = chkForAdmin.Checked;
-                            SettingsGroup.Instance.TeGoRaidTextBroadcaster = chkBroadcaster.Checked;
-                            SettingsGroup.Instance.TeGoRaidTextVIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeGoRaid.Use = chkAdminUse.Checked;
+                            SettingsGroup.Instance.TeGoRaid.Command = txtAdminKommando.Text;
+                            SettingsGroup.Instance.TeGoRaid.ChatText = txtAdminChat.Text;
+                            SettingsGroup.Instance.TeGoRaid.FailText = txtAdminFalsch.Text;
+                            SettingsGroup.Instance.TeGoRaid.Admin = chkForAdmin.Checked;
+                            SettingsGroup.Instance.TeGoRaid.Boardcast = chkBroadcaster.Checked;
+                            SettingsGroup.Instance.TeGoRaid.VIP = chkVIP.Checked;
                         }
                         else
                         {
@@ -2206,24 +2214,24 @@ namespace AntonBot.Fenster
                         }
                         break;
                     case "ShoutOut":
-                        SettingsGroup.Instance.TeSOUse = chkAdminUse.Checked;
-                        SettingsGroup.Instance.TeSOCommand = txtAdminKommando.Text;
-                        SettingsGroup.Instance.TeSOChatText = txtAdminChat.Text;
-                        SettingsGroup.Instance.TeSOFailText = txtAdminFalsch.Text;
-                        SettingsGroup.Instance.TeSOAdmin = chkForAdmin.Checked;
-                        SettingsGroup.Instance.TeSOBoardcast = chkBroadcaster.Checked;
-                        SettingsGroup.Instance.TeSOVIP = chkVIP.Checked;
+                        SettingsGroup.Instance.TeSO.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.TeSO.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.TeSO.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.TeSO.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.TeSO.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.TeSO.Boardcast = chkBroadcaster.Checked;
+                        SettingsGroup.Instance.TeSO.VIP = chkVIP.Checked;
                         break;
                     case "CreateClip":
                         if (SettingsGroup.Instance.Tsclips_edit)
                         {
-                            SettingsGroup.Instance.TeClipCreateUse = chkAdminUse.Checked;
-                            SettingsGroup.Instance.TeClipCreateCommand = txtAdminKommando.Text;
-                            SettingsGroup.Instance.TeClipCreateChatText = txtAdminChat.Text;
-                            SettingsGroup.Instance.TeClipCreateFailText = txtAdminFalsch.Text;
-                            SettingsGroup.Instance.TeClipCreateAdmin = chkForAdmin.Checked;
-                            SettingsGroup.Instance.TeClipCreateBoardcast = chkBroadcaster.Checked;
-                            SettingsGroup.Instance.TeClipCreateVIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeClipCreate.Use = chkAdminUse.Checked;
+                            SettingsGroup.Instance.TeClipCreate.Command = txtAdminKommando.Text;
+                            SettingsGroup.Instance.TeClipCreate.ChatText = txtAdminChat.Text;
+                            SettingsGroup.Instance.TeClipCreate.FailText = txtAdminFalsch.Text;
+                            SettingsGroup.Instance.TeClipCreate.Admin = chkForAdmin.Checked;
+                            SettingsGroup.Instance.TeClipCreate.Boardcast = chkBroadcaster.Checked;
+                            SettingsGroup.Instance.TeClipCreate.VIP = chkVIP.Checked;
                         }
                         else
                         {
@@ -2231,6 +2239,13 @@ namespace AntonBot.Fenster
                         }
                         break;
                     case "Skill - Mainquest":
+                        SettingsGroup.Instance.SkillMain.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.SkillMain.Command= txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillMain.ChatText= txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillMain.FailText= txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillMain.Admin= chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillMain.Boardcast= chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillMain.VIP = chkVIP.Checked;
                         break;
                     case "Skill - Subquest":
                         break;

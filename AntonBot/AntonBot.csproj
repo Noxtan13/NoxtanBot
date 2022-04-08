@@ -314,6 +314,7 @@
     <Compile Include="PlatformAPI\ListenTypen\KonsolenAusgabe.cs" />
     <Compile Include="PlatformAPI\ListenTypen\List_Befehl.cs" />
     <Compile Include="PlatformAPI\ListenTypen\Quest.cs" />
+    <Compile Include="PlatformAPI\SettingsTypen\TwitchAdminBefehl.cs" />
     <Compile Include="PlatformAPI\OtherChannel.cs" />
     <Compile Include="PlatformAPI\ListenTypen\RandomBefehl.cs" />
     <Compile Include="PlatformAPI\SettingsGroup.cs" />

@@ -106,7 +106,11 @@
             this.btnBitsLöschen = new System.Windows.Forms.Button();
             this.chkBits = new System.Windows.Forms.CheckBox();
             this.tabTwitchAdmin = new System.Windows.Forms.TabPage();
+            this.cmbAdmin = new System.Windows.Forms.ComboBox();
             this.grpAdmin = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.chkVIP = new System.Windows.Forms.CheckBox();
             this.btnAdminSpeichern = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -148,10 +152,6 @@
             this.btnDeleteGame = new System.Windows.Forms.Button();
             this.btnAddGame = new System.Windows.Forms.Button();
             this.ofdBitSoundAuswahl = new System.Windows.Forms.OpenFileDialog();
-            this.chkVIP = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.cmbAdmin = new System.Windows.Forms.ComboBox();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1074,6 +1074,28 @@
             this.tabTwitchAdmin.Text = "Admin-Befehle";
             this.tabTwitchAdmin.UseVisualStyleBackColor = true;
             // 
+            // cmbAdmin
+            // 
+            this.cmbAdmin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAdmin.FormattingEnabled = true;
+            this.cmbAdmin.Items.AddRange(new object[] {
+            "Update StreamTitle",
+            "Update StreamGame",
+            "Update GoRaid-Message",
+            "ShoutOut",
+            "CreateClip",
+            "Skill - Mainquest",
+            "Skill - Subquest",
+            "Skill - Clear",
+            "Skill - Status",
+            "Skill - Update",
+            "Skill - List"});
+            this.cmbAdmin.Location = new System.Drawing.Point(9, 5);
+            this.cmbAdmin.Name = "cmbAdmin";
+            this.cmbAdmin.Size = new System.Drawing.Size(285, 38);
+            this.cmbAdmin.TabIndex = 48;
+            this.cmbAdmin.SelectedIndexChanged += new System.EventHandler(this.lstAdmin_SelectedIndexChanged);
+            // 
             // grpAdmin
             // 
             this.grpAdmin.Controls.Add(this.label16);
@@ -1096,6 +1118,32 @@
             this.grpAdmin.Size = new System.Drawing.Size(788, 672);
             this.grpAdmin.TabIndex = 47;
             this.grpAdmin.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 580);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(185, 30);
+            this.label16.TabIndex = 61;
+            this.label16.Text = "Befehl bei Reward";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(197, 580);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(300, 35);
+            this.textBox1.TabIndex = 60;
+            // 
+            // chkVIP
+            // 
+            this.chkVIP.AutoSize = true;
+            this.chkVIP.Location = new System.Drawing.Point(139, 535);
+            this.chkVIP.Name = "chkVIP";
+            this.chkVIP.Size = new System.Drawing.Size(108, 34);
+            this.chkVIP.TabIndex = 59;
+            this.chkVIP.Text = "Für VIPs";
+            this.chkVIP.UseVisualStyleBackColor = true;
             // 
             // btnAdminSpeichern
             // 
@@ -1202,7 +1250,7 @@
             // chkAdminUse
             // 
             this.chkAdminUse.AutoSize = true;
-            this.chkAdminUse.Location = new System.Drawing.Point(294, 3);
+            this.chkAdminUse.Location = new System.Drawing.Point(300, 9);
             this.chkAdminUse.Name = "chkAdminUse";
             this.chkAdminUse.Size = new System.Drawing.Size(202, 34);
             this.chkAdminUse.TabIndex = 47;
@@ -1541,54 +1589,6 @@
             // 
             this.ofdBitSoundAuswahl.FileName = "openFileDialog1";
             this.ofdBitSoundAuswahl.Filter = "MP3-Dateien | *.mp3";
-            // 
-            // chkVIP
-            // 
-            this.chkVIP.AutoSize = true;
-            this.chkVIP.Location = new System.Drawing.Point(139, 535);
-            this.chkVIP.Name = "chkVIP";
-            this.chkVIP.Size = new System.Drawing.Size(108, 34);
-            this.chkVIP.TabIndex = 59;
-            this.chkVIP.Text = "Für VIPs";
-            this.chkVIP.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(197, 580);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(300, 35);
-            this.textBox1.TabIndex = 60;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 580);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(185, 30);
-            this.label16.TabIndex = 61;
-            this.label16.Text = "Befehl bei Reward";
-            // 
-            // cmbAdmin
-            // 
-            this.cmbAdmin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAdmin.FormattingEnabled = true;
-            this.cmbAdmin.Items.AddRange(new object[] {
-            "Update StreamTitle",
-            "Update StreamGame",
-            "Update GoRaid-Message",
-            "ShoutOut",
-            "CreateClip",
-            "Skill - Mainquest",
-            "Skill - Subquest",
-            "Skill - Clear",
-            "Skill - Status",
-            "Skill - Update",
-            "Skill - List"});
-            this.cmbAdmin.Location = new System.Drawing.Point(3, 3);
-            this.cmbAdmin.Name = "cmbAdmin";
-            this.cmbAdmin.Size = new System.Drawing.Size(285, 38);
-            this.cmbAdmin.TabIndex = 48;
-            this.cmbAdmin.SelectedIndexChanged += new System.EventHandler(this.lstAdmin_SelectedIndexChanged);
             // 
             // TwitchEinstellungen
             // 

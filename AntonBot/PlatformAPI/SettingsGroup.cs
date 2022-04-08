@@ -137,8 +137,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnJoinedChannelDiscordText;
         public bool TeOnJoinedChannelKonsole;
         public String TeOnJoinedChannelKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnMessageReceived;
         public bool TeOnMessageReceivedUse;
         public StringCollection TeOnMessageReceivedChannel;
         public bool TeOnMessageReceivedChat;
@@ -147,8 +147,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnMessageReceivedDiscordText;
         public bool TeOnMessageReceivedKonsole;
         public String TeOnMessageReceivedKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnNewFollowersDetected;
         public bool TeOnNewFollowersDetectedUse;
         public StringCollection TeOnNewFollowersDetectedChannel;
         public bool TeOnNewFollowersDetectedChat;
@@ -157,8 +157,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnNewFollowersDetectedDiscordText;
         public bool TeOnNewFollowersDetectedKonsole;
         public String TeOnNewFollowersDetectedKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnNewSubscriber;
         public bool TeOnNewSubscriberUse;
         public StringCollection TeOnNewSubscriberChannel;
         public bool TeOnNewSubscriberChat;
@@ -167,8 +167,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnNewSubscriberDiscordText;
         public bool TeOnNewSubscriberKonsole;
         public String TeOnNewSubscriberKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnRaidGo;
         public bool TeOnRaidGoUse;
         public StringCollection TeOnRaidGoChannel;
         public bool TeOnRaidGoChat;
@@ -177,8 +177,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnRaidGoDiscordText;
         public bool TeOnRaidGoKonsole;
         public String TeOnRaidGoKonsoleText;
-       
-        
+
+        public TwitchEvent TeOnRaidNotification;
         public bool TeOnRaidNotificationUse;
         public StringCollection TeOnRaidNotificationChannel;
         public bool TeOnRaidNotificationChat;
@@ -187,8 +187,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnRaidNotificationDiscordText;
         public bool TeOnRaidNotificationKonsole;
         public String TeOnRaidNotificationKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnRewardRedeemed;
         public bool TeOnRewardRedeemedUse;
         public StringCollection TeOnRewardRedeemedChannel;
         public bool TeOnRewardRedeemedChat;
@@ -197,8 +197,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnRewardRedeemedDiscordText;
         public bool TeOnRewardRedeemedKonsole;
         public String TeOnRewardRedeemedKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnStreamOffline;
         public bool TeOnStreamOfflineUse;
         public StringCollection TeOnStreamOfflineChannel;
         public bool TeOnStreamOfflineChat;
@@ -207,8 +207,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnStreamOfflineDiscordText;
         public bool TeOnStreamOfflineKonsole;
         public String TeOnStreamOfflineKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnStreamOnline;
         public bool TeOnStreamOnlineUse;
         public StringCollection TeOnStreamOnlineChannel;
         public bool TeOnStreamOnlineChat;
@@ -217,8 +217,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnStreamOnlineDiscordText;
         public bool TeOnStreamOnlineKonsole;
         public String TeOnStreamOnlineKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnStreamUpdate;
         public bool TeOnStreamUpdateUse;
         public StringCollection TeOnStreamUpdateChannel;
         public bool TeOnStreamUpdateChat;
@@ -227,8 +227,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnStreamUpdateDiscordText;
         public bool TeOnStreamUpdateKonsole;
         public String TeOnStreamUpdateKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnUserJoined;
         public bool TeOnUserJoinedUse;
         public StringCollection TeOnUserJoinedChannel;
         public bool TeOnUserJoinedChat;
@@ -237,8 +237,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnUserJoinedDiscordText;
         public bool TeOnUserJoinedKonsole;
         public String TeOnUserJoinedKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnUserLeft;
         public bool TeOnUserLeftUse;
         public StringCollection TeOnUserLeftChannel;
         public bool TeOnUserLeftChat;
@@ -247,8 +247,8 @@ namespace AntonBot.PlatformAPI
         public String TeOnUserLeftDiscordText;
         public bool TeOnUserLeftKonsole;
         public String TeOnUserLeftKonsoleText;
-        
-        
+
+        public TwitchEvent TeOnWhisperReceived;
         public bool TeOnWhisperReceivedUse;
         public StringCollection TeOnWhisperReceivedChannel;
         public bool TeOnWhisperReceivedChat;
@@ -446,7 +446,7 @@ namespace AntonBot.PlatformAPI
                 TeOnJoinedChannelKonsole = load.TeOnJoinedChannelKonsole;
                 TeOnJoinedChannelKonsoleText = load.TeOnJoinedChannelKonsoleText;
 
-
+                TeOnMessageReceived = load.TeOnMessageReceived;
                 TeOnMessageReceivedUse = load.TeOnMessageReceivedUse;
                 TeOnMessageReceivedChannel = load.TeOnMessageReceivedChannel;
                 TeOnMessageReceivedChat = load.TeOnMessageReceivedChat;
@@ -456,7 +456,7 @@ namespace AntonBot.PlatformAPI
                 TeOnMessageReceivedKonsole = load.TeOnMessageReceivedKonsole;
                 TeOnMessageReceivedKonsoleText = load.TeOnMessageReceivedKonsoleText;
 
-
+                TeOnNewFollowersDetected = load.TeOnNewFollowersDetected;
                 TeOnNewFollowersDetectedUse = load.TeOnNewFollowersDetectedUse;
                 TeOnNewFollowersDetectedChannel = load.TeOnNewFollowersDetectedChannel;
                 TeOnNewFollowersDetectedChat = load.TeOnNewFollowersDetectedChat;
@@ -466,7 +466,7 @@ namespace AntonBot.PlatformAPI
                 TeOnNewFollowersDetectedKonsole = load.TeOnNewFollowersDetectedKonsole;
                 TeOnNewFollowersDetectedKonsoleText = load.TeOnNewFollowersDetectedKonsoleText;
 
-
+                TeOnNewSubscriber = load.TeOnNewSubscriber;
                 TeOnNewSubscriberUse = load.TeOnNewSubscriberUse;
                 TeOnNewSubscriberChannel = load.TeOnNewSubscriberChannel;
                 TeOnNewSubscriberChat = load.TeOnNewSubscriberChat;
@@ -476,7 +476,7 @@ namespace AntonBot.PlatformAPI
                 TeOnNewSubscriberKonsole = load.TeOnNewSubscriberKonsole;
                 TeOnNewSubscriberKonsoleText = load.TeOnNewSubscriberKonsoleText;
 
-
+                TeOnRaidGo = load.TeOnRaidGo;
                 TeOnRaidGoUse = load.TeOnRaidGoUse;
                 TeOnRaidGoChannel = load.TeOnRaidGoChannel;
                 TeOnRaidGoChat = load.TeOnRaidGoChat;
@@ -486,7 +486,7 @@ namespace AntonBot.PlatformAPI
                 TeOnRaidGoKonsole = load.TeOnRaidGoKonsole;
                 TeOnRaidGoKonsoleText = load.TeOnRaidGoKonsoleText;
 
-
+                TeOnRaidNotification = load.TeOnRaidNotification;
                 TeOnRaidNotificationUse = load.TeOnRaidNotificationUse;
                 TeOnRaidNotificationChannel = load.TeOnRaidNotificationChannel;
                 TeOnRaidNotificationChat = load.TeOnRaidNotificationChat;
@@ -496,7 +496,7 @@ namespace AntonBot.PlatformAPI
                 TeOnRaidNotificationKonsole = load.TeOnRaidNotificationKonsole;
                 TeOnRaidNotificationKonsoleText = load.TeOnRaidNotificationKonsoleText;
 
-
+                TeOnRewardRedeemed = load.TeOnRewardRedeemed;
                 TeOnRewardRedeemedUse = load.TeOnRewardRedeemedUse;
                 TeOnRewardRedeemedChannel = load.TeOnRewardRedeemedChannel;
                 TeOnRewardRedeemedChat = load.TeOnRewardRedeemedChat;
@@ -506,7 +506,7 @@ namespace AntonBot.PlatformAPI
                 TeOnRewardRedeemedKonsole = load.TeOnRewardRedeemedKonsole;
                 TeOnRewardRedeemedKonsoleText = load.TeOnRewardRedeemedKonsoleText;
 
-
+                TeOnStreamOffline = load.TeOnStreamOffline;
                 TeOnStreamOfflineUse = load.TeOnStreamOfflineUse;
                 TeOnStreamOfflineChannel = load.TeOnStreamOfflineChannel;
                 TeOnStreamOfflineChat = load.TeOnStreamOfflineChat;
@@ -516,7 +516,7 @@ namespace AntonBot.PlatformAPI
                 TeOnStreamOfflineKonsole = load.TeOnStreamOfflineKonsole;
                 TeOnStreamOfflineKonsoleText = load.TeOnStreamOfflineKonsoleText;
 
-
+                TeOnStreamOnline = load.TeOnStreamOnline;
                 TeOnStreamOnlineUse = load.TeOnStreamOnlineUse;
                 TeOnStreamOnlineChannel = load.TeOnStreamOnlineChannel;
                 TeOnStreamOnlineChat = load.TeOnStreamOnlineChat;
@@ -526,7 +526,7 @@ namespace AntonBot.PlatformAPI
                 TeOnStreamOnlineKonsole = load.TeOnStreamOnlineKonsole;
                 TeOnStreamOnlineKonsoleText = load.TeOnStreamOnlineKonsoleText;
 
-
+                TeOnStreamUpdate = load.TeOnStreamUpdate;
                 TeOnStreamUpdateUse = load.TeOnStreamUpdateUse;
                 TeOnStreamUpdateChannel = load.TeOnStreamUpdateChannel;
                 TeOnStreamUpdateChat = load.TeOnStreamUpdateChat;
@@ -536,7 +536,7 @@ namespace AntonBot.PlatformAPI
                 TeOnStreamUpdateKonsole = load.TeOnStreamUpdateKonsole;
                 TeOnStreamUpdateKonsoleText = load.TeOnStreamUpdateKonsoleText;
 
-
+                TeOnUserJoined = load.TeOnUserJoined;
                 TeOnUserJoinedUse = load.TeOnUserJoinedUse;
                 TeOnUserJoinedChannel = load.TeOnUserJoinedChannel;
                 TeOnUserJoinedChat = load.TeOnUserJoinedChat;
@@ -546,7 +546,7 @@ namespace AntonBot.PlatformAPI
                 TeOnUserJoinedKonsole = load.TeOnUserJoinedKonsole;
                 TeOnUserJoinedKonsoleText = load.TeOnUserJoinedKonsoleText;
 
-
+                TeOnUserLeft = load.TeOnUserLeft;
                 TeOnUserLeftUse = load.TeOnUserLeftUse;
                 TeOnUserLeftChannel = load.TeOnUserLeftChannel;
                 TeOnUserLeftChat = load.TeOnUserLeftChat;
@@ -556,7 +556,7 @@ namespace AntonBot.PlatformAPI
                 TeOnUserLeftKonsole = load.TeOnUserLeftKonsole;
                 TeOnUserLeftKonsoleText = load.TeOnUserLeftKonsoleText;
 
-
+                TeOnWhisperReceived = load.TeOnWhisperReceived;
                 TeOnWhisperReceivedUse = load.TeOnWhisperReceivedUse;
                 TeOnWhisperReceivedChannel = load.TeOnWhisperReceivedChannel;
                 TeOnWhisperReceivedChat = load.TeOnWhisperReceivedChat;
@@ -736,7 +736,7 @@ namespace AntonBot.PlatformAPI
             TeOnJoinedChannelKonsole = false;
             TeOnJoinedChannelKonsoleText = "";
 
-
+            TeOnMessageReceived = new TwitchEvent("OnMessageReceived");
             TeOnMessageReceivedUse = false;
             TeOnMessageReceivedChannel = new StringCollection();
             TeOnMessageReceivedChat = false;
@@ -746,7 +746,7 @@ namespace AntonBot.PlatformAPI
             TeOnMessageReceivedKonsole = false;
             TeOnMessageReceivedKonsoleText = "Die Ausgabe würde bei vielen Nachrichten sehr schnell voll laufen, daher ist hier keine Einstellung möglich";
 
-
+            TeOnNewFollowersDetected = new TwitchEvent("OnNewFollowersDetected");
             TeOnNewFollowersDetectedUse = false;
             TeOnNewFollowersDetectedChannel = new StringCollection();
             TeOnNewFollowersDetectedChat = false;
@@ -756,7 +756,7 @@ namespace AntonBot.PlatformAPI
             TeOnNewFollowersDetectedKonsole = false;
             TeOnNewFollowersDetectedKonsoleText = "";
 
-
+            TeOnNewSubscriber = new TwitchEvent("OnNewSubscriber");
             TeOnNewSubscriberUse = false;
             TeOnNewSubscriberChannel = new StringCollection();
             TeOnNewSubscriberChat = false;
@@ -766,7 +766,7 @@ namespace AntonBot.PlatformAPI
             TeOnNewSubscriberKonsole = false;
             TeOnNewSubscriberKonsoleText = "";
 
-
+            TeOnRaidGo = new TwitchEvent("OnRaidGo");
             TeOnRaidGoUse = false;
             TeOnRaidGoChannel = new StringCollection();
             TeOnRaidGoChat = false;
@@ -776,7 +776,7 @@ namespace AntonBot.PlatformAPI
             TeOnRaidGoKonsole = false;
             TeOnRaidGoKonsoleText = "";
 
-
+            TeOnRaidNotification = new TwitchEvent("OnRaidNotification");
             TeOnRaidNotificationUse = false;
             TeOnRaidNotificationChannel = new StringCollection();
             TeOnRaidNotificationChat = false;
@@ -786,7 +786,7 @@ namespace AntonBot.PlatformAPI
             TeOnRaidNotificationKonsole = false;
             TeOnRaidNotificationKonsoleText = "";
 
-
+            TeOnRewardRedeemed = new TwitchEvent("OnRewardRedeemed");
             TeOnRewardRedeemedUse = false;
             TeOnRewardRedeemedChannel = new StringCollection();
             TeOnRewardRedeemedChat = false;
@@ -796,7 +796,7 @@ namespace AntonBot.PlatformAPI
             TeOnRewardRedeemedKonsole = false;
             TeOnRewardRedeemedKonsoleText = "";
 
-
+            TeOnStreamOffline = new TwitchEvent("OnStreamOffline");
             TeOnStreamOfflineUse = false;
             TeOnStreamOfflineChannel = new StringCollection();
             TeOnStreamOfflineChat = false;
@@ -806,7 +806,7 @@ namespace AntonBot.PlatformAPI
             TeOnStreamOfflineKonsole = false;
             TeOnStreamOfflineKonsoleText = "";
 
-
+            TeOnStreamOnline = new TwitchEvent("OnStreamOnline");
             TeOnStreamOnlineUse = false;
             TeOnStreamOnlineChannel = new StringCollection();
             TeOnStreamOnlineChat = false;
@@ -816,7 +816,7 @@ namespace AntonBot.PlatformAPI
             TeOnStreamOnlineKonsole = false;
             TeOnStreamOnlineKonsoleText = "";
 
-
+            TeOnStreamUpdate = new TwitchEvent("OnStreamUpdate");
             TeOnStreamUpdateUse = false;
             TeOnStreamUpdateChannel = new StringCollection();
             TeOnStreamUpdateChat = false;
@@ -826,7 +826,7 @@ namespace AntonBot.PlatformAPI
             TeOnStreamUpdateKonsole = false;
             TeOnStreamUpdateKonsoleText = "";
 
-
+            TeOnUserJoined = new TwitchEvent("OnUserJoined");
             TeOnUserJoinedUse = false;
             TeOnUserJoinedChannel = new StringCollection();
             TeOnUserJoinedChat = false;
@@ -836,7 +836,7 @@ namespace AntonBot.PlatformAPI
             TeOnUserJoinedKonsole = false;
             TeOnUserJoinedKonsoleText = "";
 
-
+            TeOnUserLeft = new TwitchEvent("OnUserLeft");
             TeOnUserLeftUse = false;
             TeOnUserLeftChannel = new StringCollection();
             TeOnUserLeftChat = false;
@@ -846,7 +846,7 @@ namespace AntonBot.PlatformAPI
             TeOnUserLeftKonsole = false;
             TeOnUserLeftKonsoleText = "";
 
-
+            TeOnWhisperReceived = new TwitchEvent("TeOnWhisperReceived");
             TeOnWhisperReceivedUse = false;
             TeOnWhisperReceivedChannel = new StringCollection();
             TeOnWhisperReceivedChat = false;
@@ -1020,8 +1020,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnJoinedChannelDiscordText != null) { TeOnJoinedChannelDiscordText = load.TeOnJoinedChannelDiscordText; }
             TeOnJoinedChannelKonsole = load.TeOnJoinedChannelKonsole;
             if (load.TeOnJoinedChannelKonsoleText != null) { TeOnJoinedChannelKonsoleText = load.TeOnJoinedChannelKonsoleText; }
-            
-            
+
+            TeOnMessageReceived.UebernahmeWerte(load.TeOnMessageReceivedUse, load.TeOnMessageReceivedChat, load.TeOnMessageReceivedDiscord, load.TeOnMessageReceivedKonsole, load.TeOnMessageReceivedChatText, load.TeOnMessageReceivedDiscordText, load.TeOnMessageReceivedKonsoleText, load.TeOnMessageReceivedChannel);
             TeOnMessageReceivedUse = load.TeOnMessageReceivedUse;
             if (load.TeOnMessageReceivedChannel != null) { TeOnMessageReceivedChannel = load.TeOnMessageReceivedChannel; }
             TeOnMessageReceivedChat = load.TeOnMessageReceivedChat;
@@ -1030,8 +1030,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnMessageReceivedDiscordText != null) { TeOnMessageReceivedDiscordText = load.TeOnMessageReceivedDiscordText; }
             TeOnMessageReceivedKonsole = load.TeOnMessageReceivedKonsole;
             if (load.TeOnMessageReceivedKonsoleText != null) { TeOnMessageReceivedKonsoleText = load.TeOnMessageReceivedKonsoleText; }
-            
-            
+
+            TeOnNewFollowersDetected.UebernahmeWerte(load.TeOnNewFollowersDetectedUse, load.TeOnNewFollowersDetectedChat, load.TeOnNewFollowersDetectedDiscord, load.TeOnNewFollowersDetectedKonsole, load.TeOnNewFollowersDetectedChatText, load.TeOnNewFollowersDetectedDiscordText, load.TeOnNewFollowersDetectedKonsoleText, load.TeOnNewFollowersDetectedChannel);
             TeOnNewFollowersDetectedUse = load.TeOnNewFollowersDetectedUse;
             if (load.TeOnNewFollowersDetectedChannel != null) { TeOnNewFollowersDetectedChannel = load.TeOnNewFollowersDetectedChannel; }
             TeOnNewFollowersDetectedChat = load.TeOnNewFollowersDetectedChat;
@@ -1040,8 +1040,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnNewFollowersDetectedDiscordText != null) { TeOnNewFollowersDetectedDiscordText = load.TeOnNewFollowersDetectedDiscordText; }
             TeOnNewFollowersDetectedKonsole = load.TeOnNewFollowersDetectedKonsole;
             if (load.TeOnNewFollowersDetectedKonsoleText != null) { TeOnNewFollowersDetectedKonsoleText = load.TeOnNewFollowersDetectedKonsoleText; }
-            
-            
+
+            TeOnNewSubscriber.UebernahmeWerte(load.TeOnNewSubscriberUse, load.TeOnNewSubscriberChat, load.TeOnNewSubscriberDiscord, load.TeOnNewSubscriberKonsole, load.TeOnNewSubscriberChatText, load.TeOnNewSubscriberDiscordText, load.TeOnNewSubscriberKonsoleText, load.TeOnNewSubscriberChannel);
             TeOnNewSubscriberUse = load.TeOnNewSubscriberUse;
             if (load.TeOnNewSubscriberChannel != null) { TeOnNewSubscriberChannel = load.TeOnNewSubscriberChannel; }
             TeOnNewSubscriberChat = load.TeOnNewSubscriberChat;
@@ -1050,8 +1050,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnNewSubscriberDiscordText != null) { TeOnNewSubscriberDiscordText = load.TeOnNewSubscriberDiscordText; }
             TeOnNewSubscriberKonsole = load.TeOnNewSubscriberKonsole;
             if (load.TeOnNewSubscriberKonsoleText != null) { TeOnNewSubscriberKonsoleText = load.TeOnNewSubscriberKonsoleText; }
-            
-            
+
+            TeOnRaidGo.UebernahmeWerte(load.TeOnRaidGoUse, load.TeOnRaidGoChat, load.TeOnRaidGoDiscord, load.TeOnRaidGoKonsole, load.TeOnRaidGoChatText, load.TeOnRaidGoDiscordText, load.TeOnRaidGoKonsoleText, load.TeOnRaidGoChannel);
             TeOnRaidGoUse = load.TeOnRaidGoUse;
             if (load.TeOnRaidGoChannel != null) { TeOnRaidGoChannel = load.TeOnRaidGoChannel; }
             TeOnRaidGoChat = load.TeOnRaidGoChat;
@@ -1061,7 +1061,7 @@ namespace AntonBot.PlatformAPI
             TeOnRaidGoKonsole = load.TeOnRaidGoKonsole;
             if (load.TeOnRaidGoKonsoleText != null) { TeOnRaidGoKonsoleText = load.TeOnRaidGoKonsoleText; }
             
-            
+            TeOnRaidNotification.UebernahmeWerte(load.TeOnRaidNotificationUse, load.TeOnRaidNotificationChat, load.TeOnRaidNotificationDiscord, load.TeOnRaidNotificationKonsole, load.TeOnRaidNotificationChatText, load.TeOnRaidNotificationDiscordText, load.TeOnRaidNotificationKonsoleText, load.TeOnRaidNotificationChannel);
             TeOnRaidNotificationUse = load.TeOnRaidNotificationUse;
             if (load.TeOnRaidNotificationChannel != null) { TeOnRaidNotificationChannel = load.TeOnRaidNotificationChannel; }
             TeOnRaidNotificationChat = load.TeOnRaidNotificationChat;
@@ -1070,8 +1070,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnRaidNotificationDiscordText != null) { TeOnRaidNotificationDiscordText = load.TeOnRaidNotificationDiscordText; }
             TeOnRaidNotificationKonsole = load.TeOnRaidNotificationKonsole;
             if (load.TeOnRaidNotificationKonsoleText != null) { TeOnRaidNotificationKonsoleText = load.TeOnRaidNotificationKonsoleText; }
-            
-            
+
+            TeOnRewardRedeemed.UebernahmeWerte(load.TeOnRewardRedeemedUse, load.TeOnRewardRedeemedChat, load.TeOnRewardRedeemedDiscord, load.TeOnRewardRedeemedKonsole, load.TeOnRewardRedeemedChatText, load.TeOnRewardRedeemedDiscordText, load.TeOnRewardRedeemedKonsoleText, load.TeOnRewardRedeemedChannel);
             TeOnRewardRedeemedUse = load.TeOnRewardRedeemedUse;
             if (load.TeOnRewardRedeemedChannel != null) { TeOnRewardRedeemedChannel = load.TeOnRewardRedeemedChannel; }
             TeOnRewardRedeemedChat = load.TeOnRewardRedeemedChat;
@@ -1080,8 +1080,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnRewardRedeemedDiscordText != null) { TeOnRewardRedeemedDiscordText = load.TeOnRewardRedeemedDiscordText; }
             TeOnRewardRedeemedKonsole = load.TeOnRewardRedeemedKonsole;
             if (load.TeOnRewardRedeemedKonsoleText != null) { TeOnRewardRedeemedKonsoleText = load.TeOnRewardRedeemedKonsoleText; }
-            
-            
+
+            TeOnStreamOffline.UebernahmeWerte(load.TeOnStreamOfflineUse, load.TeOnStreamOfflineChat, load.TeOnStreamOfflineDiscord, load.TeOnStreamOfflineKonsole, load.TeOnStreamOfflineChatText, load.TeOnStreamOfflineDiscordText, load.TeOnStreamOfflineKonsoleText, load.TeOnStreamOfflineChannel);
             TeOnStreamOfflineUse = load.TeOnStreamOfflineUse;
             if (load.TeOnStreamOfflineChannel != null) { TeOnStreamOfflineChannel = load.TeOnStreamOfflineChannel; }
             TeOnStreamOfflineChat = load.TeOnStreamOfflineChat;
@@ -1090,8 +1090,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnStreamOfflineDiscordText != null) { TeOnStreamOfflineDiscordText = load.TeOnStreamOfflineDiscordText; }
             TeOnStreamOfflineKonsole = load.TeOnStreamOfflineKonsole;
             if (load.TeOnStreamOfflineKonsoleText != null) { TeOnStreamOfflineKonsoleText = load.TeOnStreamOfflineKonsoleText; }
-            
-            
+
+            TeOnStreamOnline.UebernahmeWerte(load.TeOnStreamOnlineUse, load.TeOnStreamOnlineChat, load.TeOnStreamOnlineDiscord, load.TeOnStreamOnlineKonsole, load.TeOnStreamOnlineChatText, load.TeOnStreamOnlineDiscordText, load.TeOnStreamOnlineKonsoleText, load.TeOnStreamOnlineChannel);
             TeOnStreamOnlineUse = load.TeOnStreamOnlineUse;
             if (load.TeOnStreamOnlineChannel != null) { TeOnStreamOnlineChannel = load.TeOnStreamOnlineChannel; }
             TeOnStreamOnlineChat = load.TeOnStreamOnlineChat;
@@ -1100,8 +1100,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnStreamOnlineDiscordText != null) { TeOnStreamOnlineDiscordText = load.TeOnStreamOnlineDiscordText; }
             TeOnStreamOnlineKonsole = load.TeOnStreamOnlineKonsole;
             if (load.TeOnStreamOnlineKonsoleText != null) { TeOnStreamOnlineKonsoleText = load.TeOnStreamOnlineKonsoleText; }
-            
-            
+
+            TeOnStreamUpdate.UebernahmeWerte(load.TeOnStreamUpdateUse, load.TeOnStreamUpdateChat, load.TeOnStreamUpdateDiscord, load.TeOnStreamUpdateKonsole, load.TeOnStreamUpdateChatText, load.TeOnStreamUpdateDiscordText, load.TeOnStreamUpdateKonsoleText, load.TeOnStreamUpdateChannel);
             TeOnStreamUpdateUse = load.TeOnStreamUpdateUse;
             if (load.TeOnStreamUpdateChannel != null) { TeOnStreamUpdateChannel = load.TeOnStreamUpdateChannel; }
             TeOnStreamUpdateChat = load.TeOnStreamUpdateChat;
@@ -1110,8 +1110,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnStreamUpdateDiscordText != null) { TeOnStreamUpdateDiscordText = load.TeOnStreamUpdateDiscordText; }
             TeOnStreamUpdateKonsole = load.TeOnStreamUpdateKonsole;
             if (load.TeOnStreamUpdateKonsoleText != null) { TeOnStreamUpdateKonsoleText = load.TeOnStreamUpdateKonsoleText; }
-            
-            
+
+            TeOnUserJoined.UebernahmeWerte(load.TeOnUserJoinedUse, load.TeOnUserJoinedChat, load.TeOnUserJoinedDiscord, load.TeOnUserJoinedKonsole, load.TeOnUserJoinedChatText, load.TeOnUserJoinedDiscordText, load.TeOnUserJoinedKonsoleText, load.TeOnUserJoinedChannel);
             TeOnUserJoinedUse = load.TeOnUserJoinedUse;
             if (load.TeOnUserJoinedChannel != null) { TeOnUserJoinedChannel = load.TeOnUserJoinedChannel; }
             TeOnUserJoinedChat = load.TeOnUserJoinedChat;
@@ -1120,8 +1120,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnUserJoinedDiscordText != null) { TeOnUserJoinedDiscordText = load.TeOnUserJoinedDiscordText; }
             TeOnUserJoinedKonsole = load.TeOnUserJoinedKonsole;
             if (load.TeOnUserJoinedKonsoleText != null) { TeOnUserJoinedKonsoleText = load.TeOnUserJoinedKonsoleText; }
-            
-            
+
+            TeOnUserLeft.UebernahmeWerte(load.TeOnUserLeftUse, load.TeOnUserLeftChat, load.TeOnUserLeftDiscord, load.TeOnUserLeftKonsole, load.TeOnUserLeftChatText, load.TeOnUserLeftDiscordText, load.TeOnUserLeftKonsoleText, load.TeOnUserLeftChannel);
             TeOnUserLeftUse = load.TeOnUserLeftUse;
             if (load.TeOnUserLeftChannel != null) { TeOnUserLeftChannel = load.TeOnUserLeftChannel; }
             TeOnUserLeftChat = load.TeOnUserLeftChat;
@@ -1130,8 +1130,8 @@ namespace AntonBot.PlatformAPI
             if (load.TeOnUserLeftDiscordText != null) { TeOnUserLeftDiscordText = load.TeOnUserLeftDiscordText; }
             TeOnUserLeftKonsole = load.TeOnUserLeftKonsole;
             if (load.TeOnUserLeftKonsoleText != null) { TeOnUserLeftKonsoleText = load.TeOnUserLeftKonsoleText; }
-            
-            
+
+            TeOnWhisperReceived.UebernahmeWerte(load.TeOnWhisperReceivedUse, load.TeOnWhisperReceivedChat, load.TeOnWhisperReceivedDiscord, load.TeOnWhisperReceivedKonsole, load.TeOnWhisperReceivedChatText, load.TeOnWhisperReceivedDiscordText, load.TeOnWhisperReceivedKonsoleText, load.TeOnWhisperReceivedChannel);
             TeOnWhisperReceivedUse = load.TeOnWhisperReceivedUse;
             if (load.TeOnWhisperReceivedChannel != null) { TeOnWhisperReceivedChannel = load.TeOnWhisperReceivedChannel; }
             TeOnWhisperReceivedChat = load.TeOnWhisperReceivedChat;
@@ -1365,7 +1365,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnJoinedChannelKonsole = Import.TeOnJoinedChannelKonsole;
             SettingsGroup.Instance.TeOnJoinedChannelKonsoleText = Import.TeOnJoinedChannelKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnMessageReceived = Import.TeOnMessageReceived;
             SettingsGroup.Instance.TeOnMessageReceivedUse = Import.TeOnMessageReceivedUse;
             SettingsGroup.Instance.TeOnMessageReceivedChannel = Import.TeOnMessageReceivedChannel;
             SettingsGroup.Instance.TeOnMessageReceivedChat = Import.TeOnMessageReceivedChat;
@@ -1375,7 +1375,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnMessageReceivedKonsole = Import.TeOnMessageReceivedKonsole;
             SettingsGroup.Instance.TeOnMessageReceivedKonsoleText = Import.TeOnMessageReceivedKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnNewFollowersDetected = Import.TeOnNewFollowersDetected;
             SettingsGroup.Instance.TeOnNewFollowersDetectedUse = Import.TeOnNewFollowersDetectedUse;
             SettingsGroup.Instance.TeOnNewFollowersDetectedChannel = Import.TeOnNewFollowersDetectedChannel;
             SettingsGroup.Instance.TeOnNewFollowersDetectedChat = Import.TeOnNewFollowersDetectedChat;
@@ -1385,7 +1385,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnNewFollowersDetectedKonsole = Import.TeOnNewFollowersDetectedKonsole;
             SettingsGroup.Instance.TeOnNewFollowersDetectedKonsoleText = Import.TeOnNewFollowersDetectedKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnNewSubscriber = Import.TeOnNewSubscriber;
             SettingsGroup.Instance.TeOnNewSubscriberUse = Import.TeOnNewSubscriberUse;
             SettingsGroup.Instance.TeOnNewSubscriberChannel = Import.TeOnNewSubscriberChannel;
             SettingsGroup.Instance.TeOnNewSubscriberChat = Import.TeOnNewSubscriberChat;
@@ -1395,7 +1395,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnNewSubscriberKonsole = Import.TeOnNewSubscriberKonsole;
             SettingsGroup.Instance.TeOnNewSubscriberKonsoleText = Import.TeOnNewSubscriberKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnRaidGo = Import.TeOnRaidGo;
             SettingsGroup.Instance.TeOnRaidGoUse = Import.TeOnRaidGoUse;
             SettingsGroup.Instance.TeOnRaidGoChannel = Import.TeOnRaidGoChannel;
             SettingsGroup.Instance.TeOnRaidGoChat = Import.TeOnRaidGoChat;
@@ -1405,7 +1405,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnRaidGoKonsole = Import.TeOnRaidGoKonsole;
             SettingsGroup.Instance.TeOnRaidGoKonsoleText = Import.TeOnRaidGoKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnRaidNotification = Import.TeOnRaidNotification;
             SettingsGroup.Instance.TeOnRaidNotificationUse = Import.TeOnRaidNotificationUse;
             SettingsGroup.Instance.TeOnRaidNotificationChannel = Import.TeOnRaidNotificationChannel;
             SettingsGroup.Instance.TeOnRaidNotificationChat = Import.TeOnRaidNotificationChat;
@@ -1415,7 +1415,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnRaidNotificationKonsole = Import.TeOnRaidNotificationKonsole;
             SettingsGroup.Instance.TeOnRaidNotificationKonsoleText = Import.TeOnRaidNotificationKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnRewardRedeemed = Import.TeOnRewardRedeemed;
             SettingsGroup.Instance.TeOnRewardRedeemedUse = Import.TeOnRewardRedeemedUse;
             SettingsGroup.Instance.TeOnRewardRedeemedChannel = Import.TeOnRewardRedeemedChannel;
             SettingsGroup.Instance.TeOnRewardRedeemedChat = Import.TeOnRewardRedeemedChat;
@@ -1425,7 +1425,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnRewardRedeemedKonsole = Import.TeOnRewardRedeemedKonsole;
             SettingsGroup.Instance.TeOnRewardRedeemedKonsoleText = Import.TeOnRewardRedeemedKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnStreamOffline = Import.TeOnStreamOffline;
             SettingsGroup.Instance.TeOnStreamOfflineUse = Import.TeOnStreamOfflineUse;
             SettingsGroup.Instance.TeOnStreamOfflineChannel = Import.TeOnStreamOfflineChannel;
             SettingsGroup.Instance.TeOnStreamOfflineChat = Import.TeOnStreamOfflineChat;
@@ -1435,7 +1435,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnStreamOfflineKonsole = Import.TeOnStreamOfflineKonsole;
             SettingsGroup.Instance.TeOnStreamOfflineKonsoleText = Import.TeOnStreamOfflineKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnStreamOnline = Import.TeOnStreamOnline;
             SettingsGroup.Instance.TeOnStreamOnlineUse = Import.TeOnStreamOnlineUse;
             SettingsGroup.Instance.TeOnStreamOnlineChannel = Import.TeOnStreamOnlineChannel;
             SettingsGroup.Instance.TeOnStreamOnlineChat = Import.TeOnStreamOnlineChat;
@@ -1445,7 +1445,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnStreamOnlineKonsole = Import.TeOnStreamOnlineKonsole;
             SettingsGroup.Instance.TeOnStreamOnlineKonsoleText = Import.TeOnStreamOnlineKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnStreamUpdate = Import.TeOnStreamUpdate;
             SettingsGroup.Instance.TeOnStreamUpdateUse = Import.TeOnStreamUpdateUse;
             SettingsGroup.Instance.TeOnStreamUpdateChannel = Import.TeOnStreamUpdateChannel;
             SettingsGroup.Instance.TeOnStreamUpdateChat = Import.TeOnStreamUpdateChat;
@@ -1454,8 +1454,8 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnStreamUpdateDiscordText = Import.TeOnStreamUpdateDiscordText;
             SettingsGroup.Instance.TeOnStreamUpdateKonsole = Import.TeOnStreamUpdateKonsole;
             SettingsGroup.Instance.TeOnStreamUpdateKonsoleText = Import.TeOnStreamUpdateKonsoleText;
-
-
+          
+            SettingsGroup.Instance.TeOnUserJoined = Import.TeOnUserJoined;
             SettingsGroup.Instance.TeOnUserJoinedUse = Import.TeOnUserJoinedUse;
             SettingsGroup.Instance.TeOnUserJoinedChannel = Import.TeOnUserJoinedChannel;
             SettingsGroup.Instance.TeOnUserJoinedChat = Import.TeOnUserJoinedChat;
@@ -1465,7 +1465,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnUserJoinedKonsole = Import.TeOnUserJoinedKonsole;
             SettingsGroup.Instance.TeOnUserJoinedKonsoleText = Import.TeOnUserJoinedKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnUserLeft = Import.TeOnUserLeft;
             SettingsGroup.Instance.TeOnUserLeftUse = Import.TeOnUserLeftUse;
             SettingsGroup.Instance.TeOnUserLeftChannel = Import.TeOnUserLeftChannel;
             SettingsGroup.Instance.TeOnUserLeftChat = Import.TeOnUserLeftChat;
@@ -1475,7 +1475,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnUserLeftKonsole = Import.TeOnUserLeftKonsole;
             SettingsGroup.Instance.TeOnUserLeftKonsoleText = Import.TeOnUserLeftKonsoleText;
 
-
+            SettingsGroup.Instance.TeOnWhisperReceived = Import.TeOnWhisperReceived;
             SettingsGroup.Instance.TeOnWhisperReceivedUse = Import.TeOnWhisperReceivedUse;
             SettingsGroup.Instance.TeOnWhisperReceivedChannel = Import.TeOnWhisperReceivedChannel;
             SettingsGroup.Instance.TeOnWhisperReceivedChat = Import.TeOnWhisperReceivedChat;

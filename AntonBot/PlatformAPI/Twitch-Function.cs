@@ -420,13 +420,13 @@ namespace AntonBot
         private void Monitor_OnStreamUpdate(object sender, TwitchLib.Api.Services.Events.LiveStreamMonitor.OnStreamUpdateArgs e)
         {
 
-            if (SettingsGroup.Instance.TeOnStreamUpdateUse)
+            if (SettingsGroup.Instance.TeOnStreamUpdate.Use)
             {
                 if (e.Channel == sChannelID || e.Channel == sStandardChannel)
                 {
-                    if (SettingsGroup.Instance.TeOnStreamUpdateChat)
+                    if (SettingsGroup.Instance.TeOnStreamUpdate.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnStreamUpdateChatText;
+                        string Text = SettingsGroup.Instance.TeOnStreamUpdate.ChatText;
 
                         Text.Replace("°Channel", e.Channel);
 
@@ -438,22 +438,22 @@ namespace AntonBot
                             SendMessage(Text, sStandardChannel);
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnStreamUpdateUse)
+                    if (SettingsGroup.Instance.TeOnStreamUpdate.Use)
                     {
-                        string Text = SettingsGroup.Instance.TeOnStreamUpdateDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnStreamUpdate.DiscordText;
                         Text.Replace("°Channel", e.Channel);
                         if (OnStreamUpdateCheck(Text, StreamData, e) == true)
                         {
                             Text = OnStreamUpdateReplace(Text, e);
-                            foreach (var item in SettingsGroup.Instance.TeOnStreamUpdateChannel)
+                            foreach (var item in SettingsGroup.Instance.TeOnStreamUpdate.Channel)
                             {
                                 SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                             }
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnStreamUpdateKonsole)
+                    if (SettingsGroup.Instance.TeOnStreamUpdate.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnStreamUpdateKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnStreamUpdate.KonsoleText;
                         Text.Replace("°Channel", e.Channel);
                         if (OnStreamUpdateCheck(Text, StreamData, e) == true)
                         {
@@ -576,36 +576,36 @@ namespace AntonBot
         private void Monitor_OnStreamOffline(object sender, TwitchLib.Api.Services.Events.LiveStreamMonitor.OnStreamOfflineArgs e)
         {
 
-            if (SettingsGroup.Instance.TeOnStreamOfflineUse)
+            if (SettingsGroup.Instance.TeOnStreamOffline.Use)
             {
                 if (e.Channel == sChannelID || e.Channel == sStandardChannel)
                 {
-                    if (SettingsGroup.Instance.TeOnStreamOfflineChat)
+                    if (SettingsGroup.Instance.TeOnStreamOffline.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnStreamOfflineChatText;
+                        string Text = SettingsGroup.Instance.TeOnStreamOffline.ChatText;
 
                         Text.Replace("°Channel", e.Channel);
                         Text = OnStreamOfflineReplace(Text, e);
 
                         SendMessage(Text, sStandardChannel);
                     }
-                    if (SettingsGroup.Instance.TeOnStreamOfflineDiscord)
+                    if (SettingsGroup.Instance.TeOnStreamOffline.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnStreamOfflineDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnStreamOffline.DiscordText;
 
                         Text.Replace("°Channel", e.Channel);
                         Text = OnStreamOfflineReplace(Text, e);
 
-                        foreach (var item in SettingsGroup.Instance.TeOnStreamOfflineChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnStreamOffline.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
 
 
                     }
-                    if (SettingsGroup.Instance.TeOnStreamOfflineKonsole)
+                    if (SettingsGroup.Instance.TeOnStreamOffline.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnStreamOfflineKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnStreamOffline.KonsoleText;
 
                         Text.Replace("°Channel", e.Channel);
                         Text = OnStreamOfflineReplace(Text, e);
@@ -623,35 +623,35 @@ namespace AntonBot
             if (!SettingsGroup.Instance.TsOnline)
             //Die Abfrage soll verhindern, dass das Event mehrfach hintereinander geworfen wird (damit nur eine Nachricht im Discord erscheint)
             {
-                if (SettingsGroup.Instance.TeOnStreamOnlineUse)
+                if (SettingsGroup.Instance.TeOnStreamOnline.Use)
                 {
                     if (e.Channel == sChannelID || e.Channel == sStandardChannel)
                     {
-                        if (SettingsGroup.Instance.TeOnStreamOnlineChat)
+                        if (SettingsGroup.Instance.TeOnStreamOnline.Chat)
                         {
-                            string Text = SettingsGroup.Instance.TeOnStreamOnlineChatText;
+                            string Text = SettingsGroup.Instance.TeOnStreamOnline.ChatText;
 
                             Text.Replace("°Channel", e.Channel);
                             Text = OnStreamOnlineReplace(Text, e);
 
                             SendMessage(Text, sStandardChannel);
                         }
-                        if (SettingsGroup.Instance.TeOnStreamOnlineDiscord)
+                        if (SettingsGroup.Instance.TeOnStreamOnline.Discord)
                         {
-                            string Text = SettingsGroup.Instance.TeOnStreamOnlineDiscordText;
+                            string Text = SettingsGroup.Instance.TeOnStreamOnline.DiscordText;
 
                             Text.Replace("°Channel", e.Channel);
                             Text = OnStreamOnlineReplace(Text, e);
 
-                            foreach (var item in SettingsGroup.Instance.TeOnStreamOnlineChannel)
+                            foreach (var item in SettingsGroup.Instance.TeOnStreamOnline.Channel)
                             {
                                 SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                             }
                             //SendOtherChannel(Text, "Discord", 653542632986902547);
                         }
-                        if (SettingsGroup.Instance.TeOnStreamOnlineKonsole)
+                        if (SettingsGroup.Instance.TeOnStreamOnline.Konsole)
                         {
-                            string Text = SettingsGroup.Instance.TeOnStreamOnlineKonsoleText;
+                            string Text = SettingsGroup.Instance.TeOnStreamOnline.KonsoleText;
 
                             Text.Replace("°Channel", e.Channel);
                             Text = OnStreamOnlineReplace(Text, e);
@@ -685,14 +685,14 @@ namespace AntonBot
                 else
                 {
 
-                    if (SettingsGroup.Instance.TeOnNewFollowersDetectedUse)
+                    if (SettingsGroup.Instance.TeOnNewFollowersDetected.Use)
                     {
-                        if (SettingsGroup.Instance.TeOnNewFollowersDetectedChat)
+                        if (SettingsGroup.Instance.TeOnNewFollowersDetected.Chat)
                         {
                             foreach (var item in e.NewFollowers)
                             {
 
-                                string Text = SettingsGroup.Instance.TeOnNewFollowersDetectedChatText;
+                                string Text = SettingsGroup.Instance.TeOnNewFollowersDetected.ChatText;
 
                                 Text.Replace("°Channel", e.Channel);
 
@@ -703,15 +703,15 @@ namespace AntonBot
                             }
 
                         }
-                        if (SettingsGroup.Instance.TeOnNewFollowersDetectedDiscord)
+                        if (SettingsGroup.Instance.TeOnNewFollowersDetected.Discord)
                         {
                             foreach (var item in e.NewFollowers)
                             {
-                                string Text = SettingsGroup.Instance.TeOnNewFollowersDetectedDiscordText;
+                                string Text = SettingsGroup.Instance.TeOnNewFollowersDetected.DiscordText;
                                 Text.Replace("°Channel", e.Channel);
                                 Text = OnNewFollowerReplace(Text, item);
 
-                                foreach (var channelID in SettingsGroup.Instance.TeOnNewFollowersDetectedChannel)
+                                foreach (var channelID in SettingsGroup.Instance.TeOnNewFollowersDetected.Channel)
                                 {
                                     SendOtherChannel(Text, "Discord", Convert.ToUInt64(channelID));
                                 }
@@ -719,11 +719,11 @@ namespace AntonBot
 
 
                         }
-                        if (SettingsGroup.Instance.TeOnNewFollowersDetectedKonsole)
+                        if (SettingsGroup.Instance.TeOnNewFollowersDetected.Konsole)
                         {
                             foreach (var item in e.NewFollowers)
                             {
-                                string Text = SettingsGroup.Instance.TeOnNewFollowersDetectedKonsoleText;
+                                string Text = SettingsGroup.Instance.TeOnNewFollowersDetected.KonsoleText;
 
                                 Text.Replace("°Channel", e.Channel);
                                 Text = OnNewFollowerReplace(Text, item);
@@ -752,31 +752,31 @@ namespace AntonBot
         private void Client_OnRaidNotification(object sender, OnRaidNotificationArgs e)
         {
 
-            if (SettingsGroup.Instance.TeOnRaidNotificationUse)
+            if (SettingsGroup.Instance.TeOnRaidNotification.Use)
             {
                 if (e.Channel == sStandardChannel || e.Channel == sStandardChannel)
                 {
-                    if (SettingsGroup.Instance.TeOnRaidNotificationChat)
+                    if (SettingsGroup.Instance.TeOnRaidNotification.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRaidNotificationChatText;
+                        string Text = SettingsGroup.Instance.TeOnRaidNotification.ChatText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = OnRaidReplace(Text, e.RaidNotification);
                         SendMessage(Text, sStandardChannel);
 
                     }
-                    if (SettingsGroup.Instance.TeOnRaidNotificationDiscord)
+                    if (SettingsGroup.Instance.TeOnRaidNotification.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRaidNotificationDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnRaidNotification.DiscordText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = OnRaidReplace(Text, e.RaidNotification);
-                        foreach (var item in SettingsGroup.Instance.TeOnRaidNotificationChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnRaidNotification.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnRaidNotificationKonsole)
+                    if (SettingsGroup.Instance.TeOnRaidNotification.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRaidNotificationKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnRaidNotification.KonsoleText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = OnRaidReplace(Text, e.RaidNotification);
                         KonsolenAusgabe(Text);
@@ -854,13 +854,13 @@ namespace AntonBot
         private void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e)
         {
 
-            if (SettingsGroup.Instance.TeOnNewSubscriberUse)
+            if (SettingsGroup.Instance.TeOnNewSubscriber.Use)
             {
                 if (e.Channel == sStandardChannel || e.Channel == sStandardChannel)
                 {
-                    if (SettingsGroup.Instance.TeOnNewSubscriberChat)
+                    if (SettingsGroup.Instance.TeOnNewSubscriber.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnNewSubscriberChatText;
+                        string Text = SettingsGroup.Instance.TeOnNewSubscriber.ChatText;
 
                         Text.Replace("°Channel", e.Channel);
 
@@ -868,19 +868,19 @@ namespace AntonBot
                         SendMessage(Text, sStandardChannel);
 
                     }
-                    if (SettingsGroup.Instance.TeOnNewSubscriberDiscord)
+                    if (SettingsGroup.Instance.TeOnNewSubscriber.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnNewSubscriberDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnNewSubscriber.DiscordText;
                         Text.Replace("°Channel", e.Channel);
                         Text = OnNewSubscriberReplace(Text, e.Subscriber);
-                        foreach (var item in SettingsGroup.Instance.TeOnNewSubscriberChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnNewSubscriber.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnNewSubscriberKonsole)
+                    if (SettingsGroup.Instance.TeOnNewSubscriber.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnNewSubscriberKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnNewSubscriber.KonsoleText;
                         Text.Replace("°Channel", e.Channel);
                         Text = OnNewSubscriberReplace(Text, e.Subscriber);
                         KonsolenAusgabe(Text);
@@ -959,32 +959,32 @@ namespace AntonBot
 
             lUserInChat.Add(e.Username);
 
-            if (SettingsGroup.Instance.TeOnUserJoinedUse)
+            if (SettingsGroup.Instance.TeOnUserJoined.Use)
             {
                 if (e.Channel == sStandardChannel || e.Channel == sStandardChannel)
                 {
-                    if (SettingsGroup.Instance.TeOnUserJoinedChat)
+                    if (SettingsGroup.Instance.TeOnUserJoined.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnUserJoinedChatText;
+                        string Text = SettingsGroup.Instance.TeOnUserJoined.ChatText;
 
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = Text.Replace("°Username", e.Username);
                         SendMessage(Text, sStandardChannel);
                     }
-                    if (SettingsGroup.Instance.TeOnUserJoinedDiscord)
+                    if (SettingsGroup.Instance.TeOnUserJoined.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnUserJoinedDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnUserJoined.DiscordText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = Text.Replace("°Username", e.Username);
 
-                        foreach (var item in SettingsGroup.Instance.TeOnUserJoinedChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnUserJoined.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnUserJoinedKonsole)
+                    if (SettingsGroup.Instance.TeOnUserJoined.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnUserJoinedKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnUserJoined.KonsoleText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = Text.Replace("°Username", e.Username);
 
@@ -1003,32 +1003,32 @@ namespace AntonBot
         private void TcClient_OnUserLeft(object sender, OnUserLeftArgs e)
         {
             lUserInChat.Remove(e.Username);
-            if (SettingsGroup.Instance.TeOnUserLeftUse)
+            if (SettingsGroup.Instance.TeOnUserLeft.Use)
             {
                 if (e.Channel == sStandardChannel || e.Channel == sStandardChannel)
                 {
-                    if (SettingsGroup.Instance.TeOnUserLeftChat)
+                    if (SettingsGroup.Instance.TeOnUserLeft.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnUserLeftChatText;
+                        string Text = SettingsGroup.Instance.TeOnUserLeft.ChatText;
 
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = Text.Replace("°Username", e.Username);
                         SendMessage(Text, sStandardChannel);
                     }
-                    if (SettingsGroup.Instance.TeOnUserLeftDiscord)
+                    if (SettingsGroup.Instance.TeOnUserLeft.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnUserLeftDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnUserLeft.DiscordText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = Text.Replace("°Username", e.Username);
 
-                        foreach (var item in SettingsGroup.Instance.TeOnUserLeftChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnUserLeft.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnUserLeftKonsole)
+                    if (SettingsGroup.Instance.TeOnUserLeft.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnUserLeftKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnUserLeft.KonsoleText;
                         Text = Text.Replace("°Channel", e.Channel);
                         Text = Text.Replace("°Username", e.Username);
 
@@ -1124,7 +1124,7 @@ namespace AntonBot
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
 
-            if (SettingsGroup.Instance.TeOnMessageReceivedUse)
+            if (SettingsGroup.Instance.TeOnMessageReceived.Use)
             {
                 if (e.ChatMessage.Channel == sStandardChannel || e.ChatMessage.Channel == sStandardChannel)
                 {
@@ -1349,31 +1349,31 @@ namespace AntonBot
 
         private void TwitchPupSub_OnChannelPointsRewardRedeemed(object sender, TwitchLib.PubSub.Events.OnChannelPointsRewardRedeemedArgs e)
         {
-            if (SettingsGroup.Instance.TeOnRewardRedeemedUse)
+            if (SettingsGroup.Instance.TeOnRewardRedeemed.Use)
             {
                 if (e.ChannelId == sChannelID)
                 {
-                    if (SettingsGroup.Instance.TeOnRewardRedeemedChat)
+                    if (SettingsGroup.Instance.TeOnRewardRedeemed.Chat)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRewardRedeemedChatText;
+                        string Text = SettingsGroup.Instance.TeOnRewardRedeemed.ChatText;
 
                         Text = OnRewardReplace(Text, e);
                         SendMessage(Text, sStandardChannel);
 
                     }
-                    if (SettingsGroup.Instance.TeOnRewardRedeemedDiscord)
+                    if (SettingsGroup.Instance.TeOnRewardRedeemed.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRewardRedeemedDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnRewardRedeemed.DiscordText;
                         Text = OnRewardReplace(Text, e);
 
-                        foreach (var item in SettingsGroup.Instance.TeOnRewardRedeemedChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnRewardRedeemed.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnRewardRedeemedKonsole)
+                    if (SettingsGroup.Instance.TeOnRewardRedeemed.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRewardRedeemedKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnRewardRedeemed.KonsoleText;
                         Text = OnRewardReplace(Text, e);
 
                         KonsolenAusgabe(Text);
@@ -1402,11 +1402,11 @@ namespace AntonBot
         private void TwitchPupSub_OnRaidGo(object sender, TwitchLib.PubSub.Events.OnRaidGoArgs e)
         {
 
-            if (SettingsGroup.Instance.TeOnRaidGoUse)
+            if (SettingsGroup.Instance.TeOnRaidGo.Use)
             {
                 if (e.ChannelId == sChannelID)
                 {
-                    if (SettingsGroup.Instance.TeOnRaidGoChat)
+                    if (SettingsGroup.Instance.TeOnRaidGo.Chat)
                     {
                         //Hier wird die vorher gesetzte Raid-Message verwendet, anstatt dies aus den Properties direkt zu lesen
 
@@ -1416,19 +1416,19 @@ namespace AntonBot
                         //Die Nachricht wird zeitgleich beim Streamer geschrieben, der geraidet wird
                         SleepMessage(sRaidMessage, 5, e.TargetDisplayName);
                     }
-                    if (SettingsGroup.Instance.TeOnRaidGoDiscord)
+                    if (SettingsGroup.Instance.TeOnRaidGo.Discord)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRaidGoDiscordText;
+                        string Text = SettingsGroup.Instance.TeOnRaidGo.DiscordText;
                         Text = onRaidReplace(Text, e);
 
-                        foreach (var item in SettingsGroup.Instance.TeOnRaidGoChannel)
+                        foreach (var item in SettingsGroup.Instance.TeOnRaidGo.Channel)
                         {
                             SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                         }
                     }
-                    if (SettingsGroup.Instance.TeOnRaidGoKonsole)
+                    if (SettingsGroup.Instance.TeOnRaidGo.Konsole)
                     {
-                        string Text = SettingsGroup.Instance.TeOnRaidGoKonsoleText;
+                        string Text = SettingsGroup.Instance.TeOnRaidGo.KonsoleText;
                         Text = onRaidReplace(Text, e);
 
                         KonsolenAusgabe(Text);

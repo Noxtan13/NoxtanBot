@@ -11,7 +11,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public String Name;
         public bool Use;
         public bool Admin;
-        public bool Boardcast;
+        public bool Broadcast;
         public bool VIP;
         public String Command;
         public String ChatText;
@@ -21,7 +21,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public TwitchAdminBefehl(string name) {
             Name = name;
             Admin = false;
-            Boardcast = false;
+            Broadcast = false;
             VIP = false;
             ChatText = "";
             Command = "";
@@ -31,7 +31,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
 
         public void UpdateCommand(TwitchAdminBefehl load) {
             Admin = load.Admin;
-            Boardcast = load.Boardcast;
+            Broadcast = load.Broadcast;
             VIP = load.VIP;
             if (load.ChatText != null) { ChatText = load.ChatText; }
             if (load.Command != null) { Command = load.Command; }
@@ -42,7 +42,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public void UebernahmeWerte(bool use, bool admin, bool boardcast, bool vip, string chatText, string command, string failText) {
             Use = use;
             Admin = admin;
-            Boardcast = boardcast;
+            Broadcast = boardcast;
             VIP = vip;
             if (command != null)
             {

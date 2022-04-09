@@ -2190,7 +2190,7 @@ namespace AntonBot.Fenster
                     break;
 
             }
-            grpAdmin.Enabled = true;
+            grpAdmin.Enabled = chkAdminUse.Checked;
         }
 
         private void btnAdminSpeichern_Click(object sender, EventArgs e)

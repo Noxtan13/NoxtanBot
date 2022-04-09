@@ -1067,6 +1067,7 @@
             this.tabTwitchAdmin.Controls.Add(this.cmbAdmin);
             this.tabTwitchAdmin.Controls.Add(this.grpAdmin);
             this.tabTwitchAdmin.Controls.Add(this.chkAdminUse);
+            this.tabTwitchAdmin.Controls.Add(this.btnAdminSpeichern);
             this.tabTwitchAdmin.Location = new System.Drawing.Point(4, 39);
             this.tabTwitchAdmin.Name = "tabTwitchAdmin";
             this.tabTwitchAdmin.Size = new System.Drawing.Size(794, 718);
@@ -1101,7 +1102,6 @@
             this.grpAdmin.Controls.Add(this.label16);
             this.grpAdmin.Controls.Add(this.textBox1);
             this.grpAdmin.Controls.Add(this.chkVIP);
-            this.grpAdmin.Controls.Add(this.btnAdminSpeichern);
             this.grpAdmin.Controls.Add(this.label9);
             this.grpAdmin.Controls.Add(this.label8);
             this.grpAdmin.Controls.Add(this.txtAdminFalsch);
@@ -1147,9 +1147,9 @@
             // 
             // btnAdminSpeichern
             // 
-            this.btnAdminSpeichern.Location = new System.Drawing.Point(600, 624);
+            this.btnAdminSpeichern.Location = new System.Drawing.Point(603, 4);
             this.btnAdminSpeichern.Name = "btnAdminSpeichern";
-            this.btnAdminSpeichern.Size = new System.Drawing.Size(182, 42);
+            this.btnAdminSpeichern.Size = new System.Drawing.Size(182, 38);
             this.btnAdminSpeichern.TabIndex = 58;
             this.btnAdminSpeichern.Text = "Befehl-Speichern";
             this.btnAdminSpeichern.UseVisualStyleBackColor = true;

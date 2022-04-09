@@ -223,16 +223,16 @@ namespace AntonBot
 
         private async Task Client_UserLeft1(SocketGuild arg1, SocketUser arg2)
         {
-            if (SettingsGroup.Instance.DsLeftUser)
+            if (SettingsGroup.Instance.DsLeftUser.Use)
             {
-                if (SettingsGroup.Instance.DsLeftUserDiscord)
+                if (SettingsGroup.Instance.DsLeftUser.Discord)
                 {
-                    string Text = SettingsGroup.Instance.DsLeftUserDiscordText;
+                    string Text = SettingsGroup.Instance.DsLeftUser.DiscordText;
                     Text = OnUserLeftReplace(Text, arg1,arg2);
 
                     foreach (var channels in arg1.Channels)
                     {
-                        foreach (var item in SettingsGroup.Instance.DsJoinUserChannel)
+                        foreach (var item in SettingsGroup.Instance.DsJoinUser.Channel)
                         {
                             if (Convert.ToUInt64(item) == channels.Id)
                             {
@@ -241,17 +241,17 @@ namespace AntonBot
                         }
                     }
                 }
-                if (SettingsGroup.Instance.DsLeftUserKonsole)
+                if (SettingsGroup.Instance.DsLeftUser.Konsole)
                 {
-                    string Text = SettingsGroup.Instance.DsLeftUserKonsoleText;
+                    string Text = SettingsGroup.Instance.DsLeftUser.KonsoleText;
 
                     Text = OnUserLeftReplace(Text, arg1, arg2);
 
                     KonsolenAusgabe(Text);
                 }
-                if (SettingsGroup.Instance.DsLeftUserTwitch)
+                if (SettingsGroup.Instance.DsLeftUser.Twitch)
                 {
-                    string Text = SettingsGroup.Instance.DsLeftUserTwitchText;
+                    string Text = SettingsGroup.Instance.DsLeftUser.TwitchText;
                     Text = OnUserLeftReplace(Text, arg1, arg2);
 
                     SendOtherChannel(Text, "Twitch");
@@ -284,16 +284,16 @@ namespace AntonBot
 
         private async Task Client_UserJoined(SocketGuildUser arg)
         {
-            if (SettingsGroup.Instance.DsJoinUser)
+            if (SettingsGroup.Instance.DsJoinUser.Use)
             {
-                if (SettingsGroup.Instance.DsJoinUserDiscord)
+                if (SettingsGroup.Instance.DsJoinUser.Discord)
                 {
-                    string Text = SettingsGroup.Instance.DsJoinUserDiscordText;
+                    string Text = SettingsGroup.Instance.DsJoinUser.DiscordText;
                     Text = OnUserJoinReplace(Text, arg);
 
                     foreach (var channels in arg.Guild.Channels)
                     {
-                        foreach (var item in SettingsGroup.Instance.DsJoinUserChannel)
+                        foreach (var item in SettingsGroup.Instance.DsJoinUser.Channel)
                         {
                             if (Convert.ToUInt64(item) == channels.Id)
                             {
@@ -302,17 +302,17 @@ namespace AntonBot
                         }
                     }
                 }
-                if (SettingsGroup.Instance.DsJoinUserKonsole)
+                if (SettingsGroup.Instance.DsJoinUser.Konsole)
                 {
-                    string Text = SettingsGroup.Instance.DsJoinUserKonsoleText;
+                    string Text = SettingsGroup.Instance.DsJoinUser.KonsoleText;
 
                     Text = OnUserJoinReplace(Text, arg);
 
                     KonsolenAusgabe(Text);
                 }
-                if (SettingsGroup.Instance.DsJoinUserTwitch)
+                if (SettingsGroup.Instance.DsJoinUser.Twitch)
                 {
-                    string Text = SettingsGroup.Instance.DsJoinUserTwitchText;
+                    string Text = SettingsGroup.Instance.DsJoinUser.TwitchText;
                     Text = OnUserJoinReplace(Text, arg);
 
                     SendOtherChannel(Text, "Twitch");

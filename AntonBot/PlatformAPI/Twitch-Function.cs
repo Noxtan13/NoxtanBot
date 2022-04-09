@@ -667,7 +667,7 @@ namespace AntonBot
             SettingsGroup.Instance.TsOnline = true;
             SettingsGroup.Instance.Save();
             //Raid-Message auslesen und setzen
-            sRaidMessage = SettingsGroup.Instance.TeOnRaidGoChatText;
+            sRaidMessage = SettingsGroup.Instance.TeOnRaidGo.ChatText;
             //UserListe wird einmal gespeichert, wenn der Stream online kommt
             SaveJoinedUserList(lJoinedUsers);
         }
@@ -1182,11 +1182,11 @@ namespace AntonBot
                     {
                         Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeSO.Boardcast == true && SettingsGroup.Instance.TeSO.Boardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeSO.Broadcast == true && SettingsGroup.Instance.TeSO.Broadcast == chatMessage.IsBroadcaster)
                     {
                         Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeSO.Admin == false && SettingsGroup.Instance.TeSO.Boardcast == false)
+                    else if (SettingsGroup.Instance.TeSO.Admin == false && SettingsGroup.Instance.TeSO.Broadcast == false)
                     {
                         Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
@@ -1200,11 +1200,11 @@ namespace AntonBot
                     {
                         setStreamTitle(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateTitle.Boardcast == true && SettingsGroup.Instance.TeUpdateTitle.Boardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeUpdateTitle.Broadcast == true && SettingsGroup.Instance.TeUpdateTitle.Broadcast == chatMessage.IsBroadcaster)
                     {
                         setStreamTitle(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateTitle.Admin == false && SettingsGroup.Instance.TeUpdateTitle.Boardcast == false)
+                    else if (SettingsGroup.Instance.TeUpdateTitle.Admin == false && SettingsGroup.Instance.TeUpdateTitle.Broadcast == false)
                     {
                         setStreamTitle(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
@@ -1218,11 +1218,11 @@ namespace AntonBot
                     {
                         setRaidMessage(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeGoRaid.Boardcast == true && SettingsGroup.Instance.TeGoRaid.Boardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeGoRaid.Broadcast == true && SettingsGroup.Instance.TeGoRaid.Broadcast == chatMessage.IsBroadcaster)
                     {
                         setRaidMessage(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeGoRaid.Admin == false && SettingsGroup.Instance.TeGoRaid.Boardcast == false)
+                    else if (SettingsGroup.Instance.TeGoRaid.Admin == false && SettingsGroup.Instance.TeGoRaid.Broadcast == false)
                     {
                         setRaidMessage(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
@@ -1236,11 +1236,11 @@ namespace AntonBot
                     {
                         setStreamGame(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateGame.Boardcast == true && SettingsGroup.Instance.TeUpdateGame.Boardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeUpdateGame.Broadcast == true && SettingsGroup.Instance.TeUpdateGame.Broadcast == chatMessage.IsBroadcaster)
                     {
                         setStreamGame(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
-                    else if (SettingsGroup.Instance.TeUpdateGame.Admin == false && SettingsGroup.Instance.TeUpdateGame.Boardcast == false)
+                    else if (SettingsGroup.Instance.TeUpdateGame.Admin == false && SettingsGroup.Instance.TeUpdateGame.Broadcast == false)
                     {
                         setStreamGame(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
                     }
@@ -1255,11 +1255,11 @@ namespace AntonBot
                     {
                         ClipCreate();
                     }
-                    else if (SettingsGroup.Instance.TeClipCreate.Boardcast == true && SettingsGroup.Instance.TeClipCreate.Boardcast == chatMessage.IsBroadcaster)
+                    else if (SettingsGroup.Instance.TeClipCreate.Broadcast == true && SettingsGroup.Instance.TeClipCreate.Broadcast == chatMessage.IsBroadcaster)
                     {
                         ClipCreate();
                     }
-                    else if (SettingsGroup.Instance.TeClipCreate.Admin == false && SettingsGroup.Instance.TeClipCreate.Boardcast == false)
+                    else if (SettingsGroup.Instance.TeClipCreate.Admin == false && SettingsGroup.Instance.TeClipCreate.Broadcast == false)
                     {
                         ClipCreate();
                     }

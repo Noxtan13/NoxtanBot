@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI.SettingsTypen
 {
-    class TwitchEvent
+    class DiscordEvent
     {
         public String Name;
         public bool Use;
-        public bool Chat;
-        public String ChatText;
+        public bool Twitch;
+        public String TwitchText;
         public bool Discord;
         public String DiscordText;
         public StringCollection Channel;
         public bool Konsole;
         public String KonsoleText;
 
-        public TwitchEvent(string name) {
+        public DiscordEvent(string name) {
             Name = name;
             Use = false;
-            Chat = false;
-            ChatText = "";
+            Twitch = false;
+            TwitchText = "";
             Discord = false;
             DiscordText = "";
             Channel = new StringCollection();
@@ -31,15 +31,15 @@ namespace AntonBot.PlatformAPI.SettingsTypen
             KonsoleText = "";
         }
 
-        public void UpdateCommand(TwitchEvent load)
+        public void UpdateCommand(DiscordEvent load)
         {
             if (load != null)
             {
                 Use = load.Use;
-                Chat = load.Chat;
+                Twitch = load.Twitch;
                 Discord = load.Discord;
                 Konsole = load.Konsole;
-                if (load.ChatText != null) { ChatText = load.ChatText; }
+                if (load.TwitchText != null) { TwitchText = load.TwitchText; }
                 if (load.DiscordText != null) { DiscordText = load.DiscordText; }
                 if (load.KonsoleText != null) { KonsoleText = load.KonsoleText; }
                 if (load.Channel != null) { Channel = load.Channel; }

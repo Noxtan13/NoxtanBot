@@ -30,34 +30,16 @@ namespace AntonBot.PlatformAPI.ListenTypen
         }
 
         public void UpdateCommand(TwitchAdminBefehl load) {
-            Admin = load.Admin;
-            Broadcast = load.Broadcast;
-            VIP = load.VIP;
-            if (load.ChatText != null) { ChatText = load.ChatText; }
-            if (load.Command != null) { Command = load.Command; }
-            if (load.FailText != null) { FailText = load.FailText; }
-            Use = load.Use;
-        }
-
-        public void UebernahmeWerte(bool use, bool admin, bool boardcast, bool vip, string chatText, string command, string failText) {
-            Use = use;
-            Admin = admin;
-            Broadcast = boardcast;
-            VIP = vip;
-            if (command != null)
+            if (load != null)
             {
-                Command = command;
+                Admin = load.Admin;
+                Broadcast = load.Broadcast;
+                VIP = load.VIP;
+                if (load.ChatText != null) { ChatText = load.ChatText; }
+                if (load.Command != null) { Command = load.Command; }
+                if (load.FailText != null) { FailText = load.FailText; }
+                Use = load.Use;
             }
-
-            if (chatText != null)
-            {
-                ChatText = chatText;
-            }
-
-            if (failText != null)
-            {
-                FailText = failText;
-            }         
         }
     }
 }

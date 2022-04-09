@@ -318,6 +318,7 @@
     <Compile Include="PlatformAPI\OtherChannel.cs" />
     <Compile Include="PlatformAPI\ListenTypen\RandomBefehl.cs" />
     <Compile Include="PlatformAPI\SettingsGroup.cs" />
+    <Compile Include="PlatformAPI\SettingsTypen\DiscordEvent.cs" />
     <Compile Include="PlatformAPI\SettingsTypen\TwitchEvent.cs" />
     <Compile Include="PlatformAPI\Telegramm-Function.cs" />
     <Compile Include="PlatformAPI\Twitch-Function.cs" />

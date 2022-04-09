@@ -387,10 +387,10 @@ namespace AntonBot.Fenster
                 switch (LstEvents.SelectedIndex)
                 {
                     case 0:
-                        Fenster.Channels = SettingsGroup.Instance.DsJoinUserChannel;
+                        Fenster.Channels = SettingsGroup.Instance.DsJoinUser.Channel;
                         break;
                     case 1:
-                        Fenster.Channels = SettingsGroup.Instance.DsLeftUserChannel;
+                        Fenster.Channels = SettingsGroup.Instance.DsLeftUser.Channel;
                         break;
                 }
 
@@ -401,10 +401,10 @@ namespace AntonBot.Fenster
                     switch (LstEvents.SelectedIndex)
                     {
                         case 0:
-                            SettingsGroup.Instance.DsJoinUserChannel = Fenster.Channels;
+                            SettingsGroup.Instance.DsJoinUser.Channel = Fenster.Channels;
                             break;
                         case 1:
-                            SettingsGroup.Instance.DsLeftUserChannel = Fenster.Channels;
+                            SettingsGroup.Instance.DsLeftUser.Channel = Fenster.Channels;
                             break;
                     }
                     SettingsGroup.Instance.Save();
@@ -446,22 +446,22 @@ namespace AntonBot.Fenster
             switch (LstEvents.SelectedIndex)
             {
                 case 0:
-                    chkUse.Checked = SettingsGroup.Instance.DsJoinUser;
-                    chkTextReaction.Checked = SettingsGroup.Instance.DsJoinUserTwitch;
-                    txtChatReaktion.Text = SettingsGroup.Instance.DsJoinUserTwitchText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.DsJoinUserDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.DsJoinUserDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsJoinUserKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.DsJoinUserKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.DsJoinUser.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.DsJoinUser.Twitch;
+                    txtChatReaktion.Text = SettingsGroup.Instance.DsJoinUser.TwitchText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.DsJoinUser.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.DsJoinUser.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsJoinUser.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.DsJoinUser.KonsoleText;
                     break;
                 case 1:
-                    chkUse.Checked = SettingsGroup.Instance.DsLeftUser;
-                    chkTextReaction.Checked = SettingsGroup.Instance.DsLeftUserTwitch;
-                    txtChatReaktion.Text = SettingsGroup.Instance.DsLeftUserTwitchText;
-                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.DsLeftUserDiscord;
-                    txtDiscordChat.Text = SettingsGroup.Instance.DsLeftUserDiscordText;
-                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsLeftUserKonsole;
-                    txtKonsolenFenster.Text = SettingsGroup.Instance.DsLeftUserKonsoleText;
+                    chkUse.Checked = SettingsGroup.Instance.DsLeftUser.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.DsLeftUser.Twitch;
+                    txtChatReaktion.Text = SettingsGroup.Instance.DsLeftUser.TwitchText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.DsLeftUser.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.DsLeftUser.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsLeftUser.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.DsLeftUser.KonsoleText;
                     break;
                 
             }
@@ -538,28 +538,28 @@ namespace AntonBot.Fenster
                 switch (LstEvents.SelectedIndex)
                 {
                     case 0:
-                        SettingsGroup.Instance.DsJoinUser = chkUse.Checked;
-                        SettingsGroup.Instance.DsJoinUserTwitch = chkTextReaction.Checked;
-                        SettingsGroup.Instance.DsJoinUserTwitchText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.DsJoinUserDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.DsJoinUserDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.DsJoinUserKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.DsJoinUserKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.DsJoinUserChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.DsJoinUser.Use = chkUse.Checked;
+                        SettingsGroup.Instance.DsJoinUser.Twitch = chkTextReaction.Checked;
+                        SettingsGroup.Instance.DsJoinUser.TwitchText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.DsJoinUser.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.DsJoinUser.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.DsJoinUser.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.DsJoinUser.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.DsJoinUser.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }
                         else { Validierung = true; }
                         break;
                     case 1:
-                        SettingsGroup.Instance.DsLeftUser = chkUse.Checked;
-                        SettingsGroup.Instance.DsLeftUserTwitch = chkTextReaction.Checked;
-                        SettingsGroup.Instance.DsLeftUserTwitchText = txtChatReaktion.Text;
-                        SettingsGroup.Instance.DsLeftUserDiscord = chkDiscordAusgabe.Checked;
-                        SettingsGroup.Instance.DsLeftUserDiscordText = txtDiscordChat.Text;
-                        SettingsGroup.Instance.DsLeftUserKonsole = chkKonsoleAusgabe.Checked;
-                        SettingsGroup.Instance.DsLeftUserKonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.DsLeftUserChannel.Count == 0 && chkDiscordAusgabe.Checked)
+                        SettingsGroup.Instance.DsLeftUser.Use = chkUse.Checked;
+                        SettingsGroup.Instance.DsLeftUser.Twitch = chkTextReaction.Checked;
+                        SettingsGroup.Instance.DsLeftUser.TwitchText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.DsLeftUser.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.DsLeftUser.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.DsLeftUser.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.DsLeftUser.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.DsLeftUser.Channel.Count == 0 && chkDiscordAusgabe.Checked)
                         {
                             Validierung = false;
                         }

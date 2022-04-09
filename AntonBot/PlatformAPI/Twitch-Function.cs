@@ -1381,14 +1381,48 @@ namespace AntonBot
                     }
                 }
             }
+
+            OnRewardCommand(e.RewardRedeemed.Redemption.Reward.Title, e.RewardRedeemed.Redemption.User.DisplayName, e.RewardRedeemed.Redemption.UserInput);
+            //var test = e.RewardRedeemed.Redemption.UserInput; //Input ist Null, wenn der Reward keinen Text vorgibt
         }
-        private string OnRewardReplace(string Text, TwitchLib.PubSub.Events.OnRewardRedeemedArgs e)
-        {
-            Text = Text.Replace("°Name", e.DisplayName);
-            Text = Text.Replace("°Message", e.Message);
-            Text = Text.Replace("°Reward-Title", e.RewardTitle);
-            Text = Text.Replace("°Reward-Cost", e.RewardCost.ToString());
-            return Text;
+        private void OnRewardCommand(String RewardTitle, String User, String Input) {
+            if (SettingsGroup.Instance.TeClipCreate.Reward.Equals(RewardTitle)) {
+                ClipCreate();
+            }
+            if (SettingsGroup.Instance.TeGoRaid.Reward.Equals(RewardTitle))
+            {
+                setRaidMessage(Input, User);
+            }
+            if (SettingsGroup.Instance.TeSO.Reward.Equals(RewardTitle))
+            {
+                Shoutout(Input, User);
+            }
+            if (SettingsGroup.Instance.TeUpdateGame.Reward.Equals(RewardTitle))
+            {
+                setStreamTitle(Input, User);
+            }
+            if (SettingsGroup.Instance.TeUpdateTitle.Reward.Equals(RewardTitle))
+            {
+                setStreamGame(Input, User);
+            }
+            if (SettingsGroup.Instance.SkillClear.Reward.Equals(RewardTitle))
+            {
+            }
+            if (SettingsGroup.Instance.SkillList.Reward.Equals(RewardTitle))
+            {
+            }
+            if (SettingsGroup.Instance.SkillMain.Reward.Equals(RewardTitle))
+            {
+            }
+            if (SettingsGroup.Instance.SkillStatus.Reward.Equals(RewardTitle))
+            {
+            }
+            if (SettingsGroup.Instance.SkillSub.Reward.Equals(RewardTitle))
+            {
+            }
+            if (SettingsGroup.Instance.SkillUpdate.Reward.Equals(RewardTitle))
+            {
+            }
         }
         private string OnRewardReplace(string Text, TwitchLib.PubSub.Events.OnChannelPointsRewardRedeemedArgs e)
         {
@@ -2425,7 +2459,7 @@ namespace AntonBot
 
             return test.Id.ToString();
         }
-        public TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] WriteRewards() {
+        public TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] GetRewards() {
 
             var test = TwitchAPI.Helix.ChannelPoints.GetCustomRewardAsync(sChannelID, null, false, SettingsGroup.Instance.TsAccessTokenPubSub);
             if (test.Result.Data != null)

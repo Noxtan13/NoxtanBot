@@ -35,7 +35,10 @@ namespace AntonBot.Fenster
         //3 = DiscordText
         bool bÄnderung;
         bool bÄnderungAusIndex;
+        bool bÄnderungAdmin;
         int iAltIndex;
+
+        TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] Rewards;
 
 
         List<BitElement> BitListe = new List<BitElement>();
@@ -101,16 +104,16 @@ namespace AntonBot.Fenster
             {
                 try
                 {
-                    string InhaltJSON = "";
-                    InhaltJSON += JsonConvert.SerializeObject(Twitch.WriteRewards(), Formatting.Indented);
-                    string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "Rewards.json";
-
-                    File.WriteAllText(Pfad, InhaltJSON);
+                    Rewards = Twitch.GetRewards();
                 }
                 catch (Exception Fehler)
                 {
                     MessageBox.Show("Rewards konnten nicht abgerufen und gespeichert werden:" + Environment.NewLine + Fehler.Message, "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Rewards = new TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[0];
                 }
+            }
+            foreach (var i in Rewards) {
+                cmbAdminRewards.Items.Add(i.Title);
             }
         }
 
@@ -118,7 +121,7 @@ namespace AntonBot.Fenster
         {
             if (bAccessTokenChange)
             {
-                if (chk_PubSubToken.Checked && txtTokenPubSub.Text.Equals(""))
+                if (chk_PubSubToken.Checked && SettingsGroup.Instance.TsAccessTokenPubSub.Equals(""))
                 {
                     //PupSub-Token wird deaktiviert, wenn das Feld leer ist.
                     chk_PubSubToken.Checked = false;
@@ -2101,6 +2104,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.TeUpdateTitle.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.TeUpdateTitle.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.TeUpdateTitle.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.TeUpdateTitle.Reward;
 
                     cmbAdminVariable.Items.Add("AltTitel");
                     cmbAdminVariable.Items.Add("NeuTitel");
@@ -2115,6 +2119,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.TeUpdateGame.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.TeUpdateGame.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.TeUpdateGame.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.TeUpdateGame.Reward;
 
                     cmbAdminVariable.Items.Add("AltGame");
                     cmbAdminVariable.Items.Add("NeuGame");
@@ -2128,6 +2133,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.TeGoRaid.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.TeGoRaid.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.TeGoRaid.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.TeGoRaid.Reward;
 
                     cmbAdminVariable.Items.Add("NeuText");
                     cmbAdminVariable.Items.Add("User");
@@ -2140,6 +2146,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.TeSO.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.TeSO.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.TeSO.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.TeSO.Reward;
 
                     cmbAdminVariable.Items.Add("TargetName");
                     cmbAdminVariable.Items.Add("TargetFollowers");
@@ -2155,6 +2162,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.TeClipCreate.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.TeClipCreate.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.TeClipCreate.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.TeClipCreate.Reward;
                     break;
                 case "Skill - Mainquest":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillMain.Use;
@@ -2164,6 +2172,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.SkillMain.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillMain.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillMain.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.SkillMain.Reward;
                     break;
                 case "Skill - Subquest":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillSub.Use;
@@ -2173,6 +2182,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.SkillSub.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillSub.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillSub.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.SkillSub.Reward;
                     break;
                 case "Skill - Clear":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillClear.Use;
@@ -2182,6 +2192,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.SkillClear.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillClear.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillClear.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.SkillClear.Reward;
                     break;
                 case "Skill - Status":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillStatus.Use;
@@ -2191,6 +2202,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.SkillStatus.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillStatus.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillStatus.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.SkillStatus.Reward;
                     break;
                 case "Skill - Update":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillUpdate.Use;
@@ -2200,6 +2212,7 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.SkillUpdate.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillUpdate.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillUpdate.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.SkillUpdate.Reward;
                     break;
                 case "Skill - List":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillList.Use;
@@ -2209,10 +2222,12 @@ namespace AntonBot.Fenster
                     chkForAdmin.Checked = SettingsGroup.Instance.SkillList.Admin;
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillList.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillList.VIP;
+                    cmbAdminRewards.Text = SettingsGroup.Instance.SkillList.Reward;
                     break;
 
             }
             grpAdmin.Enabled = chkAdminUse.Checked;
+            AdminÄnderungChange(false);
         }
 
         private void btnAdminSpeichern_Click(object sender, EventArgs e)
@@ -2231,6 +2246,7 @@ namespace AntonBot.Fenster
                             SettingsGroup.Instance.TeUpdateTitle.Admin = chkForAdmin.Checked;
                             SettingsGroup.Instance.TeUpdateTitle.Broadcast = chkBroadcaster.Checked;
                             SettingsGroup.Instance.TeUpdateTitle.VIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeUpdateTitle.Reward = cmbAdminRewards.Text;
                         }
                         else
                         {
@@ -2247,6 +2263,7 @@ namespace AntonBot.Fenster
                             SettingsGroup.Instance.TeUpdateGame.Admin = chkForAdmin.Checked;
                             SettingsGroup.Instance.TeUpdateGame.Broadcast = chkBroadcaster.Checked;
                             SettingsGroup.Instance.TeUpdateGame.VIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeUpdateGame.Reward = cmbAdminRewards.Text;
                         }
                         else
                         {
@@ -2263,6 +2280,7 @@ namespace AntonBot.Fenster
                             SettingsGroup.Instance.TeGoRaid.Admin = chkForAdmin.Checked;
                             SettingsGroup.Instance.TeGoRaid.Broadcast = chkBroadcaster.Checked;
                             SettingsGroup.Instance.TeGoRaid.VIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeUpdateGame.Reward = cmbAdminRewards.Text;
                         }
                         else
                         {
@@ -2277,6 +2295,7 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.TeSO.Admin = chkForAdmin.Checked;
                         SettingsGroup.Instance.TeSO.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.TeSO.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.TeSO.Reward = cmbAdminRewards.Text;
                         break;
                     case "CreateClip":
                         if (SettingsGroup.Instance.Tsclips_edit)
@@ -2288,6 +2307,7 @@ namespace AntonBot.Fenster
                             SettingsGroup.Instance.TeClipCreate.Admin = chkForAdmin.Checked;
                             SettingsGroup.Instance.TeClipCreate.Broadcast = chkBroadcaster.Checked;
                             SettingsGroup.Instance.TeClipCreate.VIP = chkVIP.Checked;
+                            SettingsGroup.Instance.TeClipCreate.Reward = cmbAdminRewards.Text;
                         }
                         else
                         {
@@ -2305,6 +2325,7 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillMain.Admin= chkForAdmin.Checked;
                         SettingsGroup.Instance.SkillMain.Broadcast= chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillMain.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.SkillMain.Reward = cmbAdminRewards.Text;
                         break;
                     case "Skill - Subquest":
                         if (!SettingsGroup.Instance.SkillUse)
@@ -2318,6 +2339,7 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillSub.Admin = chkForAdmin.Checked;
                         SettingsGroup.Instance.SkillSub.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillSub.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.SkillSub.Reward = cmbAdminRewards.Text;
                         break;
                     case "Skill - Clear":
                         if (!SettingsGroup.Instance.SkillUse)
@@ -2331,6 +2353,7 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillClear.Admin = chkForAdmin.Checked;
                         SettingsGroup.Instance.SkillClear.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillClear.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.SkillClear.Reward = cmbAdminRewards.Text;
                         break;
                     case "Skill - Status":
                         if (!SettingsGroup.Instance.SkillUse)
@@ -2344,6 +2367,7 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillStatus.Admin = chkForAdmin.Checked;
                         SettingsGroup.Instance.SkillStatus.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillStatus.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.SkillStatus.Reward = cmbAdminRewards.Text;
                         break;
                     case "Skill - Update":
                         if (!SettingsGroup.Instance.SkillUse)
@@ -2357,6 +2381,7 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillUpdate.Admin = chkForAdmin.Checked;
                         SettingsGroup.Instance.SkillUpdate.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillUpdate.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.SkillUpdate.Reward = cmbAdminRewards.Text;
                         break;
                     case "Skill - List":
                         if (!SettingsGroup.Instance.SkillUse)
@@ -2370,9 +2395,11 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillList.Admin = chkForAdmin.Checked;
                         SettingsGroup.Instance.SkillList.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillList.VIP = chkVIP.Checked;
+                        SettingsGroup.Instance.SkillList.Reward = cmbAdminRewards.Text;
                         break;
                 }
                 SettingsGroup.Instance.Save();
+                AdminÄnderungChange(false);
                 grpAdmin.Enabled = false;
             }
             else
@@ -2393,6 +2420,55 @@ namespace AntonBot.Fenster
         {
             grpAdmin.Enabled = chkAdminUse.Checked;
         }
+
+        private void AdminÄnderungChange(bool nWert)
+        {
+            bÄnderungAdmin = nWert;
+            if (bÄnderungAdmin)
+            {
+                btnAdminSpeichern.BackColor = Color.Tomato;
+            }
+            else
+            {
+                btnAdminSpeichern.BackColor = Color.LightGreen;
+            }
+        }
+
+        private void txtAdminKommando_TextChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
+        private void txtAdminChat_TextChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
+        private void txtAdminFalsch_TextChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
+        private void chkForAdmin_CheckedChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
+        private void chkVIP_CheckedChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
+        private void chkBroadcaster_CheckedChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
+        private void cmbAdminRewards_TextChanged(object sender, EventArgs e)
+        {
+            AdminÄnderungChange(true);
+        }
+
         #endregion
 
 
@@ -2403,7 +2479,7 @@ namespace AntonBot.Fenster
         Quest SelectedQuest;
         bool MainQuest = true; //true Mainquest. false Sidequest;
         string GamePattern = "^([\\w\\d\\s]+) - (\\d+)";
-        int QuestIndex=0;
+        int QuestIndex = 0;
         int GameIndex = 0;
         bool SkillÄnderung;
         bool SkillGameChange = true;

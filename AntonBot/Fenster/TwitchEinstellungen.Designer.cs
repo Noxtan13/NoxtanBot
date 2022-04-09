@@ -108,10 +108,9 @@
             this.tabTwitchAdmin = new System.Windows.Forms.TabPage();
             this.cmbAdmin = new System.Windows.Forms.ComboBox();
             this.grpAdmin = new System.Windows.Forms.GroupBox();
+            this.cmbAdminRewards = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.chkVIP = new System.Windows.Forms.CheckBox();
-            this.btnAdminSpeichern = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtAdminFalsch = new System.Windows.Forms.TextBox();
@@ -123,6 +122,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtAdminKommando = new System.Windows.Forms.TextBox();
             this.chkAdminUse = new System.Windows.Forms.CheckBox();
+            this.btnAdminSpeichern = new System.Windows.Forms.Button();
             this.tabSkill = new System.Windows.Forms.TabPage();
             this.grpSkillGame = new System.Windows.Forms.GroupBox();
             this.lblTillEXP = new System.Windows.Forms.Label();
@@ -1099,8 +1099,8 @@
             // 
             // grpAdmin
             // 
+            this.grpAdmin.Controls.Add(this.cmbAdminRewards);
             this.grpAdmin.Controls.Add(this.label16);
-            this.grpAdmin.Controls.Add(this.textBox1);
             this.grpAdmin.Controls.Add(this.chkVIP);
             this.grpAdmin.Controls.Add(this.label9);
             this.grpAdmin.Controls.Add(this.label8);
@@ -1119,6 +1119,15 @@
             this.grpAdmin.TabIndex = 47;
             this.grpAdmin.TabStop = false;
             // 
+            // cmbAdminRewards
+            // 
+            this.cmbAdminRewards.FormattingEnabled = true;
+            this.cmbAdminRewards.Location = new System.Drawing.Point(197, 580);
+            this.cmbAdminRewards.Name = "cmbAdminRewards";
+            this.cmbAdminRewards.Size = new System.Drawing.Size(311, 38);
+            this.cmbAdminRewards.TabIndex = 62;
+            this.cmbAdminRewards.TextChanged += new System.EventHandler(this.cmbAdminRewards_TextChanged);
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -1127,13 +1136,6 @@
             this.label16.Size = new System.Drawing.Size(185, 30);
             this.label16.TabIndex = 61;
             this.label16.Text = "Befehl bei Reward";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(197, 580);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(300, 35);
-            this.textBox1.TabIndex = 60;
             // 
             // chkVIP
             // 
@@ -1144,16 +1146,7 @@
             this.chkVIP.TabIndex = 59;
             this.chkVIP.Text = "Für VIPs";
             this.chkVIP.UseVisualStyleBackColor = true;
-            // 
-            // btnAdminSpeichern
-            // 
-            this.btnAdminSpeichern.Location = new System.Drawing.Point(603, 4);
-            this.btnAdminSpeichern.Name = "btnAdminSpeichern";
-            this.btnAdminSpeichern.Size = new System.Drawing.Size(182, 38);
-            this.btnAdminSpeichern.TabIndex = 58;
-            this.btnAdminSpeichern.Text = "Befehl-Speichern";
-            this.btnAdminSpeichern.UseVisualStyleBackColor = true;
-            this.btnAdminSpeichern.Click += new System.EventHandler(this.btnAdminSpeichern_Click);
+            this.chkVIP.CheckedChanged += new System.EventHandler(this.chkVIP_CheckedChanged);
             // 
             // label9
             // 
@@ -1181,6 +1174,7 @@
             this.txtAdminFalsch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtAdminFalsch.Size = new System.Drawing.Size(771, 139);
             this.txtAdminFalsch.TabIndex = 55;
+            this.txtAdminFalsch.TextChanged += new System.EventHandler(this.txtAdminFalsch_TextChanged);
             // 
             // btnAdminVariable
             // 
@@ -1211,6 +1205,7 @@
             this.chkBroadcaster.TabIndex = 52;
             this.chkBroadcaster.Text = "Für Streamer";
             this.chkBroadcaster.UseVisualStyleBackColor = true;
+            this.chkBroadcaster.CheckedChanged += new System.EventHandler(this.chkBroadcaster_CheckedChanged);
             // 
             // chkForAdmin
             // 
@@ -1221,6 +1216,7 @@
             this.chkForAdmin.TabIndex = 51;
             this.chkForAdmin.Text = "Für Mods";
             this.chkForAdmin.UseVisualStyleBackColor = true;
+            this.chkForAdmin.CheckedChanged += new System.EventHandler(this.chkForAdmin_CheckedChanged);
             // 
             // txtAdminChat
             // 
@@ -1230,6 +1226,7 @@
             this.txtAdminChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtAdminChat.Size = new System.Drawing.Size(771, 220);
             this.txtAdminChat.TabIndex = 50;
+            this.txtAdminChat.TextChanged += new System.EventHandler(this.txtAdminChat_TextChanged);
             // 
             // label2
             // 
@@ -1246,6 +1243,7 @@
             this.txtAdminKommando.Name = "txtAdminKommando";
             this.txtAdminKommando.Size = new System.Drawing.Size(356, 35);
             this.txtAdminKommando.TabIndex = 48;
+            this.txtAdminKommando.TextChanged += new System.EventHandler(this.txtAdminKommando_TextChanged);
             // 
             // chkAdminUse
             // 
@@ -1257,6 +1255,16 @@
             this.chkAdminUse.Text = "Befehl verwenden";
             this.chkAdminUse.UseVisualStyleBackColor = true;
             this.chkAdminUse.CheckedChanged += new System.EventHandler(this.chkAdminUse_CheckedChanged);
+            // 
+            // btnAdminSpeichern
+            // 
+            this.btnAdminSpeichern.Location = new System.Drawing.Point(603, 4);
+            this.btnAdminSpeichern.Name = "btnAdminSpeichern";
+            this.btnAdminSpeichern.Size = new System.Drawing.Size(182, 38);
+            this.btnAdminSpeichern.TabIndex = 58;
+            this.btnAdminSpeichern.Text = "Befehl-Speichern";
+            this.btnAdminSpeichern.UseVisualStyleBackColor = true;
+            this.btnAdminSpeichern.Click += new System.EventHandler(this.btnAdminSpeichern_Click);
             // 
             // tabSkill
             // 
@@ -1762,8 +1770,8 @@
         private System.Windows.Forms.GroupBox grpSkill;
         private System.Windows.Forms.Label lblTillEXP;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox chkVIP;
         private System.Windows.Forms.ComboBox cmbAdmin;
+        private System.Windows.Forms.ComboBox cmbAdminRewards;
     }
 }

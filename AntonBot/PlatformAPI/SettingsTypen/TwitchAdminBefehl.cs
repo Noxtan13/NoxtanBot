@@ -16,6 +16,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public String Command;
         public String ChatText;
         public String FailText;
+        public String Reward;
         
 
         public TwitchAdminBefehl(string name) {
@@ -26,6 +27,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
             ChatText = "";
             Command = "";
             FailText = "";
+            Reward = "";
             Use = false;
         }
 
@@ -38,6 +40,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
                 if (load.ChatText != null) { ChatText = load.ChatText; }
                 if (load.Command != null) { Command = load.Command; }
                 if (load.FailText != null) { FailText = load.FailText; }
+                if (load.Reward != null) { Reward = load.Reward; }
                 Use = load.Use;
             }
         }

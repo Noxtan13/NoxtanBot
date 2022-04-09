@@ -383,12 +383,12 @@ namespace AntonBot.PlatformAPI
 
             SkillUse = load.SkillUse;
 
-            if (load.SkillMain != null) { SkillMain = load.SkillMain; }
-            if (load.SkillSub != null) { SkillMain = load.SkillSub; }
-            if (load.SkillClear != null) { SkillMain = load.SkillClear; }
-            if (load.SkillList != null) { SkillMain = load.SkillList; }
-            if (load.SkillUpdate != null) { SkillMain = load.SkillUpdate; }
-            if (load.SkillStatus != null) { SkillMain = load.SkillStatus; }
+            SkillMain.UpdateCommand(load.SkillMain);
+            SkillSub.UpdateCommand(load.SkillSub);
+            SkillClear.UpdateCommand(load.SkillClear);
+            SkillList.UpdateCommand(load.SkillList);
+            SkillUpdate.UpdateCommand(load.SkillUpdate);
+            SkillStatus.UpdateCommand(load.SkillStatus);
 
             Save(DefaultSavePath);
         }

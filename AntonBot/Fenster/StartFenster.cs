@@ -216,7 +216,7 @@ namespace AntonBot
 
             if (Discord.IsOtherChannel())
             {
-                PlatformAPI.OtherChannel otherChannel = Discord.getSendOtherChannel();
+                OtherChannel otherChannel = Discord.getSendOtherChannel();
                 if (otherChannel.getNextPlattform().Equals("Twitch") && Twitch.getActive())
                 {
                     Twitch.SendMessage(otherChannel.getMessage(),SettingsGroup.Instance.TsStandardChannel);
@@ -368,7 +368,9 @@ namespace AntonBot
 
         private void twitchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             TwitchEinstellungen twitchEinstellungen = new TwitchEinstellungen();
+            twitchEinstellungen.SetTwitch(Twitch);
             twitchEinstellungen.Show();
         }
 
@@ -507,7 +509,7 @@ namespace AntonBot
 
         private void youTubeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Twitch.test();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)

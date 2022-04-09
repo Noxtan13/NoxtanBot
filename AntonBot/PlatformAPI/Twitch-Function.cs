@@ -1585,10 +1585,8 @@ namespace AntonBot
             return Tokentest.Result;
         }
 
-        public static List<String> TestTokensStatic(String Token)
-        {
-            TwitchAPI twitchAPIStatic = new TwitchAPI();
-            var Tokentest = System.Threading.Tasks.Task.Run(() => twitchAPIStatic.Auth.ValidateAccessTokenAsync(Token));
+        public List<String> TestToken(String Token) {
+            var Tokentest = System.Threading.Tasks.Task.Run(() => TwitchAPI.Auth.ValidateAccessTokenAsync(Token));
             List<String> Ergebnis = new List<string>();
 
             if (Tokentest.Result != null)
@@ -1598,7 +1596,6 @@ namespace AntonBot
             }
 
             return Ergebnis;
-
         }
 
         public void TestAllCurrentTokens()
@@ -2428,16 +2425,33 @@ namespace AntonBot
 
             return test.Id.ToString();
         }
+        public TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] WriteRewards() {
+
+            var test = TwitchAPI.Helix.ChannelPoints.GetCustomRewardAsync(sChannelID, null, false, SettingsGroup.Instance.TsAccessTokenPubSub);
+            if (test.Result.Data != null)
+            {
+                return test.Result.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public async void test()
         {
-            TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest request = new TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest();
+            //TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest request = new TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest();
 
-            var gamedata = TwitchAPI.Helix.Games.GetGamesAsync(gameNames: new List<String> { "Portal" });
+            //var gamedata = TwitchAPI.Helix.Games.GetGamesAsync(gameNames: new List<String> { "Portal" });
 
-            request.GameId = gamedata.Result.Games[0].Id;
+            //request.GameId = gamedata.Result.Games[0].Id;
 
-            await TwitchAPI.Helix.Channels.ModifyChannelInformationAsync(sChannelID, request, SettingsGroup.Instance.TsAccessTokenPubSub);
+            //await TwitchAPI.Helix.Channels.ModifyChannelInformationAsync(sChannelID, request, SettingsGroup.Instance.TsAccessTokenPubSub);
+
+            var test = TwitchAPI.Helix.ChannelPoints.GetCustomRewardAsync(sChannelID,null,false, SettingsGroup.Instance.TsAccessTokenPubSub);
+
+            KonsolenAusgabe(test.Result.Data.ToString());
+            var Data = test.Result.Data;
         }
     }
 }

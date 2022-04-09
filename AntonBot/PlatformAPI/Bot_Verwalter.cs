@@ -612,7 +612,7 @@ public void Speichern() {
         public bool IsOtherChannel() {
             return OtherChannel.isSendOtherChannel();
         }
-        public PlatformAPI.OtherChannel getSendOtherChannel() {
+        public OtherChannel getSendOtherChannel() {
             return OtherChannel;
         }
         public void OtherChannelDone()

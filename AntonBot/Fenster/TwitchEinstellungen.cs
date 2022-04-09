@@ -1,5 +1,6 @@
 ﻿using AntonBot.PlatformAPI;
 using AntonBot.PlatformAPI.ListenTypen;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,6 +16,8 @@ namespace AntonBot.Fenster
 {
     public partial class TwitchEinstellungen : Form
     {
+        TwitchFunction Twitch;
+
         string sClientID;
 
 
@@ -41,7 +44,9 @@ namespace AntonBot.Fenster
         String ListPatternEinzel = "#(\\d*)\\s*(\\d*)";
         int BitsID = 0;
 
-
+        internal void SetTwitch(TwitchFunction function) {
+            Twitch = function;
+        }
         public TwitchEinstellungen()
         {
             InitializeComponent();
@@ -90,6 +95,23 @@ namespace AntonBot.Fenster
             //Änderung des Index, damit der erste Wert auch eingelesen wird (onStreamOnline) und nicht manuell geklickt werden muss
             LstEvents.SelectedIndex = 1;
             LstEvents.SelectedIndex = 0;
+
+            //Beim Aufruf werden alle Reward geholt und gespeichert
+            if (Twitch.getActive())
+            {
+                try
+                {
+                    string InhaltJSON = "";
+                    InhaltJSON += JsonConvert.SerializeObject(Twitch.WriteRewards(), Formatting.Indented);
+                    string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "Rewards.json";
+
+                    File.WriteAllText(Pfad, InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Rewards konnten nicht abgerufen und gespeichert werden:" + Environment.NewLine + Fehler.Message, "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void TwitchEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -445,7 +467,7 @@ namespace AntonBot.Fenster
         private void btnTokenCheck_Click(object sender, EventArgs e)
         {
             //Token werden hier geprüft und Ergebnis als MessageBox angezeigt (Die Scopes die nicht passen, werden Rot eingefärbt)
-            List<String> ErgebnisToken = TwitchFunction.TestTokensStatic(SettingsGroup.Instance.TsAccessToken);
+            List<String> ErgebnisToken = Twitch.TestToken(SettingsGroup.Instance.TsAccessToken);
 
             String Ausgabe = "Tokens wurden überprüft..." + Environment.NewLine + Environment.NewLine;
             //ist die Länge 0, dann ist der Token nicht gültig gewesen
@@ -586,7 +608,7 @@ namespace AntonBot.Fenster
                 if (SettingsGroup.Instance.TsPubSubZusatz)
                 {
                     Ausgabe += Environment.NewLine + "Der PupSub-Token wird zusätzlich verwendet und überprüft..." + Environment.NewLine + Environment.NewLine;
-                    List<String> ErgebnisTokenPupSub = TwitchFunction.TestTokensStatic(SettingsGroup.Instance.TsAccessTokenPubSub);
+                    List<String> ErgebnisTokenPupSub = Twitch.TestToken(SettingsGroup.Instance.TsAccessTokenPubSub);
 
                     if (ErgebnisTokenPupSub.Count > 0)
                     {
@@ -2356,7 +2378,7 @@ namespace AntonBot.Fenster
             else
             {
                 MessageBox.Show("Der Bot besitzt nicht die Standard-Berechtigungen für 'chat_read' und 'chat_edit'. Ein Einstellen ist nicht möglich", "Fehlende Berechtigung", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                
             }
         }
 

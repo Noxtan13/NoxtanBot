@@ -2144,14 +2144,49 @@ namespace AntonBot.Fenster
                     chkVIP.Checked = SettingsGroup.Instance.SkillMain.VIP;
                     break;
                 case "Skill - Subquest":
+                    chkAdminUse.Checked = SettingsGroup.Instance.SkillSub.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.SkillSub.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.SkillSub.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.SkillSub.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.SkillSub.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.SkillSub.Broadcast;
+                    chkVIP.Checked = SettingsGroup.Instance.SkillSub.VIP;
                     break;
                 case "Skill - Clear":
+                    chkAdminUse.Checked = SettingsGroup.Instance.SkillClear.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.SkillClear.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.SkillClear.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.SkillClear.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.SkillClear.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.SkillClear.Broadcast;
+                    chkVIP.Checked = SettingsGroup.Instance.SkillClear.VIP;
                     break;
                 case "Skill - Status":
+                    chkAdminUse.Checked = SettingsGroup.Instance.SkillStatus.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.SkillStatus.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.SkillStatus.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.SkillStatus.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.SkillStatus.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.SkillStatus.Broadcast;
+                    chkVIP.Checked = SettingsGroup.Instance.SkillStatus.VIP;
                     break;
                 case "Skill - Update":
+                    chkAdminUse.Checked = SettingsGroup.Instance.SkillUpdate.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.SkillUpdate.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.SkillUpdate.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.SkillUpdate.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.SkillUpdate.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.SkillUpdate.Broadcast;
+                    chkVIP.Checked = SettingsGroup.Instance.SkillUpdate.VIP;
                     break;
                 case "Skill - List":
+                    chkAdminUse.Checked = SettingsGroup.Instance.SkillList.Use;
+                    txtAdminKommando.Text = SettingsGroup.Instance.SkillList.Command;
+                    txtAdminChat.Text = SettingsGroup.Instance.SkillList.ChatText;
+                    txtAdminFalsch.Text = SettingsGroup.Instance.SkillList.FailText;
+                    chkForAdmin.Checked = SettingsGroup.Instance.SkillList.Admin;
+                    chkBroadcaster.Checked = SettingsGroup.Instance.SkillList.Broadcast;
+                    chkVIP.Checked = SettingsGroup.Instance.SkillList.VIP;
                     break;
 
             }
@@ -2238,6 +2273,9 @@ namespace AntonBot.Fenster
                         }
                         break;
                     case "Skill - Mainquest":
+                        if (!SettingsGroup.Instance.SkillUse) {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet","Nicht verwendete Funktion",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                        }
                         SettingsGroup.Instance.SkillMain.Use = chkAdminUse.Checked;
                         SettingsGroup.Instance.SkillMain.Command= txtAdminKommando.Text;
                         SettingsGroup.Instance.SkillMain.ChatText= txtAdminChat.Text;
@@ -2247,14 +2285,69 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.SkillMain.VIP = chkVIP.Checked;
                         break;
                     case "Skill - Subquest":
+                        if (!SettingsGroup.Instance.SkillUse)
+                        {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet", "Nicht verwendete Funktion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        SettingsGroup.Instance.SkillSub.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.SkillSub.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillSub.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillSub.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillSub.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillSub.Broadcast = chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillSub.VIP = chkVIP.Checked;
                         break;
                     case "Skill - Clear":
+                        if (!SettingsGroup.Instance.SkillUse)
+                        {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet", "Nicht verwendete Funktion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        SettingsGroup.Instance.SkillClear.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.SkillClear.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillClear.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillClear.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillClear.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillClear.Broadcast = chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillClear.VIP = chkVIP.Checked;
                         break;
                     case "Skill - Status":
+                        if (!SettingsGroup.Instance.SkillUse)
+                        {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet", "Nicht verwendete Funktion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        SettingsGroup.Instance.SkillStatus.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.SkillStatus.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillStatus.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillStatus.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillStatus.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillStatus.Broadcast = chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillStatus.VIP = chkVIP.Checked;
                         break;
                     case "Skill - Update":
+                        if (!SettingsGroup.Instance.SkillUse)
+                        {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet", "Nicht verwendete Funktion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        SettingsGroup.Instance.SkillUpdate.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.SkillUpdate.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillUpdate.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillUpdate.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillUpdate.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillUpdate.Broadcast = chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillUpdate.VIP = chkVIP.Checked;
                         break;
                     case "Skill - List":
+                        if (!SettingsGroup.Instance.SkillUse)
+                        {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet", "Nicht verwendete Funktion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        SettingsGroup.Instance.SkillList.Use = chkAdminUse.Checked;
+                        SettingsGroup.Instance.SkillList.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillList.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillList.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillList.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillList.Broadcast = chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillList.VIP = chkVIP.Checked;
                         break;
                 }
                 SettingsGroup.Instance.Save();

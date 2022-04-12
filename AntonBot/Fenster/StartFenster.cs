@@ -109,7 +109,7 @@ namespace AntonBot
 
             if (Twitch.GetClientStatus())
             {
-                TwitchStatusStrip.Text = "Twitch: Connected - Online:" + SettingsGroup.Instance.TsOnline.ToString();
+                TwitchStatusStrip.Text = "Twitch: Connected - Online:" + SettingsGroup.Instance.TsOnline.ToString() + " - Spiel: " + Twitch.getCurrentGame();
                 TwitchStop.Enabled = true;
                 TwitchStart.Enabled = false;
 

@@ -9,12 +9,12 @@ namespace AntonBot.PlatformAPI.ListenTypen
     class GameSkill
     {
         public string Game;
-        public int GameID; //wird nur vom Programm gesetzt. Evtl. auch einfach nicht verwenden
+        public string GameID; //wird nur vom Programm gesetzt. Evtl. auch einfach nicht verwenden
         public int Level;
-        public int EXP;
-        public int EXPNextLevel;
+        public decimal EXP;
+        public decimal EXPNextLevel;
         public int Wachstumsart; //evlt auch einfach aus PKMN übernehmen https://www.pokewiki.de/Erfahrung
-        public int EXPTillNextLevel;
+        public decimal EXPTillNextLevel;
 
         public List<Quest> MainQuest;
         public List<Quest> SideQeust;
@@ -23,7 +23,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         //Liste Hauptquest (mit zusatzfeld zum abspeichern, ob erl. oder nicht + ID)
         public GameSkill(string game) {
             Game = game;
-            GameID = 0;
+            GameID = "0";
             Level = 1;
             EXP = 0;
             EXPNextLevel = 1;
@@ -33,19 +33,19 @@ namespace AntonBot.PlatformAPI.ListenTypen
             MainQuest.Add(new Quest("Tutorial", 1, true, false, false, "0"));
             SideQeust = new List<Quest>();
         }
-        public void Nextlevel() {
+        private void Nextlevel() {
             Level += 1;
             SetEXP();
             Checklevel();
         }
-        public void Checklevel() {
+        private void Checklevel() {
             if (EXP >= EXPNextLevel) {
                 Nextlevel();
             }
         }
 
-        public void SetEXP() {
-            int altEXP = EXPNextLevel;
+        private void SetEXP() {
+            decimal altEXP = EXPNextLevel;
             switch (Wachstumsart)
             {
                 case 1:
@@ -68,13 +68,13 @@ namespace AntonBot.PlatformAPI.ListenTypen
             EXPTillNextLevel = EXPNextLevel - altEXP - (EXP-altEXP);          
         }
 
-        public void GetEXP(int amount) {
+        public void GetEXP(decimal amount) {
             EXP += amount;
             EXPTillNextLevel -= amount;
             Checklevel();
         }
 
-        public void UpdateLevelEXP() {;
+        public void UpdateLevelEXP() {
             if (EXP == 0)
             {
                 Level = Level - 1;

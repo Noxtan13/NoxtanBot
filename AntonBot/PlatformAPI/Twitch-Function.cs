@@ -1,4 +1,5 @@
 ﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.ListenTypen;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -50,6 +51,9 @@ namespace AntonBot
 
         TwitchLib.Api.Helix.Models.Clips.GetClips.Clip[] Lastclips;
         String sRaidMessage = "Noch kein Stream gestartet";
+
+        GameSkill CurrentGame;
+        int Gameindex = -1;
 
         public void StartBot()
         {
@@ -617,6 +621,8 @@ namespace AntonBot
             StreamData = e.Stream;
             SettingsGroup.Instance.TsOnline = false;
             SettingsGroup.Instance.Save();
+
+            SaveQuest();
         }
         private void Monitor_OnStreamOnline(object sender, TwitchLib.Api.Services.Events.LiveStreamMonitor.OnStreamOnlineArgs e)
         {
@@ -670,6 +676,34 @@ namespace AntonBot
             sRaidMessage = SettingsGroup.Instance.TeOnRaidGo.ChatText;
             //UserListe wird einmal gespeichert, wenn der Stream online kommt
             SaveJoinedUserList(lJoinedUsers);
+
+            if (SettingsGroup.Instance.SkillUse) {
+                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+                String InhaltJSON;
+
+                if (System.IO.File.Exists(Path))
+                {
+                    //FileStream stream = File.OpenRead(Path);
+                    InhaltJSON = System.IO.File.ReadAllText(Path);
+                    List<GameSkill> SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
+                    foreach (var item in SkillList)
+                    {
+                        if (item.GameID.Equals(e.Stream.GameName))
+                        {
+                            Gameindex = SkillList.IndexOf(item);
+                            CurrentGame = item;
+                        }
+                        else if (item.Game.Equals(e.Stream.GameId))
+                        {
+                            KonsolenAusgabe("Game gefunden mit dem Namen. ID wird gesetzt");
+
+                            Gameindex = SkillList.IndexOf(item);
+                            CurrentGame = item;
+                            CurrentGame.GameID = e.Stream.GameId;
+                        }
+                    }
+                }
+            }
         }
 
         private void Follower_OnNewFollowersDetected(object sender, TwitchLib.Api.Services.Events.FollowerService.OnNewFollowersDetectedArgs e)
@@ -1265,6 +1299,148 @@ namespace AntonBot
                     }
                 }
             }
+
+            if (SettingsGroup.Instance.SkillUse)
+            {
+                if (SettingsGroup.Instance.SkillClear.Use)
+                {
+                    if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.SkillClear.Command.ToLower())
+                    {
+                        KonsolenAusgabe("QuestClear wird nun ausgeführt.");
+                        if (SettingsGroup.Instance.SkillClear.Admin == true && SettingsGroup.Instance.SkillClear.Admin == chatMessage.IsModerator)
+                        {
+                            ClearQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                        else if (SettingsGroup.Instance.SkillClear.Broadcast == true && SettingsGroup.Instance.SkillClear.Broadcast == chatMessage.IsBroadcaster)
+                        {
+                            ClearQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                        else if (SettingsGroup.Instance.SkillClear.VIP == true && SettingsGroup.Instance.SkillClear.VIP == chatMessage.IsVip)
+                        {
+                            ClearQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                        else if (SettingsGroup.Instance.SkillClear.Admin == false && SettingsGroup.Instance.SkillClear.Broadcast == false && SettingsGroup.Instance.SkillClear.VIP == false)
+                        {
+                            ClearQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                    }
+                }
+                if (SettingsGroup.Instance.SkillMain.Use)
+                {
+                    if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.SkillMain.Command.ToLower())
+                    {
+                        KonsolenAusgabe("AddMain wird nun ausgeführt.");
+                        if (SettingsGroup.Instance.SkillMain.Admin == true && SettingsGroup.Instance.SkillMain.Admin == chatMessage.IsModerator)
+                        {
+                            AddMainQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillMain.Broadcast == true && SettingsGroup.Instance.SkillMain.Broadcast == chatMessage.IsBroadcaster)
+                        {
+                            AddMainQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillMain.VIP == true && SettingsGroup.Instance.SkillMain.VIP == chatMessage.IsVip)
+                        {
+                            AddMainQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillMain.Admin == false && SettingsGroup.Instance.SkillMain.Broadcast == false && SettingsGroup.Instance.SkillMain.VIP == false)
+                        {
+                            AddMainQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                    }
+                }
+                if (SettingsGroup.Instance.SkillSub.Use)
+                {
+                    if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.SkillSub.Command.ToLower())
+                    {
+                        KonsolenAusgabe("AddSideQuest wird nun ausgeführt.");
+                        if (SettingsGroup.Instance.SkillSub.Admin == true && SettingsGroup.Instance.SkillSub.Admin == chatMessage.IsModerator)
+                        {
+                            AddSubQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillSub.Broadcast == true && SettingsGroup.Instance.SkillSub.Broadcast == chatMessage.IsBroadcaster)
+                        {
+                            AddSubQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillSub.VIP == true && SettingsGroup.Instance.SkillSub.VIP == chatMessage.IsVip)
+                        {
+                            AddSubQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillSub.Admin == false && SettingsGroup.Instance.SkillSub.Broadcast == false && SettingsGroup.Instance.SkillSub.VIP == false)
+                        {
+                            AddSubQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                    }
+                }
+                if (SettingsGroup.Instance.SkillUpdate.Use)
+                {
+                    if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.SkillUpdate.Command.ToLower())
+                    {
+                        KonsolenAusgabe("SkillUpdate wird nun ausgeführt.");
+                        if (SettingsGroup.Instance.SkillUpdate.Admin == true && SettingsGroup.Instance.SkillUpdate.Admin == chatMessage.IsModerator)
+                        {
+                            UpdateQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillUpdate.Broadcast == true && SettingsGroup.Instance.SkillUpdate.Broadcast == chatMessage.IsBroadcaster)
+                        {
+                            UpdateQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillUpdate.VIP == true && SettingsGroup.Instance.SkillUpdate.VIP == chatMessage.IsVip)
+                        {
+                            UpdateQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                        else if (SettingsGroup.Instance.SkillUpdate.Admin == false && SettingsGroup.Instance.SkillUpdate.Broadcast == false && SettingsGroup.Instance.SkillUpdate.VIP == false)
+                        {
+                            UpdateQuest(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        }
+                    }
+                }
+                if (SettingsGroup.Instance.SkillStatus.Use)
+                {
+                    if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.SkillStatus.Command.ToLower())
+                    {
+                        KonsolenAusgabe("SkillClear wird nun ausgeführt.");
+                        if (SettingsGroup.Instance.SkillStatus.Admin == true && SettingsGroup.Instance.SkillStatus.Admin == chatMessage.IsModerator)
+                        {
+                            StatusQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                        else if (SettingsGroup.Instance.SkillStatus.Broadcast == true && SettingsGroup.Instance.SkillStatus.Broadcast == chatMessage.IsBroadcaster)
+                        {
+                            StatusQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                        else if (SettingsGroup.Instance.SkillStatus.VIP == true && SettingsGroup.Instance.SkillStatus.VIP == chatMessage.IsVip)
+                        {
+                            StatusQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                        else if (SettingsGroup.Instance.SkillStatus.Admin == false && SettingsGroup.Instance.SkillStatus.Broadcast == false && SettingsGroup.Instance.SkillStatus.VIP == false)
+                        {
+                            StatusQuest(getOptionalerTeil(chatMessage.Message));
+                        }
+                    }
+                }
+                if (SettingsGroup.Instance.SkillList.Use)
+                {
+                    if (Befehlteil == SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.SkillList.Command.ToLower())
+                    {
+                        KonsolenAusgabe("SkillList wird nun ausgeführt.");
+                        if (SettingsGroup.Instance.SkillList.Admin == true && SettingsGroup.Instance.SkillList.Admin == chatMessage.IsModerator)
+                        {
+                            ListQuest();
+                        }
+                        else if (SettingsGroup.Instance.SkillList.Broadcast == true && SettingsGroup.Instance.SkillList.Broadcast == chatMessage.IsBroadcaster)
+                        {
+                            ListQuest();
+                        }
+                        else if (SettingsGroup.Instance.SkillList.VIP == true && SettingsGroup.Instance.SkillList.VIP == chatMessage.IsVip)
+                        {
+                            ListQuest();
+                        }
+                        else if (SettingsGroup.Instance.SkillList.Admin == false && SettingsGroup.Instance.SkillList.Broadcast == false && SettingsGroup.Instance.SkillList.VIP == false)
+                        {
+                            ListQuest();
+                        }
+                    }
+                }
+            }
         }
 
         private String TwitchCheckBefehl(string BefehlTeil, string OptionalerTeil, string User)
@@ -1407,21 +1583,27 @@ namespace AntonBot
             }
             if (SettingsGroup.Instance.SkillClear.Reward.Equals(RewardTitle))
             {
+                ClearQuest(Input);
             }
             if (SettingsGroup.Instance.SkillList.Reward.Equals(RewardTitle))
             {
+                ListQuest();
             }
             if (SettingsGroup.Instance.SkillMain.Reward.Equals(RewardTitle))
             {
+                AddMainQuest(Input, User);
             }
             if (SettingsGroup.Instance.SkillStatus.Reward.Equals(RewardTitle))
             {
+                StatusQuest(Input);
             }
             if (SettingsGroup.Instance.SkillSub.Reward.Equals(RewardTitle))
             {
+                AddSubQuest(Input, User);
             }
             if (SettingsGroup.Instance.SkillUpdate.Reward.Equals(RewardTitle))
             {
+                UpdateQuest(Input, User);
             }
         }
         private string OnRewardReplace(string Text, TwitchLib.PubSub.Events.OnChannelPointsRewardRedeemedArgs e)
@@ -2471,21 +2653,333 @@ namespace AntonBot
                 return null;
             }
         }
+        public String getCurrentGame() { 
+            if(CurrentGame!= null)
+            {
+                return CurrentGame.Game;
+            }
+            else
+            {
+                return "";
+            }
+        }
+        private void ClearQuest(String ID) {
+            bool QuestGefunden = false;
+            string Nachricht="";
+            if (ID.StartsWith("M")) {
+                foreach (var item in CurrentGame.MainQuest) {
+                    if (item.ID.Equals(ID)) {
+                        if (!item.Abschluss)
+                        {
+                            CurrentGame.GetEXP(item.AbschlussEXP);
+                            item.Abschluss = true;
+                            QuestGefunden = true;
+                            Nachricht = SettingsGroup.Instance.SkillClear.ChatText;
+                            item.AnzahlAbschluss = 1;
 
+                            Nachricht = Nachricht.Replace("°QuestID", item.ID);
+                            Nachricht = Nachricht.Replace("°QuestName", item.Name);
+                            Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
+                            Nachricht = Nachricht.Replace("°EXPGame", CurrentGame.EXP.ToString());
+                            Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
+                            Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
+                            Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+                        }
+                    }
+                }
+            }
+            else if (ID.StartsWith("S")) {
+                foreach (var item in CurrentGame.SideQeust)
+                {
+                    if (item.ID.Equals(ID))
+                    {
+                        CurrentGame.GetEXP(item.AbschlussEXP);
+                        if (!item.Repeat) {
+                            item.Abschluss = true;
+                        }
+                        QuestGefunden = true;
+                        Nachricht = SettingsGroup.Instance.SkillClear.ChatText;
+                        item.AnzahlAbschluss += 1;
+
+                        Nachricht = Nachricht.Replace("°QuestID", item.ID);
+                        Nachricht = Nachricht.Replace("°QuestName", item.Name);
+                        Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
+                        Nachricht = Nachricht.Replace("°EXPGame", CurrentGame.EXP.ToString());
+                        Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
+                        Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
+                        Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+                    }
+                }
+            }
+
+            if (!QuestGefunden)
+            {
+                Nachricht = SettingsGroup.Instance.SkillClear.FailText;
+                Nachricht = Nachricht.Replace("°QuestID", ID);
+                Nachricht = Nachricht.Replace("°EXPGame", CurrentGame.EXP.ToString());
+                Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
+                Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
+            }
+            SaveQuest();
+
+            SendMessage(Nachricht, sStandardChannel);
+        }
+        private void AddMainQuest(String Nachricht,String User) {
+            String pattern = "^([\\w\\säöü]+)\\s?-\\s?(\\d+)";
+            String Antwort = "";
+            var Inhalt= Regex.Match(Nachricht,pattern);
+
+            if (Inhalt.Success)
+            {
+                //Wenns in diesem Format ist
+                Quest newQuest = new Quest(Inhalt.Groups[1].Value, Convert.ToDecimal(Inhalt.Groups[2].Value), true, false, false, CurrentGame.MainQuest.Count.ToString());
+                CurrentGame.MainQuest.Add(newQuest);
+                Antwort = SettingsGroup.Instance.SkillMain.ChatText;
+                Antwort = Antwort.Replace("°NewQuest", Inhalt.Groups[1].Value);
+                Antwort = Antwort.Replace("°NewEXP", Inhalt.Groups[2].Value);
+                Antwort = Antwort.Replace("°User", User);
+                Antwort = Antwort.Replace("°Pattern", "<Description> - <EXP>");
+            }
+            else {
+                Antwort = SettingsGroup.Instance.SkillMain.FailText;
+                Antwort = Antwort.Replace("°NewQuest", "");
+                Antwort = Antwort.Replace("°NewEXP", "");
+                Antwort = Antwort.Replace("°User", User);
+                Antwort = Antwort.Replace("°Pattern", "<Description> - <EXP>");
+            }
+
+            SendMessage(Antwort, sStandardChannel);
+            SaveQuest();
+        }
+        private void AddSubQuest(String Nachricht, String User) {
+            String pattern = "^([\\w\\säöü]+)\\s?-\\s?(\\d+)";
+            String Antwort = "";
+            var Inhalt = Regex.Match(Nachricht, pattern);
+
+            if (Inhalt.Success)
+            {
+                //Wenns in diesem Format ist
+                Quest newQuest = new Quest(Inhalt.Groups[1].Value, Convert.ToDecimal(Inhalt.Groups[2].Value), false, false, false, CurrentGame.SideQeust.Count.ToString());
+                CurrentGame.SideQeust.Add(newQuest);
+                Antwort = SettingsGroup.Instance.SkillSub.ChatText;
+                Antwort = Antwort.Replace("°NewQuest", Inhalt.Groups[1].Value);
+                Antwort = Antwort.Replace("°NewEXP", Inhalt.Groups[2].Value);
+                Antwort = Antwort.Replace("°User", User);
+                Antwort = Antwort.Replace("°Pattern", "<Description> - <EXP>");
+            }
+            else
+            {
+                Antwort = SettingsGroup.Instance.SkillSub.FailText;
+                Antwort = Antwort.Replace("°NewQuest", "");
+                Antwort = Antwort.Replace("°NewEXP", "");
+                Antwort = Antwort.Replace("°User", User);
+                Antwort = Antwort.Replace("°Pattern", "<Description> - <EXP>");
+            }
+
+            SendMessage(Antwort, sStandardChannel);
+            SaveQuest();
+        }
+        private void UpdateQuest(String Nachricht, String User) {
+
+            String pattern = "^([SM]\\d+)\\s?-\\s?([\\w\\säöü]+)\\s?-\\s?([\\d]+)";
+            String Antwort = "";
+            var Inhalt = Regex.Match(Nachricht, pattern);
+            int QuestIndex = -1;
+            if (Inhalt.Success)
+            {
+                //Wenns in diesem Format ist
+                Quest newQuest=null;
+                String OldQuest = "";
+                String OldEXP = "";
+
+                if (Inhalt.Groups[1].Value.StartsWith("M"))
+                {
+                    foreach (var item in CurrentGame.MainQuest) {
+                        if (item.ID.Equals(Inhalt.Groups[1].Value)) {
+                            newQuest = new Quest(Inhalt.Groups[2].Value, Convert.ToDecimal(Inhalt.Groups[3].Value), true, item.Abschluss, item.Repeat, item.ID);
+                            QuestIndex = CurrentGame.MainQuest.IndexOf(item);
+                            OldQuest = item.Name;
+                            OldEXP = item.AbschlussEXP.ToString();
+                        }
+                    }
+
+                    if (QuestIndex != -1 && newQuest !=null) {
+                        CurrentGame.MainQuest.RemoveAt(QuestIndex);
+                        CurrentGame.MainQuest.Add(newQuest);
+                    }
+                }
+                else {
+                    foreach (var item in CurrentGame.SideQeust)
+                    {
+                        if (item.ID.Equals(Inhalt.Groups[1].Value))
+                        {
+                            newQuest = new Quest(Inhalt.Groups[2].Value, Convert.ToDecimal(Inhalt.Groups[3].Value), false, item.Abschluss, item.Repeat, item.ID);
+                            QuestIndex = CurrentGame.SideQeust.IndexOf(item);
+                            OldQuest = item.ID;
+                            OldEXP = item.AbschlussEXP.ToString();
+                        }
+                    }
+
+                    if (QuestIndex != -1 && newQuest != null)
+                    {
+                        CurrentGame.SideQeust.RemoveAt(QuestIndex);
+                        CurrentGame.SideQeust.Add(newQuest);
+                    }
+                }
+
+                Antwort = SettingsGroup.Instance.SkillUpdate.ChatText;
+                Antwort = Antwort.Replace("°NewQuest", Inhalt.Groups[1].Value);
+                Antwort = Antwort.Replace("°NewEXP", Inhalt.Groups[2].Value);
+                Antwort = Antwort.Replace("°OldQuest", OldQuest);
+                Antwort = Antwort.Replace("°OldEXP", OldEXP);
+                Antwort = Antwort.Replace("°User", User);
+                Antwort = Antwort.Replace("°Pattern", "<ID> - <Description> - <EXP>");
+            }
+            else
+            {
+                Antwort = SettingsGroup.Instance.SkillUpdate.FailText;
+                Antwort = Antwort.Replace("°NewQuest", "");
+                Antwort = Antwort.Replace("°NewEXP", "");
+                Antwort = Antwort.Replace("°OldQuest", "");
+                Antwort = Antwort.Replace("°OldEXP", "");
+                Antwort = Antwort.Replace("°User", User);
+                Antwort = Antwort.Replace("°Pattern", "<ID> - <Description> - <EXP>");
+            }
+
+            SendMessage(Antwort, sStandardChannel);
+            SaveQuest();
+        }
+        private void StatusQuest(String ID) {
+            //Genaue Infos einer Quest
+            bool QuestGefunden = false;
+            string Nachricht = "";
+            if (ID.StartsWith("M"))
+            {
+                foreach (var item in CurrentGame.MainQuest)
+                {
+                    if (item.ID.Equals(ID))
+                    {
+                        CurrentGame.GetEXP(item.AbschlussEXP);
+                        item.Abschluss = true;
+                        QuestGefunden = true;
+                        Nachricht = SettingsGroup.Instance.SkillStatus.ChatText;
+                        item.AnzahlAbschluss = 1;
+
+                        Nachricht = Nachricht.Replace("°QuestID", item.ID);
+                        Nachricht = Nachricht.Replace("°QuestName", item.Name);
+                        Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
+                        Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+                        Nachricht = Nachricht.Replace("°Pattern", "<ID>");
+                    }
+                }
+            }
+            else if (ID.StartsWith("S"))
+            {
+                foreach (var item in CurrentGame.SideQeust)
+                {
+                    if (item.ID.Equals(ID))
+                    {
+                        CurrentGame.GetEXP(item.AbschlussEXP);
+                        if (!item.Repeat)
+                        {
+                            item.Abschluss = true;
+                            QuestGefunden = true;
+                            Nachricht = SettingsGroup.Instance.SkillStatus.ChatText;
+                            item.AnzahlAbschluss += 1;
+
+                            Nachricht = Nachricht.Replace("°QuestID", item.ID);
+                            Nachricht = Nachricht.Replace("°QuestName", item.Name);
+                            Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
+                            Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+                            Nachricht = Nachricht.Replace("°Pattern", "<ID>");
+                        }
+                    }
+                }
+            }
+
+            if (!QuestGefunden)
+            {
+                Nachricht = SettingsGroup.Instance.SkillStatus.FailText;
+                Nachricht = Nachricht.Replace("°QuestID", ID);
+            }
+
+
+            SendMessage(Nachricht, sStandardChannel);
+        }
+        private void ListQuest() {
+            //Auflisten aller Quest
+            String MainQuestList="";
+            String SideQuestList="";
+
+            foreach (var item in CurrentGame.MainQuest) {
+                MainQuestList += item.ID + " - " + item.Name + " | ";
+            }
+            foreach (var item in CurrentGame.SideQeust)
+            {
+                SideQuestList += item.ID + " - " + item.Name + " | ";
+            }
+
+            String Nachricht = SettingsGroup.Instance.SkillList.ChatText;
+            Nachricht = Nachricht.Replace("°ListMain", MainQuestList);
+            Nachricht = Nachricht.Replace("°ListSide", SideQuestList);
+            Nachricht = Nachricht.Replace("°AnzahlMain", CurrentGame.MainQuest.Count.ToString());
+            Nachricht = Nachricht.Replace("°AnzahlSide", CurrentGame.SideQeust.Count.ToString());
+
+            SendMessage(Nachricht, sStandardChannel);
+        }
+        private void SaveQuest() {
+            if (SettingsGroup.Instance.SkillUse && Gameindex != -1)
+            {
+                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+                String InhaltJSON;
+
+                if (System.IO.File.Exists(Path))
+                {
+                    //FileStream stream = File.OpenRead(Path);
+                    InhaltJSON = System.IO.File.ReadAllText(Path);
+                    List<GameSkill> SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
+
+                    if (CurrentGame != null)
+                    {
+                        SkillList.RemoveAt(Gameindex);
+                        SkillList.Insert(Gameindex, CurrentGame);
+                    }
+                    InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
+                    System.IO.File.WriteAllText(Path, InhaltJSON);
+                }
+            }
+        }
         public async void test()
         {
-            //TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest request = new TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation.ModifyChannelInformationRequest();
+            if (SettingsGroup.Instance.SkillUse)
+            {
+                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+                String InhaltJSON;
 
-            //var gamedata = TwitchAPI.Helix.Games.GetGamesAsync(gameNames: new List<String> { "Portal" });
+                if (System.IO.File.Exists(Path))
+                {
+                    //FileStream stream = File.OpenRead(Path);
+                    InhaltJSON = System.IO.File.ReadAllText(Path);
+                    List<GameSkill> SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
+                    foreach (var item in SkillList)
+                    {
+                        if (item.GameID.Equals("Splatoon 2"))
+                        {
+                            Gameindex = SkillList.IndexOf(item);
+                            CurrentGame = item;
+                        }
+                        else if (item.Game.Equals("Splatoon 2"))
+                        {
+                            KonsolenAusgabe("Game gefunden mit dem Namen. ID wird gesetzt");
 
-            //request.GameId = gamedata.Result.Games[0].Id;
+                            Gameindex = SkillList.IndexOf(item);
+                            CurrentGame = item;
+                            CurrentGame.GameID = "0";
+                        }
+                    }
+                }
+            }
 
-            //await TwitchAPI.Helix.Channels.ModifyChannelInformationAsync(sChannelID, request, SettingsGroup.Instance.TsAccessTokenPubSub);
-
-            var test = TwitchAPI.Helix.ChannelPoints.GetCustomRewardAsync(sChannelID,null,false, SettingsGroup.Instance.TsAccessTokenPubSub);
-
-            KonsolenAusgabe(test.Result.Data.ToString());
-            var Data = test.Result.Data;
         }
     }
 }

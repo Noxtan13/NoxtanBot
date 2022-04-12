@@ -105,6 +105,10 @@ namespace AntonBot.Fenster
                 try
                 {
                     Rewards = Twitch.GetRewards();
+                    foreach (var i in Rewards)
+                    {
+                        cmbAdminRewards.Items.Add(i.Title);
+                    }
                 }
                 catch (Exception Fehler)
                 {
@@ -112,9 +116,7 @@ namespace AntonBot.Fenster
                     Rewards = new TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[0];
                 }
             }
-            foreach (var i in Rewards) {
-                cmbAdminRewards.Items.Add(i.Title);
-            }
+
         }
 
         private void TwitchEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -2095,6 +2097,7 @@ namespace AntonBot.Fenster
         private void lstAdmin_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbAdminVariable.Items.Clear();
+            cmbAdminVariable.Text = "";
             switch (cmbAdmin.SelectedItem) {
                 case "Update StreamTitle":
                     chkAdminUse.Checked = SettingsGroup.Instance.TeUpdateTitle.Use;
@@ -2173,6 +2176,12 @@ namespace AntonBot.Fenster
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillMain.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillMain.VIP;
                     cmbAdminRewards.Text = SettingsGroup.Instance.SkillMain.Reward;
+
+
+                    cmbAdminVariable.Items.Add("NewQuest");
+                    cmbAdminVariable.Items.Add("NewEXP");
+                    cmbAdminVariable.Items.Add("User");
+                    cmbAdminVariable.Items.Add("Pattern");
                     break;
                 case "Skill - Subquest":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillSub.Use;
@@ -2183,6 +2192,11 @@ namespace AntonBot.Fenster
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillSub.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillSub.VIP;
                     cmbAdminRewards.Text = SettingsGroup.Instance.SkillSub.Reward;
+
+                    cmbAdminVariable.Items.Add("NewQuest");
+                    cmbAdminVariable.Items.Add("NewEXP");
+                    cmbAdminVariable.Items.Add("User");
+                    cmbAdminVariable.Items.Add("Pattern");
                     break;
                 case "Skill - Clear":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillClear.Use;
@@ -2193,6 +2207,15 @@ namespace AntonBot.Fenster
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillClear.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillClear.VIP;
                     cmbAdminRewards.Text = SettingsGroup.Instance.SkillClear.Reward;
+
+                    cmbAdminVariable.Items.Add("QuestID");
+                    cmbAdminVariable.Items.Add("QuestName");
+                    cmbAdminVariable.Items.Add("EXPQuest");
+                    cmbAdminVariable.Items.Add("EXPGame");
+                    cmbAdminVariable.Items.Add("NextLevel");
+                    cmbAdminVariable.Items.Add("Level");
+                    cmbAdminVariable.Items.Add("Anzahl");
+                    cmbAdminVariable.Items.Add("Pattern");
                     break;
                 case "Skill - Status":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillStatus.Use;
@@ -2203,6 +2226,12 @@ namespace AntonBot.Fenster
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillStatus.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillStatus.VIP;
                     cmbAdminRewards.Text = SettingsGroup.Instance.SkillStatus.Reward;
+
+                    cmbAdminVariable.Items.Add("QuestID");
+                    cmbAdminVariable.Items.Add("QuestName");
+                    cmbAdminVariable.Items.Add("EXPQuest");
+                    cmbAdminVariable.Items.Add("Anzahl");
+                    cmbAdminVariable.Items.Add("Pattern");
                     break;
                 case "Skill - Update":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillUpdate.Use;
@@ -2213,6 +2242,13 @@ namespace AntonBot.Fenster
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillUpdate.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillUpdate.VIP;
                     cmbAdminRewards.Text = SettingsGroup.Instance.SkillUpdate.Reward;
+
+                    cmbAdminVariable.Items.Add("NewQuest");
+                    cmbAdminVariable.Items.Add("NewEXP");
+                    cmbAdminVariable.Items.Add("OldQuest");
+                    cmbAdminVariable.Items.Add("OldEXP");
+                    cmbAdminVariable.Items.Add("User");
+                    cmbAdminVariable.Items.Add("Pattern");
                     break;
                 case "Skill - List":
                     chkAdminUse.Checked = SettingsGroup.Instance.SkillList.Use;
@@ -2223,6 +2259,11 @@ namespace AntonBot.Fenster
                     chkBroadcaster.Checked = SettingsGroup.Instance.SkillList.Broadcast;
                     chkVIP.Checked = SettingsGroup.Instance.SkillList.VIP;
                     cmbAdminRewards.Text = SettingsGroup.Instance.SkillList.Reward;
+
+                    cmbAdminVariable.Items.Add("ListMain");
+                    cmbAdminVariable.Items.Add("ListSide");
+                    cmbAdminVariable.Items.Add("AnzahlMain");
+                    cmbAdminVariable.Items.Add("AnzahlSide");
                     break;
 
             }
@@ -2525,8 +2566,8 @@ namespace AntonBot.Fenster
                 if (Schalter)
                 {
                     cbxGame.Items.Add(cbxGame.Text + " - " + "0");
-                    cbxGame.Text = "";
                     SelectedGame = new GameSkill(cbxGame.Text);
+
                     cbxGame.SelectedIndex = cbxGame.Items.Count - 1; //Das letze Element ist normalweise das, was gerade angelegt worden ist.
                     GameRefresh();
                     SkillÄnderungChange(true);
@@ -2550,6 +2591,11 @@ namespace AntonBot.Fenster
                 {
                     cbxLevelkurve.SelectedIndex = SelectedGame.Wachstumsart - 1;
                 }
+                else
+                {
+                    cbxLevelkurve.SelectedIndex = -1;
+                    cbxLevelkurve.Text = "";
+                }
 
                 NudLevel.Value = SelectedGame.Level;
                 NudEXP.Value = SelectedGame.EXP;
@@ -2565,6 +2611,7 @@ namespace AntonBot.Fenster
                 {
                     lstSQ.Items.Add(item.ID + " - " + item.Name);
                 }
+                grpSkillGame.Enabled = true;
             }
             
         }
@@ -2598,7 +2645,18 @@ namespace AntonBot.Fenster
             {
                 if (MessageBox.Show("Es sind nicht gespeicherte Änderungen vorhanden. Fortfahren?", "Achtung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
+                    int Index = -1;
                     SkillGameChange = true;
+                    foreach (var item in cbxGame.Items) { 
+                        if(item.Equals(SelectedGame.Game+" - 0"))
+                        {
+                            Index = cbxGame.Items.IndexOf(item);
+                        }
+                    }
+                    if (Index !=-1) {
+                        cbxGame.Items.RemoveAt(Index);
+                    }
+                                     
                 }
                 else
                 {
@@ -2614,8 +2672,33 @@ namespace AntonBot.Fenster
 
         private void btnDeleteGame_Click(object sender, EventArgs e)
         {
+            
+            
+
+            int Gameindex = -1;
+            foreach (var item in SkillList)
+            {
+                var Match = Regex.Match(cbxGame.Text, GamePattern);
+                if (item.Game.Equals(Match.Groups[1].Value))
+                {
+                    Gameindex = SkillList.IndexOf(item);
+                }
+            }
+            if (Gameindex != -1)
+            {
+                SkillList.RemoveAt(Gameindex);
+            }
             cbxGame.Items.Remove(cbxGame.SelectedItem);
-            SkillÄnderungChange(true);
+            cbxGame.Text = "";
+            GameIndex = 0;
+            SelectedGame = null;
+            grpSkillGame.Enabled = false;
+            SkillÄnderungChange(false);
+
+            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+            String InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
+
+            File.WriteAllText(Path, InhaltJSON);
         }
 
         private bool SkillValidierung() {

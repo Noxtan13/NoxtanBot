@@ -1189,6 +1189,7 @@
             // 
             // cmbAdminVariable
             // 
+            this.cmbAdminVariable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAdminVariable.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 15.75F, System.Drawing.FontStyle.Bold);
             this.cmbAdminVariable.FormattingEnabled = true;
             this.cmbAdminVariable.Location = new System.Drawing.Point(11, 316);

@@ -89,6 +89,35 @@ namespace AntonBot.PlatformAPI.ListenTypen
                 Checklevel();
             }
         }
+
+        public decimal getEXPlastLevel() {
+            decimal Ergebnis = 0;
+            int Altlevel = 1;
+            if (Level > 1) {
+                Altlevel = Level - 1;
+            }
+
+            switch (Wachstumsart)
+            {
+                case 1:
+                    //leicht
+                    Ergebnis = (4 * Convert.ToInt32(Math.Pow(Altlevel, 3))) / 5;
+                    break;
+                case 2:
+                    Ergebnis = Convert.ToInt32(Math.Pow(Altlevel, 3));
+                    //mittel
+                    break;
+                case 3:
+                    Ergebnis = 6 / 5 * Convert.ToInt32(Math.Pow(Altlevel, 3)) - 15 * Convert.ToInt32(Math.Pow(Altlevel, 2)) + 100 * Altlevel - 140;
+                    //schwer
+                    break;
+                case 4:
+                    //sehr schwer
+                    Ergebnis = (5 * Convert.ToInt32(Math.Pow(Altlevel, 3))) / 4;
+                    break;
+            }
+            return Ergebnis;
+        }
         //Aufbau von Befehlen (als Beispiel)
         /*
         !Mainquest <name> <Erfahrung>

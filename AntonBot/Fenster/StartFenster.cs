@@ -610,6 +610,15 @@ namespace AntonBot
             string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "BotStatus.php";
 
             File.WriteAllText(Pfad, PHPInhalt);
+
+            //Erzeugung des PHP-Files für den Ladebalken
+            str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.GameSkill.php");
+            rd = new StreamReader(str);
+            PHPInhalt = rd.ReadToEnd();
+
+            Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "GameSkill.php";
+
+            File.WriteAllText(Pfad, PHPInhalt);
         }
 
         private void testc(bool Aufruf) {
@@ -638,7 +647,7 @@ namespace AntonBot
         private void txtAusgabe_DoubleClick(object sender, EventArgs e)
         {
             SettingsGroup.Instance.Update();
-            //SavePHPFile();
+            SavePHPFile();
         }
 
         private void txtAusgabe_TextChanged(object sender, EventArgs e)

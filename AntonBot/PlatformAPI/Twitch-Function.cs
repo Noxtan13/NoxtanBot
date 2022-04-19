@@ -468,6 +468,10 @@ namespace AntonBot
                 }
             }
             StreamData = e.Stream;
+            if (SettingsGroup.Instance.SkillUse) {
+                SaveQuest();
+                GameLoad(e.Stream.GameId, e.Stream.GameName);
+            }
         }
         private Boolean OnStreamUpdateCheck(string Text, TwitchLib.Api.Helix.Models.Streams.GetStreams.Stream AltStreamData, TwitchLib.Api.Services.Events.LiveStreamMonitor.OnStreamUpdateArgs NeuStreamData)
         {
@@ -678,34 +682,9 @@ namespace AntonBot
             SaveJoinedUserList(lJoinedUsers);
 
             if (SettingsGroup.Instance.SkillUse) {
-                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
-                String InhaltJSON;
-
-                if (System.IO.File.Exists(Path))
-                {
-                    //FileStream stream = File.OpenRead(Path);
-                    InhaltJSON = System.IO.File.ReadAllText(Path);
-                    List<GameSkill> SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
-                    foreach (var item in SkillList)
-                    {
-                        if (item.GameID.Equals(e.Stream.GameName))
-                        {
-                            Gameindex = SkillList.IndexOf(item);
-                            CurrentGame = item;
-                        }
-                        else if (item.Game.Equals(e.Stream.GameId))
-                        {
-                            KonsolenAusgabe("Game gefunden mit dem Namen. ID wird gesetzt");
-
-                            Gameindex = SkillList.IndexOf(item);
-                            CurrentGame = item;
-                            CurrentGame.GameID = e.Stream.GameId;
-                        }
-                    }
-                }
+                GameLoad(e.Stream.GameId, e.Stream.GameName);
             }
         }
-
         private void Follower_OnNewFollowersDetected(object sender, TwitchLib.Api.Services.Events.FollowerService.OnNewFollowersDetectedArgs e)
         {
             if (e.Channel == sChannelID || e.Channel == sStandardChannel)
@@ -2663,6 +2642,8 @@ namespace AntonBot
                 return "";
             }
         }
+        private SkillAusgabe Ausgabe;
+
         private void ClearQuest(String ID) {
             bool QuestGefunden = false;
             string Nachricht="";
@@ -2671,6 +2652,8 @@ namespace AntonBot
                     if (item.ID.Equals(ID)) {
                         if (!item.Abschluss)
                         {
+                            Ausgabe = new SkillAusgabe();
+                            Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level,CurrentGame.getEXPlastLevel());
                             CurrentGame.GetEXP(item.AbschlussEXP);
                             item.Abschluss = true;
                             QuestGefunden = true;
@@ -2684,6 +2667,8 @@ namespace AntonBot
                             Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
                             Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                             Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+
+                            Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
                         }
                     }
                 }
@@ -2693,6 +2678,8 @@ namespace AntonBot
                 {
                     if (item.ID.Equals(ID))
                     {
+                        Ausgabe = new SkillAusgabe();
+                        Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
                         CurrentGame.GetEXP(item.AbschlussEXP);
                         if (!item.Repeat) {
                             item.Abschluss = true;
@@ -2708,6 +2695,7 @@ namespace AntonBot
                         Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
                         Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                         Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
                     }
                 }
             }
@@ -2912,11 +2900,17 @@ namespace AntonBot
             String SideQuestList="";
 
             foreach (var item in CurrentGame.MainQuest) {
-                MainQuestList += item.ID + " - " + item.Name + " | ";
+                if (!item.Abschluss)
+                {
+                    MainQuestList += item.ID + " - " + item.Name + " | ";
+                }
             }
             foreach (var item in CurrentGame.SideQeust)
             {
-                SideQuestList += item.ID + " - " + item.Name + " | ";
+                if (!item.Abschluss && !item.Repeat)
+                {
+                    SideQuestList += item.ID + " - " + item.Name + " | ";
+                }
             }
 
             String Nachricht = SettingsGroup.Instance.SkillList.ChatText;
@@ -2946,38 +2940,54 @@ namespace AntonBot
                     }
                     InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
                     System.IO.File.WriteAllText(Path, InhaltJSON);
+
+                    Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillAusgabe.json";
+                    InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(Ausgabe, Newtonsoft.Json.Formatting.Indented);
+                    System.IO.File.WriteAllText(Path, InhaltJSON);
                 }
             }
+        }
+        private void GameLoad(string GameId, string GameName)
+        {
+            String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+            String InhaltJSON;
+
+            if (System.IO.File.Exists(Path))
+            {
+                //FileStream stream = File.OpenRead(Path);
+                InhaltJSON = System.IO.File.ReadAllText(Path);
+                List<GameSkill> SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
+                foreach (var item in SkillList)
+                {
+                    if (item.GameID.Equals(GameId))
+                    {
+                        Gameindex = SkillList.IndexOf(item);
+                        CurrentGame = item;
+                        Ausgabe = new SkillAusgabe();
+                        Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                    }
+                    else if (item.Game.Equals(GameName))
+                    {
+                        KonsolenAusgabe("Game gefunden mit dem Namen. ID wird gesetzt");
+
+                        Gameindex = SkillList.IndexOf(item);
+                        CurrentGame = item;
+                        CurrentGame.GameID = GameId;
+
+                        Ausgabe = new SkillAusgabe();
+                        Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                    }
+                }
+            }
+            SaveQuest();
         }
         public async void test()
         {
             if (SettingsGroup.Instance.SkillUse)
             {
-                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
-                String InhaltJSON;
-
-                if (System.IO.File.Exists(Path))
-                {
-                    //FileStream stream = File.OpenRead(Path);
-                    InhaltJSON = System.IO.File.ReadAllText(Path);
-                    List<GameSkill> SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
-                    foreach (var item in SkillList)
-                    {
-                        if (item.GameID.Equals("Splatoon 2"))
-                        {
-                            Gameindex = SkillList.IndexOf(item);
-                            CurrentGame = item;
-                        }
-                        else if (item.Game.Equals("Splatoon 2"))
-                        {
-                            KonsolenAusgabe("Game gefunden mit dem Namen. ID wird gesetzt");
-
-                            Gameindex = SkillList.IndexOf(item);
-                            CurrentGame = item;
-                            CurrentGame.GameID = "0";
-                        }
-                    }
-                }
+                GameLoad("495064", "Splatoon 2");
             }
 
         }

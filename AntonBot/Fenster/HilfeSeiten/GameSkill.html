@@ -33,37 +33,45 @@
   width: 0;
 }
 
-.ExpText{
-	text-align:center;
-	width:510px;
-	z-index: 1;
-	position: absolute;
-	font-size: 20px;
-	padding-top:10px;
-	font-family: Verdana, sans-serif;
-	}
+        .ExpText {
+            text-align: center;
+            width: 510px;
+            z-index: 1;
+            position: absolute;
+            font-size: 20px;
+            padding-top: 10px;
+            font-family: Verdana, sans-serif;
+            animation: Textchange 4s normal forwards;
+        }
 .Box{
   height:50px;
-  width: 510px;;
+  width: 510px;
   align-items: center
   
 }
 @keyframes load {
-        0% { width: 0%; } 
+        0% { width: 0%;} 
         100% { width: 100%; }
         }
-		
-.text {
-        color: #000000;
-        font-size: 20px;
-        border-style: solid;
-        align-items: center;
-        padding: 5px;
-        z-index: 1;
-        display: flex;
-        height: auto;
-        width: 510px;
-		font-family: Verdana, sans-serif;
+
+        @keyframes Textchange {
+        0%{content:"";}
+        50%{content:"123";}
+        100%{content:"456";}
+        
+        }
+
+        .text {
+            color: #000000;
+            font-size: 20px;
+            border-style: solid;
+            align-items: center;
+            padding: 5px;
+            z-index: 1;
+            display: flex;
+            height: auto;
+            width: 510px;
+            font-family: Verdana, sans-serif;
         }
         
 

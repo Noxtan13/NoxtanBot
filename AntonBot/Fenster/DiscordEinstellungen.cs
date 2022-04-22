@@ -242,7 +242,7 @@ namespace AntonBot.Fenster
             ChkListText.Enabled = !chkAdmin.Checked;
             if (chkAdmin.Checked)
             {
-                long Summe = 0x0000000008;
+                //long Summe = 0x0000000008;
                 lblSumme.Text = "8";
             }
             else

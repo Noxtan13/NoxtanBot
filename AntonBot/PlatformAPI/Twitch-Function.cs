@@ -54,6 +54,7 @@ namespace AntonBot
 
         GameSkill CurrentGame;
         int Gameindex = -1;
+        private SkillAusgabe Ausgabe;
 
         public void StartBot()
         {
@@ -282,6 +283,7 @@ namespace AntonBot
                     FollowerlistAufbau();
                     getCurrentClips();
                     LoadUserJoinedList();
+                    setClearGame();
                     Active = true;
                     Restart = false;
 
@@ -626,7 +628,9 @@ namespace AntonBot
             SettingsGroup.Instance.TsOnline = false;
             SettingsGroup.Instance.Save();
 
+            setClearGame();
             SaveQuest();
+            
         }
         private void Monitor_OnStreamOnline(object sender, TwitchLib.Api.Services.Events.LiveStreamMonitor.OnStreamOnlineArgs e)
         {
@@ -2642,38 +2646,85 @@ namespace AntonBot
                 return "";
             }
         }
-        private SkillAusgabe Ausgabe;
+
+        
+        private String getCurrentQuest() {
+            foreach (var item in CurrentGame.MainQuest)
+            {
+                if (!item.Abschluss) {
+                    return item.Name;
+                }
+            }
+            return "No MainQuest";
+        }
 
         private void ClearQuest(String ID) {
             bool QuestGefunden = false;
             string Nachricht="";
-            if (ID.StartsWith("M")) {
-                foreach (var item in CurrentGame.MainQuest) {
-                    if (item.ID.Equals(ID)) {
-                        if (!item.Abschluss)
+            if (ID.StartsWith("M")||ID.StartsWith("m")) {
+                if (ID.Equals("M") || ID.Equals("m"))
+                {
+                    //Wenn keine ID genannt ist, dann soll die erste nicht abgeschlossene Mainquest erl. werden
+                    bool gefunden = false;
+                    foreach (var item in CurrentGame.MainQuest)
+                    {
+                        if (!gefunden)
                         {
-                            Ausgabe = new SkillAusgabe();
-                            Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level,CurrentGame.getEXPlastLevel());
-                            CurrentGame.GetEXP(item.AbschlussEXP);
-                            item.Abschluss = true;
-                            QuestGefunden = true;
-                            Nachricht = SettingsGroup.Instance.SkillClear.ChatText;
-                            item.AnzahlAbschluss = 1;
+                            if (!item.Abschluss)
+                            {
+                                gefunden = true;
+                                Ausgabe = new SkillAusgabe();
+                                Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                                CurrentGame.GetEXP(item.AbschlussEXP);
+                                item.Abschluss = true;
+                                QuestGefunden = true;
+                                Nachricht = SettingsGroup.Instance.SkillClear.ChatText;
+                                item.AnzahlAbschluss = 1;
 
-                            Nachricht = Nachricht.Replace("°QuestID", item.ID);
-                            Nachricht = Nachricht.Replace("°QuestName", item.Name);
-                            Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
-                            Nachricht = Nachricht.Replace("°EXPGame", CurrentGame.EXP.ToString());
-                            Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
-                            Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
-                            Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+                                Nachricht = Nachricht.Replace("°QuestID", item.ID);
+                                Nachricht = Nachricht.Replace("°QuestName", item.Name);
+                                Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
+                                Nachricht = Nachricht.Replace("°EXPGame", CurrentGame.EXP.ToString());
+                                Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
+                                Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
+                                Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
 
-                            Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in CurrentGame.MainQuest)
+                    {
+                        if (item.ID.Equals(ID))
+                        {
+                            if (!item.Abschluss)
+                            {
+                                Ausgabe = new SkillAusgabe();
+                                Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                                CurrentGame.GetEXP(item.AbschlussEXP);
+                                item.Abschluss = true;
+                                QuestGefunden = true;
+                                Nachricht = SettingsGroup.Instance.SkillClear.ChatText;
+                                item.AnzahlAbschluss = 1;
+
+                                Nachricht = Nachricht.Replace("°QuestID", item.ID);
+                                Nachricht = Nachricht.Replace("°QuestName", item.Name);
+                                Nachricht = Nachricht.Replace("°EXPQuest", item.AbschlussEXP.ToString());
+                                Nachricht = Nachricht.Replace("°EXPGame", CurrentGame.EXP.ToString());
+                                Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
+                                Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
+                                Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
+
+                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                            }
                         }
                     }
                 }
             }
-            else if (ID.StartsWith("S")) {
+            else if (ID.StartsWith("S")||ID.StartsWith("s")) {
                 foreach (var item in CurrentGame.SideQeust)
                 {
                     if (item.ID.Equals(ID))
@@ -2695,7 +2746,7 @@ namespace AntonBot
                         Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
                         Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                         Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
                     }
                 }
             }
@@ -2907,7 +2958,7 @@ namespace AntonBot
             }
             foreach (var item in CurrentGame.SideQeust)
             {
-                if (!item.Abschluss && !item.Repeat)
+                if (!item.Abschluss)
                 {
                     SideQuestList += item.ID + " - " + item.Name + " | ";
                 }
@@ -2947,6 +2998,10 @@ namespace AntonBot
                 }
             }
         }
+        public void setClearGame() {
+            Ausgabe = new SkillAusgabe();
+            Ausgabe.SetNullWerte();
+        }
         private void GameLoad(string GameId, string GameName)
         {
             String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
@@ -2965,7 +3020,7 @@ namespace AntonBot
                         CurrentGame = item;
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
                     }
                     else if (item.Game.Equals(GameName))
                     {
@@ -2977,13 +3032,13 @@ namespace AntonBot
 
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
                     }
                 }
             }
             SaveQuest();
         }
-        public async void test()
+        public void test()
         {
             if (SettingsGroup.Instance.SkillUse)
             {

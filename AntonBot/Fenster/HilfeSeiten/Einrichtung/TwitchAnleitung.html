@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitch-Anleitung</title>
+    <link rel="icon" href="PinguinServer.jpg" />
+    <link rel="stylesheet" href="../Style.css" />
+</head>
+<body>
+    <div class="MenuLeiste">
+        <ul>
+            <li><a href="/TwitchAnleitung.html">Einrichtung</a></li>
+            <li><a href="../Fenster/VariableHilfe.html">Fenster</a></li>
+            <li><a>Log-File</a></li>
+            <li><a>Online-Editor</a></li>
+            <li><a>Sonstige Seiten</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="UnterMenu">
+            <p><a>Eintrag 1</a></p>
+            <p><a>Eintrag 2</a></p>
+            <p><a>Eintrag 3</a></p>
+        </div>
+        <div class="Inhalt">
+            <details>
+                <summary>Bot bei Twitch Registrieren</summary>
+                1. Die Twitch Developer Console aufrufen unter https://dev.twitch.tv/console. <br />
+                2. Unter "Anwendungen" mit "Anwendung registrieren" einen Bot erstellen.<br />
+                3. Dazu einfach Name + Kategorie auswählen.<br />
+                4. Unter "OAuth Redirect URLs" werden die Links eingetragen, an denen Twitch die Antwort der Berechtigungen sendet.<br />
+                --> Damit das Programm des Bots selber die Berechtigungen abfragen kann, muss hier der Wert "https://127.0.0.1:|PortNr|<br />
+                --> Beim Start der TwitchEinstellungen wird eine freie Port-Nummer gefunden und angezeigt. Diese muss an der Stelle von |PortNr| kopiert werden<br />
+                --> Kann später aber noch angepasst werden.<br />
+                5. Wähle in der Kategorie "Chat Bot" aus.<br />
+                6. Mit "Erstellen" den Bot erstellen<br />
+            </details>
+            <details>
+                <summary>Twitch-Token für den Bot anfordern</summary>
+                Um Twitch-Token anzufragen, muss die OAuth Redirect URL angepasst werden.<br />
+                1. In der Twitch Develogper Console den Bot bearbeiten mit "Verwalten"<br />
+                2. Unter den OAuth Redirect URLs die Adresse https://127.0.0.1: eintragen.<br />
+                3. Nach dem Doppelpunkt wird der Port eingetragen, der im Twitch-Einstellungsfenster bei Port angezeigt wird <br />
+                --> Dieser Port mit jedem Aufruf des Fensters neu generiert und ist ein aktuell freier Prot am PC <br />
+                4. Drücke auf Speichern, damit die OAuth Redirect URL gespeichert wird. <br />
+                5. Kopiere aus der Twitch-Developer Konsole die Client-ID und füge diese in das Textfeld im Twitch-Einstellungsfenster ein <br />
+                6. Wähle die verfügbaren Berechtigungen aus, die der Bot braucht.<br />
+                --> Damit der Chat funktioniert sind die Berechtigungen "Chat_read" und "Chat_edit" mind. notwendig.<br />
+                7. Fordere mit dem Button "Berechtigungen anfordern" die Twitch-Berechtigungen für den Bot an<br />
+                8. Es öffnet sich im Browser die Twitch-Seite zum Bestätigen der angeforderten Berechtigungen <br />
+                9. Diese Bestätigen und wenn das Fenster angezeigt wird zum schliessen des Browsers, sind die Berechtigungen gespeichert <br />
+                10. Sobald die Twitch-Einstellungen geschlossen werden erscheint die Abfrage, ob die neuen Tokens übernommen werden sollen <br />
+                11. Damit die Tokens übernommen werden, muss der Bot sich nochmal neu an Twitch anmelden (falls er aktuell gestartet ist)<br />
+            </details>
+        </div>
+    </div>
+
+</body>
+</html>

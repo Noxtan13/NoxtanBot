@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Variablen</title>
+    <link rel="icon" href="PinguinServer.jpg" />
+    <link rel="stylesheet" href="../Style.css" />
+</head>
+<body>
+    <div class="MenuLeiste">
+        <ul>
+            <li><a href="../Einrichtung/TwitchAnleitung.html">Einrichtung</a></li>
+            <li><a href="/VariableHilfe.html">Fenster</a></li>
+            <li><a>Log-File</a></li>
+            <li><a>Online-Editor</a></li>
+            <li><a>Sonstige Seiten</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="UnterMenu">
+            <p><a>Eintrag 1</a></p>
+            <p><a>Eintrag 2</a></p>
+            <p><a>Eintrag 3</a></p>
+        </div>
+        <div class="Inhalt">
+            <div class="ContainerText">
+                Variablen und deren Einsatz
+            </div>
+            <b>Chat-Variablen</b>
+            <details>
+                <summary>Chat-Variablen in den allgemeinen Kommandos</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>OptionalerTeil</td>
+                            <td>Variable, die den Text, der nach dem Befehl eingegeben wird, enthält. Braucht eine alternative Antwort, wenn kein Wert eingegeben wird</td>
+                        </tr>
+                        <tr>
+                            <td>VariablerTeil</td>
+                            <td>Variable, die einen zufälligen Wert annimmt, der vorgegeben wird. Die Vorgabe erfolgt über den Button "Zufall".</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>Variable, die den Namen des Benutzers enthält, der den Befehl verwendet</td>
+                        </tr>
+                        <tr>
+                            <td>Zähler</td>
+                            <td>Variable, die die Anzahl angbit, wie häufig der Befehl verwendet wurde. Zählt bei jeder Verwendung hoch</td>
+                        </tr>
+                        <tr>
+                            <td>KommandoBefehlsKette</td>
+                            <td>enthält alle Befehle, die über jede Plattform verwendet werden können</td>
+                        </tr>
+                        <tr>
+                            <td>TwitchBefehlsKette</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>Chat-Variablen für Twitch</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>FollowAt</td>
+                            <td>Variable, die den Zeitpunkt eines Followers ausgibt. Die gesuchte Person steht entweder im optionalen Teil oder ist die Person selber, wenn der optionale Teil leer ist</td>
+                        </tr>
+                        <tr>
+                            <td>Followatname</td>
+                            <td>Variable, die den Namen der gesuchten Person zurückgibt. Die gesuchte Person steht entweder im optionalen Teil oder ist die Person selber, wenn der optionale Teil leer ist</td>
+                        </tr>
+                        <tr>
+                            <td>FollowSince</td>
+                            <td>Variable, die den Zeitpunkt der gesuchten Person sucht und mit der aktuellen Systemzeit die Dauer berechnet. Die gesuchte Person steht entweder im optionalen Teil oder ist die Person selber, wenn der optionale Teil leer ist</td>
+                        </tr>
+                        <tr>
+                            <td>TwitchBefehlsKette</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>TwitchAdminKette</td>
+                            <td>enthält alle Befehle, die nur für die Administratoren verfügbar sind</td>
+                        </tr>
+                        <tr>
+                            <td>RNDUser</td>
+                            <td>Enthält den Namen eines zufällig ausgewählten Benutzer, der mit dem Chat verbunden ist. Benutzer werden aufgrund der OnJoinedUser- und OnLeavedUser-Events ermittelt.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <b>Event-Variablen</b>
+
+            <details>
+                <summary>OnStreamOnline-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>GameID</td>
+                            <td>Variable, die den Text, der nach dem Befehl eingegeben wird, enthält. Braucht eine alternative Antwort, wenn kein Wert eingegeben wird</td>
+                        </tr>
+                        <tr>
+                            <td>Language</td>
+                            <td>Variable, die einen zufälligen Wert annimmt, der vorgegeben wird. Die Vorgabe erfolgt über den Button "Zufall".</td>
+                        </tr>
+                        <tr>
+                            <td>StartedAt</td>
+                            <td>Variable, die den Namen des Benutzers enthält, der den Befehl verwendet</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>Variable, die die Anzahl angbit, wie häufig der Befehl verwendet wurde. Zählt bei jeder Verwendung hoch</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>enthält alle Befehle, die über jede Plattform verwendet werden können</td>
+                        </tr>
+                        <tr>
+                            <td>UserId</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>UserName</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>ViewerCount</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>Hours</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>Minutes</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                        <tr>
+                            <td>Seconds</td>
+                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </details>
+        </div>
+    </div>
+
+</body>
+</html>

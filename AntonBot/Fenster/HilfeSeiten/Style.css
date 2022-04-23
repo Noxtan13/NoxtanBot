@@ -54,10 +54,15 @@ li {
 
 p {
 	height: 25px;
-	vertical-align: baseline;
+	text-align: center;
+	text-decoration: none;
 }
-
 	p:hover {
 		background-color: #546;
 		color: white;
 	}
+a, a:hover, a:visited, a:active {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}

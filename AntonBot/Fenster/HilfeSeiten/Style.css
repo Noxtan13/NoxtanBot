@@ -1,28 +1,43 @@
+html {
+	height: 100%;
+}
+body{
+	height:100%;
+}
 .MenuLeiste {
 	background-color: lightblue;
 	text-align: center;
 	padding: 10px;
 	height: auto;
+	max-height:50px;
 }
 
 .container {
-	height: 500px;
+	height:100%;
+	display:block;
 }
 
 .UnterMenu {
+	min-width: 150px;
+	max-width: 200px;
 	width: 15%;
+	height: 100%;
 	float: left;
 	background-color: forestgreen;
-	align-items: start;
 	text-align: left;
 	font-family: Verdana, sans-serif;
-	height: inherit;
 }
 
 .Inhalt {
 	font-family: Verdana, sans-serif;
 	background-color: indianred;
 	height: inherit;
+	overflow:hidden;
+}
+
+.Inhalttext{
+	padding:15px;
+	display:block;
 }
 
 ul {
@@ -36,6 +51,7 @@ ul {
 li {
 	float: left;
 	width: 20%;
+	min-width:100px;
 }
 
 	li a {

@@ -603,22 +603,131 @@ namespace AntonBot
 
         private void SavePHPFile() {
             System.Reflection.Assembly _Assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            Stream str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.BotStatus.php");
-            StreamReader rd = new StreamReader(str);
-            string PHPInhalt = rd.ReadToEnd();
-
-            string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "BotStatus.php";
-
-            File.WriteAllText(Pfad, PHPInhalt);
-
-            //Erzeugung des PHP-Files für den Ladebalken
-            str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.GameSkill.php");
-            rd = new StreamReader(str);
-            PHPInhalt = rd.ReadToEnd();
-
-            Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "GameSkill.php";
-
-            File.WriteAllText(Pfad, PHPInhalt);
+            Stream str;
+            StreamReader rd;
+            string PHPInhalt;
+            string Pfad;
+            //Export der Einrichtung
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Einrichtung.Index.html");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Einrichtung" + Path.DirectorySeparatorChar + "Index.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Einrichtung-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Einrichtung.TwitchAnleitung.html");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Einrichtung" + Path.DirectorySeparatorChar + "TwitchAnleitung.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "TwitchAnleitung.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            //Export der Fenster
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.BotStatus.php");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Index.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Fenster-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.BotStatus.php");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "VariableHilfe.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "VariableHilfe.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            //Export der LogFiles
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.Index.html");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "Index.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "LogFile-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.BotStatus.php");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "BotStatus.php";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler){
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BotStatus.php konnte nicht beschrieben werden: "+WriteFehler.Message));
+            }
+            //Export des OnlineEditors
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.OnlineEditor.Index.html");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "OnlineEditor" + Path.DirectorySeparatorChar + "Index.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "OnlineEditor-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            //Export der Sonstigen Seiten
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Sonstiges.Index.html");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Sonstiges" + Path.DirectorySeparatorChar + "Index.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Sonstiges-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Sonstiges.GameSkill.php");
+                rd = new StreamReader(str);
+                PHPInhalt = rd.ReadToEnd();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Sonstiges" + Path.DirectorySeparatorChar + "GameSkill.php";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "GameSkill.php konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
         }
 
         private void testc(bool Aufruf) {

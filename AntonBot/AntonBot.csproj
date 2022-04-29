@@ -292,6 +292,7 @@
     <Compile Include="Fenster\EingabeZufallVariable.Designer.cs">
       <DependentUpon>EingabeZufallVariable.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Sonstiges\GameSkill.php" />
     <Compile Include="Fenster\ListEintragFenster.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -378,6 +379,9 @@
     <None Include="AntonBot_1_TemporaryKey.pfx" />
     <None Include="AntonBot_2_TemporaryKey.pfx" />
     <None Include="AntonBot_TemporaryKey.pfx" />
+    <EmbeddedResource Include="Fenster\HilfeSeiten\LogFile\BotStatus.php">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\AntonBotCert.cer" />
     <None Include="Properties\Settings.settings">
@@ -409,16 +413,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Fenster\HilfeSeiten\TwitchAnleitung.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Fenster\HilfeSeiten\VariableHilfe.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -433,12 +427,37 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Fenster\HilfeSeiten\BotStatus.php">
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Einrichtung\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Fenster\HilfeSeiten\GameSkill.php">
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Einrichtung\TwitchAnleitung.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\VariableHilfe.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\LogFile\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\OnlineEditor\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\PinguinServer.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Sonstiges\GameSkill.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Sonstiges\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="PinguinServer.ico" />

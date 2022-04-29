@@ -22,20 +22,20 @@
             padding: 0 5px;
             display: flex;
             height: 40px;
-            width: 500px;
+            width: 100%;
         }
 
         .progress-value {
             animation: load 3s normal forwards;
             box-shadow: 0 10px 40px -10px #fff;
             border-radius: 100px;
-            background: #7FC9FF;
+            background: rgba(120,150,204,1);
             height: 30px;
             width: 0;
         }
         .ExpText{
 	        text-align:center;
-	        width:510px;
+	        width:inherit;
 	        z-index: 1;
 	        position: absolute;
 	        font-size: 20px;
@@ -43,15 +43,17 @@
 	        font-family: Verdana, sans-serif;
 	    }
         .text {
-            color: #000000;
-            font-size: 35px;
-            border-style: solid;
+            color: #ffffff;
+			word-break: keep-all;
+			-webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            font-size: 40px;
             align-items: center;
             padding: 5px;
             z-index: 1;
             display: flex;
             height: auto;
-            width: 510px;
+            width: 750px;
 	        font-family: Verdana, sans-serif;      
 	    }
         @keyframes load {

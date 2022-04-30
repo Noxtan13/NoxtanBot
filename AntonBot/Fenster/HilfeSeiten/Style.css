@@ -22,7 +22,7 @@ body{
 	min-width: 150px;
 	max-width: 200px;
 	width: 15%;
-	height: 100%;
+	height: auto;
 	float: left;
 	background-color: forestgreen;
 	text-align: left;

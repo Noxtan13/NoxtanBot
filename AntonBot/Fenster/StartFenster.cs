@@ -275,7 +275,7 @@ namespace AntonBot
 
         public void AusgabeKonsole(KonsolenAusgabe Eingabe) {
             KonsolenAusgabeJSON.Add(Eingabe);
-            txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeDatum.ToShortDateString() + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText +Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
+            txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeDatum + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText +Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
             Eingabe.ausgegeben();
 
 

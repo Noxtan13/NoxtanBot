@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-
+using System.Drawing;
 
 namespace AntonBot
 {
@@ -634,11 +634,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.PinguinServer.jpg");
-                rd = new StreamReader(str, encoding: Encoding.Default);
-                PHPInhalt = rd.ReadToEnd().Normalize();
+                Bitmap bmp = new Bitmap(str);
+               
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "PinguinServer.jpg";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                Image.FromStream(str).Save(Pfad);
             }
             catch (Exception WriteFehler)
             {

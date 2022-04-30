@@ -275,17 +275,19 @@ namespace AntonBot
 
         public void AusgabeKonsole(KonsolenAusgabe Eingabe) {
             KonsolenAusgabeJSON.Add(Eingabe);
-            txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText +Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
+            txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeDatum.ToShortDateString() + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText +Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
             Eingabe.ausgegeben();
 
 
             if (!File.Exists(KonsolenPath))
             {
+                //Wenn Datei nicht existiert
                 List<KonsolenAusgabe> content = new List<KonsolenAusgabe>();
                 content.Add(Eingabe);
                 File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(content, Formatting.Indented));
             }
             else {
+                //Wenn Datei existiert
                 List<KonsolenAusgabe> content = JsonConvert.DeserializeObject<List<KonsolenAusgabe>>(File.ReadAllText(KonsolenPath));
                 content.Add(Eingabe);
                 File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(content, Formatting.Indented));
@@ -522,13 +524,19 @@ namespace AntonBot
         private void KonsolenLogPfadSchreiben() {
             if (File.Exists(KonsolenPath) && File.Exists(KonsolenLogPath))
             {
-                string LogInhalt = File.ReadAllText(KonsolenPath) + File.ReadAllText(KonsolenLogPath);
+                List<KonsolenAusgabe> LogList = JsonConvert.DeserializeObject<List<KonsolenAusgabe>>(File.ReadAllText(KonsolenLogPath));
+                
+                LogList.AddRange(KonsolenAusgabeJSON);
+                
+                string LogInhalt = JsonConvert.SerializeObject(LogList,Formatting.Indented);
                 File.WriteAllText(KonsolenLogPath, LogInhalt);
             }
             else
             {
                 File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             }
+            //Nachdem die Liste exportiert wurde, wird diese zurückgesetzt
+            KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
         }
 
         private void einstellungenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -810,6 +818,18 @@ namespace AntonBot
         private void webSeitenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SavePHPFile();
+        }
+
+        private void logZurücksetzenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien werden gelöscht"));
+            File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
+
+             
+            File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
+            KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien gelöscht"));
         }
     }
 }

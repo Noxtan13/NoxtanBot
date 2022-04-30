@@ -10,6 +10,7 @@ namespace AntonBot.PlatformAPI
     {
         public string AusgabeTyp;
         public TimeSpan AusgabeZeitpunkt;
+        public DateTime AusgabeDatum;
         public string AusgabeText;
         public double AusgabeZeitmessung;
         private bool Ausgegeben = false;
@@ -17,6 +18,7 @@ namespace AntonBot.PlatformAPI
             AusgabeTyp = Typ;
             AusgabeZeitpunkt = Zeitpunkt;
             AusgabeText = Ausgabe;
+            AusgabeDatum = DateTime.Today;
             //AusgabeZusatzInfo = "";
         }
         public KonsolenAusgabe(string Typ, TimeSpan Zeitpunkt, string Ausgabe,double ZusatzMessung)
@@ -25,11 +27,13 @@ namespace AntonBot.PlatformAPI
             AusgabeZeitpunkt = Zeitpunkt;
             AusgabeText = Ausgabe;
             AusgabeZeitmessung = ZusatzMessung;
+            AusgabeDatum = DateTime.Today;
         }
         public KonsolenAusgabe(TimeSpan Zeitpunkt, string Ausgabe)
         {
             //AusgabeTyp = "leerer Typ";
             AusgabeZeitpunkt = Zeitpunkt;
+            AusgabeDatum = DateTime.Today;
             AusgabeText = Ausgabe;
             //AusgabeZusatzInfo = "";
         }
@@ -37,6 +41,7 @@ namespace AntonBot.PlatformAPI
         {
             //AusgabeTyp = "leerer Typ";
             AusgabeZeitpunkt = Zeitpunkt;
+            AusgabeDatum = DateTime.Today;
             AusgabeText = Ausgabe;
             AusgabeZeitmessung = ZusatzMessung;
          }
@@ -44,6 +49,7 @@ namespace AntonBot.PlatformAPI
         public KonsolenAusgabe() {
             AusgabeTyp = "leere Anlage";
             AusgabeZeitpunkt = DateTime.Now.TimeOfDay;
+            AusgabeDatum = DateTime.Today;
             AusgabeText = "";
             AusgabeZeitmessung = 0;
             Ausgegeben = true;

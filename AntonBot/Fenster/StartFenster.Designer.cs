@@ -69,6 +69,7 @@
             this.sfdEinstellungExport = new System.Windows.Forms.SaveFileDialog();
             this.ofdEinstellungImport = new System.Windows.Forms.OpenFileDialog();
             this.webSeitenExportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logZurücksetzenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DiscordGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.MenuLeiste.SuspendLayout();
@@ -190,6 +191,7 @@
             this.allgemeineEinstellungenToolStripMenuItem,
             this.befehleCommandsToolStripMenuItem,
             this.webSeitenExportierenToolStripMenuItem,
+            this.logZurücksetzenToolStripMenuItem,
             this.telegrammBotToolStripMenuItem,
             this.importExportToolStripMenuItem,
             this.beendenToolStripMenuItem});
@@ -432,6 +434,13 @@
             this.webSeitenExportierenToolStripMenuItem.Text = "Web-Seiten exportieren";
             this.webSeitenExportierenToolStripMenuItem.Click += new System.EventHandler(this.webSeitenExportierenToolStripMenuItem_Click);
             // 
+            // logZurücksetzenToolStripMenuItem
+            // 
+            this.logZurücksetzenToolStripMenuItem.Name = "logZurücksetzenToolStripMenuItem";
+            this.logZurücksetzenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.logZurücksetzenToolStripMenuItem.Text = "Log zurücksetzen";
+            this.logZurücksetzenToolStripMenuItem.Click += new System.EventHandler(this.logZurücksetzenToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -506,6 +515,7 @@
         private System.Windows.Forms.SaveFileDialog sfdEinstellungExport;
         private System.Windows.Forms.OpenFileDialog ofdEinstellungImport;
         private System.Windows.Forms.ToolStripMenuItem webSeitenExportierenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logZurücksetzenToolStripMenuItem;
     }
 }
 

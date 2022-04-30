@@ -56,6 +56,11 @@
             width: 750px;
 	        font-family: Verdana, sans-serif;      
 	    }
+        .Box{
+            height:50px;
+            width: 750px;
+            align-items: center
+        }
         @keyframes load {
             <?php 
                 $InhaltJson = file_get_contents('/home/pi/Antonbot/SkillAusgabe.json');
@@ -108,8 +113,8 @@
         echo "$QuestInhalt";
     ?>
 </div>
-
-<div class="ExpText">
+<div class="Box">
+    <div class="ExpText">
     <?php 
         $InhaltJson = file_get_contents('/home/pi/Antonbot/SkillAusgabe.json');
         $Eintrag = json_decode($InhaltJson,true);
@@ -126,9 +131,10 @@
         unlink('/home/pi/Antonbot/SkillAusgabe.json');
         file_put_contents('/home/pi/Antonbot/SkillAusgabe.json',$InhaltJsonA);
     ?>    
-</div>
-<div class="progress">
-  <div class="progress-value"></div>
+    </div>
+    <div class="progress">
+        <div class="progress-value"></div>
+    </div>
 </div>
 
 

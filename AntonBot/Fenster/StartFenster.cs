@@ -620,12 +620,12 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Index.html");
-                rd = new StreamReader(str,encoding:Encoding.Default);
+                rd = new StreamReader(str,encoding: Encoding.GetEncoding("ISO-8859-1"));
                 
                 PHPInhalt = rd.ReadToEnd();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -647,11 +647,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Style.css");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Style.css";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -661,11 +661,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Einrichtung.Index.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Einrichtung" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -674,11 +674,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Einrichtung.TwitchAnleitung.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Einrichtung" + Path.DirectorySeparatorChar + "TwitchAnleitung.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -688,11 +688,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Index.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -701,11 +701,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.VariableHilfe.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "VariableHilfe.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -715,11 +715,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.Index.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
-                PHPInhalt = rd.ReadToEnd().Normalize();
+                rd = new StreamReader(str,encoding:Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -728,11 +728,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.BotStatus.php");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "BotStatus.php";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler){
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BotStatus.php konnte nicht beschrieben werden: "+WriteFehler.Message));
@@ -741,11 +741,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.OnlineEditor.Index.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "OnlineEditor" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -755,11 +755,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Sonstiges.Index.html");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Sonstiges" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {
@@ -768,11 +768,11 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Sonstiges.GameSkill.php");
-                rd = new StreamReader(str, encoding: Encoding.Default);
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Sonstiges" + Path.DirectorySeparatorChar + "GameSkill.php";
                 (new FileInfo(Pfad)).Directory.Create();
-                File.WriteAllText(Pfad, PHPInhalt, Encoding.Default);
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
             catch (Exception WriteFehler)
             {

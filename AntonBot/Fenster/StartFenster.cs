@@ -608,6 +608,7 @@ namespace AntonBot
             string PHPInhalt;
             string Pfad;
             //Export der Startseite und Meta-Daten
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe..."));
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Index.html");
@@ -769,6 +770,7 @@ namespace AntonBot
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "GameSkill.php konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "...Ausgabe abgeschlossen"));
         }
 
         private void testc(bool Aufruf) {
@@ -805,5 +807,9 @@ namespace AntonBot
             //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
         }
 
+        private void webSeitenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SavePHPFile();
+        }
     }
 }

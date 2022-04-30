@@ -68,6 +68,7 @@
             this.timerOtherChannel = new System.Windows.Forms.Timer(this.components);
             this.sfdEinstellungExport = new System.Windows.Forms.SaveFileDialog();
             this.ofdEinstellungImport = new System.Windows.Forms.OpenFileDialog();
+            this.webSeitenExportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DiscordGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.MenuLeiste.SuspendLayout();
@@ -188,6 +189,7 @@
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.allgemeineEinstellungenToolStripMenuItem,
             this.befehleCommandsToolStripMenuItem,
+            this.webSeitenExportierenToolStripMenuItem,
             this.telegrammBotToolStripMenuItem,
             this.importExportToolStripMenuItem,
             this.beendenToolStripMenuItem});
@@ -423,6 +425,13 @@
             this.sfdEinstellungExport.FileName = "Einstellung";
             this.sfdEinstellungExport.RestoreDirectory = true;
             // 
+            // webSeitenExportierenToolStripMenuItem
+            // 
+            this.webSeitenExportierenToolStripMenuItem.Name = "webSeitenExportierenToolStripMenuItem";
+            this.webSeitenExportierenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.webSeitenExportierenToolStripMenuItem.Text = "Web-Seiten exportieren";
+            this.webSeitenExportierenToolStripMenuItem.Click += new System.EventHandler(this.webSeitenExportierenToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -496,6 +505,7 @@
         private System.Windows.Forms.ToolStripMenuItem einstellungenImportierenToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog sfdEinstellungExport;
         private System.Windows.Forms.OpenFileDialog ofdEinstellungImport;
+        private System.Windows.Forms.ToolStripMenuItem webSeitenExportierenToolStripMenuItem;
     }
 }
 

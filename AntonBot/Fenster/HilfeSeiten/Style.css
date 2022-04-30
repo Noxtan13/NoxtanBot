@@ -13,8 +13,9 @@ body{
 }
 
 .container {
-	height:100%;
-	display:block;
+	height:auto;
+	display:flex;
+	min-height:250px;
 }
 
 .UnterMenu {
@@ -32,6 +33,7 @@ body{
 	font-family: Verdana, sans-serif;
 	background-color: indianred;
 	height: inherit;
+	width:100%;
 	overflow:hidden;
 }
 

@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Twitch-Anleitung</title>
+    <title>Startseite NoxtanBot</title>
+    <link rel="icon" href="PinguinServer.jpg" />
+    <link rel="stylesheet" href="../Style.css" />
     <style>
-        .ContainerText {
-            border: 5px outset red;
-            background-color: lightblue;
-            text-align: center;
+        .LogEintrag{
+        text-align: left;
+	    font-family: Verdana, sans-serif;
+        background-color: gray;
+        padding-top:5px;
+        padding-bottom:5px;
         }
     </style>
-</head><body>
-
-    <?php
-
-    echo "Das ist der Codeanfang vom PHP-Teil<br />";
-
-
+</head>
+<body>
+    <div class="MenuLeiste">
+        <ul>
+            <li><a href="../Einrichtung/Index.html">Einrichtung</a></li>
+            <li><a href="../Fenster/Index.html">Fenster</a></li>
+            <li><a href="../LogFile/Index.html">Log-File</a></li>
+            <li><a href="../OnlineEditor/Index.html">Online-Editor</a></li>
+            <li><a href="../Sonstiges/Index.html">Sonstige Seiten</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="UnterMenu">
+            <p><a>Eintrag 1</a></p>
+            <p><a>Eintrag 2</a></p>
+            <p><a>Eintrag 3</a></p>
+        </div>
+        <div class="Inhalt">
+            <div class="Inhalttext">
+                
+            <?php
 
     exec("pgrep -u pi mono", $output, $return);
     if($return) {
@@ -34,19 +52,23 @@
     $Eintrag = json_decode($InhaltJson,true);
     //var_dump($Eintrag);
     
-    echo "<br/><br/>Ausgabe der Einträge:<br/>";
+    
     $Ausfalldauer=0;
     foreach($Eintrag as &$value){
+        echo"<div class=\"LogEintrag\">";
         echo $value['AusgabeTyp'];
+        echo " - ";
+        echo $value['AusgabeDatum'];
         echo " - ";
         echo $value['AusgabeZeitpunkt'];
         echo " --- ";
         echo $value['AusgabeText'];
-        echo "<br/>";
+        echo"</div>";
         if(!is_null($value['AusgabeZusatzInfo'])){
             $Ausfalldauer = $Ausfalldauer+ (int)$value['AusgabeZusatzInfo'];
         }
     }
+    
     unset($value);
 
     echo "<br/>Ausgabe ZusatzInfo: $Ausfalldauer<br/>"; 
@@ -54,4 +76,10 @@
     $GesamtDauer = $Ausfalldauer+(int)$Anzahl*60;
     echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer";
     ?>
+
+            </div>
+        </div>
+    </div>
+
+    
 </body>

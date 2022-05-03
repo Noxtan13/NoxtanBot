@@ -42,7 +42,6 @@
             this.chkAutoDiscord = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabAutoBot = new System.Windows.Forms.TabPage();
-            this.grpAutoBotBann = new System.Windows.Forms.GroupBox();
             this.btnWhiteListDelete = new System.Windows.Forms.Button();
             this.btnWhiteListAdd = new System.Windows.Forms.Button();
             this.txtWhiteList = new System.Windows.Forms.TextBox();
@@ -53,20 +52,29 @@
             this.NUDLogDuration = new System.Windows.Forms.NumericUpDown();
             this.chkAutoBotBannUse = new System.Windows.Forms.CheckBox();
             this.tabPfade = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtStandardPfad = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TabControllList = new System.Windows.Forms.TabControl();
+            this.tabWhite = new System.Windows.Forms.TabPage();
+            this.tabBlack = new System.Windows.Forms.TabPage();
+            this.btnBlackRemove = new System.Windows.Forms.Button();
+            this.lstBlackList = new System.Windows.Forms.ListBox();
+            this.btnBlackAdd = new System.Windows.Forms.Button();
+            this.txtBlackList = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.TabStart.SuspendLayout();
             this.tabAutoBot.SuspendLayout();
-            this.grpAutoBotBann.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDLogAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDLogDuration)).BeginInit();
             this.tabPfade.SuspendLayout();
+            this.TabControllList.SuspendLayout();
+            this.tabWhite.SuspendLayout();
+            this.tabBlack.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSpeichern
             // 
-            this.btnSpeichern.Location = new System.Drawing.Point(15, 344);
+            this.btnSpeichern.Location = new System.Drawing.Point(15, 415);
             this.btnSpeichern.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.btnSpeichern.Name = "btnSpeichern";
             this.btnSpeichern.Size = new System.Drawing.Size(363, 53);
@@ -77,7 +85,7 @@
             // 
             // btnAbbrechen
             // 
-            this.btnAbbrechen.Location = new System.Drawing.Point(390, 344);
+            this.btnAbbrechen.Location = new System.Drawing.Point(382, 415);
             this.btnAbbrechen.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.btnAbbrechen.Name = "btnAbbrechen";
             this.btnAbbrechen.Size = new System.Drawing.Size(349, 53);
@@ -94,7 +102,7 @@
             this.tabControl1.Location = new System.Drawing.Point(15, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(728, 322);
+            this.tabControl1.Size = new System.Drawing.Size(728, 393);
             this.tabControl1.TabIndex = 3;
             // 
             // TabStart
@@ -110,7 +118,7 @@
             this.TabStart.Location = new System.Drawing.Point(4, 39);
             this.TabStart.Name = "TabStart";
             this.TabStart.Padding = new System.Windows.Forms.Padding(3);
-            this.TabStart.Size = new System.Drawing.Size(720, 279);
+            this.TabStart.Size = new System.Drawing.Size(720, 350);
             this.TabStart.TabIndex = 0;
             this.TabStart.Text = "Start-Einstellung";
             this.TabStart.UseVisualStyleBackColor = true;
@@ -199,35 +207,19 @@
             // 
             // tabAutoBot
             // 
-            this.tabAutoBot.Controls.Add(this.grpAutoBotBann);
+            this.tabAutoBot.Controls.Add(this.TabControllList);
             this.tabAutoBot.Controls.Add(this.chkAutoBotBannUse);
             this.tabAutoBot.Location = new System.Drawing.Point(4, 39);
             this.tabAutoBot.Name = "tabAutoBot";
             this.tabAutoBot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAutoBot.Size = new System.Drawing.Size(720, 279);
+            this.tabAutoBot.Size = new System.Drawing.Size(720, 350);
             this.tabAutoBot.TabIndex = 1;
             this.tabAutoBot.Text = "AutoBot-Bann";
             this.tabAutoBot.UseVisualStyleBackColor = true;
             // 
-            // grpAutoBotBann
-            // 
-            this.grpAutoBotBann.Controls.Add(this.btnWhiteListDelete);
-            this.grpAutoBotBann.Controls.Add(this.btnWhiteListAdd);
-            this.grpAutoBotBann.Controls.Add(this.txtWhiteList);
-            this.grpAutoBotBann.Controls.Add(this.lstWhiteList);
-            this.grpAutoBotBann.Controls.Add(this.label3);
-            this.grpAutoBotBann.Controls.Add(this.label2);
-            this.grpAutoBotBann.Controls.Add(this.NUDLogAmount);
-            this.grpAutoBotBann.Controls.Add(this.NUDLogDuration);
-            this.grpAutoBotBann.Location = new System.Drawing.Point(6, 35);
-            this.grpAutoBotBann.Name = "grpAutoBotBann";
-            this.grpAutoBotBann.Size = new System.Drawing.Size(708, 244);
-            this.grpAutoBotBann.TabIndex = 1;
-            this.grpAutoBotBann.TabStop = false;
-            // 
             // btnWhiteListDelete
             // 
-            this.btnWhiteListDelete.Location = new System.Drawing.Point(11, 191);
+            this.btnWhiteListDelete.Location = new System.Drawing.Point(11, 182);
             this.btnWhiteListDelete.Name = "btnWhiteListDelete";
             this.btnWhiteListDelete.Size = new System.Drawing.Size(202, 38);
             this.btnWhiteListDelete.TabIndex = 7;
@@ -237,7 +229,7 @@
             // 
             // btnWhiteListAdd
             // 
-            this.btnWhiteListAdd.Location = new System.Drawing.Point(11, 147);
+            this.btnWhiteListAdd.Location = new System.Drawing.Point(11, 138);
             this.btnWhiteListAdd.Name = "btnWhiteListAdd";
             this.btnWhiteListAdd.Size = new System.Drawing.Size(202, 38);
             this.btnWhiteListAdd.TabIndex = 6;
@@ -247,7 +239,7 @@
             // 
             // txtWhiteList
             // 
-            this.txtWhiteList.Location = new System.Drawing.Point(11, 106);
+            this.txtWhiteList.Location = new System.Drawing.Point(11, 97);
             this.txtWhiteList.Name = "txtWhiteList";
             this.txtWhiteList.Size = new System.Drawing.Size(350, 35);
             this.txtWhiteList.TabIndex = 5;
@@ -256,7 +248,7 @@
             // 
             this.lstWhiteList.FormattingEnabled = true;
             this.lstWhiteList.ItemHeight = 30;
-            this.lstWhiteList.Location = new System.Drawing.Point(377, 24);
+            this.lstWhiteList.Location = new System.Drawing.Point(367, 15);
             this.lstWhiteList.Name = "lstWhiteList";
             this.lstWhiteList.Size = new System.Drawing.Size(325, 214);
             this.lstWhiteList.TabIndex = 4;
@@ -264,7 +256,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 67);
+            this.label3.Location = new System.Drawing.Point(6, 58);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(198, 30);
             this.label3.TabIndex = 3;
@@ -273,7 +265,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 26);
+            this.label2.Location = new System.Drawing.Point(6, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(229, 30);
             this.label2.TabIndex = 2;
@@ -281,7 +273,7 @@
             // 
             // NUDLogAmount
             // 
-            this.NUDLogAmount.Location = new System.Drawing.Point(241, 65);
+            this.NUDLogAmount.Location = new System.Drawing.Point(241, 56);
             this.NUDLogAmount.Minimum = new decimal(new int[] {
             1,
             0,
@@ -298,7 +290,7 @@
             // 
             // NUDLogDuration
             // 
-            this.NUDLogDuration.Location = new System.Drawing.Point(241, 24);
+            this.NUDLogDuration.Location = new System.Drawing.Point(241, 15);
             this.NUDLogDuration.Minimum = new decimal(new int[] {
             1,
             0,
@@ -330,10 +322,17 @@
             this.tabPfade.Controls.Add(this.label5);
             this.tabPfade.Location = new System.Drawing.Point(4, 39);
             this.tabPfade.Name = "tabPfade";
-            this.tabPfade.Size = new System.Drawing.Size(720, 279);
+            this.tabPfade.Size = new System.Drawing.Size(720, 350);
             this.tabPfade.TabIndex = 2;
             this.tabPfade.Text = "Pfade";
             this.tabPfade.UseVisualStyleBackColor = true;
+            // 
+            // txtStandardPfad
+            // 
+            this.txtStandardPfad.Location = new System.Drawing.Point(177, 13);
+            this.txtStandardPfad.Name = "txtStandardPfad";
+            this.txtStandardPfad.Size = new System.Drawing.Size(527, 35);
+            this.txtStandardPfad.TabIndex = 1;
             // 
             // label5
             // 
@@ -344,19 +343,90 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Standard-Pfad:";
             // 
-            // txtStandardPfad
+            // TabControllList
             // 
-            this.txtStandardPfad.Location = new System.Drawing.Point(177, 13);
-            this.txtStandardPfad.Name = "txtStandardPfad";
-            this.txtStandardPfad.Size = new System.Drawing.Size(527, 35);
-            this.txtStandardPfad.TabIndex = 1;
+            this.TabControllList.Controls.Add(this.tabWhite);
+            this.TabControllList.Controls.Add(this.tabBlack);
+            this.TabControllList.Location = new System.Drawing.Point(6, 46);
+            this.TabControllList.Name = "TabControllList";
+            this.TabControllList.SelectedIndex = 0;
+            this.TabControllList.Size = new System.Drawing.Size(708, 292);
+            this.TabControllList.TabIndex = 2;
+            // 
+            // tabWhite
+            // 
+            this.tabWhite.Controls.Add(this.btnWhiteListDelete);
+            this.tabWhite.Controls.Add(this.lstWhiteList);
+            this.tabWhite.Controls.Add(this.btnWhiteListAdd);
+            this.tabWhite.Controls.Add(this.NUDLogDuration);
+            this.tabWhite.Controls.Add(this.txtWhiteList);
+            this.tabWhite.Controls.Add(this.NUDLogAmount);
+            this.tabWhite.Controls.Add(this.label2);
+            this.tabWhite.Controls.Add(this.label3);
+            this.tabWhite.Location = new System.Drawing.Point(4, 39);
+            this.tabWhite.Name = "tabWhite";
+            this.tabWhite.Padding = new System.Windows.Forms.Padding(3);
+            this.tabWhite.Size = new System.Drawing.Size(700, 249);
+            this.tabWhite.TabIndex = 0;
+            this.tabWhite.Text = "Whitelist";
+            this.tabWhite.UseVisualStyleBackColor = true;
+            // 
+            // tabBlack
+            // 
+            this.tabBlack.Controls.Add(this.btnBlackRemove);
+            this.tabBlack.Controls.Add(this.lstBlackList);
+            this.tabBlack.Controls.Add(this.btnBlackAdd);
+            this.tabBlack.Controls.Add(this.txtBlackList);
+            this.tabBlack.Location = new System.Drawing.Point(4, 39);
+            this.tabBlack.Name = "tabBlack";
+            this.tabBlack.Padding = new System.Windows.Forms.Padding(3);
+            this.tabBlack.Size = new System.Drawing.Size(700, 249);
+            this.tabBlack.TabIndex = 1;
+            this.tabBlack.Text = "Blacklist";
+            this.tabBlack.UseVisualStyleBackColor = true;
+            // 
+            // btnBlackRemove
+            // 
+            this.btnBlackRemove.Location = new System.Drawing.Point(6, 102);
+            this.btnBlackRemove.Name = "btnBlackRemove";
+            this.btnBlackRemove.Size = new System.Drawing.Size(202, 38);
+            this.btnBlackRemove.TabIndex = 15;
+            this.btnBlackRemove.Text = "Eintrag löschen";
+            this.btnBlackRemove.UseVisualStyleBackColor = true;
+            this.btnBlackRemove.Click += new System.EventHandler(this.btnBlackRemove_Click);
+            // 
+            // lstBlackList
+            // 
+            this.lstBlackList.FormattingEnabled = true;
+            this.lstBlackList.ItemHeight = 30;
+            this.lstBlackList.Location = new System.Drawing.Point(368, 17);
+            this.lstBlackList.Name = "lstBlackList";
+            this.lstBlackList.Size = new System.Drawing.Size(325, 214);
+            this.lstBlackList.TabIndex = 12;
+            // 
+            // btnBlackAdd
+            // 
+            this.btnBlackAdd.Location = new System.Drawing.Point(6, 58);
+            this.btnBlackAdd.Name = "btnBlackAdd";
+            this.btnBlackAdd.Size = new System.Drawing.Size(202, 38);
+            this.btnBlackAdd.TabIndex = 14;
+            this.btnBlackAdd.Text = "Eintrag hinzufügen";
+            this.btnBlackAdd.UseVisualStyleBackColor = true;
+            this.btnBlackAdd.Click += new System.EventHandler(this.btnBlackAdd_Click);
+            // 
+            // txtBlackList
+            // 
+            this.txtBlackList.Location = new System.Drawing.Point(6, 17);
+            this.txtBlackList.Name = "txtBlackList";
+            this.txtBlackList.Size = new System.Drawing.Size(350, 35);
+            this.txtBlackList.TabIndex = 13;
             // 
             // AllgEinstellungen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(755, 413);
+            this.ClientSize = new System.Drawing.Size(752, 484);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnAbbrechen);
             this.Controls.Add(this.btnSpeichern);
@@ -375,12 +445,15 @@
             this.TabStart.PerformLayout();
             this.tabAutoBot.ResumeLayout(false);
             this.tabAutoBot.PerformLayout();
-            this.grpAutoBotBann.ResumeLayout(false);
-            this.grpAutoBotBann.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDLogAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDLogDuration)).EndInit();
             this.tabPfade.ResumeLayout(false);
             this.tabPfade.PerformLayout();
+            this.TabControllList.ResumeLayout(false);
+            this.tabWhite.ResumeLayout(false);
+            this.tabWhite.PerformLayout();
+            this.tabBlack.ResumeLayout(false);
+            this.tabBlack.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -396,7 +469,6 @@
         private System.Windows.Forms.CheckBox chkAutoDiscord;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabAutoBot;
-        private System.Windows.Forms.GroupBox grpAutoBotBann;
         private System.Windows.Forms.Button btnWhiteListDelete;
         private System.Windows.Forms.Button btnWhiteListAdd;
         private System.Windows.Forms.TextBox txtWhiteList;
@@ -412,5 +484,12 @@
         private System.Windows.Forms.TabPage tabPfade;
         private System.Windows.Forms.TextBox txtStandardPfad;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabControl TabControllList;
+        private System.Windows.Forms.TabPage tabWhite;
+        private System.Windows.Forms.TabPage tabBlack;
+        private System.Windows.Forms.Button btnBlackRemove;
+        private System.Windows.Forms.ListBox lstBlackList;
+        private System.Windows.Forms.Button btnBlackAdd;
+        private System.Windows.Forms.TextBox txtBlackList;
     }
 }

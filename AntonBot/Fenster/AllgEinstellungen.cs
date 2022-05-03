@@ -20,7 +20,7 @@ namespace AntonBot
             chkTwitchAutoMessage.Checked = SettingsGroup.Instance.STwitchAutoMessage;
 
             chkAutoBotBannUse.Checked = SettingsGroup.Instance.STwitchAutoBotBann;
-            grpAutoBotBann.Enabled = SettingsGroup.Instance.STwitchAutoBotBann;
+            TabControllList.Enabled = SettingsGroup.Instance.STwitchAutoBotBann;
             NUDLogAmount.Value = SettingsGroup.Instance.STwitchAutoBotAmount;
             NUDLogDuration.Value = SettingsGroup.Instance.STwitchAutoBotDuration;
 
@@ -37,6 +37,17 @@ namespace AntonBot
             else
             {
                 SettingsGroup.Instance.STwitchAutoBotWhiteList= new System.Collections.Specialized.StringCollection();
+            }
+            if (SettingsGroup.Instance.STwitchBlackList != null)
+            {
+                foreach (string Eintrag in SettingsGroup.Instance.STwitchBlackList)
+                {
+                    lstBlackList.Items.Add(Eintrag);
+                }
+            }
+            else
+            {
+                SettingsGroup.Instance.STwitchBlackList = new System.Collections.Specialized.StringCollection();
             }
         }
 
@@ -66,6 +77,12 @@ namespace AntonBot
                 }
             }
 
+            SettingsGroup.Instance.STwitchBlackList.Clear();
+            foreach (string i in lstBlackList.Items)
+            {
+                SettingsGroup.Instance.STwitchBlackList.Add(i);
+            }
+
             SettingsGroup.Instance.Save();
 
             Close();
@@ -88,7 +105,7 @@ namespace AntonBot
 
         private void chkAutoBotBannUse_CheckedChanged(object sender, EventArgs e)
         {
-            grpAutoBotBann.Enabled = chkAutoBotBannUse.Checked;
+            TabControllList.Enabled = chkAutoBotBannUse.Checked;
         }
 
         private void btnWhiteListAdd_Click(object sender, EventArgs e)
@@ -118,6 +135,17 @@ namespace AntonBot
                 MessageBox.Show("Eintrag ist keine Discord-ID", "Falscher Eintrag", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDiscordOtherChannel.Text = "0";
             }
+        }
+
+        private void btnBlackAdd_Click(object sender, EventArgs e)
+        {
+            lstBlackList.Items.Add(txtBlackList.Text);
+            txtBlackList.Text = "";
+        }
+
+        private void btnBlackRemove_Click(object sender, EventArgs e)
+        {
+            lstBlackList.Items.Remove(lstBlackList.SelectedItem);
         }
     }
 }

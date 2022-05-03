@@ -47,6 +47,7 @@ namespace AntonBot.PlatformAPI
         public bool STwitchAutoBotBann;
         public int STwitchAutoBotDuration;
         public StringCollection STwitchAutoBotWhiteList;
+        public StringCollection STwitchBlackList;
         public int STwitchAutoBotAmount;
         public bool SDiscordOtherChannel;
         public ulong SDiscordOtherChannelChannel;
@@ -125,7 +126,7 @@ namespace AntonBot.PlatformAPI
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 3;
+            Version = 4;
         }
 
         public void LoadSettings()
@@ -149,6 +150,7 @@ namespace AntonBot.PlatformAPI
                 STwitchAutoBotBann = load.STwitchAutoBotBann;
                 STwitchAutoBotDuration = load.STwitchAutoBotDuration;
                 STwitchAutoBotWhiteList = load.STwitchAutoBotWhiteList;
+                STwitchBlackList = load.STwitchBlackList;
                 STwitchAutoBotAmount = load.STwitchAutoBotAmount;
                 SDiscordOtherChannel = load.SDiscordOtherChannel;
                 SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
@@ -234,6 +236,7 @@ namespace AntonBot.PlatformAPI
             STwitchAutoBotBann = false;
             STwitchAutoBotDuration = 7;
             STwitchAutoBotWhiteList = new StringCollection();
+            STwitchBlackList = new StringCollection();
             STwitchAutoBotAmount = 5;
             SDiscordOtherChannel = false;
             SDiscordOtherChannelChannel = 0;
@@ -331,6 +334,7 @@ namespace AntonBot.PlatformAPI
             STwitchAutoBotBann = load.STwitchAutoBotBann;
             STwitchAutoBotDuration = load.STwitchAutoBotDuration;
             if (load.STwitchAutoBotWhiteList != null) { STwitchAutoBotWhiteList = load.STwitchAutoBotWhiteList; }
+            if (load.STwitchBlackList != null) { STwitchBlackList = load.STwitchBlackList; }
             STwitchAutoBotAmount = load.STwitchAutoBotAmount;
             SDiscordOtherChannel = load.SDiscordOtherChannel;
             SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
@@ -462,6 +466,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.STwitchAutoBotBann = Import.STwitchAutoBotBann;
             SettingsGroup.Instance.STwitchAutoBotDuration = Import.STwitchAutoBotDuration;
             SettingsGroup.Instance.STwitchAutoBotWhiteList = Import.STwitchAutoBotWhiteList;
+            SettingsGroup.Instance.STwitchBlackList = Import.STwitchBlackList;
             SettingsGroup.Instance.STwitchAutoBotAmount = Import.STwitchAutoBotAmount;
             SettingsGroup.Instance.SDiscordOtherChannel = Import.SDiscordOtherChannel;
             SettingsGroup.Instance.SDiscordOtherChannelChannel = Import.SDiscordOtherChannelChannel;

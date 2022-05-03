@@ -1146,7 +1146,7 @@ namespace AntonBot
                 if (e.ChatMessage.Channel == sStandardChannel || e.ChatMessage.Channel == sStandardChannel)
                 {
                     //Erst wird geprüft, ob die Nachricht eine Suspekte Link-Endung enthält (zum Abblocken von Bots)
-                    if (e.ChatMessage.Message.Contains(".ly") && SettingsGroup.Instance.SAutoBan)
+                    if (CheckBlackList(e.ChatMessage.Message) && SettingsGroup.Instance.SAutoBan)
                     {
                         //Aktuell blocke ich nur die .ly-Adressen. Sollte ich mehr mitbekommen, müsste ich evtl eine Liste machen
                         BlockBotUser(e.ChatMessage);
@@ -1185,6 +1185,16 @@ namespace AntonBot
                     }
                 }
             }
+        }
+        private bool CheckBlackList(String Message) {
+            bool Ergebnis = false;
+            foreach (var item in SettingsGroup.Instance.STwitchBlackList) {
+                if (Message.Equals(item))
+                {
+                    Ergebnis = true;
+                }
+            }
+            return Ergebnis;
         }
 
         private void CheckTwitchAdmin(ChatMessage chatMessage)

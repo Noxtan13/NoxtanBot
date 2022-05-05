@@ -52,6 +52,14 @@ namespace AntonBot
             EventTimer = SettingsGroup.Instance.SEventTimer;
             DiscordStatusStrip.Text = "Discord: " + Discord.getClientStatus();
             TwitchStatusStrip.Text = "Twitch: Disconnected - Online:" + SettingsGroup.Instance.TsOnline.ToString();
+
+            PathBefehl = SettingsGroup.Instance.StandardPfad + "Befehl.json";
+            PathZeit = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
+            PathTwitch = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
+            PathListBefehl = SettingsGroup.Instance.StandardPfad + "List-Befehl,json";
+
+            KonsolenPath = SettingsGroup.Instance.LogPfad + "KonsolenAusgabe.json";
+            KonsolenLogPath = SettingsGroup.Instance.LogPfad + "KonsolenLogAusgabe.json";
         }
 
         private async void autostart() {

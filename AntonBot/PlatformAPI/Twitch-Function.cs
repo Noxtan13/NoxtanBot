@@ -330,7 +330,7 @@ namespace AntonBot
 
             if (SettingsGroup.Instance.TeBitsReaction)
             {
-                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "BitListe.json";
+                String Path = SettingsGroup.Instance.StandardPfad + "BitListe.json";
                 String InhaltJSON;
 
                 if (System.IO.File.Exists(Path))
@@ -2985,7 +2985,7 @@ namespace AntonBot
         private void SaveQuest() {
             if (SettingsGroup.Instance.SkillUse && Gameindex != -1)
             {
-                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+                String Path = SettingsGroup.Instance.StandardPfad+ "SkillListe.json";
                 String InhaltJSON;
 
                 if (System.IO.File.Exists(Path))
@@ -3002,7 +3002,7 @@ namespace AntonBot
                     InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
                     System.IO.File.WriteAllText(Path, InhaltJSON);
 
-                    Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillAusgabe.json";
+                    Path = SettingsGroup.Instance.StandardPfad + "SkillAusgabe.json";
                     InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(Ausgabe, Newtonsoft.Json.Formatting.Indented);
                     System.IO.File.WriteAllText(Path, InhaltJSON);
                 }
@@ -3014,7 +3014,7 @@ namespace AntonBot
         }
         private void GameLoad(string GameId, string GameName)
         {
-            String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
             String InhaltJSON;
 
             if (System.IO.File.Exists(Path))

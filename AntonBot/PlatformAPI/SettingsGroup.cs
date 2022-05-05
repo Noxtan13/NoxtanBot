@@ -51,6 +51,9 @@ namespace AntonBot.PlatformAPI
         public int STwitchAutoBotAmount;
         public bool SDiscordOtherChannel;
         public ulong SDiscordOtherChannelChannel;
+        public String StandardPfad;
+        public String HTMLPfad;
+        public String LogPfad;
         #endregion
         #region TwitchEvents
 
@@ -126,7 +129,7 @@ namespace AntonBot.PlatformAPI
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 4;
+            Version = 6;
         }
 
         public void LoadSettings()
@@ -154,6 +157,9 @@ namespace AntonBot.PlatformAPI
                 STwitchAutoBotAmount = load.STwitchAutoBotAmount;
                 SDiscordOtherChannel = load.SDiscordOtherChannel;
                 SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
+                StandardPfad = load.StandardPfad;
+                HTMLPfad = load.HTMLPfad;
+                LogPfad= load.LogPfad;
 
                 TeBitsReaction = load.TeBitsReaction;
 
@@ -240,6 +246,9 @@ namespace AntonBot.PlatformAPI
             STwitchAutoBotAmount = 5;
             SDiscordOtherChannel = false;
             SDiscordOtherChannelChannel = 0;
+            StandardPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
+            LogPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
+            HTMLPfad =System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
 
             TeBitsReaction = false;
             TeClipCreate = new TwitchAdminBefehl("CreateClip");
@@ -338,6 +347,9 @@ namespace AntonBot.PlatformAPI
             STwitchAutoBotAmount = load.STwitchAutoBotAmount;
             SDiscordOtherChannel = load.SDiscordOtherChannel;
             SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
+            if(load.StandardPfad!=null) {StandardPfad = load.StandardPfad; }
+            if(load.HTMLPfad!=null) {HTMLPfad = load.HTMLPfad; }
+            if( load.LogPfad != null ) { LogPfad = load.LogPfad; }
 
             TeBitsReaction = load.TeBitsReaction;
 
@@ -443,6 +455,20 @@ namespace AntonBot.PlatformAPI
             }
         }
 
+        public void WriteAllSettings() {
+
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltBefehl, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltBefehlTwitch, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltBitListe, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltDiscordServer, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltListBefehl, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
+            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
+
+            
+        }
+
         public void ImportSettingsGroup(String ApplicationPath, String Inhalt)
         {
             SettingsGroup Import = JsonConvert.DeserializeObject<SettingsGroup>(Inhalt);
@@ -470,6 +496,9 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.STwitchAutoBotAmount = Import.STwitchAutoBotAmount;
             SettingsGroup.Instance.SDiscordOtherChannel = Import.SDiscordOtherChannel;
             SettingsGroup.Instance.SDiscordOtherChannelChannel = Import.SDiscordOtherChannelChannel;
+            SettingsGroup.Instance.StandardPfad = Import.StandardPfad;
+            SettingsGroup.Instance.HTMLPfad = Import.HTMLPfad;
+            SettingsGroup.Instance.LogPfad = Import.LogPfad;
 
             //twitchEvent
 

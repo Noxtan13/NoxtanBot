@@ -43,7 +43,6 @@ public void Speichern() {
         }
 
         public void LoadBefehle(String Path, int BefehlArt) {
-            //Path = Application.StartupPath + "\\Befehl.json";
             String InhaltJSON = "";
 
             if (File.Exists(Path))
@@ -117,7 +116,7 @@ public void Speichern() {
 
         protected List<JoinedUsers> LoadJoinedUserList()
         {
-            String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "JoinedUsers.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "JoinedUsers.json";
             String InhaltJSON = "";
             if (File.Exists(Path))
             {
@@ -140,7 +139,7 @@ public void Speichern() {
         }
         protected void SaveJoinedUserList(List<JoinedUsers> UserList) {
 
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "JoinedUsers.json";
+            string Path = SettingsGroup.Instance.StandardPfad + "JoinedUsers.json";
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(UserList,Formatting.Indented);
             
@@ -418,7 +417,7 @@ public void Speichern() {
         }
 
         protected void BefehlListSpeichern() {
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "List-Befehl.json";
+            string Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(ListBefehlListe, Formatting.Indented);
 
@@ -430,8 +429,8 @@ public void Speichern() {
         }
 
         protected void CheckLastLoad(String Name, int BefehlArt) {
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Name; // "\\Befehl.json";
-            
+            string Path = SettingsGroup.Instance.StandardPfad + Name; 
+
             if (LastLoadTime < File.GetLastWriteTime(Path)) {
                 LoadBefehle(Path, BefehlArt);
                 KonsolenAusgabe(Name + " wurde neu geladen, da nicht aktuell");
@@ -440,7 +439,7 @@ public void Speichern() {
 
         protected void BefehlSpeichern(List<Befehl> Liste, String Name)
         {
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Name; //"\\Befehl.json";
+            string Path = SettingsGroup.Instance.StandardPfad + Name; //"\\Befehl.json";
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(Liste, Formatting.Indented);
 

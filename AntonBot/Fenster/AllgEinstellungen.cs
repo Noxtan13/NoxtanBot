@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using AntonBot.PlatformAPI;
 
@@ -10,7 +11,7 @@ namespace AntonBot
         {
             InitializeComponent();
         }
-
+        private bool Pfadändern;
         private void AllgEinstellungen_Load(object sender, EventArgs e)
         {
             
@@ -49,6 +50,12 @@ namespace AntonBot
             {
                 SettingsGroup.Instance.STwitchBlackList = new System.Collections.Specialized.StringCollection();
             }
+
+            txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar,'/');
+            txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');
+            txtLogPfad.Text = SettingsGroup.Instance.LogPfad.Replace(Path.DirectorySeparatorChar, '/');
+
+            Pfadändern = false;
         }
 
         private void BtnSpeichern_Click(object sender, EventArgs e)
@@ -83,9 +90,33 @@ namespace AntonBot
                 SettingsGroup.Instance.STwitchBlackList.Add(i);
             }
 
+            if (Pfadändern) {
+                //Hier die Überprüfung, ob der Pfad geändert wurde. Wenn ja alle Einstellungsdateien dorthin kopieren, bevor der Pfad geändert wird
+                //Muss nicht unbedingt für den HTML-Pfad erfolgen
+                if(MessageBox.Show("Die Pfade haben sich geändert. Sollen diese übernommen werden?","Geänderte Pfade", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SettingsGroup.Instance.ExportSettingsGroup(SettingsGroup.Instance.StandardPfad);
+
+                    SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar);
+                    SettingsGroup.Instance.HTMLPfad = txtHTML.Text.Replace('/', Path.DirectorySeparatorChar);
+                    SettingsGroup.Instance.LogPfad = txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar);
+
+                    SettingsGroup.Instance.WriteAllSettings();
+                }
+                else
+                {
+                    txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar, '/');
+                    txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');
+                    txtLogPfad.Text = SettingsGroup.Instance.LogPfad.Replace(Path.DirectorySeparatorChar, '/');
+                }
+                
+
+            }
+     
+
             SettingsGroup.Instance.Save();
 
-            Close();
+            //Close();
         }
 
         private void BtnAbbrechen_Click(object sender, EventArgs e)
@@ -146,6 +177,53 @@ namespace AntonBot
         private void btnBlackRemove_Click(object sender, EventArgs e)
         {
             lstBlackList.Items.Remove(lstBlackList.SelectedItem);
+        }
+
+        private void txtStandardPfad_TextChanged(object sender, EventArgs e)
+        {
+            Pfadändern = true;
+        }
+
+        private void txtHTML_TextChanged(object sender, EventArgs e)
+        {
+            Pfadändern = true;
+        }
+
+        private void txtLogPfad_TextChanged(object sender, EventArgs e)
+        {
+            Pfadändern = true;
+        }
+
+        private void btnExplorerStandard_Click(object sender, EventArgs e)
+        {
+            txtStandardPfad.Text = AuswahlOrdner(txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar)).Replace(Path.DirectorySeparatorChar, '/');
+        }
+
+        private void btnExplorerLog_Click(object sender, EventArgs e)
+        {
+            txtLogPfad.Text = AuswahlOrdner(txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar)).Replace(Path.DirectorySeparatorChar, '/');
+        }
+
+        private void btnExplorerHTML_Click(object sender, EventArgs e)
+        {
+            txtHTML.Text = AuswahlOrdner(txtHTML.Text.Replace('/', Path.DirectorySeparatorChar)).Replace(Path.DirectorySeparatorChar, '/');
+        }
+
+        private String AuswahlOrdner(String Pfad) {
+            String Ergebnis = "";
+
+            fBDOrdnerAuswahl.SelectedPath=Pfad;
+            DialogResult result = fBDOrdnerAuswahl.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Ergebnis = fBDOrdnerAuswahl.SelectedPath;
+            }
+            else
+            {
+                Ergebnis = Pfad;
+            }
+
+            return Ergebnis;
         }
     }
 }

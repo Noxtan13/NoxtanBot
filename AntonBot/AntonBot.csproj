@@ -427,6 +427,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\WinExplorer2.png" />
+    <None Include="Resources\WinExplorer.png" />
     <EmbeddedResource Include="Fenster\HilfeSeiten\Einrichtung\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

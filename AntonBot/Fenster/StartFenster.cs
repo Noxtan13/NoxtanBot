@@ -599,7 +599,7 @@ namespace AntonBot
 
                             if (DialogResult.Yes == MessageBox.Show("Die aktuellen Einstellungen werden alle überschrieben \nFortfahren?", "Überschreiben der Einstellungen", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                             {
-                                Import.ImportSettingsGroup(Application.StartupPath + Path.DirectorySeparatorChar,Inhalt);
+                                Import.ImportSettingsGroup(Inhalt);
                                 LoadBefehle();
 
                                 if (DialogResult.Yes == MessageBox.Show("Einstellungen wurden importiert. Damit die Einstellungen verwendet werden können, wird ein neustart empfohlen. \nNeustart Durchführen?", "Import erfolgreich", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) {

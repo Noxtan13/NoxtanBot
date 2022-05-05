@@ -97,11 +97,25 @@ namespace AntonBot
                 {
                     SettingsGroup.Instance.ExportSettingsGroup(SettingsGroup.Instance.StandardPfad);
 
-                    SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar);
-                    SettingsGroup.Instance.HTMLPfad = txtHTML.Text.Replace('/', Path.DirectorySeparatorChar);
-                    SettingsGroup.Instance.LogPfad = txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar);
+                    String RollbackStandard = SettingsGroup.Instance.StandardPfad;
+                    String RollbackHTML = SettingsGroup.Instance.HTMLPfad;
+                    String RollbackLog = SettingsGroup.Instance.LogPfad;
 
-                    SettingsGroup.Instance.WriteAllSettings();
+                    SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar)+ Path.DirectorySeparatorChar;
+                    SettingsGroup.Instance.HTMLPfad = txtHTML.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    SettingsGroup.Instance.LogPfad = txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                    string Schreiben = SettingsGroup.Instance.WriteAllSettings();
+                    if (Schreiben.Equals("Erfolg"))
+                    {
+
+                    }
+                    else {
+                        MessageBox.Show("Änderung der Pfade nicht möglich!" + Environment.NewLine + Environment.NewLine + "Fehler:" + Environment.NewLine + Schreiben, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        SettingsGroup.Instance.StandardPfad = RollbackStandard;
+                        SettingsGroup.Instance.HTMLPfad = RollbackHTML;
+                        SettingsGroup.Instance.LogPfad = RollbackLog;
+                    }
                 }
                 else
                 {
@@ -116,7 +130,7 @@ namespace AntonBot
 
             SettingsGroup.Instance.Save();
 
-            //Close();
+            Close();
         }
 
         private void BtnAbbrechen_Click(object sender, EventArgs e)
@@ -224,6 +238,17 @@ namespace AntonBot
             }
 
             return Ergebnis;
+        }
+
+        private void btnPfadRecover_Click(object sender, EventArgs e)
+        {
+            SettingsGroup.Instance.StandardPfad = Application.StartupPath + Path.DirectorySeparatorChar;
+            SettingsGroup.Instance.LogPfad = Application.StartupPath + Path.DirectorySeparatorChar;
+            SettingsGroup.Instance.HTMLPfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
+
+            txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar, '/');
+            txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');
+            txtLogPfad.Text = SettingsGroup.Instance.LogPfad.Replace(Path.DirectorySeparatorChar, '/');
         }
     }
 }

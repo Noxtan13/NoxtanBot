@@ -1699,7 +1699,7 @@ namespace AntonBot.Fenster
         #region Bits
 
         private void LoadBits() {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "BitListe.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "BitListe.json";
             String InhaltJSON;
 
             if (File.Exists(Path))
@@ -1707,7 +1707,7 @@ namespace AntonBot.Fenster
                 //FileStream stream = File.OpenRead(Path);
                 InhaltJSON = File.ReadAllText(Path);
 
-                BitListe = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BitElement>>(InhaltJSON);
+                BitListe = JsonConvert.DeserializeObject<List<BitElement>>(InhaltJSON);
 
                 foreach (var item in BitListe) {
                     if (BitsID < item.ID) {
@@ -1718,10 +1718,10 @@ namespace AntonBot.Fenster
             }
         }
         private void SaveBits() {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "BitListe.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "BitListe.json";
             String InhaltJSON = "";
 
-            InhaltJSON += Newtonsoft.Json.JsonConvert.SerializeObject(BitListe);
+            InhaltJSON += JsonConvert.SerializeObject(BitListe);
 
             File.WriteAllText(Path, InhaltJSON);
         }
@@ -2526,7 +2526,7 @@ namespace AntonBot.Fenster
         bool SkillGameChange = true;
         private void LoadSkills()
         {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
             String InhaltJSON;
 
             if (File.Exists(Path))
@@ -2534,7 +2534,7 @@ namespace AntonBot.Fenster
                 //FileStream stream = File.OpenRead(Path);
                 InhaltJSON = File.ReadAllText(Path);
 
-                SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
+                SkillList = JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
                 cbxGame.Items.Clear();
                 foreach (var item in SkillList)
                 {
@@ -2695,8 +2695,8 @@ namespace AntonBot.Fenster
             grpSkillGame.Enabled = false;
             SkillÄnderungChange(false);
 
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
-            String InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
+            String Path = SettingsGroup.Instance.StandardPfad+ "SkillListe.json";
+            String InhaltJSON = JsonConvert.SerializeObject(SkillList, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
         }
@@ -2745,8 +2745,8 @@ namespace AntonBot.Fenster
 
                 }
 
-                String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
-                String InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
+                String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
+                String InhaltJSON = JsonConvert.SerializeObject(SkillList, Formatting.Indented);
 
                 File.WriteAllText(Path, InhaltJSON);
 

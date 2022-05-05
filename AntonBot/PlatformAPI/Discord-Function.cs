@@ -138,7 +138,7 @@ namespace AntonBot
                 }
 
                 string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde);
-                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "DiscordServer.json";
+                String Path = SettingsGroup.Instance.StandardPfad + "DiscordServer.json";
                 
                 System.IO.File.WriteAllText(Path, InhaltJSON);
             }

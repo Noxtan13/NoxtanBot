@@ -59,6 +59,8 @@
             this.txtBlackList = new System.Windows.Forms.TextBox();
             this.chkAutoBotBannUse = new System.Windows.Forms.CheckBox();
             this.tabPfade = new System.Windows.Forms.TabPage();
+            this.btnExplorerHTML = new System.Windows.Forms.Button();
+            this.btnExplorerLog = new System.Windows.Forms.Button();
             this.btnExplorerStandard = new System.Windows.Forms.Button();
             this.txtLogPfad = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -66,9 +68,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtStandardPfad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnExplorerLog = new System.Windows.Forms.Button();
-            this.btnExplorerHTML = new System.Windows.Forms.Button();
             this.fBDOrdnerAuswahl = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnPfadRecover = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabStart.SuspendLayout();
             this.tabAutoBot.SuspendLayout();
@@ -404,6 +405,7 @@
             // 
             // tabPfade
             // 
+            this.tabPfade.Controls.Add(this.btnPfadRecover);
             this.tabPfade.Controls.Add(this.btnExplorerHTML);
             this.tabPfade.Controls.Add(this.btnExplorerLog);
             this.tabPfade.Controls.Add(this.btnExplorerStandard);
@@ -419,6 +421,26 @@
             this.tabPfade.TabIndex = 2;
             this.tabPfade.Text = "Pfade";
             this.tabPfade.UseVisualStyleBackColor = true;
+            // 
+            // btnExplorerHTML
+            // 
+            this.btnExplorerHTML.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorerHTML.Image")));
+            this.btnExplorerHTML.Location = new System.Drawing.Point(679, 102);
+            this.btnExplorerHTML.Name = "btnExplorerHTML";
+            this.btnExplorerHTML.Size = new System.Drawing.Size(33, 33);
+            this.btnExplorerHTML.TabIndex = 8;
+            this.btnExplorerHTML.UseVisualStyleBackColor = true;
+            this.btnExplorerHTML.Click += new System.EventHandler(this.btnExplorerHTML_Click);
+            // 
+            // btnExplorerLog
+            // 
+            this.btnExplorerLog.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorerLog.Image")));
+            this.btnExplorerLog.Location = new System.Drawing.Point(679, 57);
+            this.btnExplorerLog.Name = "btnExplorerLog";
+            this.btnExplorerLog.Size = new System.Drawing.Size(33, 33);
+            this.btnExplorerLog.TabIndex = 7;
+            this.btnExplorerLog.UseVisualStyleBackColor = true;
+            this.btnExplorerLog.Click += new System.EventHandler(this.btnExplorerLog_Click);
             // 
             // btnExplorerStandard
             // 
@@ -481,25 +503,15 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Standard-Pfad:";
             // 
-            // btnExplorerLog
+            // btnPfadRecover
             // 
-            this.btnExplorerLog.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorerLog.Image")));
-            this.btnExplorerLog.Location = new System.Drawing.Point(679, 57);
-            this.btnExplorerLog.Name = "btnExplorerLog";
-            this.btnExplorerLog.Size = new System.Drawing.Size(33, 33);
-            this.btnExplorerLog.TabIndex = 7;
-            this.btnExplorerLog.UseVisualStyleBackColor = true;
-            this.btnExplorerLog.Click += new System.EventHandler(this.btnExplorerLog_Click);
-            // 
-            // btnExplorerHTML
-            // 
-            this.btnExplorerHTML.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorerHTML.Image")));
-            this.btnExplorerHTML.Location = new System.Drawing.Point(679, 102);
-            this.btnExplorerHTML.Name = "btnExplorerHTML";
-            this.btnExplorerHTML.Size = new System.Drawing.Size(33, 33);
-            this.btnExplorerHTML.TabIndex = 8;
-            this.btnExplorerHTML.UseVisualStyleBackColor = true;
-            this.btnExplorerHTML.Click += new System.EventHandler(this.btnExplorerHTML_Click);
+            this.btnPfadRecover.Location = new System.Drawing.Point(20, 156);
+            this.btnPfadRecover.Name = "btnPfadRecover";
+            this.btnPfadRecover.Size = new System.Drawing.Size(151, 38);
+            this.btnPfadRecover.TabIndex = 9;
+            this.btnPfadRecover.Text = "Standard wiederherrstellen";
+            this.btnPfadRecover.UseVisualStyleBackColor = true;
+            this.btnPfadRecover.Click += new System.EventHandler(this.btnPfadRecover_Click);
             // 
             // AllgEinstellungen
             // 
@@ -579,5 +591,6 @@
         private System.Windows.Forms.Button btnExplorerHTML;
         private System.Windows.Forms.Button btnExplorerLog;
         private System.Windows.Forms.FolderBrowserDialog fBDOrdnerAuswahl;
+        private System.Windows.Forms.Button btnPfadRecover;
     }
 }

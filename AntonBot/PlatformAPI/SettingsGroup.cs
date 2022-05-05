@@ -107,6 +107,7 @@ namespace AntonBot.PlatformAPI
         public List<Befehl> InhaltBefehl;
         public List<Befehl> InhaltBefehlTwitch;
         public List<BitElement> InhaltBitListe;
+        public List<JoinedUsers> InhaltJoinedUsers;
         public List<DiscordGilde> InhaltDiscordServer;
         public List<List_Befehl> InhaltListBefehl;
         public List<Zeit_Befehl> InhaltZeitBefehl;
@@ -459,6 +460,10 @@ namespace AntonBot.PlatformAPI
             {
                 InhaltDiscordServer = JsonConvert.DeserializeObject<List<DiscordGilde>>(File.ReadAllText(ApplicationPath + "DiscordServer.json"));
             }
+            if (File.Exists(ApplicationPath + "JoinedUsers.json"))
+            {
+                InhaltJoinedUsers = JsonConvert.DeserializeObject<List<JoinedUsers>>(File.ReadAllText(ApplicationPath + "JoinedUsers.json"));
+            }
             if (File.Exists(ApplicationPath + "List-Befehl.json"))
             {
                 InhaltListBefehl = JsonConvert.DeserializeObject<List<List_Befehl>>(File.ReadAllText(ApplicationPath + "List-Befehl.json"));
@@ -483,6 +488,7 @@ namespace AntonBot.PlatformAPI
                 File.WriteAllText(StandardPfad + "List-Befehl.json", JsonConvert.SerializeObject(InhaltListBefehl, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "Zeit-Befehl.json", JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "SkillListe.json", JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "JoinedUsers.json", JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
                 return "Erfolg";
             }
             catch (Exception ex) { 

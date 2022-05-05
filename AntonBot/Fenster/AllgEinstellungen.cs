@@ -101,9 +101,32 @@ namespace AntonBot
                     String RollbackHTML = SettingsGroup.Instance.HTMLPfad;
                     String RollbackLog = SettingsGroup.Instance.LogPfad;
 
-                    SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar)+ Path.DirectorySeparatorChar;
-                    SettingsGroup.Instance.HTMLPfad = txtHTML.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-                    SettingsGroup.Instance.LogPfad = txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    if (txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar).EndsWith(Path.DirectorySeparatorChar.ToString())){
+                        SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar);
+                    }
+                    else
+                    {
+                        SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    }
+
+                    if (txtHTML.Text.Replace('/', Path.DirectorySeparatorChar).EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    {
+                        SettingsGroup.Instance.HTMLPfad = txtHTML.Text.Replace('/', Path.DirectorySeparatorChar);
+                    }
+                    else
+                    {
+                        SettingsGroup.Instance.HTMLPfad = txtHTML.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    }
+
+                    if (txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar).EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    {
+                        SettingsGroup.Instance.LogPfad = txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar);
+                    }
+                    else
+                    {
+                        SettingsGroup.Instance.LogPfad = txtLogPfad.Text.Replace('/', Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    }
+
 
                     string Schreiben = SettingsGroup.Instance.WriteAllSettings();
                     if (Schreiben.Equals("Erfolg"))
@@ -242,9 +265,9 @@ namespace AntonBot
 
         private void btnPfadRecover_Click(object sender, EventArgs e)
         {
-            SettingsGroup.Instance.StandardPfad = Application.StartupPath + Path.DirectorySeparatorChar;
-            SettingsGroup.Instance.LogPfad = Application.StartupPath + Path.DirectorySeparatorChar;
-            SettingsGroup.Instance.HTMLPfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
+            SettingsGroup.Instance.StandardPfad = Application.StartupPath;
+            SettingsGroup.Instance.LogPfad = Application.StartupPath;
+            SettingsGroup.Instance.HTMLPfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite";
 
             txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar, '/');
             txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');

@@ -738,6 +738,7 @@ namespace AntonBot
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.BotStatus.php");
                 rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
+                PHPInhalt = PHPInhalt.Replace("°LogPfad", SettingsGroup.Instance.StandardPfad+"KonsolenAusgabe.json");
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "BotStatus.php";
                 (new FileInfo(Pfad)).Directory.Create();
                 File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));

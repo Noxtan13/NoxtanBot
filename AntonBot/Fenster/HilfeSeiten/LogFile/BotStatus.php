@@ -47,7 +47,8 @@
     echo "$Anzahl <br/>";
     
     echo "Jetzt kommen die Einträge <br/>";
-    $InhaltJson = file_get_contents('/home/pi/Antonbot/KonsolenAusgabe.json');
+    $InhaltJson = file_get_contents('°LogPfad');
+    //$InhaltJson = file_get_contents('/home/pi/Antonbot/KonsolenAusgabe.json');
     //$Eintrag = new Eintraege;
     $Eintrag = json_decode($InhaltJson,true);
     //var_dump($Eintrag);

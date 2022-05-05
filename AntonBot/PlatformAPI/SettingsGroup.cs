@@ -156,9 +156,32 @@ namespace AntonBot.PlatformAPI
                 STwitchAutoBotAmount = load.STwitchAutoBotAmount;
                 SDiscordOtherChannel = load.SDiscordOtherChannel;
                 SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
-                StandardPfad = load.StandardPfad;
-                HTMLPfad = load.HTMLPfad;
-                LogPfad= load.LogPfad;
+
+                if (Directory.Exists(load.StandardPfad))
+                {
+                    StandardPfad = load.StandardPfad;
+                }
+                else
+                {
+                    StandardPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
+                }
+                if (Directory.Exists(load.HTMLPfad))
+                {
+                    HTMLPfad = load.HTMLPfad;
+                }
+                else
+                {
+                    HTMLPfad=System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar; ;
+                }
+                if (Directory.Exists(load.LogPfad)) {
+                    LogPfad = load.LogPfad;
+                }
+                else
+                {
+                    LogPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
+                }
+                
+                
 
                 TeBitsReaction = load.TeBitsReaction;
 

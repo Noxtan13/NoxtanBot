@@ -108,7 +108,6 @@ namespace AntonBot.PlatformAPI
         public List<Befehl> InhaltBefehlTwitch;
         public List<BitElement> InhaltBitListe;
         public List<DiscordGilde> InhaltDiscordServer;
-        public List<JoinedUsers> InhaltJoinedUsers;
         public List<List_Befehl> InhaltListBefehl;
         public List<Zeit_Befehl> InhaltZeitBefehl;
         public List<GameSkill> InhaltSkillList;
@@ -129,7 +128,7 @@ namespace AntonBot.PlatformAPI
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 6;
+            Version = 7;
         }
 
         public void LoadSettings()
@@ -437,10 +436,6 @@ namespace AntonBot.PlatformAPI
             {
                 InhaltDiscordServer = JsonConvert.DeserializeObject<List<DiscordGilde>>(File.ReadAllText(ApplicationPath + "DiscordServer.json"));
             }
-            if (File.Exists(ApplicationPath + "JoinedUsers.json"))
-            {
-                InhaltJoinedUsers = JsonConvert.DeserializeObject<List<JoinedUsers>>(File.ReadAllText(ApplicationPath + "JoinedUsers.json"));
-            }
             if (File.Exists(ApplicationPath + "List-Befehl.json"))
             {
                 InhaltListBefehl = JsonConvert.DeserializeObject<List<List_Befehl>>(File.ReadAllText(ApplicationPath + "List-Befehl.json"));
@@ -455,21 +450,25 @@ namespace AntonBot.PlatformAPI
             }
         }
 
-        public void WriteAllSettings() {
-
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltBefehl, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltBefehlTwitch, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltBitListe, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltDiscordServer, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltListBefehl, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
-            File.WriteAllText(StandardPfad, JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
-
+        public String WriteAllSettings() {
+            try
+            {
+                File.WriteAllText(StandardPfad + "Befehl.json", JsonConvert.SerializeObject(InhaltBefehl, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "Befehl-Twitch.json", JsonConvert.SerializeObject(InhaltBefehlTwitch, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "BitListe.json", JsonConvert.SerializeObject(InhaltBitListe, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "DiscordServer.json", JsonConvert.SerializeObject(InhaltDiscordServer, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "List-Befehl.json", JsonConvert.SerializeObject(InhaltListBefehl, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "Zeit-Befehl.json", JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "SkillListe.json", JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
+                return "Erfolg";
+            }
+            catch (Exception ex) { 
+                return ex.Message;
+            }
             
         }
 
-        public void ImportSettingsGroup(String ApplicationPath, String Inhalt)
+        public void ImportSettingsGroup(String Inhalt)
         {
             SettingsGroup Import = JsonConvert.DeserializeObject<SettingsGroup>(Inhalt);
 
@@ -562,14 +561,7 @@ namespace AntonBot.PlatformAPI
 
             Save(DefaultSavePath);
 
-            File.WriteAllText(ApplicationPath + "Befehl.json", JsonConvert.SerializeObject(InhaltBefehl, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "Befehl-Twitch.json", JsonConvert.SerializeObject(InhaltBefehlTwitch, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "BitListe.json", JsonConvert.SerializeObject(InhaltBitListe, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "DiscordServer.json", JsonConvert.SerializeObject(InhaltDiscordServer, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "JoinedUsers.json", JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "List-Befehl.json", JsonConvert.SerializeObject(InhaltListBefehl, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "Zeit-Befehl.json", JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
-            File.WriteAllText(ApplicationPath + "SkillListe.json", JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
+            WriteAllSettings();
         }
     }
 }

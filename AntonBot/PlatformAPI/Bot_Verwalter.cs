@@ -480,9 +480,12 @@ public void Speichern() {
         }
 
         protected void CommandListFill(List<Befehl> Liste) {
-            foreach (var item in Liste)
+            if (Liste != null)
             {
-                AllCommands.Add(item.Kommando.ToString());
+                foreach (var item in Liste)
+                {
+                    AllCommands.Add(item.Kommando.ToString());
+                }
             }
         }
 

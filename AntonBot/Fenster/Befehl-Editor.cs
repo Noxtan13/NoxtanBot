@@ -32,7 +32,7 @@ namespace AntonBot
         }
         private void Befehl_Editor_Load(object sender, EventArgs e)
         {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Befehl.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "Befehl.json";
             String InhaltJSON;
 
             if (File.Exists(Path)) {            
@@ -50,7 +50,7 @@ namespace AntonBot
                 }
             }
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Zeit-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad+ "Zeit-Befehl.json";
 
             if (File.Exists(Path))
             {
@@ -68,7 +68,7 @@ namespace AntonBot
                 }
             }
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Befehl-Twitch.json";
+            Path = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
 
             if (File.Exists(Path))
             {
@@ -86,7 +86,7 @@ namespace AntonBot
                 }
             }
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "List-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
 
             if (File.Exists(Path))
             {
@@ -388,26 +388,26 @@ namespace AntonBot
 
         private void JSONSpeichern_Click(object sender, EventArgs e)
         {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Befehl.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "Befehl.json";
             String InhaltJSON="";
 
             InhaltJSON += JsonConvert.SerializeObject(lBefehlListe,Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Zeit-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
             InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(lZeitBefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Befehl-Twitch.json";
+            Path = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
             InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(lTwitchBefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "List-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
             InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(lList_BefehlListe, Formatting.Indented);
 
@@ -480,26 +480,26 @@ namespace AntonBot
 
         private void Befehl_Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Befehl.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "Befehl.json";
             String InhaltJSON = "";
 
             InhaltJSON += JsonConvert.SerializeObject(lBefehlListe);
 
             File.WriteAllText(Path, InhaltJSON);
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Zeit-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
             InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(lZeitBefehlListe);
 
             File.WriteAllText(Path, InhaltJSON);
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "Befehl-Twitch.json";
+            Path = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
             InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(lTwitchBefehlListe);
 
             File.WriteAllText(Path, InhaltJSON);
 
-            Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "List-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
             InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(lList_BefehlListe);
 

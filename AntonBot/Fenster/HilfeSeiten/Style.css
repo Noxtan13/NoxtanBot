@@ -5,11 +5,14 @@ body{
 	height:100%;
 }
 .MenuLeiste {
-	background-color: lightblue;
+	background-color: #5B90CE;
 	text-align: center;
 	padding: 10px;
+	margin: 5px;
 	height: auto;
-	max-height:50px;
+	max-height: 50px;
+	border-radius: 25px;
+	font-size:20px;
 }
 
 .container {
@@ -24,24 +27,28 @@ body{
 	width: 15%;
 	height: auto;
 	float: left;
-	background-color: forestgreen;
+	background-color: #8EABCC;
 	text-align: left;
 	font-family: Verdana, sans-serif;
+	margin-right: 5px;
+	border-radius: 25px;
+	font-size:18px;
 }
+	.UnterMenu > p {
+		border-radius: 25px;
+		text-decoration: none;
+	}
 
 .Inhalt {
 	font-family: Verdana, sans-serif;
-	background-color: indianred;
+	background-color: #B7C1CC;
 	height: inherit;
-	width:100%;
-	overflow:hidden;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 25px;
+	padding: 15px;
+	display: block;
 }
-
-.Inhalttext{
-	padding:15px;
-	display:block;
-}
-
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -57,31 +64,31 @@ h5 {
 	background-color: aquamarine;
 }
 
-details > summary {
-	padding: 4px;
-	width: fit-content;
-	background-color: #eeeeee;
-	border: none;
-	box-shadow: 1px 1px 2px #bbbbbb;
-	cursor: pointer;
+details{
+	margin-bottom:5px;
 }
 
+	details > summary {
+		padding: 4px;
+		width: fit-content;
+		border: none;
+		cursor: pointer;
+		font-size: 18px;
+		font-weight: bold;
+		color: #1E6FCC;
+	}
+
 details > ol {
-	padding-left: revert;
 	margin: 0;
-	box-shadow: 1px 1px 2px #bbbbbb;
-	background-color: #dddddd;
 }
-details >ol>li{
-	background-color:#aaaaaa;
-	float:inherit;
-	width:auto;
-}
-details > ol > li > ul {
-	background-color: #bbbbbb;
-}
+details > ol > li {
+
+	float: inherit;
+	width: auto;
+	margin-bottom: 3px;
+	padding: 5px;
+	}
 details >  ol > li > ul > li {
-	background-color: #bbbbbb;
 	float: inherit;
 	width: auto;
 }
@@ -90,37 +97,35 @@ table {
 	width: 100%;
 	table-layout: fixed;
 }
-li {
+.MenuLeiste li {
 	float: left;
 	width: 20%;
-	min-width:100px;
+	min-width: 100px;
 }
 
-	li a {
-		display: block;
-		color: black;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
-	}
+.MenuLeiste li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+}
 
 		/* Change the link color to #111 (black) on hover */
-		li a:hover {
-			background-color: #111;
-			color: white;
-		}
+.MenuLeiste li a:hover {
+	background-color: #546;
+	color: white;
+	border-radius: 25px;
+}
 
 p {
 	height: 25px;
 	text-align: center;
-	text-decoration: none;
-}
+}	
 	p:hover {
 		background-color: #546;
 		color: white;
 	}
 a, a:hover, a:visited, a:active {
-	display: block;
 	color: inherit;
 	text-decoration: none;
 }

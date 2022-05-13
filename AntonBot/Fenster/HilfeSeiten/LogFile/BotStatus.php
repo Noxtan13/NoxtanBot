@@ -31,7 +31,6 @@
             <p><a>Eintrag 3</a></p>
         </div>
         <div class="Inhalt">
-            <div class="Inhalttext">
                 
             <?php
 
@@ -78,7 +77,6 @@
     echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer";
     ?>
 
-            </div>
         </div>
     </div>
 

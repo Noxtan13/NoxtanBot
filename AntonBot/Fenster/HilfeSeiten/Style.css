@@ -38,6 +38,9 @@ body{
 		border-radius: 25px;
 		text-decoration: none;
 	}
+	.UnterMenu>p>a{
+		display:block;
+	}
 
 .Inhalt {
 	font-family: Verdana, sans-serif;

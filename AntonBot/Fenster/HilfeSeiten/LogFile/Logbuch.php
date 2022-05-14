@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Log NoxtanBot</title>
+    <title>Anzeige Logbuch</title>
+    <link rel="icon" href="../PinguinServer.jpg" />
     <link rel="icon" href="../PinguinServer.jpg" />
     <link rel="stylesheet" href="../Style.css" />
     <style>
@@ -33,48 +34,22 @@
         <div class="Inhalt">
                 
             <?php
-
-    exec("pgrep -u pi mono", $output, $return);
-    if($return) {
-    echo "NoxtanBot not running!\n";
-    } else {
-    echo "NoxtanBot OK\n";
-    }
-
-    echo "Anzahl des gestarteten Bots: <br/>";
-    $Anzahl = file_get_contents('/home/pi/Ausfall.txt');
-    echo "$Anzahl <br/>";
-    
+    //Hat hier nichts mit dem Bot zu tun, sondern zum Auslesen anderer Logdateien. Pfad muss entsprechend angegeben, bzw. bearbeitet werden
+  
     echo "Jetzt kommen die Einträge <br/>";
-    $InhaltJson = file_get_contents('°LogPfad');
-    //$InhaltJson = file_get_contents('/home/pi/Antonbot/KonsolenAusgabe.json');
+    //$InhaltJson = file_get_contents('°LogPfad');
+    $InhaltJson = file_get_contents('/home/pi/CronjobAusgabe.txt');
     //$Eintrag = new Eintraege;
     $Eintrag = json_decode($InhaltJson,true);
     //var_dump($Eintrag);
     
     
     $Ausfalldauer=0;
-    foreach($Eintrag as &$value){
-        echo"<div class=\"LogEintrag\">";
-        echo $value['AusgabeTyp'];
-        echo " - ";
-        echo $value['AusgabeDatum'];
-        echo " - ";
-        echo $value['AusgabeZeitpunkt'];
-        echo " --- ";
-        echo $value['AusgabeText'];
-        echo"</div>";
-        if(!is_null($value['AusgabeZusatzInfo'])){
-            $Ausfalldauer = $Ausfalldauer+ (int)$value['AusgabeZusatzInfo'];
-        }
-    }
-    
-    unset($value);
 
-    echo "<br/>Ausgabe ZusatzInfo: $Ausfalldauer<br/>"; 
+    echo"<div class=\"LogEintrag\">";
+    echo $InhaltJson
+    echo"</div>";
 
-    $GesamtDauer = $Ausfalldauer+(int)$Anzahl*60;
-    echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer";
     ?>
 
         </div>

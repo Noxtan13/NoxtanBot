@@ -17,15 +17,15 @@
     </div>
     <div class="container">
         <div class="UnterMenu">
-            <p><a>Eintrag 1</a></p>
+            <p><a href="VariableHilfe.html">Variablen</a></p>
             <p><a>Eintrag 2</a></p>
             <p><a>Eintrag 3</a></p>
         </div>
         <div class="Inhalt">
             <div class="ContainerText">
-                Variablen und deren Einsatz
+                Auf dieser Seite werden die unterstützen Variablen der verschiedenen Plattformen und die Variablen der Events aufgelistet und erklärt.
             </div>
-            <b>Chat-Variablen</b>
+            <h2>Chat-Variablen</h2>
             <details>
                 <summary>Chat-Variablen in den allgemeinen Kommandos</summary>
                 <div class="Variablen">
@@ -98,7 +98,7 @@
                 </div>
             </details>
 
-            <b>Event-Variablen</b>
+            <h2>Event-Variablen</h2>
 
             <details>
                 <summary>OnStreamOnline-Variablen</summary>
@@ -110,51 +110,51 @@
                         </tr>
                         <tr>
                             <td>GameID</td>
-                            <td>Variable, die den Text, der nach dem Befehl eingegeben wird, enthält. Braucht eine alternative Antwort, wenn kein Wert eingegeben wird</td>
+                            <td>Die ID des Spiels als Integer, wie Twitch die verwaltet. Bei der Ausgabe wird der Name des Spiels gesucht und ausgegeben. Wenn zur ID kein Spiel gefunden wird, ist der Wert "GAME_NOT_FOUND". Der Name des Spiels ist der englische Name.</td>
                         </tr>
                         <tr>
                             <td>Language</td>
-                            <td>Variable, die einen zufälligen Wert annimmt, der vorgegeben wird. Die Vorgabe erfolgt über den Button "Zufall".</td>
+                            <td>Die Sprache, die für den Stream gesetzt ist. Wird auf Englisch ausgegeben.</td>
                         </tr>
                         <tr>
                             <td>StartedAt</td>
-                            <td>Variable, die den Namen des Benutzers enthält, der den Befehl verwendet</td>
+                            <td>Der Zeitpunkt, zu dem der Stream gestartet wurde. Der Wert der von Twitch überliefert wird, wird einfach als String ausgegeben.</td>
                         </tr>
                         <tr>
                             <td>Title</td>
-                            <td>Variable, die die Anzahl angbit, wie häufig der Befehl verwendet wurde. Zählt bei jeder Verwendung hoch</td>
+                            <td>Der Titel des Streams. Es wird der aktuelle Wert genommen.</td>
                         </tr>
                         <tr>
                             <td>Type</td>
-                            <td>enthält alle Befehle, die über jede Plattform verwendet werden können</td>
+                            <td>Die Art des Streams (sollte noch überprüft werden)</td>
                         </tr>
                         <tr>
                             <td>UserId</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Die ID des User, dessen Stream gestartet ist</td>
                         </tr>
                         <tr>
                             <td>UserName</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Der Name des Users, dessen Stream gestartet ist. Kann verwendet werden um den direkten Twitchlink zu erzeugen</td>
                         </tr>
                         <tr>
                             <td>ViewerCount</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Die Anzahl der Viewer, wenn das Event geworfen wird. Zum Zeitpunkt des Streamstarts ist dieser Wert meistens 0 oder 1</td>
                         </tr>
                         <tr>
                             <td>Channel</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Der Name des Kanals, wo der stream gestartet wurde. Meistens der gleiche Wert, wie der UserName.</td>
                         </tr>
                         <tr>
                             <td>Hours</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Die Anzahl an Stunden, seit dem der Stream gestartet ist. Beim Streamstart meistens 0.</td>
                         </tr>
                         <tr>
                             <td>Minutes</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Die Anzahl an Minuten, seit dem der Stream gestartet ist. Meistens 0. Kann aber auch etwas höher sein, je nach dem das Event vom Bot erkannt wird.</td>
                         </tr>
                         <tr>
                             <td>Seconds</td>
-                            <td>enthält alle Befehle, die nur auf Twitch verfügbar sind. Lässt sich auch auf andere Plattformen ausgeben, aber die Befehle können nur auf Twitch verwendet werden</td>
+                            <td>Die Anzahl an Sekunden, seit dem der Stream gestartet ist.</td>
                         </tr>
                     </table>
                 </div>

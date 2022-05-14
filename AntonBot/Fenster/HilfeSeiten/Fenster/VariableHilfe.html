@@ -130,6 +130,10 @@
                             <td>Die Art des Streams (sollte noch überprüft werden)</td>
                         </tr>
                         <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels, der überwacht wird.</td>
+                        </tr>
+                        <tr>
                             <td>UserId</td>
                             <td>Die ID des User, dessen Stream gestartet ist</td>
                         </tr>
@@ -184,6 +188,10 @@
                         <tr>
                             <td>Type</td>
                             <td>Die Art des Streams (sollte noch überprüft werden)</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels, der überwacht wird.</td>
                         </tr>
                         <tr>
                             <td>UserId</td>
@@ -248,6 +256,10 @@
                         <tr>
                             <td>UserName</td>
                             <td>Der Name des Users, dessen Stream gestartet ist. Kann verwendet werden um den direkten Twitchlink zu erzeugen</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels, der überwacht wird.</td>
                         </tr>
                         <tr>
                             <td>ViewerCount</td>
@@ -360,7 +372,385 @@
                     </table>
                 </div>
             </details>
-
+            <details>
+                <summary>OnNewSubscriber</summary>
+                <h6>Wird geworfen, wenn jemand den Streamer ein Sub hinterlässt (zählt auch für geschenkte Subs)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Subscriber-Channel</td>
+                            <td>Der Name der Person, die den Sub bekommen hat.</td>
+                        </tr>
+                        <tr>
+                            <td>DisplayName</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>ResubMessage</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>UserId</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>SystemMessage</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>SystemMessageParsed</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>RawIrc</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamStreakMonths</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamCumulativeMonths</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>MsgId</td>
+                            <td>---</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnExistingUsersDetected</summary>
+                <h6>Wird aktiviert, wenn ein bekannter User erkannt wird (muss noch ausgetestet werden)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name der Person, die den Stream gestartet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Name der Person, die erkannt wurde</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnUserJoined</summary>
+                <h6>Wird aktiviert, wenn ein bekannter User den Channel beitritt (auch außerhalb eines Streams)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name der Person, die den Stream gestartet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Name der Person, die erkannt wurde</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnUserLeft</summary>
+                <h6>Wird aktiviert, wenn ein User den Channel verlässt (Auch außerhalb des Streams)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name der Person, die den Stream gestartet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Name der Person, die erkannt wurde</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnConnected</summary>
+                <h6>Wird aktiviert, wenn der Bot sich einloogt bei der Anmeldung.</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>BotUsername</td>
+                            <td>Der Name des Bots.</td>
+                        </tr>
+                        <tr>
+                            <td>AutoJoinChannel</td>
+                            <td>Der Channel, mit dem sich der Bot verbindet.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnJoinedChannel</summary>
+                <h6>Wird aktiviert, wenn der Bot einem Channel joint</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels, der gejoint wird.</td>
+                        </tr>
+                        <tr>
+                            <td>BotuserName</td>
+                            <td>Name des Bots</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnWhisperReceived</summary>
+                <h6>Wird aktiviert, wenn der eine private Nachricht an den User gesendet wird (Derzeit nicht in Verwendung)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>---</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnMessageReceived</summary>
+                <h6>Wird aktiviert, wenn eine Nachricht im Channel geschrieben. Hat keine Variablen, da aufgrund dieses Events die Kommandos des Bots ausgeführt werden.</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>---.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnChannelPointsRewardRedeemed</summary>
+                <h6>Wird aktiviert, wenn jemand ne Belohnung aus dem Channel einlöst.</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>Name des Benutzers, der die Belohnung eingelöst hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Message</td>
+                            <td>Die Nachricht des Benutzers, wenn ein Textfeld in der Belohnung erwartet wird.</td>
+                        </tr>
+                        <tr>
+                            <td>Reward-Title</td>
+                            <td>Der Name der Belohnung.</td>
+                        </tr>
+                        <tr>
+                            <td>Reward-Cost</td>
+                            <td>Die Kosten der Belohnung.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnRaidGo</summary>
+                <h6>
+                    Wird aktiviert, wenn der Streamer ein Raid startet (wird mehrfach geworfen. Für jeden Teilschritt) <br />
+                    Folgende Teilschritte: Eingabe des Raids. Wartezeit des Raids (10 sek). Timeout des Raids (60 sek, dann automatisch oder Streamer drückt auf "Raid starten"). Ankuft des Raids bei anderen Streamer.
+                </h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>TargetName</td>
+                            <td>Name des Benutzers, der den Raid bekommen soll.</td>
+                        </tr>
+                        <tr>
+                            <td>ViewerCount</td>
+                            <td>Anzahl der User, die im Raid sind</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnChannelPointsRewardRedeemed</summary>
+                <h6>Wird aktiviert, wenn jemand ne Belohnung aus dem Channel einlöst.</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>Name des Benutzers, der die Belohnung eingelöst hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Message</td>
+                            <td>Die Nachricht des Benutzers, wenn ein Textfeld in der Belohnung erwartet wird.</td>
+                        </tr>
+                        <tr>
+                            <td>Reward-Title</td>
+                            <td>Der Name der Belohnung.</td>
+                        </tr>
+                        <tr>
+                            <td>Reward-Cost</td>
+                            <td>Die Kosten der Belohnung.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnClipCreated</summary>
+                <h6>Wird aktiviert, wenn jemand ein Clip erstellt hat (Kein Twitch-Event. Der Bot frägt regelmäßig die neuen Videos selber ab)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>CreatedAtTag</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>CreatedAtUhr</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>CreatorName</td>
+                            <td>Der Name der Person, die den Clip erstellt hat.</td>
+                        </tr>
+                        <tr>
+                            <td>GameId</td>
+                            <td>Die ID des Spiels als Integer, wie Twitch die verwaltet. Bei der Ausgabe wird der Name des Spiels gesucht und ausgegeben. Wenn zur ID kein Spiel gefunden wird, ist der Wert "GAME_NOT_FOUND". Der Name des Spiels ist der englische Name.</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>Der Titel des Clips.</td>
+                        </tr>
+                        <tr>
+                            <td>Url</td>
+                            <td>Der Link des Clips.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnClipCreated</summary>
+                <h6>Wird aktiviert, wenn jemand ein Clip erstellt hat (Kein Twitch-Event. Der Bot frägt regelmäßig die neuen Videos selber ab)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>CreatedAtTag</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>CreatedAtUhr</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>CreatorName</td>
+                            <td>Der Name der Person, die den Clip erstellt hat.</td>
+                        </tr>
+                        <tr>
+                            <td>GameId</td>
+                            <td>Die ID des Spiels als Integer, wie Twitch die verwaltet. Bei der Ausgabe wird der Name des Spiels gesucht und ausgegeben. Wenn zur ID kein Spiel gefunden wird, ist der Wert "GAME_NOT_FOUND". Der Name des Spiels ist der englische Name.</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>Der Titel des Clips.</td>
+                        </tr>
+                        <tr>
+                            <td>Url</td>
+                            <td>Der Link des Clips.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnBitsReplace</summary>
+                <h6>Wird aktiviert, wenn jemand ein Bits im Stream ausgibt.</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>ChannelId</td>
+                            <td>Die ID des Streamers, der die Bits bekommt.</td>
+                        </tr>
+                        <tr>
+                            <td>ChannelName</td>
+                            <td>Der Name des Streamers, der die Bits bekommt.</td>
+                        </tr>
+                        <tr>
+                            <td>UserId</td>
+                            <td>Die ID des Users, der die Bits gespendet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>UserName</td>
+                            <td>Der Name des Users, der die Bits gespendet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>ChatMessage</td>
+                            <td>Die Nachricht, die beim senden der Bits gesendet werden können.</td>
+                        </tr>
+                        <tr>
+                            <td>Context</td>
+                            <td>---</td>
+                        </tr>
+                        <tr>
+                            <td>BitsUsed</td>
+                            <td>Die Anzahl der gepsendeten Bits.</td>
+                        </tr>
+                        <tr>
+                            <td>TotalBitsUsed</td>
+                            <td>Die Anzahl aller gespendeten Bits des Benutzers.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
         </div>
     </div>
 

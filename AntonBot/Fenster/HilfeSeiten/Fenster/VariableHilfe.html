@@ -102,6 +102,7 @@
 
             <details>
                 <summary>OnStreamOnline-Variablen</summary>
+                <h6>Wird geworfen, wenn der Stream startet</h6>
                 <div class="Variablen">
                     <table>
                         <tr>
@@ -141,10 +142,6 @@
                             <td>Die Anzahl der Viewer, wenn das Event geworfen wird. Zum Zeitpunkt des Streamstarts ist dieser Wert meistens 0 oder 1</td>
                         </tr>
                         <tr>
-                            <td>Channel</td>
-                            <td>Der Name des Kanals, wo der stream gestartet wurde. Meistens der gleiche Wert, wie der UserName.</td>
-                        </tr>
-                        <tr>
                             <td>Hours</td>
                             <td>Die Anzahl an Stunden, seit dem der Stream gestartet ist. Beim Streamstart meistens 0.</td>
                         </tr>
@@ -158,8 +155,118 @@
                         </tr>
                     </table>
                 </div>
-
-
+            </details>
+            <details>
+                <summary>OnStreamOffline-Variablen</summary>
+                <h6>Wird geworfen, wenn der Stream beendet wird. Auch wenn der Stream z.B. durch ein Abbruch der Internetleitung beendet wird.</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>GameID</td>
+                            <td>Die ID des Spiels als Integer, wie Twitch die verwaltet. Bei der Ausgabe wird der Name des Spiels gesucht und ausgegeben. Wenn zur ID kein Spiel gefunden wird, ist der Wert "GAME_NOT_FOUND". Der Name des Spiels ist der englische Name.</td>
+                        </tr>
+                        <tr>
+                            <td>Language</td>
+                            <td>Die Sprache, die für den Stream gesetzt ist. Wird auf Englisch ausgegeben.</td>
+                        </tr>
+                        <tr>
+                            <td>StartedAt</td>
+                            <td>Der Zeitpunkt, zu dem der Stream gestartet wurde. Der Wert der von Twitch überliefert wird, wird einfach als String ausgegeben.</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>Der Titel des Streams. Es wird der aktuelle Wert genommen.</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>Die Art des Streams (sollte noch überprüft werden)</td>
+                        </tr>
+                        <tr>
+                            <td>UserId</td>
+                            <td>Die ID des User, dessen Stream gestartet ist</td>
+                        </tr>
+                        <tr>
+                            <td>UserName</td>
+                            <td>Der Name des Users, dessen Stream gestartet ist. Kann verwendet werden um den direkten Twitchlink zu erzeugen</td>
+                        </tr>
+                        <tr>
+                            <td>ViewerCount</td>
+                            <td>Die Anzahl der Viewer, wenn das Event geworfen wird</td>
+                        </tr>
+                        <tr>
+                            <td>Hours</td>
+                            <td>Die Anzahl an Stunden, seit dem der Stream gestartet ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Minutes</td>
+                            <td>Die Anzahl an Minuten, seit dem der Stream gestartet ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Seconds</td>
+                            <td>Die Anzahl an Sekunden, seit dem der Stream gestartet ist.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnStreamUpdate-Variablen</summary>
+                <h6>Wird geworfen, wenn der Stream einen der ausgegebenen Variablen (GameID, Language, Title, Type, ViewerCount, UserId, UserName) ändert</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>GameID</td>
+                            <td>Die ID des Spiels als Integer, wie Twitch die verwaltet. Bei der Ausgabe wird der Name des Spiels gesucht und ausgegeben. Wenn zur ID kein Spiel gefunden wird, ist der Wert "GAME_NOT_FOUND". Der Name des Spiels ist der englische Name.</td>
+                        </tr>
+                        <tr>
+                            <td>Language</td>
+                            <td>Die Sprache, die für den Stream gesetzt ist. Wird auf Englisch ausgegeben.</td>
+                        </tr>
+                        <tr>
+                            <td>StartedAt</td>
+                            <td>Der Zeitpunkt, zu dem der Stream gestartet wurde. Der Wert der von Twitch überliefert wird, wird einfach als String ausgegeben.</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>Der Titel des Streams. Es wird der aktuelle Wert genommen.</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>Die Art des Streams (sollte noch überprüft werden)</td>
+                        </tr>
+                        <tr>
+                            <td>UserId</td>
+                            <td>Die ID des User, dessen Stream gestartet ist</td>
+                        </tr>
+                        <tr>
+                            <td>UserName</td>
+                            <td>Der Name des Users, dessen Stream gestartet ist. Kann verwendet werden um den direkten Twitchlink zu erzeugen</td>
+                        </tr>
+                        <tr>
+                            <td>ViewerCount</td>
+                            <td>Die Anzahl der Viewer, wenn das Event geworfen wird</td>
+                        </tr>
+                        <tr>
+                            <td>Hours</td>
+                            <td>Die Anzahl an Stunden, seit dem der Stream gestartet ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Minutes</td>
+                            <td>Die Anzahl an Minuten, seit dem der Stream gestartet ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Seconds</td>
+                            <td>Die Anzahl an Sekunden, seit dem der Stream gestartet ist.</td>
+                        </tr>
+                    </table>
+                </div>
             </details>
         </div>
     </div>

@@ -66,6 +66,12 @@ h5 {
 	font-size: medium;
 	background-color: aquamarine;
 }
+h6{
+	font-size:15px;
+	background-color:burlywood;
+	margin:10px;
+	padding:5px;
+}
 
 details{
 	margin-bottom:5px;
@@ -98,8 +104,13 @@ details >  ol > li > ul > li {
 
 table {
 	width: 100%;
-	table-layout: fixed;
+	table-layout: auto;
+	display:table-cell;
 }
+td{
+	padding:5px;
+}
+
 .MenuLeiste li {
 	float: left;
 	width: 20%;

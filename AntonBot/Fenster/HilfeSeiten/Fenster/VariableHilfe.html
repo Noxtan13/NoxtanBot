@@ -268,6 +268,99 @@
                     </table>
                 </div>
             </details>
+            <details>
+                <summary>OnNewFollowersDetected</summary>
+                <h6>Wird geworfen, wenn ein neuer User den Streamer folgt</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>NewFollowedAt</td>
+                            <td>Zeitpunkt, an dem der Follow passiert ist.</td>
+                        </tr>
+                        <tr>
+                            <td>NewFromUserName</td>
+                            <td>Der Nutzername des Benutzers, der nun folgt.</td>
+                        </tr>
+                        <tr>
+                            <td>NewFromUserId</td>
+                            <td>Die UserID des Benutzers, der nun folgt</td>
+                        </tr>
+                        <tr>
+                            <td>NewToUserId</td>
+                            <td>Die UserID des Streamers</td>
+                        </tr>
+                        <tr>
+                            <td>NewToUserName</td>
+                            <td>Der Nutzername des Streamers</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnRaidNotification</summary>
+                <h6>Wird geworfen, wenn ein Raid zum Streamer erfolgt</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>DisplayName</td>
+                            <td>Der Name der Person, die den Raid bekommen hat.</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamDisplayName</td>
+                            <td>Der Name der Person, die den Raid gestartet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamLogin</td>
+                            <td>Der LoginName der Person, die den Raid gestartet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamViewerCount</td>
+                            <td>Die Anzahl der Personen, die mit dem Raid mitgekommen sind.</td>
+                        </tr>
+                        <tr>
+                            <td>Game</td>
+                            <td>Das Spiel, welches der Raider gespielt hat. Wird aktiv bei erkennen des Raids abgefragt.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+            <details>
+                <summary>OnBeingHosted</summary>
+                <h6>Wird geworfen, wenn jemand den Streamer aktiv hostet (Host aus der Auto-Host-Liste anderer User zählen nicht)</h6>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name der Person, die den Host bekommen hat.</td>
+                        </tr>
+                        <tr>
+                            <td>HostedByChannel</td>
+                            <td>Der Name der Person, die den Host gestartet hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Viewers+1</td>
+                            <td>Die Anazhl der Viewer des Host. (+1 da die Person, die den Host gestartet hat, sonst nicht mitzählt)</td>
+                        </tr>
+                        <tr>
+                            <td>Viewers</td>
+                            <td>Die Anazhl der Viewer des Host.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
         </div>
     </div>
 

@@ -66,6 +66,27 @@ body {
 			0% { width: 0%;} 
 			100% { width: 100%; }
         }
+
+
+
+        @keyframes Zahl {
+            0%{top:10px;
+               color: rgba(0,0,0,1);
+            }
+            100% {
+                top: -50px;
+                color: rgba(0,0,0,0);
+            }
+        }
+        .EXP {
+            animation: Zahl 3s normal;
+            position: absolute;
+            left: 250px;
+            font-family: Verdana, sans-serif;
+            color: rgba(0,0,0,0);
+            font-size: 23px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -75,8 +96,10 @@ body {
 <div class="Box">
     <div class="ExpText">EXP / MaxExp</div>
     <div class="progress">
+        <div class="EXP">+50</div>
         <div class="progress-value"></div>
     </div>
+    
 </div>
 
 

@@ -383,6 +383,9 @@
     <EmbeddedResource Include="Fenster\HilfeSeiten\LogFile\BotStatus.php">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Compile Include="Fenster\HilfeSeiten\Sonstiges\LeereVorlage">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\AntonBotCert.cer" />
     <None Include="Properties\Settings.settings">
@@ -461,6 +464,27 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fenster\HilfeSeiten\Style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\AllgEinstellungen.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\BefehlEditor.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\DiscordEinstellungen.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\StartFenster.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\TwitchEinstellungen.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\LogFile\Logbuch.php">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Einrichtung\DiscordAnleitung.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="PinguinServer.ico" />

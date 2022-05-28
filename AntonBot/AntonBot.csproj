@@ -383,9 +383,12 @@
     <EmbeddedResource Include="Fenster\HilfeSeiten\LogFile\BotStatus.php">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Compile Include="Fenster\HilfeSeiten\Sonstiges\LeereVorlage">
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\Bilder\Startseite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    </EmbeddedResource>
+    <Content Include="Fenster\HilfeSeiten\Sonstiges\LeereVorlage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\AntonBotCert.cer" />
     <None Include="Properties\Settings.settings">

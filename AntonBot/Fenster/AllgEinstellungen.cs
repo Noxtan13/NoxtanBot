@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AntonBot.PlatformAPI;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using AntonBot.PlatformAPI;
 
 namespace AntonBot
 {
@@ -14,7 +14,7 @@ namespace AntonBot
         private bool Pfadändern;
         private void AllgEinstellungen_Load(object sender, EventArgs e)
         {
-            
+
             chkAutoDiscord.Checked = SettingsGroup.Instance.SDiscordAutoStart;
             chkAutoTwitch.Checked = SettingsGroup.Instance.STwitchAutoStart;
             chkTwitchAutoBan.Checked = SettingsGroup.Instance.SAutoBan;
@@ -28,7 +28,7 @@ namespace AntonBot
             chkOtherChannelDiscord.Checked = SettingsGroup.Instance.SDiscordOtherChannel;
             txtDiscordOtherChannel.Text = SettingsGroup.Instance.SDiscordOtherChannelChannel.ToString();
 
-            if (SettingsGroup.Instance.STwitchAutoBotWhiteList!= null)
+            if (SettingsGroup.Instance.STwitchAutoBotWhiteList != null)
             {
                 foreach (string Eintrag in SettingsGroup.Instance.STwitchAutoBotWhiteList)
                 {
@@ -37,7 +37,7 @@ namespace AntonBot
             }
             else
             {
-                SettingsGroup.Instance.STwitchAutoBotWhiteList= new System.Collections.Specialized.StringCollection();
+                SettingsGroup.Instance.STwitchAutoBotWhiteList = new System.Collections.Specialized.StringCollection();
             }
             if (SettingsGroup.Instance.STwitchBlackList != null)
             {
@@ -51,7 +51,7 @@ namespace AntonBot
                 SettingsGroup.Instance.STwitchBlackList = new System.Collections.Specialized.StringCollection();
             }
 
-            txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar,'/');
+            txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar, '/');
             txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');
             txtLogPfad.Text = SettingsGroup.Instance.LogPfad.Replace(Path.DirectorySeparatorChar, '/');
 
@@ -60,19 +60,20 @@ namespace AntonBot
 
         private void BtnSpeichern_Click(object sender, EventArgs e)
         {
-            SettingsGroup.Instance.SDiscordAutoStart= chkAutoDiscord.Checked;
-            SettingsGroup.Instance.STwitchAutoStart= chkAutoTwitch.Checked;
-            SettingsGroup.Instance.SAutoBan= chkTwitchAutoBan.Checked;
-            SettingsGroup.Instance.STwitchAutoMessage= chkTwitchAutoMessage.Checked;
+            SettingsGroup.Instance.SDiscordAutoStart = chkAutoDiscord.Checked;
+            SettingsGroup.Instance.STwitchAutoStart = chkAutoTwitch.Checked;
+            SettingsGroup.Instance.SAutoBan = chkTwitchAutoBan.Checked;
+            SettingsGroup.Instance.STwitchAutoMessage = chkTwitchAutoMessage.Checked;
 
-            SettingsGroup.Instance.SDiscordOtherChannel= chkOtherChannelDiscord.Checked;
-            SettingsGroup.Instance.SDiscordOtherChannelChannel= Convert.ToUInt64(txtDiscordOtherChannel.Text);
+            SettingsGroup.Instance.SDiscordOtherChannel = chkOtherChannelDiscord.Checked;
+            SettingsGroup.Instance.SDiscordOtherChannelChannel = Convert.ToUInt64(txtDiscordOtherChannel.Text);
 
-            SettingsGroup.Instance.STwitchAutoBotBann= chkAutoBotBannUse.Checked;
-            SettingsGroup.Instance.STwitchAutoBotAmount= decimal.ToInt32(NUDLogAmount.Value);
-            SettingsGroup.Instance.STwitchAutoBotDuration= decimal.ToInt32(NUDLogDuration.Value);
+            SettingsGroup.Instance.STwitchAutoBotBann = chkAutoBotBannUse.Checked;
+            SettingsGroup.Instance.STwitchAutoBotAmount = decimal.ToInt32(NUDLogAmount.Value);
+            SettingsGroup.Instance.STwitchAutoBotDuration = decimal.ToInt32(NUDLogDuration.Value);
             SettingsGroup.Instance.STwitchAutoBotWhiteList.Clear();
-            foreach (string i in lstWhiteList.Items) {
+            foreach (string i in lstWhiteList.Items)
+            {
                 SettingsGroup.Instance.STwitchAutoBotWhiteList.Add(i);
             }
 
@@ -90,10 +91,11 @@ namespace AntonBot
                 SettingsGroup.Instance.STwitchBlackList.Add(i);
             }
 
-            if (Pfadändern) {
+            if (Pfadändern)
+            {
                 //Hier die Überprüfung, ob der Pfad geändert wurde. Wenn ja alle Einstellungsdateien dorthin kopieren, bevor der Pfad geändert wird
                 //Muss nicht unbedingt für den HTML-Pfad erfolgen
-                if(MessageBox.Show("Die Pfade haben sich geändert. Sollen diese übernommen werden?","Geänderte Pfade", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Die Pfade haben sich geändert. Sollen diese übernommen werden?", "Geänderte Pfade", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SettingsGroup.Instance.ExportSettingsGroup(SettingsGroup.Instance.StandardPfad);
 
@@ -101,7 +103,8 @@ namespace AntonBot
                     String RollbackHTML = SettingsGroup.Instance.HTMLPfad;
                     String RollbackLog = SettingsGroup.Instance.LogPfad;
 
-                    if (txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar).EndsWith(Path.DirectorySeparatorChar.ToString())){
+                    if (txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar).EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    {
                         SettingsGroup.Instance.StandardPfad = txtStandardPfad.Text.Replace('/', Path.DirectorySeparatorChar);
                     }
                     else
@@ -133,7 +136,8 @@ namespace AntonBot
                     {
 
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("Änderung der Pfade nicht möglich!" + Environment.NewLine + Environment.NewLine + "Fehler:" + Environment.NewLine + Schreiben, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         SettingsGroup.Instance.StandardPfad = RollbackStandard;
                         SettingsGroup.Instance.HTMLPfad = RollbackHTML;
@@ -146,10 +150,10 @@ namespace AntonBot
                     txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');
                     txtLogPfad.Text = SettingsGroup.Instance.LogPfad.Replace(Path.DirectorySeparatorChar, '/');
                 }
-                
+
 
             }
-     
+
 
             SettingsGroup.Instance.Save();
 
@@ -246,10 +250,11 @@ namespace AntonBot
             txtHTML.Text = AuswahlOrdner(txtHTML.Text.Replace('/', Path.DirectorySeparatorChar)).Replace(Path.DirectorySeparatorChar, '/');
         }
 
-        private String AuswahlOrdner(String Pfad) {
+        private String AuswahlOrdner(String Pfad)
+        {
             String Ergebnis = "";
 
-            fBDOrdnerAuswahl.SelectedPath=Pfad;
+            fBDOrdnerAuswahl.SelectedPath = Pfad;
             DialogResult result = fBDOrdnerAuswahl.ShowDialog();
             if (result == DialogResult.OK)
             {

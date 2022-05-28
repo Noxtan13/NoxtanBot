@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AntonBot.PlatformAPI
 {
@@ -11,7 +7,7 @@ namespace AntonBot.PlatformAPI
         public string Kommando { get; set; }
         public string AusgabeListe { get; set; }
         //Die "Antwort", wenn man nur den Kommando eingibt
-        public List<Eintrag> Eintragsliste {get;set;}
+        public List<Eintrag> Eintragsliste { get; set; }
         public string AufbauEintrag { get; set; }
         public int AnzahlEinträge { get; set; }
         public char BefehlTrennungszeichen { get; set; } = ' ';
@@ -36,7 +32,8 @@ namespace AntonBot.PlatformAPI
         //Antwort, wenn ein neuer Eintrag hinzugefügt wird
     }
 
-    public class Eintrag { 
+    public class Eintrag
+    {
         public string User { get; set; }
         public string UserEintrag { get; set; }
         public string PlattformQuelle { get; set; }

@@ -2,7 +2,7 @@
 
 namespace AntonBot.PlatformAPI.ListenTypen
 {
-    class SkillAusgabe
+    internal class SkillAusgabe
     {
         public decimal AltEXP;
         public decimal AltMaxEXP;
@@ -12,22 +12,24 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public int NeuLevel;
         public decimal NeuMaxEXP;
         public decimal NeuProzent;
-        public String CurrentMainQuest="";
+        public String CurrentMainQuest = "";
         public int read;
 
-        public void SetAltWerte(decimal EXP, decimal MAXEXP, int Level,decimal lastLevelEXP) {
+        public void SetAltWerte(decimal EXP, decimal MAXEXP, int Level, decimal lastLevelEXP)
+        {
             AltEXP = EXP;
             AltMaxEXP = MAXEXP;
             AltLevel = Level;
             AltProzent = ((EXP - lastLevelEXP) / (MAXEXP - lastLevelEXP)) * 100;
         }
-        public void SetNeuWerte(decimal EXP, decimal MAXEXP, int Level, decimal lastLevelEXP,String Quest) {
+        public void SetNeuWerte(decimal EXP, decimal MAXEXP, int Level, decimal lastLevelEXP, String Quest)
+        {
             NeuEXP = EXP;
             NeuMaxEXP = MAXEXP;
             NeuLevel = Level;
             NeuProzent = ((EXP - lastLevelEXP) / (MAXEXP - lastLevelEXP)) * 100;
             read = 0;
-            CurrentMainQuest= Quest;
+            CurrentMainQuest = Quest;
         }
 
         public void SetNullWerte()

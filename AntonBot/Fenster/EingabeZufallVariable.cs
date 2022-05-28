@@ -5,13 +5,12 @@ using System.Windows.Forms;
 
 namespace AntonBot
 {
-   
+
     public partial class EingabeZufallVariable : Form
     {
         public List<RandomBefehl> randomBefehls;
-
-        int ausgewählterIndex=0;
-        bool update = false;
+        private int ausgewählterIndex = 0;
+        private bool update = false;
         public EingabeZufallVariable()
         {
             InitializeComponent();
@@ -22,7 +21,8 @@ namespace AntonBot
             ListeAktualisieren();
         }
 
-        private void ListeAktualisieren() {
+        private void ListeAktualisieren()
+        {
             LstBoxVariablen.Items.Clear();
             foreach (RandomBefehl item in randomBefehls)
             {
@@ -45,7 +45,8 @@ namespace AntonBot
                 update = false;
                 ausgewählterIndex = 0;
             }
-            else {
+            else
+            {
                 RandomBefehl neuerBefehl = new RandomBefehl();
                 neuerBefehl.Text = txtEingabe.Text;
                 neuerBefehl.Wahrscheinlichkeit = decimal.ToInt32(nupGewicht.Value);
@@ -78,7 +79,7 @@ namespace AntonBot
                 nupGewicht.Value = randomBefehls[ausgewählterIndex].Wahrscheinlichkeit;
                 update = true;
             }
-            
+
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -93,7 +94,8 @@ namespace AntonBot
 
         private void lblAnzeigeElemente_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (MessageBox.Show("Gewichtung ALLER Elemente auf 1 zurücksetzen?", "Zurücksetzen der Werte", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+            if (MessageBox.Show("Gewichtung ALLER Elemente auf 1 zurücksetzen?", "Zurücksetzen der Werte", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 foreach (RandomBefehl item in randomBefehls)
                 {
                     item.Wahrscheinlichkeit = 1;

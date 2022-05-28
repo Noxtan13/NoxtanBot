@@ -10,20 +10,15 @@ namespace AntonBot
 {
     public partial class Befehl_Editor : Form
     {
-        List<Befehl> lBefehlListe = new List<Befehl>();
-        List<Zeit_Befehl> lZeitBefehlListe = new List<Zeit_Befehl>();
-        List<Befehl> lTwitchBefehlListe = new List<Befehl>();
-
-        List<List_Befehl> lList_BefehlListe = new List<List_Befehl>();
-        List_Befehl lList_Befehl;
-
-        bool bupdate = false;
-
-        int iAusgewählterEintrag = 0;
-
-        List<RandomBefehl> lRandomBefehls = new List<RandomBefehl>();
-
-        byte byteIndex = 1;
+        private List<Befehl> lBefehlListe = new List<Befehl>();
+        private List<Zeit_Befehl> lZeitBefehlListe = new List<Zeit_Befehl>();
+        private List<Befehl> lTwitchBefehlListe = new List<Befehl>();
+        private List<List_Befehl> lList_BefehlListe = new List<List_Befehl>();
+        private List_Befehl lList_Befehl;
+        private bool bupdate = false;
+        private int iAusgewählterEintrag = 0;
+        private List<RandomBefehl> lRandomBefehls = new List<RandomBefehl>();
+        private byte byteIndex = 1;
         //1 ist der Index für die Bot-Kommandos
         //2 für die Zeit-Kommandos
         public Befehl_Editor()
@@ -35,7 +30,8 @@ namespace AntonBot
             String Path = SettingsGroup.Instance.StandardPfad + "Befehl.json";
             String InhaltJSON;
 
-            if (File.Exists(Path)) {            
+            if (File.Exists(Path))
+            {
                 //FileStream stream = File.OpenRead(Path);
                 InhaltJSON = File.ReadAllText(Path);
                 try
@@ -44,13 +40,13 @@ namespace AntonBot
                 }
                 catch (Exception Fehler)
                 {
-                    MessageBox.Show("Die Befehlsliste beinhaltet nicht die erwarteten Einstellungen oder ist beschädigt. Eine leere Liste wird verwendet und die Beschädigte in Befehl.json1 umbenannt. \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Beschädigte Datei", MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    File.WriteAllText(Path + "1",InhaltJSON);
+                    MessageBox.Show("Die Befehlsliste beinhaltet nicht die erwarteten Einstellungen oder ist beschädigt. Eine leere Liste wird verwendet und die Beschädigte in Befehl.json1 umbenannt. \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Beschädigte Datei", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    File.WriteAllText(Path + "1", InhaltJSON);
                     lBefehlListe = new List<Befehl>();
                 }
             }
 
-            Path = SettingsGroup.Instance.StandardPfad+ "Zeit-Befehl.json";
+            Path = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
 
             if (File.Exists(Path))
             {
@@ -105,7 +101,8 @@ namespace AntonBot
             BefehlListeUpdate();
         }
 
-        private void BefehlListeUpdate() {
+        private void BefehlListeUpdate()
+        {
             BefehlList.Items.Clear();
             foreach (Befehl item in lBefehlListe)
             {
@@ -125,20 +122,22 @@ namespace AntonBot
             }
 
             ListBefehlList.Items.Clear();
-            foreach (List_Befehl item in lList_BefehlListe) {
+            foreach (List_Befehl item in lList_BefehlListe)
+            {
                 ListBefehlList.Items.Add(item.Kommando);
             }
         }
 
         private void BtnNeu_Click(object sender, EventArgs e)
         {
-            bupdate = false;          
+            bupdate = false;
             Wertezurücksetzen();
             GroupAnlegen.Enabled = true;
         }
 
-        private void Wertezurücksetzen() {
-            
+        private void Wertezurücksetzen()
+        {
+
             GroupAnlegen.Enabled = true;
             txtCommand.Text = "";
             txtAnswer.Text = "";
@@ -164,9 +163,10 @@ namespace AntonBot
         private void BtnSpeichern_Click(object sender, EventArgs e)
         {
             Befehl bBefehl = new Befehl();
-            
 
-            if (Validierung()) {
+
+            if (Validierung())
+            {
                 bBefehl = Befehlwerte(bBefehl);
                 if (bupdate)
                 {
@@ -200,8 +200,10 @@ namespace AntonBot
                     iAusgewählterEintrag = 0;
                     bupdate = false;
                 }
-                else {
-                    switch (byteIndex) {
+                else
+                {
+                    switch (byteIndex)
+                    {
                         case 1:
                             lBefehlListe.Add(bBefehl);
                             break;
@@ -228,10 +230,11 @@ namespace AntonBot
                 Wertezurücksetzen();
             }
 
-            BefehlListeUpdate();           
+            BefehlListeUpdate();
         }
 
-        private bool Validierung() {
+        private bool Validierung()
+        {
             bool Ergebnis = false;
 
             if (txtCommand.Text != "")
@@ -278,26 +281,30 @@ namespace AntonBot
                         break;
                 }
             }
-            else {
-                MessageBox.Show("Bitte einen Kommandonamen eingeben","Fehlender Command", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                MessageBox.Show("Bitte einen Kommandonamen eingeben", "Fehlender Command", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return Ergebnis;
         }
 
-        private bool PrüfungOptionalerTeil() {
+        private bool PrüfungOptionalerTeil()
+        {
             if (txtAnswer.Text.Contains("°OptionalerTeil") && txtAlternativAnswer.Text.Equals(""))
             {
                 MessageBox.Show("Es wird bei der Variable 'OptionalerTeil' eine Alternative Antwort erwartet. Diese ist aber leer.", "Es fehlen Werte", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtAlternativAnswer.Focus();
                 return false;
             }
-            else {
+            else
+            {
                 return true;
             }
         }
 
-        private bool PrüfungVariablerTeil() {
+        private bool PrüfungVariablerTeil()
+        {
             if (txtAnswer.Text.Contains("°VariablerTeil") ^ txtAlternativAnswer.Text.Contains("°VariablerTeil") && lRandomBefehls.Count.Equals(0))
             {
                 MessageBox.Show("Es wird bei der Variable 'VariablerTeil' mind. eine Antwort erwartet. Davon gibt es keine.", "Es fehlen Werte", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -309,18 +316,21 @@ namespace AntonBot
             }
         }
 
-        private bool PrüfungTimer() {
+        private bool PrüfungTimer()
+        {
             if (NUDIntervall.Value < 300)
             {
                 if (MessageBox.Show("Der Timer liegt unter 5 Minuten (300 sek)." + Environment.NewLine + "Es werden möglicherweise zu viele Nachrichten geschrieben (Spam)" + Environment.NewLine + Environment.NewLine + "Möchtest du diesen Wert behalten?", "Achtung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     return false;
                 }
-                else {
+                else
+                {
                     return true;
                 }
             }
-            else {
+            else
+            {
                 return true;
             }
         }
@@ -333,12 +343,14 @@ namespace AntonBot
                 txtAlternativAnswer.Focus();
                 return false;
             }
-            else {
+            else
+            {
                 return true;
             }
         }
 
-        private Befehl Befehlwerte(Befehl befehl) {
+        private Befehl Befehlwerte(Befehl befehl)
+        {
             befehl.Kommando = txtCommand.Text;
             befehl.Antwort = txtAnswer.Text;
             befehl.ErsatzAntwort = txtAlternativAnswer.Text;
@@ -346,10 +358,11 @@ namespace AntonBot
             {
                 befehl.HatErsatzText = false;
             }
-            else {
+            else
+            {
                 befehl.HatErsatzText = true;
             }
-            
+
 
             befehl.HatZufallAntowort = btnZufallAntwort.Enabled;
             befehl.ZufallAntwort.Clear();
@@ -357,7 +370,8 @@ namespace AntonBot
             return befehl;
         }
 
-        private Zeit_Befehl Befehlwerte(Zeit_Befehl befehl) {
+        private Zeit_Befehl Befehlwerte(Zeit_Befehl befehl)
+        {
             befehl.Kommando = txtCommand.Text;
             befehl.Antwort = txtAnswer.Text;
             befehl.HatErsatzText = txtAlternativAnswer.Enabled;
@@ -380,8 +394,10 @@ namespace AntonBot
                 txtCommand.Text = "";
             }
         }
-        private void TxtAnswer_Click(object sender, EventArgs e) {
-            if (txtAnswer.Text.Equals("Antwort")) {
+        private void TxtAnswer_Click(object sender, EventArgs e)
+        {
+            if (txtAnswer.Text.Equals("Antwort"))
+            {
                 txtAnswer.Text = "";
             }
         }
@@ -389,9 +405,9 @@ namespace AntonBot
         private void JSONSpeichern_Click(object sender, EventArgs e)
         {
             String Path = SettingsGroup.Instance.StandardPfad + "Befehl.json";
-            String InhaltJSON="";
+            String InhaltJSON = "";
 
-            InhaltJSON += JsonConvert.SerializeObject(lBefehlListe,Formatting.Indented);
+            InhaltJSON += JsonConvert.SerializeObject(lBefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
@@ -443,22 +459,26 @@ namespace AntonBot
 
         private void BtnVariable_Click(object sender, EventArgs e)
         {
-            if (cmbVariable.Text.Equals("VariablerTeil")) {
-                using (EingabeZufallVariable Fenster = new EingabeZufallVariable()) {
+            if (cmbVariable.Text.Equals("VariablerTeil"))
+            {
+                using (EingabeZufallVariable Fenster = new EingabeZufallVariable())
+                {
                     Fenster.randomBefehls = lRandomBefehls;
                     DialogResult dr = Fenster.ShowDialog();
-                    
-                    if (dr== DialogResult.OK) {
+
+                    if (dr == DialogResult.OK)
+                    {
                         lRandomBefehls = Fenster.randomBefehls;
                         btnZufallAntwort.Enabled = true;
                     }
 
                 }
             }
-            switch (tabAntwort.SelectedIndex) {
+            switch (tabAntwort.SelectedIndex)
+            {
                 //Prüfung, ob die Variable in txtAlternativAnswer eingefügt werden soll. (Ist an der Stelle nicht zulässig)
                 case 0:
-                    if (cmbVariable.Text.Equals("OptionalerTeil") || cmbVariable.Text.Equals("FollowAt") || cmbVariable.Text.Equals("Followsince") )
+                    if (cmbVariable.Text.Equals("OptionalerTeil") || cmbVariable.Text.Equals("FollowAt") || cmbVariable.Text.Equals("Followsince"))
                     {
                         txtAlternativAnswer.Enabled = true;
                     }
@@ -467,15 +487,16 @@ namespace AntonBot
                 case 1:
                     if (cmbVariable.Text.Equals("OptionalerTeil") || cmbVariable.Text.Equals("FollowAt") || cmbVariable.Text.Equals("Followsince"))
                     {
-                        MessageBox.Show("Die Variable kann in einer alternativen Antwort nicht verwendet werden.", "Ungültige Auwahl",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show("Die Variable kann in einer alternativen Antwort nicht verwendet werden.", "Ungültige Auwahl", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else {
+                    else
+                    {
                         txtAlternativAnswer.Text += "°" + cmbVariable.Text;
                     }
                     break;
             }
 
-            
+
         }
 
         private void Befehl_Editor_FormClosing(object sender, FormClosingEventArgs e)
@@ -571,12 +592,13 @@ namespace AntonBot
                     }
                 }
 
-                foreach (List_Befehl item in lList_BefehlListe) { 
+                foreach (List_Befehl item in lList_BefehlListe)
+                {
                     //Platzhalter noch füllen
                 }
             }
 
-            
+
         }
 
         private void BtnLöschen_Click(object sender, EventArgs e)
@@ -591,7 +613,7 @@ namespace AntonBot
             switch (byteIndex)
             {
                 case 1:
-                     foreach (Befehl item in lBefehlListe)
+                    foreach (Befehl item in lBefehlListe)
                     {
                         if (item.Kommando.Equals(txtCommand.Text))
                         {
@@ -695,7 +717,8 @@ namespace AntonBot
             chkYouTube.Checked = false;
 
             //Dann die Steuerelemente entsprechend aktivieren oder deaktivieren, wenn diese nicht schon deaktiviert wurden (z.B. txtAlternativAnswer)
-            switch (e.TabPage.Text) {
+            switch (e.TabPage.Text)
+            {
                 case "Kommandos":
                     byteIndex = 1;
                     NUDIntervall.Enabled = false;
@@ -737,13 +760,15 @@ namespace AntonBot
                     break;
             }
 
-            
+
             UpdatecmbVariablen(byteIndex);
         }
 
-        private void UpdatecmbVariablen(int Index) {
+        private void UpdatecmbVariablen(int Index)
+        {
             cmbVariable.Items.Clear();
-            switch (Index) {
+            switch (Index)
+            {
                 case 1:
                     cmbVariable.Items.Add("OptionalerTeil");
                     cmbVariable.Items.Add("VariablerTeil");
@@ -776,7 +801,7 @@ namespace AntonBot
                     cmbVariable.Items.Add("List-Items");
                     break;
             }
-        
+
         }
 
         private void ZeitBefehlList_SelectedIndexChanged(object sender, EventArgs e)
@@ -856,7 +881,8 @@ namespace AntonBot
         {
             foreach (List_Befehl item in lList_BefehlListe)
             {
-                if (item.Kommando.Equals(ListBefehlList.SelectedItem)) {
+                if (item.Kommando.Equals(ListBefehlList.SelectedItem))
+                {
                     bupdate = true;
                     GroupAnlegen.Enabled = true;
                     txtCommand.Text = item.Kommando;
@@ -906,7 +932,8 @@ namespace AntonBot
 
         private void txtAnswer_TextChanged(object sender, EventArgs e)
         {
-            if (txtAnswer.Text.Contains("°OptionalerTeil")) {
+            if (txtAnswer.Text.Contains("°OptionalerTeil"))
+            {
                 txtAlternativAnswer.Enabled = true;
             }
             else

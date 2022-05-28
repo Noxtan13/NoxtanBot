@@ -1,12 +1,6 @@
 ﻿using AntonBot.PlatformAPI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AntonBot.Fenster
@@ -14,7 +8,7 @@ namespace AntonBot.Fenster
     public partial class EingabeListBefehl : Form
     {
         public List_Befehl List_Befehll;
-        int LetzeKommandobox=0;
+        private int LetzeKommandobox = 0;
         public EingabeListBefehl()
         {
             InitializeComponent();
@@ -58,7 +52,7 @@ namespace AntonBot.Fenster
 
             if (txtAusgabe.Text.Equals(""))
             {
-                MessageBox.Show("Die Ausgabe der Liste fehlt. Wie soll man sonst wissen, was in der Liste aktuell ist?","Nicht Vollständig",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Die Ausgabe der Liste fehlt. Wie soll man sonst wissen, was in der Liste aktuell ist?", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (txtHinzufügen.Text.Equals(""))
             {
@@ -88,7 +82,7 @@ namespace AntonBot.Fenster
             {
                 MessageBox.Show("Die Antwort für ein erfolgreiches Löschen fehlt. Möchtest du nicht für stolze Gefühle sorgen?", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (txtLoeschFail.Text.Equals("") && chkGroupLoeschen.Checked) 
+            else if (txtLoeschFail.Text.Equals("") && chkGroupLoeschen.Checked)
             {
                 MessageBox.Show("Die Antwort für einen gescheiterten Lösch-Versuch fehlt. Soll den niemand wissen, wie verzweifelt der Bot gesucht hat?", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -210,7 +204,8 @@ namespace AntonBot.Fenster
                Name
                OptionalerTeil
              */
-            switch (LetzeKommandobox) {
+            switch (LetzeKommandobox)
+            {
                 case 1:
                     //txtKommando
                     MessageBox.Show("Kann nicht in Kommando eingefügt werden.", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -221,7 +216,8 @@ namespace AntonBot.Fenster
                     {
                         MessageBox.Show("Kann nicht in die Antwort der Liste eingefügt werden, da es sonst als \"Neuer Eintrag\" gewertet wird.", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else if (cmbVariable.Text.Contains("List")) {
+                    else if (cmbVariable.Text.Contains("List"))
+                    {
                         MessageBox.Show("Kann nicht in die Antwort der Liste eingefügt werden, da die Listen-Einträge nur für den Aufbau sind", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -254,7 +250,8 @@ namespace AntonBot.Fenster
                     break;
                 case 6:
                     //txtNextAntwort
-                    if (cmbVariable.Text == "ListNummer") {
+                    if (cmbVariable.Text == "ListNummer")
+                    {
                         MessageBox.Show("Die Nummer hier anzugeben macht keinen Sinn. Es wird im Feld \"NextAntwort\" der nächste Eintrag angezeigt", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -272,17 +269,20 @@ namespace AntonBot.Fenster
                     break;
                 case 9:
                     //txtLöschFail
-                    if (cmbVariable.Text.Contains("List") || cmbVariable.Text == "Auflistung") {
+                    if (cmbVariable.Text.Contains("List") || cmbVariable.Text == "Auflistung")
+                    {
                         MessageBox.Show("Da kein Eintrag zum Löschen erkannt werden kann, kann zu dieser Variable nichts ermittelt werden.", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else {
+                    else
+                    {
                         txtLoeschFail.Text = txtLoeschFail.Text + "°" + cmbVariable.Text;
                     }
-                    
+
                     break;
                 case 10:
                     //txtCurrentAntwort
-                    if (cmbVariable.Text == "ListNummer") {
+                    if (cmbVariable.Text == "ListNummer")
+                    {
                         MessageBox.Show("Die Nummer hier anzugeben macht keinen Sinn. Es wird im Feld \"NextAntwort\" der aktuelle Eintrag angezeigt", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -299,7 +299,8 @@ namespace AntonBot.Fenster
                     {
                         MessageBox.Show("Da der Eintrag noch nicht gespeichert ist, kann zu dieser Variable nichts ermittelt werden.", "Auswahl nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else {
+                    else
+                    {
                         txtHinzufügen.Text = txtHinzufügen.Text + "°" + cmbVariable.Text;
                     }
                     break;

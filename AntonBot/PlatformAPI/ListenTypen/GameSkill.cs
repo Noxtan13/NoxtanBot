@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI.ListenTypen
 {
-    class GameSkill
+    internal class GameSkill
     {
         public string Game;
         public string GameID; //wird nur vom Programm gesetzt. Evtl. auch einfach nicht verwenden
@@ -21,7 +18,8 @@ namespace AntonBot.PlatformAPI.ListenTypen
 
         //Liste Sidequest (mit Zusatzfeld wie häufig es gemacht wurde, wenn wiederholung + ID)
         //Liste Hauptquest (mit zusatzfeld zum abspeichern, ob erl. oder nicht + ID)
-        public GameSkill(string game) {
+        public GameSkill(string game)
+        {
             Game = game;
             GameID = "0";
             Level = 1;
@@ -33,31 +31,35 @@ namespace AntonBot.PlatformAPI.ListenTypen
             MainQuest.Add(new Quest("Tutorial", 1, true, false, false, "0"));
             SideQeust = new List<Quest>();
         }
-        private void Nextlevel() {
+        private void Nextlevel()
+        {
             Level += 1;
             SetEXP();
             Checklevel();
         }
-        private void Checklevel() {
-            if (EXP >= EXPNextLevel) {
+        private void Checklevel()
+        {
+            if (EXP >= EXPNextLevel)
+            {
                 Nextlevel();
             }
         }
 
-        private void SetEXP() {
+        private void SetEXP()
+        {
             decimal altEXP = EXPNextLevel;
             switch (Wachstumsart)
             {
                 case 1:
                     //leicht
-                    EXPNextLevel = (4*Convert.ToInt32(Math.Pow(Level,3))) / 5;
+                    EXPNextLevel = (4 * Convert.ToInt32(Math.Pow(Level, 3))) / 5;
                     break;
                 case 2:
-                    EXPNextLevel = Convert.ToInt32(Math.Pow(Level,3));
+                    EXPNextLevel = Convert.ToInt32(Math.Pow(Level, 3));
                     //mittel
                     break;
                 case 3:
-                    EXPNextLevel = 6/5*Convert.ToInt32(Math.Pow(Level,3))-15*Convert.ToInt32(Math.Pow(Level,2))+100*Level-140;
+                    EXPNextLevel = 6 / 5 * Convert.ToInt32(Math.Pow(Level, 3)) - 15 * Convert.ToInt32(Math.Pow(Level, 2)) + 100 * Level - 140;
                     //schwer
                     break;
                 case 4:
@@ -65,16 +67,18 @@ namespace AntonBot.PlatformAPI.ListenTypen
                     EXPNextLevel = (5 * Convert.ToInt32(Math.Pow(Level, 3))) / 4;
                     break;
             }
-            EXPTillNextLevel = EXPNextLevel - altEXP - (EXP-altEXP);          
+            EXPTillNextLevel = EXPNextLevel - altEXP - (EXP - altEXP);
         }
 
-        public void GetEXP(decimal amount) {
+        public void GetEXP(decimal amount)
+        {
             EXP += amount;
             EXPTillNextLevel -= amount;
             Checklevel();
         }
 
-        public void UpdateLevelEXP() {
+        public void UpdateLevelEXP()
+        {
             if (EXP == 0)
             {
                 Level = Level - 1;
@@ -82,7 +86,8 @@ namespace AntonBot.PlatformAPI.ListenTypen
                 EXP = EXPNextLevel;
                 Checklevel();
             }
-            else {
+            else
+            {
                 Level = 1;
                 EXPTillNextLevel = 1;
                 SetEXP();
@@ -90,10 +95,12 @@ namespace AntonBot.PlatformAPI.ListenTypen
             }
         }
 
-        public decimal getEXPlastLevel() {
+        public decimal getEXPlastLevel()
+        {
             decimal Ergebnis = 0;
             int Altlevel = 1;
-            if (Level > 1) {
+            if (Level > 1)
+            {
                 Altlevel = Level - 1;
             }
 

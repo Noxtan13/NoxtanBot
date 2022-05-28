@@ -1,28 +1,25 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AntonBot
 {
-    class YouTube_Functions : Bot_Verwalter
+    internal class YouTube_Functions : Bot_Verwalter
     {
-        LiveChatMessageListResponse LiveChats;
-       
-        ClientSecrets CS = new ClientSecrets();
-        YouTubeService youtubeService;
-        LiveBroadcastListResponse CurrentStream;
+        private LiveChatMessageListResponse LiveChats;
+        private ClientSecrets CS = new ClientSecrets();
+        private YouTubeService youtubeService;
+        private LiveBroadcastListResponse CurrentStream;
+        private LiveChatMessagesResource.ListRequest LiveStreamMessage;
+        private LiveBroadcastsResource LiveStream;
+        private UserCredential credential;
 
-        LiveChatMessagesResource.ListRequest LiveStreamMessage;
-        LiveBroadcastsResource LiveStream;
-        UserCredential credential;
-
-        public void Start ()
+        public void Start()
         {
 
             KonsolenAusgabe("Start Verbindung zu Youtube");
@@ -34,17 +31,17 @@ namespace AntonBot
             {
                 foreach (var e in ex.InnerExceptions)
                 {
-                    KonsolenAusgabe("Error: "+ Environment.NewLine + e.Message);
+                    KonsolenAusgabe("Error: " + Environment.NewLine + e.Message);
                 }
             }
 
-        
+
         }
 
         private async Task Run()
         {
 
-            
+
 
             CS.ClientId = "510414211005-1u518rmkg51f81ntd7jv6h25b1vvm0fv.apps.googleusercontent.com";
             CS.ClientSecret = "UC5ozxxfjtR7goMPaA7vtzTV";
@@ -53,7 +50,7 @@ namespace AntonBot
                     CS,
                     // This OAuth 2.0 access scope allows for full read/write access to the
                     // authenticated user's account.
-                    new[] {  "https://www.googleapis.com/auth/youtube.force-ssl", YouTubeService.Scope.YoutubeReadonly, },
+                    new[] { "https://www.googleapis.com/auth/youtube.force-ssl", YouTubeService.Scope.YoutubeReadonly, },
                     "user",
                     CancellationToken.None,
                     new FileDataStore(this.GetType().ToString())
@@ -64,9 +61,9 @@ namespace AntonBot
                 ApiKey = "AIzaSyA7pYYp2PqaJBv4SA9xGlxwBIMh0lO39H8",
                 ApplicationName = "ANTONBOT",
                 HttpClientInitializer = credential
-            }) ;
+            });
 
-            LiveStream  = youtubeService.LiveBroadcasts;
+            LiveStream = youtubeService.LiveBroadcasts;
 
             var LivestreamList = LiveStream.List("snippet");
 
@@ -76,7 +73,7 @@ namespace AntonBot
 
 
             CurrentStream = LivestreamList.Execute();
-            
+
             // Call the search.list method to retrieve results matching the specified query term.
             LiveStreamMessage = youtubeService.LiveChatMessages.List(CurrentStream.Items[0].Snippet.LiveChatId, "snippet");
 
@@ -86,7 +83,8 @@ namespace AntonBot
             Active = true;
         }
 
-        public void Update() {
+        public void Update()
+        {
 
             LiveChatMessagesResource.ListRequest LiveStreamMessage;
 
@@ -105,7 +103,8 @@ namespace AntonBot
 
         }
 
-        public void SendMessage(String Message) {
+        public void SendMessage(String Message)
+        {
             LiveChatMessage Nachricht = new LiveChatMessage();
 
             String ID = CurrentStream.Items[0].Snippet.LiveChatId;
@@ -131,18 +130,19 @@ namespace AntonBot
             catch (Google.GoogleApiException ex)
             {
 
-                    Console.WriteLine("Error: " + ex.Message);
-                
+                Console.WriteLine("Error: " + ex.Message);
+
             }
 
-           
+
         }
 
-        public int WaitedTime=0;
-        public int WaitTime() {
+        public int WaitedTime = 0;
+        public int WaitTime()
+        {
             return Convert.ToInt32(LiveChats.PollingIntervalMillis);
         }
 
     }
-    
+
 }

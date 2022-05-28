@@ -28,82 +28,87 @@ namespace AntonBot
         private bool bAusfall = false;
         public async Task RunBotAsync()
         {
+            //Fehlermeldung bei leeren Token 
+            /*
+             A supplied token was invalid.
+Exception: 
+A token cannot be null, empty, or contain only whitespace.
+             */
 
-
-
-            var cfg = new DiscordSocketConfig();
-            cfg.GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans;
-
-
-            client = new DiscordSocketClient(cfg);
-
-            bool Loginerfolgreich = false;
-            bool Starterfolgreich = false;
-
-            services = new ServiceCollection()
-                .AddSingleton(client)
-                .AddSingleton(commands)
-                .BuildServiceProvider();
-
-            if (!FirstStart)
+            if (SettingsGroup.Instance.DSAccessToken == null || SettingsGroup.Instance.DSAccessToken == "")
             {
-                client.Log += Client_Log;
-                await RegisterCommandsAsync();
-
-
-                
-                FirstStart = true;
-            }  
-
-            try
-            {
-                await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
-                Loginerfolgreich = true;
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("No such host is known"))
-                {
-                    KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                    Restart = true;
-                }
-                else if (e.InnerException.Message.Contains("Der Remotename konnte nicht aufgelöst werden: \'discord.com\'")) {
-                    KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                    Restart = true;
-                }
-                else
-                {
-                    KonsolenAusgabe("Die Funktion LoginAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                }
-            }
-
-            try
-            {
-                await client.StartAsync();
-                Starterfolgreich = true;
-            }
-            catch (Exception e)
-            {
-                KonsolenAusgabe("Die Funktion StartAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-            }
-
-
-            if (Loginerfolgreich == true && Starterfolgreich == true)
-            {
-                Active = true;
-                Restart = false;
-                DiscordWriteGuilds();
+                KonsolenAusgabe("Es ist kein Token verfügbar!" + Environment.NewLine + "Bitte Einrichtung durchführen");
             }
             else
             {
-                Active = false;
-                await StopBotAsync();
+                var cfg = new DiscordSocketConfig();
+                cfg.GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans;
+
+
+                client = new DiscordSocketClient(cfg);
+
+                bool Loginerfolgreich = false;
+                bool Starterfolgreich = false;
+
+                services = new ServiceCollection()
+                    .AddSingleton(client)
+                    .AddSingleton(commands)
+                    .BuildServiceProvider();
+
+                if (!FirstStart)
+                {
+                    client.Log += Client_Log;
+                    await RegisterCommandsAsync();
+
+                    FirstStart = true;
+                }
+
+                try
+                {
+                    await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
+                    Loginerfolgreich = true;
+                }
+                catch (Exception e)
+                {
+                    if (e.Message.Contains("No such host is known"))
+                    {
+                        KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                        Restart = true;
+                    }
+                    else if (e.InnerException.Message.Contains("Der Remotename konnte nicht aufgelöst werden: \'discord.com\'"))
+                    {
+                        KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                        Restart = true;
+                    }
+                    else
+                    {
+                        KonsolenAusgabe("Die Funktion LoginAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                    }
+                }
+
+                try
+                {
+                    await client.StartAsync();
+                    Starterfolgreich = true;
+                }
+                catch (Exception e)
+                {
+                    KonsolenAusgabe("Die Funktion StartAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                }
+
+
+                if (Loginerfolgreich == true && Starterfolgreich == true)
+                {
+                    Active = true;
+                    Restart = false;
+                    DiscordWriteGuilds();
+                }
+                else
+                {
+                    Active = false;
+                    await StopBotAsync();
+                }
             }
-
-
-            //await Task.Delay(-1);
-            
-            
         }
 
         public void DiscordWriteGuilds() {

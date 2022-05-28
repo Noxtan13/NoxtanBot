@@ -103,7 +103,7 @@ namespace AntonBot
         private void timer1_Tick(object sender, EventArgs e)
         {
             string DiscordStatus = Discord.getClientStatus();
-            if (DiscordStatus == "LoggedOut")
+            if (DiscordStatus == "LoggedOut" || DiscordStatus == "NULL")
             {
                 //Wenn Discord sich nicht einloggen konnte
                 DiscordStop.Enabled = false;

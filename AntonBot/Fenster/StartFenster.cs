@@ -769,6 +769,19 @@ namespace AntonBot
             }
             try
             {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Startseite.jpg");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Startseite.jpg";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Startseite.jpg konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.StartFenster.html");
                 rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();

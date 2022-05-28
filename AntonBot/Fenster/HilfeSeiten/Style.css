@@ -132,7 +132,7 @@ td{
 }
 
 p {
-	height: 25px;
+	min-height: 25px;
 	text-align: center;
 }	
 	p:hover {

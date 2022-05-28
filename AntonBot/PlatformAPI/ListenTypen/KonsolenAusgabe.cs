@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI
 {
@@ -14,14 +10,15 @@ namespace AntonBot.PlatformAPI
         public string AusgabeText;
         public double AusgabeZeitmessung;
         private bool Ausgegeben = false;
-        public KonsolenAusgabe(string Typ, TimeSpan Zeitpunkt, string Ausgabe) {
+        public KonsolenAusgabe(string Typ, TimeSpan Zeitpunkt, string Ausgabe)
+        {
             AusgabeTyp = Typ;
             AusgabeZeitpunkt = Zeitpunkt;
             AusgabeText = Ausgabe;
             AusgabeDatum = DateTime.Today.ToShortDateString();
             //AusgabeZusatzInfo = "";
         }
-        public KonsolenAusgabe(string Typ, TimeSpan Zeitpunkt, string Ausgabe,double ZusatzMessung)
+        public KonsolenAusgabe(string Typ, TimeSpan Zeitpunkt, string Ausgabe, double ZusatzMessung)
         {
             AusgabeTyp = Typ;
             AusgabeZeitpunkt = Zeitpunkt;
@@ -44,9 +41,10 @@ namespace AntonBot.PlatformAPI
             AusgabeDatum = DateTime.Today.ToShortDateString();
             AusgabeText = Ausgabe;
             AusgabeZeitmessung = ZusatzMessung;
-         }
+        }
 
-        public KonsolenAusgabe() {
+        public KonsolenAusgabe()
+        {
             AusgabeTyp = "leere Anlage";
             AusgabeZeitpunkt = DateTime.Now.TimeOfDay;
             AusgabeDatum = DateTime.Today.ToShortDateString();
@@ -55,10 +53,12 @@ namespace AntonBot.PlatformAPI
             Ausgegeben = true;
         }
 
-        public void ausgegeben() {
+        public void ausgegeben()
+        {
             Ausgegeben = true;
         }
-        public bool getAusgabe() {
+        public bool getAusgabe()
+        {
             return Ausgegeben;
         }
     }

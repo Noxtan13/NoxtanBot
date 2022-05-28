@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AntonBot.Fenster
@@ -20,7 +14,7 @@ namespace AntonBot.Fenster
 
         private void ListEintragFenster_Load(object sender, EventArgs e)
         {
-            
+
 
             TableEinträge.ColumnCount = 4;
             TableEinträge.RowCount = 1;
@@ -30,11 +24,12 @@ namespace AntonBot.Fenster
             TableEinträge.Controls.Add(new Label() { Text = "Eintrag" }, 1, 0);
             TableEinträge.Controls.Add(new Label() { Text = "Von User" }, 2, 0);
             TableEinträge.Controls.Add(new Label() { Text = "Aus Quelle" }, 3, 0);
-            
+
 
             // For Add New Row (Loop this code for add multiple rows)
-            
-            for (int i = 0; i < EintragListe.Count;i++) {
+
+            for (int i = 0; i < EintragListe.Count; i++)
+            {
                 //RowStyle temp = TableEinträge.RowStyles[TableEinträge.RowCount - 1];
 
                 TableEinträge.RowCount++;

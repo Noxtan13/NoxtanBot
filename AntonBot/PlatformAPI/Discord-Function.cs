@@ -1,19 +1,18 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using AntonBot.PlatformAPI;
 using Discord;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
-using AntonBot.PlatformAPI;
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AntonBot
 {
-    
-    class DiscordFunction : Bot_Verwalter
+    internal class DiscordFunction : Bot_Verwalter
     {
-        static void TestMain(string[] args) => new DiscordFunction().RunBotAsync().GetAwaiter().GetResult();
+        private static void TestMain(string[] args) => new DiscordFunction().RunBotAsync().GetAwaiter().GetResult();
 
         private DiscordSocketClient client;
         private CommandService commands = new CommandService();
@@ -111,9 +110,11 @@ A token cannot be null, empty, or contain only whitespace.
             }
         }
 
-        public void DiscordWriteGuilds() {
+        public void DiscordWriteGuilds()
+        {
             System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
-            foreach (var server in client.Guilds) {
+            foreach (var server in client.Guilds)
+            {
 
                 discordGilde.Add(new PlatformAPI.DiscordGilde());
                 discordGilde[discordGilde.Count - 1].ID = server.Id;
@@ -126,30 +127,35 @@ A token cannot be null, empty, or contain only whitespace.
                 discordGilde[discordGilde.Count - 1].Roles = new System.Collections.Generic.List<PlatformAPI.DiscordServerRoles>();
 
 
-                foreach (var Kanal in server.TextChannels) {
+                foreach (var Kanal in server.TextChannels)
+                {
                     discordGilde[discordGilde.Count - 1].Channels.Add(new PlatformAPI.DiscordServerChannel(Kanal.Id, Kanal.Name));
                 }
 
-                foreach (var User in server.Users) {
+                foreach (var User in server.Users)
+                {
                     discordGilde[discordGilde.Count - 1].Users.Add(new PlatformAPI.DiscordServerUser(User.Id, User.Username, User.IsBot));
                 }
 
-                foreach (var Emote in server.Emotes) {
+                foreach (var Emote in server.Emotes)
+                {
                     discordGilde[discordGilde.Count - 1].Emotes.Add(new PlatformAPI.DiscordServerEmotes(Emote.Id, Emote.Name));
                 }
 
-                foreach (var Role in server.Roles) {
+                foreach (var Role in server.Roles)
+                {
                     discordGilde[discordGilde.Count - 1].Roles.Add(new PlatformAPI.DiscordServerRoles(Role.Id, Role.Name));
                 }
 
                 string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde);
                 String Path = SettingsGroup.Instance.StandardPfad + "DiscordServer.json";
-                
+
                 System.IO.File.WriteAllText(Path, InhaltJSON);
             }
         }
 
-        public async Task StopBotAsync() {
+        public async Task StopBotAsync()
+        {
 
             if (client != null)
             {
@@ -163,7 +169,8 @@ A token cannot be null, empty, or contain only whitespace.
             }
         }
 
-        public String getClientStatus() {
+        public String getClientStatus()
+        {
             if (client != null)
             {
                 return client.LoginState.ToString();
@@ -172,7 +179,7 @@ A token cannot be null, empty, or contain only whitespace.
             {
                 return "NULL";
             }
-            
+
         }
 
         private Task Client_Log(LogMessage arg)
@@ -190,8 +197,9 @@ A token cannot be null, empty, or contain only whitespace.
             */
 
 
-            string Text =arg.Message;
-            if (arg.Exception != null) {
+            string Text = arg.Message;
+            if (arg.Exception != null)
+            {
                 Text += Environment.NewLine + "Exception: " + Environment.NewLine + arg.Exception.Message + Environment.NewLine + "Source: " + arg.Source;
             }
             KonsolenAusgabe(Text);
@@ -233,7 +241,7 @@ A token cannot be null, empty, or contain only whitespace.
                 if (SettingsGroup.Instance.DsLeftUser.Discord)
                 {
                     string Text = SettingsGroup.Instance.DsLeftUser.DiscordText;
-                    Text = OnUserLeftReplace(Text, arg1,arg2);
+                    Text = OnUserLeftReplace(Text, arg1, arg2);
 
                     foreach (var channels in arg1.Channels)
                     {
@@ -269,7 +277,8 @@ A token cannot be null, empty, or contain only whitespace.
             //arg2 ist der User
         }
 
-        private String OnUserLeftReplace(String Text, SocketGuild arg1, SocketUser arg2) {
+        private String OnUserLeftReplace(String Text, SocketGuild arg1, SocketUser arg2)
+        {
 
             Text = Text.Replace("°GuildName", arg1.Name);
             Text = Text.Replace("UserName°", arg2.Username);
@@ -279,12 +288,12 @@ A token cannot be null, empty, or contain only whitespace.
         private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
         {
             //string Nachricht = "WOW eine Reaktion :o";
-            var Message = (RestUserMessage) await arg2.GetMessageAsync(arg3.MessageId);
+            var Message = (RestUserMessage)await arg2.GetMessageAsync(arg3.MessageId);
 
             var Emoji = new Emoji("🔥");
 
             await Message.AddReactionAsync(arg3.Emote, new RequestOptions());
-            await Message.AddReactionAsync(Emoji , new RequestOptions());
+            await Message.AddReactionAsync(Emoji, new RequestOptions());
         }
 
         private async Task Client_UserJoined(SocketGuildUser arg)
@@ -327,29 +336,31 @@ A token cannot be null, empty, or contain only whitespace.
             }
         }
 
-        private String OnUserJoinReplace(String Text, SocketGuildUser arg) {
-            Text = Text.Replace("°Username",arg.Username);
+        private String OnUserJoinReplace(String Text, SocketGuildUser arg)
+        {
+            Text = Text.Replace("°Username", arg.Username);
             Text = Text.Replace("°DisplayName", arg.DisplayName);
             Text = Text.Replace("°Guild", arg.Guild.Name);
             Text = Text.Replace("°JoinedAt", arg.JoinedAt.Value.DateTime.ToString());
-            Text = Text.Replace("°Nickname", arg.Nickname);;
+            Text = Text.Replace("°Nickname", arg.Nickname); ;
             return Text;
         }
 
         private async Task HandleCommandAsync(SocketMessage RecievedMessage)
         {
- 
+
             await ReactToCommand(RecievedMessage);
-            
+
         }
 
         public async Task ReactToCommand(SocketMessage RecievedMessage)
         {
             string Nachricht = CheckBefehlAllg(RecievedMessage.Content, RecievedMessage.Author.Username);
 
-            if (Nachricht == null) {
+            if (Nachricht == null)
+            {
                 //Hier muss noch die Überprüfung der Adminrechte erfolgen
-               Nachricht = CheckListBefehl(RecievedMessage.Content, RecievedMessage.Author.Username, false ,"Discord");
+                Nachricht = CheckListBefehl(RecievedMessage.Content, RecievedMessage.Author.Username, false, "Discord");
             }
             //Nur wenn die Nachricht einen Inhalt hat, wird diese gesendet, 
             if (Nachricht != null)
@@ -366,7 +377,8 @@ A token cannot be null, empty, or contain only whitespace.
                 }
             }
         }
-        public async Task SendMessage(ulong ChannelID, String Nachricht) {
+        public async Task SendMessage(ulong ChannelID, String Nachricht)
+        {
             if (Active)
             {
                 try
@@ -383,7 +395,8 @@ A token cannot be null, empty, or contain only whitespace.
                     throw;
                 }
             }
-            else {
+            else
+            {
                 KonsolenAusgabe("Der Bot ist nicht aktiv oder angemeldet. Eine Nachricht zu senden ist nicht möglich.");
             }
         }

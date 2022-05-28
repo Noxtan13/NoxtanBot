@@ -1,14 +1,14 @@
-﻿using System;
+﻿using AntonBot.PlatformAPI.ListenTypen;
+using AntonBot.PlatformAPI.SettingsTypen;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using AntonBot.PlatformAPI.ListenTypen;
-using AntonBot.PlatformAPI.SettingsTypen;
 
 namespace AntonBot.PlatformAPI
 {
-    sealed class SettingsGroup
+    internal sealed class SettingsGroup
     {
         private SettingsGroup() { }
         public static SettingsGroup Instance { get { return Nested.instance; } }
@@ -125,7 +125,8 @@ namespace AntonBot.PlatformAPI
         public TwitchAdminBefehl SkillList;
         #endregion
 
-        private void SetVersion() {
+        private void SetVersion()
+        {
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
@@ -172,17 +173,18 @@ namespace AntonBot.PlatformAPI
                 }
                 else
                 {
-                    HTMLPfad=System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar; ;
+                    HTMLPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar; ;
                 }
-                if (Directory.Exists(load.LogPfad)) {
+                if (Directory.Exists(load.LogPfad))
+                {
                     LogPfad = load.LogPfad;
                 }
                 else
                 {
                     LogPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
                 }
-                
-                
+
+
 
                 TeBitsReaction = load.TeBitsReaction;
 
@@ -238,17 +240,20 @@ namespace AntonBot.PlatformAPI
                 SkillUpdate = load.SkillUpdate;
                 SkillStatus = load.SkillStatus;
 
-                if (Version != load.Version) {
+                if (Version != load.Version)
+                {
                     Update();
                 }
             }
-            else {
+            else
+            {
                 setStandardSettings();
                 Save(DefaultSavePath);
             }
 
         }
-        public void setStandardSettings() {
+        public void setStandardSettings()
+        {
 
             DSclientID = "";
             DSAccessToken = "";
@@ -271,7 +276,7 @@ namespace AntonBot.PlatformAPI
             SDiscordOtherChannelChannel = 0;
             StandardPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
             LogPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
-            HTMLPfad =System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
+            HTMLPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
 
             TeBitsReaction = false;
             TeClipCreate = new TwitchAdminBefehl("CreateClip");
@@ -370,9 +375,9 @@ namespace AntonBot.PlatformAPI
             STwitchAutoBotAmount = load.STwitchAutoBotAmount;
             SDiscordOtherChannel = load.SDiscordOtherChannel;
             SDiscordOtherChannelChannel = load.SDiscordOtherChannelChannel;
-            if(load.StandardPfad!=null) {StandardPfad = load.StandardPfad; }
-            if(load.HTMLPfad!=null) {HTMLPfad = load.HTMLPfad; }
-            if( load.LogPfad != null ) { LogPfad = load.LogPfad; }
+            if (load.StandardPfad != null) { StandardPfad = load.StandardPfad; }
+            if (load.HTMLPfad != null) { HTMLPfad = load.HTMLPfad; }
+            if (load.LogPfad != null) { LogPfad = load.LogPfad; }
 
             TeBitsReaction = load.TeBitsReaction;
 
@@ -434,10 +439,11 @@ namespace AntonBot.PlatformAPI
 
         public void Save(String SpeicherPfad)
         {
-            string InhaltJSON = JsonConvert.SerializeObject(this,Formatting.Indented);
-            File.WriteAllText(SpeicherPfad, InhaltJSON);         
+            string InhaltJSON = JsonConvert.SerializeObject(this, Formatting.Indented);
+            File.WriteAllText(SpeicherPfad, InhaltJSON);
         }
-        public void Save() {
+        public void Save()
+        {
             Save(DefaultSavePath);
         }
 
@@ -478,7 +484,8 @@ namespace AntonBot.PlatformAPI
             }
         }
 
-        public String WriteAllSettings() {
+        public String WriteAllSettings()
+        {
             try
             {
                 File.WriteAllText(StandardPfad + "Befehl.json", JsonConvert.SerializeObject(InhaltBefehl, Formatting.Indented));
@@ -491,10 +498,11 @@ namespace AntonBot.PlatformAPI
                 File.WriteAllText(StandardPfad + "JoinedUsers.json", JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
                 return "Erfolg";
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 return ex.Message;
             }
-            
+
         }
 
         public void ImportSettingsGroup(String Inhalt)
@@ -548,7 +556,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnRewardRedeemed = Import.TeOnRewardRedeemed;
             SettingsGroup.Instance.TeOnStreamOffline = Import.TeOnStreamOffline;
             SettingsGroup.Instance.TeOnStreamOnline = Import.TeOnStreamOnline;
-            SettingsGroup.Instance.TeOnStreamUpdate = Import.TeOnStreamUpdate;         
+            SettingsGroup.Instance.TeOnStreamUpdate = Import.TeOnStreamUpdate;
             SettingsGroup.Instance.TeOnUserJoined = Import.TeOnUserJoined;
             SettingsGroup.Instance.TeOnUserLeft = Import.TeOnUserLeft;
             SettingsGroup.Instance.TeOnWhisperReceived = Import.TeOnWhisperReceived;

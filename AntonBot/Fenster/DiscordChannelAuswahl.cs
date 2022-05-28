@@ -2,20 +2,14 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AntonBot.Fenster
 {
     public partial class DiscordChannelAuswahl : Form
     {
-        List<DiscordGilde> DiscordListe;
+        private List<DiscordGilde> DiscordListe;
         public System.Collections.Specialized.StringCollection Channels = new System.Collections.Specialized.StringCollection();
         public DiscordChannelAuswahl()
         {
@@ -29,7 +23,8 @@ namespace AntonBot.Fenster
             if (File.Exists(Path))
             {
                 String InhaltJSON = File.ReadAllText(Path);
-                try { 
+                try
+                {
                     DiscordListe = JsonConvert.DeserializeObject<List<DiscordGilde>>(InhaltJSON);
                 }
                 catch (Exception Fehler)
@@ -44,22 +39,27 @@ namespace AntonBot.Fenster
                 DiscordListe = new List<DiscordGilde>();
             }
 
-            foreach (var server in DiscordListe) {
+            foreach (var server in DiscordListe)
+            {
                 Lst_Server.Items.Add(server.Name);
             }
 
-            if (Channels == null) {
+            if (Channels == null)
+            {
                 Channels = new System.Collections.Specialized.StringCollection();
             }
-            
+
         }
 
         private void btnAuswahl_Click(object sender, EventArgs e)
         {
             Channels.Clear();
-            foreach (var server in DiscordListe) {
-                foreach (var channel in server.Channels) {
-                    if (chkl_Channels.CheckedItems.Contains(channel.Name)){                     
+            foreach (var server in DiscordListe)
+            {
+                foreach (var channel in server.Channels)
+                {
+                    if (chkl_Channels.CheckedItems.Contains(channel.Name))
+                    {
                         Channels.Add(channel.ID.ToString());
                     }
                 }
@@ -76,7 +76,8 @@ namespace AntonBot.Fenster
         private void Lst_Server_SelectedIndexChanged(object sender, EventArgs e)
         {
             chkl_Channels.Items.Clear();
-            foreach (var server in DiscordListe) {
+            foreach (var server in DiscordListe)
+            {
                 if (Lst_Server.SelectedItem != null && Lst_Server.SelectedItem.Equals(server.Name))
                 {
                     foreach (var channel in server.Channels)
@@ -100,7 +101,8 @@ namespace AntonBot.Fenster
         private void btnLöschen_Click(object sender, EventArgs e)
         {
             Channels = new System.Collections.Specialized.StringCollection();
-            for (int i = 0; i < chkl_Channels.Items.Count;i++) {
+            for (int i = 0; i < chkl_Channels.Items.Count; i++)
+            {
                 chkl_Channels.SetItemChecked(i, false);
             }
         }
@@ -109,7 +111,8 @@ namespace AntonBot.Fenster
         {
             string Text = "";
 
-            foreach (var item in Channels) {
+            foreach (var item in Channels)
+            {
                 Text = Text + item + Environment.NewLine;
             }
 

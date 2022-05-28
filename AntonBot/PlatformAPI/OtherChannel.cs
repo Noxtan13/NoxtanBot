@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI
 {
-    class OtherChannel
+    internal class OtherChannel
     {
         private bool SendOtherChannel = false;
-        List<OtherChannelMessage> ChannelMessages = new List<OtherChannelMessage>();
+        private List<OtherChannelMessage> ChannelMessages = new List<OtherChannelMessage>();
 
         public void SendMessageToOtherChannel(String Message, String Plattform)
         {
@@ -35,7 +32,8 @@ namespace AntonBot.PlatformAPI
             return SendOtherChannel;
         }
 
-        public void Done() {
+        public void Done()
+        {
             if (ChannelMessages.Count > 0 && SendOtherChannel == true)
             {
                 ChannelMessages.RemoveAt(0);
@@ -45,37 +43,44 @@ namespace AntonBot.PlatformAPI
                 }
             }
             //evlt. muss hier dies nochmal gesetzt werden, wenn bei der IF-Prüfung weiterhin fehler geworfen werden... (wenn auf 0 gesetzt wird, sollte SendOtherChannel false sein
-            else {
+            else
+            {
                 ChannelMessages.Clear();
                 SendOtherChannel = false;
             }
-             
+
 
         }
 
-        public void Reset() {
+        public void Reset()
+        {
             ChannelMessages.Clear();
             SendOtherChannel = false;
         }
 
-        public String getNextPlattform() {
-            
+        public String getNextPlattform()
+        {
+
             return ChannelMessages[0].Destination;
         }
-        public String getMessage() {
+        public String getMessage()
+        {
             return ChannelMessages[0].MessageOtherChannel;
         }
-        public ulong getDiscordChannelID() {
+        public ulong getDiscordChannelID()
+        {
             return ChannelMessages[0].Discordchannel;
         }
     }
 
-    class OtherChannelMessage{
-        public String MessageOtherChannel="";
-        public String Destination="";
-        public ulong Discordchannel=0;
+    internal class OtherChannelMessage
+    {
+        public String MessageOtherChannel = "";
+        public String Destination = "";
+        public ulong Discordchannel = 0;
 
-        public OtherChannelMessage(string message, string destination, ulong discordChannel) {
+        public OtherChannelMessage(string message, string destination, ulong discordChannel)
+        {
             MessageOtherChannel = message;
             Destination = destination;
             Discordchannel = discordChannel;

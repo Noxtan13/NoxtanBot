@@ -1,29 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace AntonBot.PlatformAPI
 {
-    class Telegramm_Function : Bot_Verwalter
+    internal class Telegramm_Function : Bot_Verwalter
     {
-        TelegramBotClient botClient = new TelegramBotClient("1142465921:AAG_XTLLtRlr3NPYSTcDEF--Ydn8GXK8ZYw");
+        private TelegramBotClient botClient = new TelegramBotClient("1142465921:AAG_XTLLtRlr3NPYSTcDEF--Ydn8GXK8ZYw");
 
-        public void startBot() {
+        public void startBot()
+        {
 
             var me = botClient.GetMeAsync().Result;
             KonsolenAusgabe("Hallo, ich bin ein TelegrammBot mit dem Namen " + me.FirstName);
 
             //botClient.OnMessage += BotClient_OnMessage;
-            
+
 
             //botClient.StartReceiving();
         }
 
-        public void stopBot() {
+        public void stopBot()
+        {
             //botClient.StopReceiving();
         }
 
@@ -46,7 +45,8 @@ namespace AntonBot.PlatformAPI
         }
         */
 
-        public async Task SendMessage(ChatId chatId, String Text) {
+        public async Task SendMessage(ChatId chatId, String Text)
+        {
             await botClient.SendTextMessageAsync(chatId, Text);
         }
     }

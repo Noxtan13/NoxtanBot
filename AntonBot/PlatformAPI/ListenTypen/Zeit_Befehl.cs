@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AntonBot.PlatformAPI
+﻿namespace AntonBot.PlatformAPI
 {
-    class Zeit_Befehl : Befehl
+    internal class Zeit_Befehl : Befehl
     {
         public int Zeitspanne { get; set; }
         public int DeltaZeit { get; set; }

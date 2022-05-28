@@ -1,5 +1,4 @@
 ﻿using AntonBot.PlatformAPI;
-using AntonBot.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,12 +6,11 @@ using System.IO;
 
 namespace AntonBot
 {
-
-    class Bot_Verwalter
-    {        
+    internal class Bot_Verwalter
+    {
         protected bool Active = false;
         //private String Ausgabe = "";
-        private KonsolenAusgabe Ausgabe1=new KonsolenAusgabe();
+        private KonsolenAusgabe Ausgabe1 = new KonsolenAusgabe();
         private bool Ausgeben = false;
 
         protected OtherChannel OtherChannel = new OtherChannel();
@@ -38,16 +36,18 @@ public void Speichern() {
    Gespeicherte_Commands deserialisiert = JsonConvert.DeserializeObject<Gespeicherte_Commands>(welt);
 }
 */
-        public bool getRestart() {
+        public bool getRestart()
+        {
             return Restart;
         }
 
-        public void LoadBefehle(String Path, int BefehlArt) {
+        public void LoadBefehle(String Path, int BefehlArt)
+        {
             String InhaltJSON = "";
 
             if (File.Exists(Path))
             {
-                
+
                 InhaltJSON = File.ReadAllText(Path);
 
                 LastLoadTime = File.GetLastWriteTime(Path);
@@ -57,7 +57,7 @@ public void Speichern() {
                         try
                         {
                             BefehlListe = JsonConvert.DeserializeObject<List<Befehl>>(InhaltJSON);
-                            
+
                             //ZufallGewichtung(BefehlListe);
                         }
                         catch (Exception Fehler)
@@ -93,7 +93,8 @@ public void Speichern() {
 
             }
         }
-        protected List<Befehl> LoadList(String Path) {
+        protected List<Befehl> LoadList(String Path)
+        {
             String InhaltJSON = "";
 
             if (File.Exists(Path))
@@ -109,7 +110,8 @@ public void Speichern() {
                     return null;
                 }
             }
-            else {
+            else
+            {
                 return null;
             }
         }
@@ -137,17 +139,19 @@ public void Speichern() {
                 return new List<JoinedUsers>();
             }
         }
-        protected void SaveJoinedUserList(List<JoinedUsers> UserList) {
+        protected void SaveJoinedUserList(List<JoinedUsers> UserList)
+        {
 
             string Path = SettingsGroup.Instance.StandardPfad + "JoinedUsers.json";
             string InhaltJSON = "";
-            InhaltJSON += JsonConvert.SerializeObject(UserList,Formatting.Indented);
-            
+            InhaltJSON += JsonConvert.SerializeObject(UserList, Formatting.Indented);
+
 
             File.WriteAllText(Path, InhaltJSON);
         }
 
-        protected List<Befehl> ZufallGewichtung(List<Befehl> Liste) {
+        protected List<Befehl> ZufallGewichtung(List<Befehl> Liste)
+        {
             //Hier werden die Zufallsantworten anhand ihrer Gewichtung zusätzlich erzeugt, damit die Zufallsgenerierung für diese auch mit Gewichtung funktioniert.
 
 
@@ -179,7 +183,7 @@ public void Speichern() {
             string BefehlTeil = getBefehlTeil(Message);
             string OptionalerTeil = getOptionalerTeil(Message);
 
-            
+
 
             Message = null;
 
@@ -187,7 +191,8 @@ public void Speichern() {
             {
                 foreach (Befehl item in BefehlListe)
                 {
-                    if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol+item.Kommando.ToLower())) {
+                    if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
+                    {
                         CheckLastLoad("Befehl.json", 1);
                         Message = item.Antwort;
                         string Ersatzantwort = item.ErsatzAntwort;
@@ -195,7 +200,7 @@ public void Speichern() {
 
                         if (item.HatZufallAntowort)
                         {
-                            
+
 
                             int Wert = Zufallszahl.Next(item.ZufallAntwort.Count);
 
@@ -212,7 +217,8 @@ public void Speichern() {
 
                                 Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
                             }
-                            else {
+                            else
+                            {
                                 Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
                             }
                         }
@@ -232,8 +238,9 @@ public void Speichern() {
             return Message;
         }
 
-        protected string CheckListBefehl(string Message, string User, bool Adminkennzeichen, string Plattform) {
-            string Nachricht=null;
+        protected string CheckListBefehl(string Message, string User, bool Adminkennzeichen, string Plattform)
+        {
+            string Nachricht = null;
             string BefehlTeil1 = getBefehlTeil(Message);
             string BefehlTeil2 = "UPS";
             string OptionalerTeilGesamt = getOptionalerTeil(Message);
@@ -241,12 +248,14 @@ public void Speichern() {
             BefehlTeil2 = getBefehlTeil(getOptionalerTeil(Message));
             string OptionalerTeil = getOptionalerTeil(OptionalerTeilGesamt);
 
-            foreach (List_Befehl item in ListBefehlListe) {
-                if (BefehlTeil1.Equals(SettingsGroup.Instance.SBefehlSymbol+ item.Kommando.ToLower()))
+            foreach (List_Befehl item in ListBefehlListe)
+            {
+                if (BefehlTeil1.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
                 {
 
 
-                    if (item.BefehlTrennungszeichen.Equals(' ')) {
+                    if (item.BefehlTrennungszeichen.Equals(' '))
+                    {
                         BefehlTeil2 = " " + BefehlTeil2;
                         //Damit das Leerzeichen auch als Befehlteil ausgewertet werden kann, muss das abgeschnittene Leerzeichen wieder hinzugefügt werden
                     }
@@ -337,7 +346,7 @@ public void Speichern() {
                             }
                         }
 
-                        
+
                         if (Eintragitem == null)
                         {
                             //Nicht gefunden
@@ -403,35 +412,39 @@ public void Speichern() {
 
                         BefehlListSpeichern();
 
-                        
+
                     }
                 }
             }
 
-            if (Nachricht == null) {
-                
+            if (Nachricht == null)
+            {
+
             }
             //Nachricht = "BefehlTeil1: " + BefehlTeil1 + " BefehlTeil2: " + BefehlTeil2 + " OptionalerTeil " + OptionalerTeil;
 
             return Nachricht;
         }
 
-        protected void BefehlListSpeichern() {
+        protected void BefehlListSpeichern()
+        {
             string Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(ListBefehlListe, Formatting.Indented);
 
-            
+
 
             File.WriteAllText(Path, InhaltJSON);
 
             LoadBefehle(Path, 3);
         }
 
-        protected void CheckLastLoad(String Name, int BefehlArt) {
-            string Path = SettingsGroup.Instance.StandardPfad + Name; 
+        protected void CheckLastLoad(String Name, int BefehlArt)
+        {
+            string Path = SettingsGroup.Instance.StandardPfad + Name;
 
-            if (LastLoadTime < File.GetLastWriteTime(Path)) {
+            if (LastLoadTime < File.GetLastWriteTime(Path))
+            {
                 LoadBefehle(Path, BefehlArt);
                 KonsolenAusgabe(Name + " wurde neu geladen, da nicht aktuell");
             }
@@ -447,7 +460,8 @@ public void Speichern() {
             LastLoadTime = File.GetLastWriteTime(Path);
         }
 
-        protected string getBefehlTeil(string message) {
+        protected string getBefehlTeil(string message)
+        {
 
             String BefehlTeil;
             //Unterscheidung ob Befehl (bzw. in dem Fall Nachricht" weitere "Parameter" getrennt nach "Leerzeichen" beinhaltet
@@ -479,7 +493,8 @@ public void Speichern() {
             return OptionalerTeil;
         }
 
-        protected void CommandListFill(List<Befehl> Liste) {
+        protected void CommandListFill(List<Befehl> Liste)
+        {
             if (Liste != null)
             {
                 foreach (var item in Liste)
@@ -490,14 +505,15 @@ public void Speichern() {
         }
 
 
-        protected string Befehlskette(List<Befehl> Liste) {
-            String HilfeBefehl="";
+        protected string Befehlskette(List<Befehl> Liste)
+        {
+            String HilfeBefehl = "";
 
             foreach (Befehl item in Liste)
             {
-                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol+ item.Kommando;
+                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol + item.Kommando;
             }
-            HilfeBefehl = HilfeBefehl.Remove(0,1);
+            HilfeBefehl = HilfeBefehl.Remove(0, 1);
             return HilfeBefehl;
         }
         protected string Befehlskette(List<string> Liste)
@@ -506,14 +522,15 @@ public void Speichern() {
 
             foreach (var item in Liste)
             {
-                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol+ item;
+                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol + item;
             }
-            HilfeBefehl = HilfeBefehl.Remove(0,1);
+            HilfeBefehl = HilfeBefehl.Remove(0, 1);
             return HilfeBefehl;
         }
 
 
-        public async void Zeitschritt(DiscordFunction Dclient = null) {
+        public async void Zeitschritt(DiscordFunction Dclient = null)
+        {
             if (ZeitBefehlSenden)
             {
                 foreach (Zeit_Befehl item in ZeitBefehlListe)
@@ -566,55 +583,64 @@ public void Speichern() {
                 }
             }
         }
-        public Boolean getActive() {
+        public Boolean getActive()
+        {
             return Active;
         }
-        
-        public void KonsolenAusgabe(String text) {
+
+        public void KonsolenAusgabe(String text)
+        {
             //Ausgabe = Ausgabe + Environment.NewLine + text;
             KonsolenAusgabe(text, 0);
         }
-        public void KonsolenAusgabe(String text, double Zusatz) {
+        public void KonsolenAusgabe(String text, double Zusatz)
+        {
             //Ausgabe = Ausgabe + Environment.NewLine + text + " " + Zusatz;
             if (Ausgeben)
             {
                 //Eintrag schon vorhanden, wird erweitert
                 if (Zusatz == 0)
-                    //Wenn der Wert 0 entspricht, muss er auch im Text nicht ausgegeben werden
+                //Wenn der Wert 0 entspricht, muss er auch im Text nicht ausgegeben werden
                 {
                     Ausgabe1.AusgabeText = Ausgabe1.AusgabeText + Environment.NewLine + text;
                 }
-                else {
+                else
+                {
                     Ausgabe1.AusgabeText = Ausgabe1.AusgabeText + Environment.NewLine + text + " - " + Zusatz.ToString();
-                }             
+                }
                 Ausgabe1.AusgabeZeitmessung = Ausgabe1.AusgabeZeitmessung + Zusatz;
             }
-            else {
+            else
+            {
                 //Eintrag nicht vorhanden, wird neu gesetzt
                 Ausgabe1 = new KonsolenAusgabe(DateTime.Now.TimeOfDay, text, Zusatz);
             }
             Ausgeben = true;
         }
-        public bool isAusgeben() {
+        public bool isAusgeben()
+        {
             return Ausgeben;
         }
-        public KonsolenAusgabe getKonsoleAusgabe() {
+        public KonsolenAusgabe getKonsoleAusgabe()
+        {
             Ausgeben = false;
-            return Ausgabe1; 
+            return Ausgabe1;
         }
 
-        public void SendOtherChannel (String Message, String Plattform)
+        public void SendOtherChannel(String Message, String Plattform)
         {
             OtherChannel.SendMessageToOtherChannel(Message, Plattform);
         }
-        public void SendOtherChannel(String Message, String Plattform,ulong DiscordChannel)
+        public void SendOtherChannel(String Message, String Plattform, ulong DiscordChannel)
         {
-            OtherChannel.SendMessageToOtherChannel(Message, Plattform,DiscordChannel);
+            OtherChannel.SendMessageToOtherChannel(Message, Plattform, DiscordChannel);
         }
-        public bool IsOtherChannel() {
+        public bool IsOtherChannel()
+        {
             return OtherChannel.isSendOtherChannel();
         }
-        public OtherChannel getSendOtherChannel() {
+        public OtherChannel getSendOtherChannel()
+        {
             return OtherChannel;
         }
         public void OtherChannelDone()
@@ -622,5 +648,5 @@ public void Speichern() {
             OtherChannel.Done();
         }
 
-     }
+    }
 }

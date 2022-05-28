@@ -1,20 +1,18 @@
-﻿using System;
+﻿using AntonBot.PlatformAPI;
+using System;
 using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
-using AntonBot.PlatformAPI;
 
 namespace AntonBot.Fenster
 {
     public partial class DiscordEinstellungen : Form
     {
-        string sClientID;
-        bool Erststart = true;
-        bool bAccessTokenChange;
-
-        HttpListener http = new HttpListener();
-
-        long Summe = 0x0000000000;
+        private string sClientID;
+        private bool Erststart = true;
+        private bool bAccessTokenChange;
+        private HttpListener http = new HttpListener();
+        private long Summe = 0x0000000000;
         private bool bÄnderung;
         private bool bÄnderungAusIndex;
         private int iEventIndex;
@@ -257,7 +255,7 @@ namespace AntonBot.Fenster
             {
                 bAccessTokenChange = true;
             }
-            
+
         }
         private void txtClientID_TextChanged(object sender, EventArgs e)
         {
@@ -333,7 +331,7 @@ namespace AntonBot.Fenster
                         txtKonsolenFenster.Text = txtKonsolenFenster.Text + "°" + cmbVariable.Text;
                         break;
                     case 3:
-                        txtChatReaktion.Text = txtChatReaktion.Text + "°" + cmbVariable.Text; 
+                        txtChatReaktion.Text = txtChatReaktion.Text + "°" + cmbVariable.Text;
                         break;
                 }
             }
@@ -463,7 +461,7 @@ namespace AntonBot.Fenster
                     chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsLeftUser.Konsole;
                     txtKonsolenFenster.Text = SettingsGroup.Instance.DsLeftUser.KonsoleText;
                     break;
-                
+
             }
             btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
 
@@ -509,7 +507,7 @@ namespace AntonBot.Fenster
                     cmbVariable.Items.Add("UserName");
 
                     break;
-                
+
             }
 
             cmbVariable.Items.Add("---------------------------------");
@@ -528,7 +526,7 @@ namespace AntonBot.Fenster
             Änderungchange(true);
         }
 
-        
+
 
         private void btnÜbernehmen_Click(object sender, EventArgs e)
         {

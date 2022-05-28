@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TwitchLib.Api;
-using TwitchLib.Api.Core.Enums;
 using TwitchLib.Api.Services;
 using TwitchLib.Client;
-using TwitchLib.Client.Enums;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Extensions;
 using TwitchLib.Client.Models;
@@ -17,43 +15,34 @@ using TwitchLib.PubSub;
 
 namespace AntonBot
 {
-    class TwitchFunction : Bot_Verwalter
+    internal class TwitchFunction : Bot_Verwalter
     {
         public TwitchClient tcClient = new TwitchClient();
-
-        LiveStreamMonitorService lsmMonitor;
-        FollowerService fsFollower;
-        TwitchAPI TwitchAPI;
-        TwitchPubSub twitchPupSub;
+        private LiveStreamMonitorService lsmMonitor;
+        private FollowerService fsFollower;
+        private TwitchAPI TwitchAPI;
+        private TwitchPubSub twitchPupSub;
 
 
 
         //List<TwitchLib.Api.Helix.Models.Users.Follow> FollowerList;
 
-        String sStandardChannel = "";
-        String sChannelID = "";
+        private String sStandardChannel = "";
+        private String sChannelID = "";
 
         private List<Befehl> lTwitchBefehlListe = new List<Befehl>();
-
-        TwitchLib.Api.Helix.Models.Streams.GetStreams.Stream StreamData;
-
-        List<TwitchLib.Api.Helix.Models.Users.GetUserFollows.Follow> FollowerList;
-
-
-
-        bool bSleepMessage = false;
-        string sSleepMessage = "";
-        string sSleepTarget = "";
-        int iSleepDelay = 0;
-
-        List<String> lUserInChat = new List<string>();
-        List<JoinedUsers> lJoinedUsers = new List<JoinedUsers>();
-
-        TwitchLib.Api.Helix.Models.Clips.GetClips.Clip[] Lastclips;
-        String sRaidMessage = "Noch kein Stream gestartet";
-
-        GameSkill CurrentGame;
-        int Gameindex = -1;
+        private TwitchLib.Api.Helix.Models.Streams.GetStreams.Stream StreamData;
+        private List<TwitchLib.Api.Helix.Models.Users.GetUserFollows.Follow> FollowerList;
+        private bool bSleepMessage = false;
+        private string sSleepMessage = "";
+        private string sSleepTarget = "";
+        private int iSleepDelay = 0;
+        private List<String> lUserInChat = new List<string>();
+        private List<JoinedUsers> lJoinedUsers = new List<JoinedUsers>();
+        private TwitchLib.Api.Helix.Models.Clips.GetClips.Clip[] Lastclips;
+        private String sRaidMessage = "Noch kein Stream gestartet";
+        private GameSkill CurrentGame;
+        private int Gameindex = -1;
         private SkillAusgabe Ausgabe;
 
         public void StartBot()
@@ -314,7 +303,8 @@ namespace AntonBot
                     FollowerList.AddRange(Abfrage.Result.Follows);
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 KonsolenAusgabe("Aufbau der FollowerListe ist auf ein Fehler gelaufen: " + e.Message);
             }
         }
@@ -470,7 +460,8 @@ namespace AntonBot
                 }
             }
             StreamData = e.Stream;
-            if (SettingsGroup.Instance.SkillUse) {
+            if (SettingsGroup.Instance.SkillUse)
+            {
                 SaveQuest();
                 GameLoad(e.Stream.GameId, e.Stream.GameName);
             }
@@ -630,7 +621,7 @@ namespace AntonBot
 
             setClearGame();
             SaveQuest();
-            
+
         }
         private void Monitor_OnStreamOnline(object sender, TwitchLib.Api.Services.Events.LiveStreamMonitor.OnStreamOnlineArgs e)
         {
@@ -685,7 +676,8 @@ namespace AntonBot
             //UserListe wird einmal gespeichert, wenn der Stream online kommt
             SaveJoinedUserList(lJoinedUsers);
 
-            if (SettingsGroup.Instance.SkillUse) {
+            if (SettingsGroup.Instance.SkillUse)
+            {
                 GameLoad(e.Stream.GameId, e.Stream.GameName);
             }
         }
@@ -1162,7 +1154,7 @@ namespace AntonBot
                             {
                                 if (e.ChatMessage.IsBroadcaster)
                                 {
-                                    
+
                                     MessageText = CheckListBefehl(e.ChatMessage.Message, e.ChatMessage.Username, e.ChatMessage.IsBroadcaster, "Twitch");
                                 }
                                 else
@@ -1186,9 +1178,11 @@ namespace AntonBot
                 }
             }
         }
-        private bool CheckBlackList(String Message) {
+        private bool CheckBlackList(String Message)
+        {
             bool Ergebnis = false;
-            foreach (var item in SettingsGroup.Instance.STwitchBlackList) {
+            foreach (var item in SettingsGroup.Instance.STwitchBlackList)
+            {
                 if (Message.Equals(item))
                 {
                     Ergebnis = true;
@@ -1554,8 +1548,10 @@ namespace AntonBot
             OnRewardCommand(e.RewardRedeemed.Redemption.Reward.Title, e.RewardRedeemed.Redemption.User.DisplayName, e.RewardRedeemed.Redemption.UserInput);
             //var test = e.RewardRedeemed.Redemption.UserInput; //Input ist Null, wenn der Reward keinen Text vorgibt
         }
-        private void OnRewardCommand(String RewardTitle, String User, String Input) {
-            if (SettingsGroup.Instance.TeClipCreate.Reward.Equals(RewardTitle)) {
+        private void OnRewardCommand(String RewardTitle, String User, String Input)
+        {
+            if (SettingsGroup.Instance.TeClipCreate.Reward.Equals(RewardTitle))
+            {
                 ClipCreate();
             }
             if (SettingsGroup.Instance.TeGoRaid.Reward.Equals(RewardTitle))
@@ -1702,7 +1698,7 @@ namespace AntonBot
         {
             //text = text.Replace("°BroadcasterId", UserNameByID(Clip.BroadcasterId));
             //string Datum = string.Format("{0}.{1}.{2}",Regex.Matches(Clip.CreatedAt,"");
-            
+
             text = text.Replace("°CreatedAtTag", "");
             text = text.Replace("°CreatedAtUhr", "");
             text = text.Replace("°CreatorName", Clip.CreatorName);
@@ -1794,7 +1790,8 @@ namespace AntonBot
             return Tokentest.Result;
         }
 
-        public List<String> TestToken(String Token) {
+        public List<String> TestToken(String Token)
+        {
             var Tokentest = System.Threading.Tasks.Task.Run(() => TwitchAPI.Auth.ValidateAccessTokenAsync(Token));
             List<String> Ergebnis = new List<string>();
 
@@ -2061,15 +2058,16 @@ namespace AntonBot
         private String getFollowDate(string Name)
         {
             string FollowDate = "";
-            
+
             foreach (var item in FollowerList)
             {
-                
-                if (item.FromUserName.ToLower().Equals(Name.ToLower())) {
+
+                if (item.FromUserName.ToLower().Equals(Name.ToLower()))
+                {
                     FollowDate = item.FollowedAt.ToString();
                 }
             }
-            
+
             if (FollowDate.Equals(""))
             {
                 FollowDate = "<Not_Found>";
@@ -2081,7 +2079,7 @@ namespace AntonBot
         private String getFollowSince(string Name)
         {
             string FollowSince = "";
-            
+
             foreach (var item in FollowerList)
             {
                 if (item.FromUserName.ToLower().Equals(Name.ToLower()))
@@ -2091,7 +2089,7 @@ namespace AntonBot
                     FollowSince = timeSpan.Days.ToString() + " Tage, " + timeSpan.Hours.ToString() + " Stunden, " + timeSpan.Minutes.ToString() + " Minunten und " + timeSpan.Seconds.ToString() + " Sekunden";
                 }
             }
-            
+
             if (FollowSince.Equals(""))
             {
                 FollowSince = "<Not_Found>";
@@ -2128,7 +2126,7 @@ namespace AntonBot
             {
                 //Gefunden
                 String Text = SettingsGroup.Instance.TeSO.ChatText;
-                
+
                 Text = Text.Replace("°TargetName", ChannelDaten.DisplayName);
                 // Text = Text.Replace("°TargetFollowers", ChannelDaten.Followers.ToString());
                 Text = Text.Replace("°TargetGame", ChannelDaten.GameName);
@@ -2187,7 +2185,7 @@ namespace AntonBot
                 if (StreamData != null)
                 {
 
-                    string Message="";
+                    string Message = "";
                     string AltTitle = StreamData.Title;
                     try
                     {
@@ -2208,14 +2206,15 @@ namespace AntonBot
                         Message = Message.Replace("°NeuTitel", Title);
                         Message = Message.Replace("°User", User);
                     }
-                    catch (Exception e) {
+                    catch (Exception e)
+                    {
                         Message = SettingsGroup.Instance.TeUpdateTitle.FailText;
                         Message = Message.Replace("°AltTitel", AltTitle);
                         Message = Message.Replace("°NeuTitel", Title);
                         Message = Message.Replace("°User", User);
                         Message = Message.Replace("°Exception", e.Message);
                     }
-                    
+
                     SendMessage(Message, sStandardChannel);
 
                 }
@@ -2362,9 +2361,11 @@ namespace AntonBot
             return Text;
         }
 
-        private bool CheckWhiteList(String Name) {
+        private bool CheckWhiteList(String Name)
+        {
             bool Treffer = false;
-            foreach (var item in SettingsGroup.Instance.STwitchAutoBotWhiteList) { 
+            foreach (var item in SettingsGroup.Instance.STwitchAutoBotWhiteList)
+            {
                 if (item.ToLower().Equals(Name.ToLower()))
                 {
                     Treffer = true;
@@ -2376,7 +2377,7 @@ namespace AntonBot
 
         private void CheckAutoBannBot(string Name)
         {
-            
+
             if (SettingsGroup.Instance.STwitchAutoBotBann)
             {
                 bool gefunden = false;
@@ -2433,7 +2434,7 @@ namespace AntonBot
                 }
             }
 
-            
+
         }
 
         public void BotUserSave()
@@ -2634,7 +2635,8 @@ namespace AntonBot
 
             return test.Id.ToString();
         }
-        public TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] GetRewards() {
+        public TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] GetRewards()
+        {
 
             var test = TwitchAPI.Helix.ChannelPoints.GetCustomRewardAsync(sChannelID, null, false, SettingsGroup.Instance.TsAccessTokenPubSub);
             if (test.Result.Data != null)
@@ -2646,8 +2648,9 @@ namespace AntonBot
                 return null;
             }
         }
-        public String getCurrentGame() { 
-            if(CurrentGame!= null)
+        public String getCurrentGame()
+        {
+            if (CurrentGame != null)
             {
                 return CurrentGame.Game;
             }
@@ -2657,21 +2660,25 @@ namespace AntonBot
             }
         }
 
-        
-        private String getCurrentQuest() {
+
+        private String getCurrentQuest()
+        {
             foreach (var item in CurrentGame.MainQuest)
             {
-                if (!item.Abschluss) {
+                if (!item.Abschluss)
+                {
                     return item.Name;
                 }
             }
             return "No MainQuest";
         }
 
-        private void ClearQuest(String ID) {
+        private void ClearQuest(String ID)
+        {
             bool QuestGefunden = false;
-            string Nachricht="";
-            if (ID.StartsWith("M")||ID.StartsWith("m")) {
+            string Nachricht = "";
+            if (ID.StartsWith("M") || ID.StartsWith("m"))
+            {
                 if (ID.Equals("M") || ID.Equals("m"))
                 {
                     //Wenn keine ID genannt ist, dann soll die erste nicht abgeschlossene Mainquest erl. werden
@@ -2734,7 +2741,8 @@ namespace AntonBot
                     }
                 }
             }
-            else if (ID.StartsWith("S")||ID.StartsWith("s")) {
+            else if (ID.StartsWith("S") || ID.StartsWith("s"))
+            {
                 foreach (var item in CurrentGame.SideQeust)
                 {
                     if (item.ID.Equals(ID))
@@ -2742,7 +2750,8 @@ namespace AntonBot
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
                         CurrentGame.GetEXP(item.AbschlussEXP);
-                        if (!item.Repeat) {
+                        if (!item.Repeat)
+                        {
                             item.Abschluss = true;
                         }
                         QuestGefunden = true;
@@ -2773,10 +2782,11 @@ namespace AntonBot
 
             SendMessage(Nachricht, sStandardChannel);
         }
-        private void AddMainQuest(String Nachricht,String User) {
+        private void AddMainQuest(String Nachricht, String User)
+        {
             String pattern = "^([\\w\\säöü]+)\\s?-\\s?(\\d+)";
             String Antwort = "";
-            var Inhalt= Regex.Match(Nachricht,pattern);
+            var Inhalt = Regex.Match(Nachricht, pattern);
 
             if (Inhalt.Success)
             {
@@ -2789,7 +2799,8 @@ namespace AntonBot
                 Antwort = Antwort.Replace("°User", User);
                 Antwort = Antwort.Replace("°Pattern", "<Description> - <EXP>");
             }
-            else {
+            else
+            {
                 Antwort = SettingsGroup.Instance.SkillMain.FailText;
                 Antwort = Antwort.Replace("°NewQuest", "");
                 Antwort = Antwort.Replace("°NewEXP", "");
@@ -2800,7 +2811,8 @@ namespace AntonBot
             SendMessage(Antwort, sStandardChannel);
             SaveQuest();
         }
-        private void AddSubQuest(String Nachricht, String User) {
+        private void AddSubQuest(String Nachricht, String User)
+        {
             String pattern = "^([\\w\\säöü]+)\\s?-\\s?(\\d+)";
             String Antwort = "";
             var Inhalt = Regex.Match(Nachricht, pattern);
@@ -2828,7 +2840,8 @@ namespace AntonBot
             SendMessage(Antwort, sStandardChannel);
             SaveQuest();
         }
-        private void UpdateQuest(String Nachricht, String User) {
+        private void UpdateQuest(String Nachricht, String User)
+        {
 
             String pattern = "^([SM]\\d+)\\s?-\\s?([\\w\\säöü]+)\\s?-\\s?([\\d]+)";
             String Antwort = "";
@@ -2837,14 +2850,16 @@ namespace AntonBot
             if (Inhalt.Success)
             {
                 //Wenns in diesem Format ist
-                Quest newQuest=null;
+                Quest newQuest = null;
                 String OldQuest = "";
                 String OldEXP = "";
 
                 if (Inhalt.Groups[1].Value.StartsWith("M"))
                 {
-                    foreach (var item in CurrentGame.MainQuest) {
-                        if (item.ID.Equals(Inhalt.Groups[1].Value)) {
+                    foreach (var item in CurrentGame.MainQuest)
+                    {
+                        if (item.ID.Equals(Inhalt.Groups[1].Value))
+                        {
                             newQuest = new Quest(Inhalt.Groups[2].Value, Convert.ToDecimal(Inhalt.Groups[3].Value), true, item.Abschluss, item.Repeat, item.ID);
                             QuestIndex = CurrentGame.MainQuest.IndexOf(item);
                             OldQuest = item.Name;
@@ -2852,12 +2867,14 @@ namespace AntonBot
                         }
                     }
 
-                    if (QuestIndex != -1 && newQuest !=null) {
+                    if (QuestIndex != -1 && newQuest != null)
+                    {
                         CurrentGame.MainQuest.RemoveAt(QuestIndex);
                         CurrentGame.MainQuest.Add(newQuest);
                     }
                 }
-                else {
+                else
+                {
                     foreach (var item in CurrentGame.SideQeust)
                     {
                         if (item.ID.Equals(Inhalt.Groups[1].Value))
@@ -2898,7 +2915,8 @@ namespace AntonBot
             SendMessage(Antwort, sStandardChannel);
             SaveQuest();
         }
-        private void StatusQuest(String ID) {
+        private void StatusQuest(String ID)
+        {
             //Genaue Infos einer Quest
             bool QuestGefunden = false;
             string Nachricht = "";
@@ -2955,12 +2973,14 @@ namespace AntonBot
 
             SendMessage(Nachricht, sStandardChannel);
         }
-        private void ListQuest() {
+        private void ListQuest()
+        {
             //Auflisten aller Quest
-            String MainQuestList="";
-            String SideQuestList="";
+            String MainQuestList = "";
+            String SideQuestList = "";
 
-            foreach (var item in CurrentGame.MainQuest) {
+            foreach (var item in CurrentGame.MainQuest)
+            {
                 if (!item.Abschluss)
                 {
                     MainQuestList += item.ID + " - " + item.Name + " | ";
@@ -2982,10 +3002,11 @@ namespace AntonBot
 
             SendMessage(Nachricht, sStandardChannel);
         }
-        private void SaveQuest() {
+        private void SaveQuest()
+        {
             if (SettingsGroup.Instance.SkillUse && Gameindex != -1)
             {
-                String Path = SettingsGroup.Instance.StandardPfad+ "SkillListe.json";
+                String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
                 String InhaltJSON;
 
                 if (System.IO.File.Exists(Path))
@@ -3008,7 +3029,8 @@ namespace AntonBot
                 }
             }
         }
-        public void setClearGame() {
+        public void setClearGame()
+        {
             Ausgabe = new SkillAusgabe();
             Ausgabe.SetNullWerte();
         }

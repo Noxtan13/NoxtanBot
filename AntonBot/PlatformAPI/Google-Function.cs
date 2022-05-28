@@ -1,27 +1,22 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-using Newtonsoft.Json;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Windows;
 using System.Security.Cryptography;
-using System.Threading;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI
 {
-    class Google_Function
+    internal class Google_Function
     {
-        const string clientID = "510414211005-1u518rmkg51f81ntd7jv6h25b1vvm0fv.apps.googleusercontent.com";
-        const string clientSecret = "UC5ozxxfjtR7goMPaA7vtzTV";
-        const string authorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
-        const string tokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";
-        const string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+        private const string clientID = "510414211005-1u518rmkg51f81ntd7jv6h25b1vvm0fv.apps.googleusercontent.com";
+        private const string clientSecret = "UC5ozxxfjtR7goMPaA7vtzTV";
+        private const string authorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
+        private const string tokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";
+        private const string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
 
         public string access_token;
 
@@ -113,7 +108,7 @@ namespace AntonBot.PlatformAPI
             performCodeExchange(code, code_verifier, redirectURI);
         }
 
-        async void performCodeExchange(string code, string code_verifier, string redirectURI)
+        private async void performCodeExchange(string code, string code_verifier, string redirectURI)
         {
             output("Exchanging code for tokens...");
 
@@ -175,8 +170,7 @@ namespace AntonBot.PlatformAPI
             }
         }
 
-
-        async void userinfoCall(string access_token)
+        private async void userinfoCall(string access_token)
         {
             output("Making API Call to Userinfo...");
 
@@ -184,7 +178,7 @@ namespace AntonBot.PlatformAPI
             string userinfoRequestURI = "https://www.googleapis.com/oauth2/v3/userinfo";
 
 
-            
+
             // sends the request
             HttpWebRequest userinfoRequest = (HttpWebRequest)WebRequest.Create(userinfoRequestURI);
             userinfoRequest.Method = "GET";

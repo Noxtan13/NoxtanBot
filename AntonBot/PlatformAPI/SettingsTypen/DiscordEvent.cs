@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI.SettingsTypen
 {
-    class DiscordEvent
+    internal class DiscordEvent
     {
         public String Name;
         public bool Use;
@@ -19,7 +15,8 @@ namespace AntonBot.PlatformAPI.SettingsTypen
         public bool Konsole;
         public String KonsoleText;
 
-        public DiscordEvent(string name) {
+        public DiscordEvent(string name)
+        {
             Name = name;
             Use = false;
             Twitch = false;

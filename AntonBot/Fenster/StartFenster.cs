@@ -708,7 +708,59 @@ namespace AntonBot
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "TwitchAnleitung.html konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Einrichtung.DiscordAnleitung.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Einrichtung" + Path.DirectorySeparatorChar + "DiscordAnleitung.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "DiscordAnleitung.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
             //Export der Fenster
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.AllgEinstellungen.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "AllgEinstellungen.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellungen.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.BefehlEditor.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "BefehlEditor.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BefehlEditor.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.DiscordEinstellungen.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "DiscordEinstellungen.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "DiscordEinstellungen.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Index.html");
@@ -721,6 +773,32 @@ namespace AntonBot
             catch (Exception WriteFehler)
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Fenster-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.StartFenster.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "StartFenster.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "StartFenster.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.TwitchEinstellungen.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "TwitchEinstellungen.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "TwitchEinstellungen.html konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
             try
             {
@@ -762,6 +840,20 @@ namespace AntonBot
             catch (Exception WriteFehler)
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BotStatus.php konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.Logbuch.php");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                PHPInhalt = PHPInhalt.Replace("°LogPfad", SettingsGroup.Instance.StandardPfad + "KonsolenAusgabe.json");
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "Logbuch.php";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Logbuch.php konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
             //Export des OnlineEditors
             try

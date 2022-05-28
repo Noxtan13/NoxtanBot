@@ -523,13 +523,6 @@ namespace AntonBot
                 //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             }
         }
-
-        private void btnJoin_Click(object sender, EventArgs e)
-        {
-            //Twitch.LevaeChannel();
-            Twitch.JoinChannel();
-        }
-
         private void youTubeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Twitch.test();

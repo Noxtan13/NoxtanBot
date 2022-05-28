@@ -34,7 +34,6 @@
             this.DiscordStop = new System.Windows.Forms.Button();
             this.DiscordGroupBox = new System.Windows.Forms.GroupBox();
             this.chkDiscordZeit = new System.Windows.Forms.CheckBox();
-            this.chkDiscord = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.DiscordStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.TwitchStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
@@ -59,7 +58,6 @@
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.TwitchGroupBox = new System.Windows.Forms.GroupBox();
             this.chkTwitchZeit = new System.Windows.Forms.CheckBox();
-            this.chkTwitch = new System.Windows.Forms.CheckBox();
             this.TwitchStart = new System.Windows.Forms.Button();
             this.TwitchStop = new System.Windows.Forms.Button();
             this.txtAusgabe = new System.Windows.Forms.TextBox();
@@ -101,7 +99,6 @@
             // DiscordGroupBox
             // 
             this.DiscordGroupBox.Controls.Add(this.chkDiscordZeit);
-            this.DiscordGroupBox.Controls.Add(this.chkDiscord);
             this.DiscordGroupBox.Controls.Add(this.DiscordStart);
             this.DiscordGroupBox.Controls.Add(this.DiscordStop);
             this.DiscordGroupBox.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold);
@@ -125,19 +122,6 @@
             this.chkDiscordZeit.Text = "Auto-Send";
             this.chkDiscordZeit.UseVisualStyleBackColor = true;
             this.chkDiscordZeit.CheckedChanged += new System.EventHandler(this.chkDiscordZeit_CheckedChanged);
-            // 
-            // chkDiscord
-            // 
-            this.chkDiscord.AutoSize = true;
-            this.chkDiscord.Checked = true;
-            this.chkDiscord.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDiscord.Location = new System.Drawing.Point(89, 16);
-            this.chkDiscord.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.chkDiscord.Name = "chkDiscord";
-            this.chkDiscord.Size = new System.Drawing.Size(18, 17);
-            this.chkDiscord.TabIndex = 11;
-            this.chkDiscord.UseVisualStyleBackColor = true;
-            this.chkDiscord.CheckedChanged += new System.EventHandler(this.chkDiscord_CheckedChanged);
             // 
             // statusStrip1
             // 
@@ -294,21 +278,21 @@
             // discordToolStripMenuItem
             // 
             this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-            this.discordToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
+            this.discordToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.discordToolStripMenuItem.Text = "Discord";
             this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
             // 
             // twitchToolStripMenuItem
             // 
             this.twitchToolStripMenuItem.Name = "twitchToolStripMenuItem";
-            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
+            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.twitchToolStripMenuItem.Text = "Twitch";
             this.twitchToolStripMenuItem.Click += new System.EventHandler(this.twitchToolStripMenuItem_Click);
             // 
             // youTubeToolStripMenuItem
             // 
             this.youTubeToolStripMenuItem.Name = "youTubeToolStripMenuItem";
-            this.youTubeToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
+            this.youTubeToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.youTubeToolStripMenuItem.Text = "YouTube";
             this.youTubeToolStripMenuItem.Click += new System.EventHandler(this.youTubeToolStripMenuItem_Click);
             // 
@@ -321,7 +305,6 @@
             // TwitchGroupBox
             // 
             this.TwitchGroupBox.Controls.Add(this.chkTwitchZeit);
-            this.TwitchGroupBox.Controls.Add(this.chkTwitch);
             this.TwitchGroupBox.Controls.Add(this.TwitchStart);
             this.TwitchGroupBox.Controls.Add(this.TwitchStop);
             this.TwitchGroupBox.Location = new System.Drawing.Point(392, 94);
@@ -344,19 +327,6 @@
             this.chkTwitchZeit.Text = "Auto-Send";
             this.chkTwitchZeit.UseVisualStyleBackColor = true;
             this.chkTwitchZeit.CheckedChanged += new System.EventHandler(this.chkTwitchZeit_CheckedChanged);
-            // 
-            // chkTwitch
-            // 
-            this.chkTwitch.AutoSize = true;
-            this.chkTwitch.Checked = true;
-            this.chkTwitch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTwitch.Location = new System.Drawing.Point(79, 16);
-            this.chkTwitch.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.chkTwitch.Name = "chkTwitch";
-            this.chkTwitch.Size = new System.Drawing.Size(18, 17);
-            this.chkTwitch.TabIndex = 11;
-            this.chkTwitch.UseVisualStyleBackColor = true;
-            this.chkTwitch.CheckedChanged += new System.EventHandler(this.chkTwitch_CheckedChanged);
             // 
             // TwitchStart
             // 
@@ -483,8 +453,6 @@
         private System.Windows.Forms.Button TwitchStart;
         private System.Windows.Forms.Button TwitchStop;
         public System.Windows.Forms.TextBox txtAusgabe;
-        private System.Windows.Forms.CheckBox chkDiscord;
-        private System.Windows.Forms.CheckBox chkTwitch;
         private System.Windows.Forms.ToolStripMenuItem youTubeToolStripMenuItem;
         private System.Windows.Forms.Timer UpdateAusgabe;
         private System.Windows.Forms.ToolStripMenuItem allgemeineEinstellungenToolStripMenuItem;

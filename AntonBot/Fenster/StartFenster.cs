@@ -311,52 +311,6 @@ namespace AntonBot
 
 
         }
-
-        private void chkDiscord_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkDiscord.Checked)
-            {
-                //DiscordGroupBox.Enabled = true;
-                if (Discord.getActive())
-                {
-                    DiscordStop.Enabled = true;
-                }
-                else
-                {
-                    DiscordStart.Enabled = true;
-                }
-            }
-            else
-            {
-                //DiscordGroupBox.Enabled = false;
-                DiscordStart.Enabled = false;
-                DiscordStop.Enabled = false;
-            }
-        }
-
-        private void chkTwitch_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkTwitch.Checked)
-            {
-                //TwitchGroupBox.Enabled = true;
-                if (Twitch.getActive())
-                {
-                    TwitchStop.Enabled = true;
-                }
-                else
-                {
-                    TwitchStart.Enabled = true;
-                }
-            }
-            else
-            {
-                //TwitchGroupBox.Enabled = false;
-                TwitchStart.Enabled = true;
-                TwitchStop.Enabled = false;
-            }
-
-        }
-
         private void UpdateAusgabe_Tick(object sender, EventArgs e)
         {
             KonsolenAusgabe ausgabe = null;

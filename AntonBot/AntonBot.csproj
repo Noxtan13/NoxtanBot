@@ -52,10 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>EB03C53C418AD055CF5A28670B1ED34B1290FAEF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C623B93D24FDF20BBFDB4061C2ED80CC8E5AB8BF</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>AntonBot_2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>AntonBot_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -378,6 +378,7 @@
     </Compile>
     <None Include="AntonBot_1_TemporaryKey.pfx" />
     <None Include="AntonBot_2_TemporaryKey.pfx" />
+    <None Include="AntonBot_3_TemporaryKey.pfx" />
     <None Include="AntonBot_TemporaryKey.pfx" />
     <EmbeddedResource Include="Fenster\HilfeSeiten\LogFile\BotStatus.php">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -34,23 +34,28 @@
         <div class="Inhalt">
                 
             <?php
-    //Hat hier nichts mit dem Bot zu tun, sondern zum Auslesen anderer Logdateien. Pfad muss entsprechend angegeben, bzw. bearbeitet werden
-  
-    echo "Jetzt kommen die Einträge <br/>";
-    //$InhaltJson = file_get_contents('°LogPfad');
-    $InhaltJson = file_get_contents('/home/pi/CronjobAusgabe.txt');
-    //$Eintrag = new Eintraege;
-    $Eintrag = json_decode($InhaltJson,true);
-    //var_dump($Eintrag);
-    
-    
-    $Ausfalldauer=0;
+                //Hat hier nichts mit dem Bot zu tun, sondern zum Auslesen anderer Logdateien. Pfad muss entsprechend angegeben, bz>
+                echo "Logs der CronJobs: <br/>";
 
-    echo"<div class=\"LogEintrag\">";
-    echo $InhaltJson
-    echo"</div>";
+                echo"<h3>Log-File des Autostart-Skriptes</h3>";
+                echo"<div class=\"LogEintrag\">";
+                $InhaltCron = file_get_contents('/home/pi/AusgabeCron.txt');
+                echo str_replace("\n","</br>",$InhaltCron);
+                echo"</div>";
 
-    ?>
+                echo"<h3>Log-File Uploader Statink</h3>";
+                echo"<div class =\"LogEintrag\">";
+                $InhaltStatInk = file_get_contents('/home/pi/AusgabeCronPy.txt');
+                echo str_replace("\n","</br>",$InhaltStatInk);
+                echo"</div>";
+
+
+                echo"<h3>Log-File Uploader Statink-Salmon</h3>";
+                echo"<div class =\"LogEintrag\">";
+                $InhaltStatInkSalmon = file_get_contents('/home/pi/AusgabeCronPySalmon.txt');
+                echo str_replace("\n","</br>",$InhaltStatInkSalmon);
+                echo"</div>";
+            ?>
 
         </div>
     </div>

@@ -14,7 +14,7 @@
          }
 
         .progress {
-            background: rgba(120,204,204,0.5);
+            background: rgba(20,114,37,0.75);
             justify-content: flex-start;
             border-radius: 100px;
             align-items: center;
@@ -29,7 +29,7 @@
             animation: load 3s normal forwards;
             box-shadow: 0 10px 40px -10px #fff;
             border-radius: 100px;
-            background: rgba(120,150,204,1);
+            background: rgba(90,188,54,1);
             height: 30px;
             width: 0;
         }
@@ -47,7 +47,8 @@
 			word-break: keep-all;
 			-webkit-text-stroke-width: 1px;
             -webkit-text-stroke-color: black;
-            font-size: 40px;
+            font-size: 23px;
+			font-weight: bold;
             align-items: center;
             padding: 5px;
             z-index: 1;
@@ -61,6 +62,26 @@
             width: 750px;
             align-items: center
         }
+
+        @keyframes Zahl {
+            0%{top:10px;
+               color: rgba(0,0,0,1);
+            }
+            100% {
+                top: -50px;
+                color: rgba(0,0,0,0);
+            }
+        }
+        .EXP {
+            animation: Zahl 3s normal;
+            position: absolute;
+            left: 250px;
+            font-family: Verdana, sans-serif;
+            color: rgba(0,0,0,0);
+            font-size: 23px;
+            font-weight: bold;
+        }
+
         @keyframes load {
             <?php 
                 $InhaltJson = file_get_contents('/home/pi/Antonbot/SkillAusgabe.json');
@@ -124,15 +145,25 @@
 
         echo "$EXP / $MaxEXP";
 
-        //Da dies der letzte PHP-Abschnitt ist, erfolgt hier die Hinterlegung, ob die Datei schon gelesen worden ist
 
-        $Eintrag["read"]=1;
-        $InhaltJsonA =json_encode($Eintrag);
-        unlink('/home/pi/Antonbot/SkillAusgabe.json');
-        file_put_contents('/home/pi/Antonbot/SkillAusgabe.json',$InhaltJsonA);
     ?>    
     </div>
     <div class="progress">
+        <div class="EXP">
+            <?php 
+                $InhaltJson = file_get_contents('/home/pi/Antonbot/SkillAusgabe.json');
+                $Eintrag = json_decode($InhaltJson,true);
+
+
+
+                //Da dies der letzte PHP-Abschnitt ist, erfolgt hier die Hinterlegung, ob die Datei schon gelesen worden ist
+
+                $Eintrag["read"]=1;
+                $InhaltJsonA =json_encode($Eintrag);
+                unlink('/home/pi/Antonbot/SkillAusgabe.json');
+                file_put_contents('/home/pi/Antonbot/SkillAusgabe.json',$InhaltJsonA);
+            ?> 
+        </div>
         <div class="progress-value"></div>
     </div>
 </div>

@@ -270,9 +270,9 @@ namespace AntonBot
 
         private void btnPfadRecover_Click(object sender, EventArgs e)
         {
-            SettingsGroup.Instance.StandardPfad = Application.StartupPath;
-            SettingsGroup.Instance.LogPfad = Application.StartupPath;
-            SettingsGroup.Instance.HTMLPfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite";
+            SettingsGroup.Instance.StandardPfad = Application.StartupPath + Path.DirectorySeparatorChar;
+            SettingsGroup.Instance.LogPfad = Application.StartupPath + Path.DirectorySeparatorChar;
+            SettingsGroup.Instance.HTMLPfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
 
             txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar, '/');
             txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');

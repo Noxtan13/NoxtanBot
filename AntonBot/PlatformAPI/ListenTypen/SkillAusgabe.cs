@@ -8,6 +8,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public decimal AltMaxEXP;
         public int AltLevel;
         public decimal AltProzent;
+        public decimal AddedEXP;
         public decimal NeuEXP;
         public int NeuLevel;
         public decimal NeuMaxEXP;
@@ -22,7 +23,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
             AltLevel = Level;
             AltProzent = ((EXP - lastLevelEXP) / (MAXEXP - lastLevelEXP)) * 100;
         }
-        public void SetNeuWerte(decimal EXP, decimal MAXEXP, int Level, decimal lastLevelEXP, String Quest)
+        public void SetNeuWerte(decimal EXP, decimal MAXEXP, int Level, decimal lastLevelEXP, String Quest, decimal addedEXP)
         {
             NeuEXP = EXP;
             NeuMaxEXP = MAXEXP;
@@ -30,6 +31,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
             NeuProzent = ((EXP - lastLevelEXP) / (MAXEXP - lastLevelEXP)) * 100;
             read = 0;
             CurrentMainQuest = Quest;
+            AddedEXP = addedEXP;
         }
 
         public void SetNullWerte()
@@ -38,6 +40,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
             AltMaxEXP = 0;
             AltLevel = 0;
             AltProzent = 0;
+            AddedEXP = 0;
             NeuEXP = 0;
             NeuLevel = 0;
             NeuMaxEXP = 0;

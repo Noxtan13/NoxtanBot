@@ -2706,7 +2706,7 @@ namespace AntonBot
                                 Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                                 Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
 
-                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),item.AbschlussEXP);
                             }
                         }
                     }
@@ -2735,7 +2735,7 @@ namespace AntonBot
                                 Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                                 Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
 
-                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),item.AbschlussEXP);
                             }
                         }
                     }
@@ -2765,7 +2765,7 @@ namespace AntonBot
                         Nachricht = Nachricht.Replace("°NextLevel", CurrentGame.EXPTillNextLevel.ToString());
                         Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                         Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(), item.AbschlussEXP);
                     }
                 }
             }
@@ -3052,7 +3052,7 @@ namespace AntonBot
                         CurrentGame = item;
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),0);
                     }
                     else if (item.Game.Equals(GameName))
                     {
@@ -3064,7 +3064,7 @@ namespace AntonBot
 
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest());
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),0);
                     }
                 }
             }

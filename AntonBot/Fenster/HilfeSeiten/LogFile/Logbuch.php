@@ -5,6 +5,7 @@
     <link rel="icon" href="../PinguinServer.jpg" />
     <link rel="icon" href="../PinguinServer.jpg" />
     <link rel="stylesheet" href="../Style.css" />
+    <meta charset="UTF-8">
     <style>
         .LogEintrag{
         text-align: left;

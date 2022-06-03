@@ -1,8 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <style>
-body {
+        body {
             justify-content: center;
             align-items: center;
             background: rgba(1,1,1,0.0);
@@ -10,7 +11,7 @@ body {
             height: 100vh;
             padding: 0;
             margin: 0;
-         }
+        }
 
         .progress {
             background: rgba(20,114,37,0.75);
@@ -32,52 +33,63 @@ body {
             height: 30px;
             width: 0;
         }
-        .ExpText{
-	        text-align:center;
-	        width:inherit;
-	        z-index: 1;
-	        position: absolute;
-	        font-size: 20px;
-	        padding-top:10px;
-	        font-family: Verdana, sans-serif;
-	    }
+
+        .ExpText {
+            text-align: center;
+            width: inherit;
+            z-index: 1;
+            position: absolute;
+            font-size: 20px;
+            padding-top: 10px;
+            font-family: Verdana, sans-serif;
+        }
+
         .text {
             color: #ffffff;
-			word-break: keep-all;
-			-webkit-text-stroke-width: 1px;
+            word-break: keep-all;
+            -webkit-text-stroke-width: 1px;
             -webkit-text-stroke-color: black;
             font-size: 23px;
-			font-weight: bold;
+            font-weight: bold;
             align-items: center;
             padding: 5px;
             z-index: 1;
             display: flex;
             height: auto;
             width: 750px;
-	        font-family: Verdana, sans-serif;      
-	    }
-        .Box{
-            height:50px;
+            font-family: Verdana, sans-serif;
+        }
+
+        .Box {
+            height: 50px;
             width: 750px;
             align-items: center
         }
-		
-		@keyframes load {
-			0% { width: 0%;} 
-			100% { width: 100%; }
+
+        @keyframes load {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
         }
 
 
 
         @keyframes Zahl {
-            0%{top:10px;
-               color: rgba(0,0,0,1);
+            0% {
+                top: 10px;
+                color: rgba(0,0,0,1);
             }
+
             100% {
                 top: -50px;
                 color: rgba(0,0,0,0);
             }
         }
+
         .EXP {
             animation: Zahl 3s normal;
             position: absolute;

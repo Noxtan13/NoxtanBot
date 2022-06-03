@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta http-equiv="refresh" content="5">
+    <meta charset="UTF-8">
     <style>
         body {
             justify-content: center;

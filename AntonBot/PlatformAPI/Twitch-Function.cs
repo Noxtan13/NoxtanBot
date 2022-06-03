@@ -15,7 +15,7 @@ using TwitchLib.PubSub;
 
 namespace AntonBot
 {
-    internal class TwitchFunction : Bot_Verwalter
+    class TwitchFunction : Bot_Verwalter
     {
         public TwitchClient tcClient = new TwitchClient();
         private LiveStreamMonitorService lsmMonitor;

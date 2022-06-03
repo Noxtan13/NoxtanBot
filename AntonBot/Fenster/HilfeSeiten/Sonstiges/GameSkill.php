@@ -155,7 +155,16 @@
                 $Eintrag = json_decode($InhaltJson,true);
 
 
+                if ($Eintrag["read"]==0){
+                    $AddedEXP=$Eintrag["AddedEXP"];
+                }
+                else{
+                    $AddedEXP=0;
+                }
 
+                if ($AddedEXP!=0){
+                    echo "+$AddedEXP";
+                }
                 //Da dies der letzte PHP-Abschnitt ist, erfolgt hier die Hinterlegung, ob die Datei schon gelesen worden ist
 
                 $Eintrag["read"]=1;

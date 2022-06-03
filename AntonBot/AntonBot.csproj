@@ -52,10 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C623B93D24FDF20BBFDB4061C2ED80CC8E5AB8BF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>EB03C53C418AD055CF5A28670B1ED34B1290FAEF</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>AntonBot_3_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>AntonBot_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>

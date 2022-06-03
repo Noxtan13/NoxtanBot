@@ -723,7 +723,7 @@ namespace AntonBot
             }
             try
             {
-                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Startseite.jpg");
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Startseite.png");
                 Bitmap bmp = new Bitmap(str);
 
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Startseite.jpg";

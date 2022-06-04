@@ -386,6 +386,16 @@
     <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\Bilder\Startseite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\Bilder\AllgEinstellung1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\Bilder\AllgEinstellung2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\HilfeSeiten\Fenster\Bilder\AllgEinstellung3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Fenster\HilfeSeiten\Fenster\Bilder\AllgEinstellung2_2.png" />
     <Content Include="Fenster\HilfeSeiten\Sonstiges\LeereVorlage.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

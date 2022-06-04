@@ -41,7 +41,6 @@ namespace AntonBot.PlatformAPI
         public bool SDiscordAutoStart;
         public bool STwitchAutoStart;
         public String SBefehlSymbol;
-        public bool SAutoBan;
         public int SEventTimer;
         public bool STwitchAutoMessage;
         public bool STwitchAutoBotBann;
@@ -130,7 +129,7 @@ namespace AntonBot.PlatformAPI
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 7;
+            Version = 8;
         }
 
         public void LoadSettings()
@@ -148,7 +147,6 @@ namespace AntonBot.PlatformAPI
                 SDiscordAutoStart = load.SDiscordAutoStart;
                 STwitchAutoStart = load.STwitchAutoStart;
                 SBefehlSymbol = load.SBefehlSymbol;
-                SAutoBan = load.SAutoBan;
                 SEventTimer = load.SEventTimer;
                 STwitchAutoMessage = load.STwitchAutoMessage;
                 STwitchAutoBotBann = load.STwitchAutoBotBann;
@@ -264,7 +262,6 @@ namespace AntonBot.PlatformAPI
             SDiscordAutoStart = false;
             STwitchAutoStart = false;
             SBefehlSymbol = "!";
-            SAutoBan = false;
             SEventTimer = 30;
             STwitchAutoMessage = false;
             STwitchAutoBotBann = false;
@@ -365,7 +362,6 @@ namespace AntonBot.PlatformAPI
             SDiscordAutoStart = load.SDiscordAutoStart;
             STwitchAutoStart = load.STwitchAutoStart;
             if (load.SBefehlSymbol != null) { SBefehlSymbol = load.SBefehlSymbol; }
-            SAutoBan = load.SAutoBan;
             SEventTimer = load.SEventTimer;
             STwitchAutoMessage = load.STwitchAutoMessage;
             STwitchAutoBotBann = load.STwitchAutoBotBann;
@@ -551,7 +547,6 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.SDiscordAutoStart = Import.SDiscordAutoStart;
             SettingsGroup.Instance.STwitchAutoStart = Import.STwitchAutoStart;
             SettingsGroup.Instance.SBefehlSymbol = Import.SBefehlSymbol;
-            SettingsGroup.Instance.SAutoBan = Import.SAutoBan;
             SettingsGroup.Instance.SEventTimer = Import.SEventTimer;
             SettingsGroup.Instance.STwitchAutoMessage = Import.STwitchAutoMessage;
             SettingsGroup.Instance.STwitchAutoBotBann = Import.STwitchAutoBotBann;

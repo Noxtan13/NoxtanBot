@@ -17,7 +17,6 @@ namespace AntonBot
 
             chkAutoDiscord.Checked = SettingsGroup.Instance.SDiscordAutoStart;
             chkAutoTwitch.Checked = SettingsGroup.Instance.STwitchAutoStart;
-            chkTwitchAutoBan.Checked = SettingsGroup.Instance.SAutoBan;
             chkTwitchAutoMessage.Checked = SettingsGroup.Instance.STwitchAutoMessage;
 
             chkAutoBotBannUse.Checked = SettingsGroup.Instance.STwitchAutoBotBann;
@@ -62,7 +61,6 @@ namespace AntonBot
         {
             SettingsGroup.Instance.SDiscordAutoStart = chkAutoDiscord.Checked;
             SettingsGroup.Instance.STwitchAutoStart = chkAutoTwitch.Checked;
-            SettingsGroup.Instance.SAutoBan = chkTwitchAutoBan.Checked;
             SettingsGroup.Instance.STwitchAutoMessage = chkTwitchAutoMessage.Checked;
 
             SettingsGroup.Instance.SDiscordOtherChannel = chkOtherChannelDiscord.Checked;
@@ -277,6 +275,11 @@ namespace AntonBot
             txtStandardPfad.Text = SettingsGroup.Instance.StandardPfad.Replace(Path.DirectorySeparatorChar, '/');
             txtHTML.Text = SettingsGroup.Instance.HTMLPfad.Replace(Path.DirectorySeparatorChar, '/');
             txtLogPfad.Text = SettingsGroup.Instance.LogPfad.Replace(Path.DirectorySeparatorChar, '/');
+        }
+
+        private void chkAutoTwitch_CheckedChanged_1(object sender, EventArgs e)
+        {
+            chkTwitchAutoMessage.Enabled = chkAutoTwitch.Checked;
         }
     }
 }

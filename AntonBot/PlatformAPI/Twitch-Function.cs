@@ -1138,7 +1138,7 @@ namespace AntonBot
                 if (e.ChatMessage.Channel == sStandardChannel || e.ChatMessage.Channel == sStandardChannel)
                 {
                     //Erst wird geprüft, ob die Nachricht eine Suspekte Link-Endung enthält (zum Abblocken von Bots)
-                    if (CheckBlackList(e.ChatMessage.Message) && SettingsGroup.Instance.SAutoBan)
+                    if (CheckBlackList(e.ChatMessage.Message) && SettingsGroup.Instance.STwitchAutoBotBann)
                     {
                         //Aktuell blocke ich nur die .ly-Adressen. Sollte ich mehr mitbekommen, müsste ich evtl eine Liste machen
                         BlockBotUser(e.ChatMessage);
@@ -2378,7 +2378,7 @@ namespace AntonBot
         private void CheckAutoBannBot(string Name)
         {
 
-            if (SettingsGroup.Instance.STwitchAutoBotBann)
+            if (SettingsGroup.Instance.STwitchAutoBotBann && SettingsGroup.Instance.STwitchAutoBotAmount != 0 && SettingsGroup.Instance.STwitchAutoBotDuration!=0)
             {
                 bool gefunden = false;
                 //Daten des Benutzers suchen

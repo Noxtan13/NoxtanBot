@@ -887,6 +887,9 @@ namespace AntonBot
         {
             SettingsGroup.Instance.Update();
             SavePHPFile();
+
+            JoinedUsers test = new JoinedUsers("23", "Herbert");
+            test.NewJoined();
         }
 
         private void txtAusgabe_TextChanged(object sender, EventArgs e)

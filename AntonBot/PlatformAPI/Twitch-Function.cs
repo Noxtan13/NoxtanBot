@@ -2427,6 +2427,8 @@ namespace AntonBot
                                 lJoinedUsers.Add(new JoinedUsers(User.Id, User.DisplayName));
                                 KonsolenAusgabe("AutoBotUser:" + Environment.NewLine + "Neuer Benutzer in Liste aufgenommen: " + User.DisplayName);
                             }
+                            //Am Ende wird die Liste noch einmal gespeichert
+                            BotUserSave();
                         }
 
                     }

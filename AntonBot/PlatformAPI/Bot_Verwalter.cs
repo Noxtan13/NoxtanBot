@@ -136,6 +136,7 @@ public void Speichern() {
             }
             else
             {
+                KonsolenAusgabe("Die Liste der gejointen User existiert nicht. Eine neue Liste wird verwendet");
                 return new List<JoinedUsers>();
             }
         }

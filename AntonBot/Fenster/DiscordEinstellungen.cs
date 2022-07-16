@@ -75,12 +75,13 @@ namespace AntonBot.Fenster
             }
             else
             {
+                /*
                 string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, "8443"); //Port 8443 ist der https Port am Rechner selber
 
                 http.Prefixes.Clear();
                 http.Prefixes.Add(redirectURI);
                 http.Start();
-
+                */
                 // Creates the OAuth 2.0 authorization request.
                 string authorizationRequest = string.Format("http://discord.com/api/oauth2/authorize?client_id={0}&permissions={1}&scope=bot",
                     ClientID,
@@ -98,119 +99,127 @@ namespace AntonBot.Fenster
         }
         private void SummeBerechnen()
         {
-            long NeueSumme = 0x0000000000;
-            foreach (var item in ChkListAllgemein.CheckedItems)
+            long NeueSumme= 0x0000000000;
+            if (chkAdmin.Checked)
             {
-                switch (item.ToString())
-                {
-                    case "Administrator":
-                        NeueSumme = NeueSumme + 0x0000000008;
-                        break;
-                    case "View Audit Log":
-                        NeueSumme = NeueSumme + 0x0000000080;
-                        break;
-                    case "View Server Insights":
-                        NeueSumme = NeueSumme + 0x0000080000;
-                        break;
-                    case "Manage Server":
-                        NeueSumme = NeueSumme + 0x0000000020;
-                        break;
-                    case "Manage Roles":
-                        NeueSumme = NeueSumme + 0x0010000000;
-                        break;
-                    case "Manage Channels":
-                        NeueSumme = NeueSumme + 0x0000000010;
-                        break;
-                    case "Kick Members":
-                        NeueSumme = NeueSumme + 0x0000000002;
-                        break;
-                    case "Ban Members":
-                        NeueSumme = NeueSumme + 0x0000000004;
-                        break;
-                    case "Create Instant Invite":
-                        NeueSumme = NeueSumme + 0x0000000001;
-                        break;
-                    case "Change Nickname":
-                        NeueSumme = NeueSumme + 0x0004000000;
-                        break;
-                    case "Manage Nicknames":
-                        NeueSumme = NeueSumme + 0x0008000000;
-                        break;
-                    case "Manage Emojis":
-                        NeueSumme = NeueSumme + 0x0040000000;
-                        break;
-                    case "Manage Webhooks":
-                        NeueSumme = NeueSumme + 0x0020000000;
-                        break;
-                    case "View Channels":
-                        NeueSumme = NeueSumme + 0x0000000400;
-                        break;
-                }
+                NeueSumme = 0x0000000008;
             }
-            foreach (var item in ChkListText.CheckedItems)
+            else
             {
-                switch (item.ToString())
+                NeueSumme = 0x0000000000;
+                foreach (var item in ChkListAllgemein.CheckedItems)
                 {
-                    case "Send Messages":
-                        NeueSumme = NeueSumme + 0x0000000800;
-                        break;
-                    case "Send TTS Messages":
-                        NeueSumme = NeueSumme + 0x0000001000;
-                        break;
-                    case "Manage Messages":
-                        NeueSumme = NeueSumme + 0x0000002000;
-                        break;
-                    case "Embed Links":
-                        NeueSumme = NeueSumme + 0x0000004000;
-                        break;
-                    case "Attach Files":
-                        NeueSumme = NeueSumme + 0x0000008000;
-                        break;
-                    case "Read Message History":
-                        NeueSumme = NeueSumme + 0x0000010000;
-                        break;
-                    case "Mention Everyone":
-                        NeueSumme = NeueSumme + 0x0000020000;
-                        break;
-                    case "Use External Emojis":
-                        NeueSumme = NeueSumme + 0x0000040000;
-                        break;
-                    case "Add Reactions":
-                        NeueSumme = NeueSumme + 0x0000000040;
-                        break;
-                    case "Use Slash Commands":
-                        NeueSumme = NeueSumme + 0x0080000000;
-                        break;
+                    switch (item.ToString())
+                    {
+                        case "Administrator":
+                            NeueSumme = NeueSumme + 0x0000000008;
+                            break;
+                        case "View Audit Log":
+                            NeueSumme = NeueSumme + 0x0000000080;
+                            break;
+                        case "View Server Insights":
+                            NeueSumme = NeueSumme + 0x0000080000;
+                            break;
+                        case "Manage Server":
+                            NeueSumme = NeueSumme + 0x0000000020;
+                            break;
+                        case "Manage Roles":
+                            NeueSumme = NeueSumme + 0x0010000000;
+                            break;
+                        case "Manage Channels":
+                            NeueSumme = NeueSumme + 0x0000000010;
+                            break;
+                        case "Kick Members":
+                            NeueSumme = NeueSumme + 0x0000000002;
+                            break;
+                        case "Ban Members":
+                            NeueSumme = NeueSumme + 0x0000000004;
+                            break;
+                        case "Create Instant Invite":
+                            NeueSumme = NeueSumme + 0x0000000001;
+                            break;
+                        case "Change Nickname":
+                            NeueSumme = NeueSumme + 0x0004000000;
+                            break;
+                        case "Manage Nicknames":
+                            NeueSumme = NeueSumme + 0x0008000000;
+                            break;
+                        case "Manage Emojis":
+                            NeueSumme = NeueSumme + 0x0040000000;
+                            break;
+                        case "Manage Webhooks":
+                            NeueSumme = NeueSumme + 0x0020000000;
+                            break;
+                        case "View Channels":
+                            NeueSumme = NeueSumme + 0x0000000400;
+                            break;
+                    }
                 }
-            }
-            foreach (var item in ChkListSprache.CheckedItems)
-            {
-                switch (item.ToString())
+                foreach (var item in ChkListText.CheckedItems)
                 {
-                    case "Connect":
-                        NeueSumme = NeueSumme + 0x0000100000;
-                        break;
-                    case "Speak":
-                        NeueSumme = NeueSumme + 0x0000200000;
-                        break;
-                    case "Video":
-                        NeueSumme = NeueSumme + 0x0000000200;
-                        break;
-                    case "Mute Members":
-                        NeueSumme = NeueSumme + 0x0000400000;
-                        break;
-                    case "Deafen Members":
-                        NeueSumme = NeueSumme + 0x0010000000;
-                        break;
-                    case "Move Members":
-                        NeueSumme = NeueSumme + 0x0000800000;
-                        break;
-                    case "Use Voice Activity":
-                        NeueSumme = NeueSumme + 0x0002000000;
-                        break;
-                    case "Priority Speaker":
-                        NeueSumme = NeueSumme + 0x0000000100;
-                        break;
+                    switch (item.ToString())
+                    {
+                        case "Send Messages":
+                            NeueSumme = NeueSumme + 0x0000000800;
+                            break;
+                        case "Send TTS Messages":
+                            NeueSumme = NeueSumme + 0x0000001000;
+                            break;
+                        case "Manage Messages":
+                            NeueSumme = NeueSumme + 0x0000002000;
+                            break;
+                        case "Embed Links":
+                            NeueSumme = NeueSumme + 0x0000004000;
+                            break;
+                        case "Attach Files":
+                            NeueSumme = NeueSumme + 0x0000008000;
+                            break;
+                        case "Read Message History":
+                            NeueSumme = NeueSumme + 0x0000010000;
+                            break;
+                        case "Mention Everyone":
+                            NeueSumme = NeueSumme + 0x0000020000;
+                            break;
+                        case "Use External Emojis":
+                            NeueSumme = NeueSumme + 0x0000040000;
+                            break;
+                        case "Add Reactions":
+                            NeueSumme = NeueSumme + 0x0000000040;
+                            break;
+                        case "Use Slash Commands":
+                            NeueSumme = NeueSumme + 0x0080000000;
+                            break;
+                    }
+                }
+                foreach (var item in ChkListSprache.CheckedItems)
+                {
+                    switch (item.ToString())
+                    {
+                        case "Connect":
+                            NeueSumme = NeueSumme + 0x0000100000;
+                            break;
+                        case "Speak":
+                            NeueSumme = NeueSumme + 0x0000200000;
+                            break;
+                        case "Video":
+                            NeueSumme = NeueSumme + 0x0000000200;
+                            break;
+                        case "Mute Members":
+                            NeueSumme = NeueSumme + 0x0000400000;
+                            break;
+                        case "Deafen Members":
+                            NeueSumme = NeueSumme + 0x0010000000;
+                            break;
+                        case "Move Members":
+                            NeueSumme = NeueSumme + 0x0000800000;
+                            break;
+                        case "Use Voice Activity":
+                            NeueSumme = NeueSumme + 0x0002000000;
+                            break;
+                        case "Priority Speaker":
+                            NeueSumme = NeueSumme + 0x0000000100;
+                            break;
+                    }
                 }
             }
 
@@ -267,7 +276,7 @@ namespace AntonBot.Fenster
         }
         private void btnToken_Click(object sender, EventArgs e)
         {
-            sClientID = SettingsGroup.Instance.DSclientID;
+            sClientID = txtClientID.Text;
             if (sClientID.Equals(""))
             {
                 MessageBox.Show("Es ist keine ClientID für den Bot eingetragen" + Environment.NewLine + "Ohne ClientID kann die richtige Seite nicht aufgerufen werden.", "ClientID eingeben", MessageBoxButtons.OK, MessageBoxIcon.Error);

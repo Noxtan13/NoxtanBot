@@ -566,24 +566,7 @@ public void Speichern() {
                 }
             }
         }
-        public void Zeitschritt(YouTube_Functions Yclient = null)
-        {
-            if (ZeitBefehlSenden)
-            {
-                foreach (Zeit_Befehl item in ZeitBefehlListe)
-                {
-                    item.DeltaZeit += 1;
-                    if (item.DeltaZeit > item.Zeitspanne)
-                    {
-                        if (item.ZeitAnYouTube)
-                        {
-                            item.DeltaZeit = 0;
-                            Yclient.SendMessage(item.Antwort);
-                        }
-                    }
-                }
-            }
-        }
+       
         public Boolean getActive()
         {
             return Active;

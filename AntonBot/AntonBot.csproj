@@ -52,10 +52,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C623B93D24FDF20BBFDB4061C2ED80CC8E5AB8BF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>AB17F8F9AD351A221AF79D3D23CF5408A0C719C0</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>AntonBot_3_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -87,24 +88,6 @@
     </Reference>
     <Reference Include="Discord.Net.WebSocket, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Discord.Net.WebSocket.3.3.2\lib\net461\Discord.Net.WebSocket.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis, Version=1.56.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.56.0\lib\net45\Google.Apis.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.56.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.56.0\lib\net461\Google.Apis.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.56.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.56.0\lib\net461\Google.Apis.Auth.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.56.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Core.1.56.0\lib\net45\Google.Apis.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.56.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.56.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.YouTube.v3, Version=1.56.0.2449, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.YouTube.v3.1.56.0.2449\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -309,7 +292,6 @@
     <Compile Include="PlatformAPI\ListenTypen\BitElement.cs" />
     <Compile Include="PlatformAPI\Bot_Verwalter.cs" />
     <Compile Include="PlatformAPI\ListenTypen\DiscordGilde.cs" />
-    <Compile Include="PlatformAPI\Google-Function.cs" />
     <Compile Include="PlatformAPI\ListenTypen\GameSkill.cs" />
     <Compile Include="PlatformAPI\ListenTypen\JoinedUsers.cs" />
     <Compile Include="PlatformAPI\ListenTypen\KonsolenAusgabe.cs" />
@@ -335,7 +317,6 @@
     <Compile Include="PlatformAPI\Zertifikat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PlatformAPI\YouTube-Functions.cs" />
     <EmbeddedResource Include="Fenster\AllgEinstellungen.resx">
       <DependentUpon>AllgEinstellungen.cs</DependentUpon>
     </EmbeddedResource>

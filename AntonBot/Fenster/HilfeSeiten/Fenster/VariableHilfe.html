@@ -29,7 +29,7 @@
             <div class="ContainerText">
                 Variablen und deren Einsatz
             </div>
-            <b>Chat-Variablen</b>
+            <h2>Chat-Variablen</h2>
             <details>
                 <summary>Chat-Variablen in den allgemeinen Kommandos</summary>
                 <div class="Variablen">
@@ -321,7 +321,7 @@
 
 
             </details>
-        
+
             <details>
                 <summary>OnRaid-Variablen</summary>
                 <div class="Variablen">
@@ -359,7 +359,325 @@
 
 
             </details>
-        
+
+            <details>
+                <summary>OnBeingHosted-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>HostedByChannel</td>
+                            <td>Name des Benutzers, der den Host durchführt</td>
+                        </tr>
+                        <tr>
+                            <td>Viewers+1</td>
+                            <td>Anzahl der Leute, die den Host schauen. +1 für den Hoster selber.</td>
+                        </tr>
+                        <tr>
+                            <td>Viewers</td>
+                            <td>Anzahl der Leute, die den Host schauen.</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </details>
+
+            <details>
+                <summary>OnNewSubscriber-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Subscriber-Channel</td>
+                            <td>Name des Channels, der den Sub bekommen hat</td>
+                        </tr>
+                        <tr>
+                            <td>DisplayName</td>
+                            <td>Name des Benutzers, der den Sub ausgelöst hat</td>
+                        </tr>
+                        <tr>
+                            <td>ResubMessage</td>
+                            <td>Die Resub-Message des Benutzers, wenn er einen Sub verlängert</td>
+                        </tr>
+                        <tr>
+                            <td>UserId</td>
+                            <td>Die UserID des Benutzers, der den Sub ausgelöst hat</td>
+                        </tr>
+                        <tr>
+                            <td>SystemMessage</td>
+                            <td>Die System-Message, die von Twitch geworfen wird (muss noch angepasst werden)</td>
+                        </tr>
+                        <tr>
+                            <td>SystemMessageParsed</td>
+                            <td>Die angepasste System-Message, die von Twitch geworfen wird (muss noch angepasst werden)</td>
+                        </tr>
+                        <tr>
+                            <td>RawIrc</td>
+                            <td>Muss noch untersucht werden</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamStreakMonths</td>
+                            <td>Die Anzahl an Monaten, in dem der Benutzer fortlaufend ein Sub war</td>
+                        </tr>
+                        <tr>
+                            <td>MsgParamCumulativeMonths</td>
+                            <td>Die Anzahl an Monaten, in dem der Benutzer insgesamt ein Sub war</td>
+                        </tr>
+                        <tr>
+                            <td>MsgId</td>
+                            <td>Die Message-ID des Subs (muss noch untersucht werden)</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </details>
+
+            <details>
+                <summary>OnExistingUsersDetected-Variablen</summary>
+                <div class="Variablen">
+                    Sinn, Möglichkeiten und gelieferte Daten müssten noch untersucht werden.
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Eine Liste der Nutzer, die erkannt worden sind/td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnUserJoined-Variablen</summary>
+                <div class="Variablen">
+                    Hier erfolgt die Erkennung der Botuser, die evtl. geblockt wird
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Der Name des Benutzers, der dem Channel beigetreten ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnUserLeft-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Der Name des Benutzers, der dem Channel verlassen hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnConnected-Variablen</summary>
+                <div class="Variablen">
+                    Hier erfolgt die Erkennung der Botuser, die evtl. geblockt wird
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>BotUsername</td>
+                            <td>Der Name des Bots</td>
+                        </tr>
+                        <tr>
+                            <td>AutoJoinChannel</td>
+                            <td>Der Name des Channels, mit dem sich der Bot verbindet</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnJoinedChannel-Variablen</summary>
+                <div class="Variablen">
+                    Hier erfolgt die Erkennung der Botuser, die evtl. geblockt wird
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Botusername</td>
+                            <td>Der Name des Bots</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnUserJoined-Variablen</summary>
+                <div class="Variablen">
+                    Hier erfolgt die Erkennung der Botuser, die evtl. geblockt wird
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Der Name des Benutzers, der dem Channel beigetreten ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnUserJoined-Variablen</summary>
+                <div class="Variablen">
+                    Hier erfolgt die Erkennung der Botuser, die evtl. geblockt wird
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>Der Name des Benutzers, der dem Channel beigetreten ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Channel</td>
+                            <td>Der Name des Channels</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnChannelPointsRewardRedeemed-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>Der Name des Benutzers, der den Reward eingelöst hat.</td>
+                        </tr>
+                        <tr>
+                            <td>Message</td>
+                            <td>Die Nachricht, die dem Reward mitgegeben wird (wenn der Reward ein Text mit anbietet)</td>
+                        </tr>
+                        <tr>
+                            <td>Reward-Title</td>
+                            <td>Der Name des Rewards</td>
+                        </tr>
+                        <tr>
+                            <td>Reward-Cost</td>
+                            <td>Die Channelpoint, die der Reward kostet</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnRaidGo-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>TargetName</td>
+                            <td>Der Name des Streamers, der geraidet werden soll</td>
+                        </tr>
+                        <tr>
+                            <td>ViewerCount</td>
+                            <td>Die Anzahl der Zuschauer, die mit dem Raid kommen</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>OnClipCreated-Variablen</summary>
+                <div class="Variablen">
+                    <table>
+                        <tr>
+                            <th>Variablennamen</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td>CreatedAtTag</td>
+                            <td>Das Datum, an dem der Clip erstellt wurde</td>
+                        </tr>
+                        <tr>
+                            <td>CreatedAtUhr</td>
+                            <td>Die Uhrzeit, an dem der Clipt erstellt wurde</td>
+                        </tr>
+                        <tr>
+                            <td>CreatorName</td>
+                            <td>Der Name des Benutzers, der den Clip erstellt hat</td>
+                        </tr>
+                        <tr>
+                            <td>GameId</td>
+                            <td>Der Name des Spiels, von dem der Clip erstellt wurde</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>Der Titel des Clips</td>
+                        </tr>
+                        <tr>
+                            <td>Url</td>
+                            <td>Der Link zum Clip</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
         </div>
     </div>
 

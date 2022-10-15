@@ -19,6 +19,7 @@ body{
 	height:auto;
 	display:flex;
 	min-height:250px;
+	padding-bottom:10px;
 }
 
 .UnterMenu {

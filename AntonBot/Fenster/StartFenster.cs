@@ -585,9 +585,9 @@ namespace AntonBot
             Stream str;
             StreamReader rd;
             string PHPInhalt;
-            string Pfad;
+            string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
             //Export der Startseite und Meta-Daten
-            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe..."));
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe nach " +Pfad+" ..."));
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Index.html");
@@ -726,7 +726,7 @@ namespace AntonBot
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Startseite.png");
                 Bitmap bmp = new Bitmap(str);
 
-                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Startseite.jpg";
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Startseite.png";
                 (new FileInfo(Pfad)).Directory.Create();
                 Image.FromStream(str).Save(Pfad);
             }
@@ -856,6 +856,74 @@ namespace AntonBot
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "GameSkill.php konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
+            //Ausgabe der Bilder
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung1.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung1.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung1.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung2.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung2.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung2.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung2_2.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung2_2.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung2_2.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung3.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung3.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung3.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Befehle.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Befehle.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Befehle.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+
+
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "...Ausgabe abgeschlossen"));
         }
 

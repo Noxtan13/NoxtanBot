@@ -30,6 +30,8 @@ namespace AntonBot.Fenster
             txtLoeschAntwort.Text = List_Befehll.LöschAntwort;
             txtLoeschFail.Text = List_Befehll.LöschAntwortFail;
             chkOnlyKommands.Checked = List_Befehll.NurEigeneBefehle;
+            chkUpdateEintrag.Checked = List_Befehll.UpdateOwn;
+            txtUpdate.Text = List_Befehll.UpdateAntwort;
 
             txtCurrentAntwort.Text = List_Befehll.CurrentAntwort;
             txtCurrentBefehl.Text = List_Befehll.CurrentBefehl;
@@ -86,6 +88,10 @@ namespace AntonBot.Fenster
             {
                 MessageBox.Show("Die Antwort für einen gescheiterten Lösch-Versuch fehlt. Soll den niemand wissen, wie verzweifelt der Bot gesucht hat?", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            else if (txtUpdate.Text.Equals("")&& chkUpdateEintrag.Checked)
+            {
+                MessageBox.Show("Die Antwort für einen Update fehlt. Eine Rückmeldung wäre nicht schlecht", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             else
             {
                 List_Befehll.Kommando = txtKommando.Text;
@@ -101,6 +107,8 @@ namespace AntonBot.Fenster
                 List_Befehll.NurEigeneBefehle = chkOnlyKommands.Checked;
                 List_Befehll.AufbauEintrag = txtAufbau.Text;
                 List_Befehll.AnzahlEinträge = Convert.ToInt32(NUDAnzahl.Value);
+                List_Befehll.UpdateOwn = chkUpdateEintrag.Checked;
+                List_Befehll.UpdateAntwort = txtUpdate.Text;
 
                 List_Befehll.CurrentAntwort = txtCurrentAntwort.Text;
                 List_Befehll.CurrentBefehl = txtCurrentBefehl.Text;
@@ -328,6 +336,11 @@ namespace AntonBot.Fenster
         private void EingabeListBefehl_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void chkUpdateEintrag_CheckedChanged(object sender, EventArgs e)
+        {
+            txtUpdate.Enabled= chkUpdateEintrag.Checked;
         }
     }
 }

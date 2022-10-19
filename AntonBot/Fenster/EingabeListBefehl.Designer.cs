@@ -70,6 +70,8 @@ namespace AntonBot.Fenster
             this.label5 = new System.Windows.Forms.Label();
             this.txtLöschKommando = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.chkUpdateEintrag = new System.Windows.Forms.CheckBox();
+            this.txtUpdate = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAnzahl)).BeginInit();
             this.CtabBefehle.SuspendLayout();
             this.tabHinzufügen.SuspendLayout();
@@ -313,6 +315,8 @@ namespace AntonBot.Fenster
             // 
             // tabHinzufügen
             // 
+            this.tabHinzufügen.Controls.Add(this.txtUpdate);
+            this.tabHinzufügen.Controls.Add(this.chkUpdateEintrag);
             this.tabHinzufügen.Controls.Add(this.txtHinzufügen);
             this.tabHinzufügen.Controls.Add(this.label14);
             this.tabHinzufügen.Location = new System.Drawing.Point(4, 39);
@@ -482,6 +486,25 @@ namespace AntonBot.Fenster
             this.label4.TabIndex = 15;
             this.label4.Text = "Lösch-Befehl-Kommando:";
             // 
+            // chkUpdateEintrag
+            // 
+            this.chkUpdateEintrag.AutoSize = true;
+            this.chkUpdateEintrag.Location = new System.Drawing.Point(8, 167);
+            this.chkUpdateEintrag.Name = "chkUpdateEintrag";
+            this.chkUpdateEintrag.Size = new System.Drawing.Size(723, 34);
+            this.chkUpdateEintrag.TabIndex = 2;
+            this.chkUpdateEintrag.Text = "Benutzer können Ihren Eintrag updaten, anstatt einen neuen Hinzufügen";
+            this.chkUpdateEintrag.UseVisualStyleBackColor = true;
+            this.chkUpdateEintrag.CheckedChanged += new System.EventHandler(this.chkUpdateEintrag_CheckedChanged);
+            // 
+            // txtUpdate
+            // 
+            this.txtUpdate.Location = new System.Drawing.Point(8, 198);
+            this.txtUpdate.Multiline = true;
+            this.txtUpdate.Name = "txtUpdate";
+            this.txtUpdate.Size = new System.Drawing.Size(550, 75);
+            this.txtUpdate.TabIndex = 3;
+            // 
             // EingabeListBefehl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -569,5 +592,7 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.TabPage tabHinzufügen;
         private System.Windows.Forms.TextBox txtHinzufügen;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox chkUpdateEintrag;
+        private System.Windows.Forms.TextBox txtUpdate;
     }
 }

@@ -261,17 +261,23 @@ public void Speichern() {
                         //Damit das Leerzeichen auch als Befehlteil ausgewertet werden kann, muss das abgeschnittene Leerzeichen wieder hinzugefügt werden
                     }
 
-                    if (BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CurrentBefehl))
+                    if (BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CurrentBefehl.ToLower()))
                     {
                         //Hier steht die Ausgabe für den Aktuellen Eintrag
                         string Ausgabe = item.CurrentAntwort;
 
-                        Ausgabe = Ausgabe.Replace("°Auflistung", item.AufbauEintrag);
-                        Ausgabe = Ausgabe.Replace("°ListNummer", " ");
-                        Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
-                        Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
-                        Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
-
+                        if (item.Eintragsliste.Count > 0)
+                        {
+                            Ausgabe = Ausgabe.Replace("°Auflistung", item.AufbauEintrag);
+                            Ausgabe = Ausgabe.Replace("°ListNummer", " ");
+                            Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
+                            Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
+                            Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
+                        }
+                        else
+                        {
+                            Ausgabe = "The List is empty";
+                        }
                         Ausgabe = Ausgabe.Replace("°Name", User);
                         Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
 
@@ -291,9 +297,16 @@ public void Speichern() {
 
                             Ausgabe = Ausgabe.Replace("°Auflistung", item.AufbauEintrag);
                             Ausgabe = Ausgabe.Replace("°ListNummer", " ");
-                            Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
-                            Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
-                            Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
+                            if (item.Eintragsliste.Count > 0)
+                            {
+                                Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
+                                Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
+                                Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
+                            }
+                            else
+                            {
+                                Ausgabe = "The List ist empty";
+                            }
 
                             Ausgabe = Ausgabe.Replace("°Name", User);
                             Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
@@ -379,7 +392,7 @@ public void Speichern() {
                         string Ausgabe = item.AusgabeListe;
                         string Eintrag = "";
 
-                        for (int i = 1; i < item.AnzahlEinträge && i < item.Eintragsliste.Count; i++)
+                        for (int i = 0; i <= item.AnzahlEinträge && i < item.Eintragsliste.Count; i++)
                         {
 
                             Eintrag Eintragitem = item.Eintragsliste[i];
@@ -397,19 +410,46 @@ public void Speichern() {
                     }
                     else
                     {
-                        //Alle anderen Nachrichten werden als Eintrag in die Liste aufgenommen und die Antwort wird ausgegeben
-                        Eintrag NeuerEintrag = new Eintrag();
-                        NeuerEintrag.User = User;
-                        NeuerEintrag.UserEintrag = OptionalerTeilGesamt;
-                        NeuerEintrag.PlattformQuelle = Plattform;
+                        
+                        bool Gefunden = false;
+                        
+                        if (item.UpdateOwn) { 
+                            //Wenn die eigenen Einträge geupdatet werden soll, wird erstmal nach einem Eintrag gesucht
+                            foreach(Eintrag eintrag in item.Eintragsliste)
+                            {
+                                if (eintrag.User.ToLower().Equals(User.ToLower()))
+                                {
+                                    //Wenn ein Eintrag gefunden wurde, wird dieser gleich ersetzt
+                                    Gefunden = true;
+                                    eintrag.UserEintrag = OptionalerTeilGesamt;
+                                }
+                            }
+                        }
 
-                        item.Eintragsliste.Add(NeuerEintrag);
+                        if (Gefunden)
+                        {
+                            String Ausgabe = item.UpdateAntwort;
+                            Ausgabe = Ausgabe.Replace("°Name", User);
+                            Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
 
-                        string Text = item.HinzufügenAntwort;
-                        Text = Text.Replace("°Name", User);
-                        Text = Text.Replace("°OptionalerTeil", OptionalerTeilGesamt);
+                            Nachricht = Ausgabe;
+                        }
+                        else
+                        {
+                            //Alle anderen Nachrichten werden als Eintrag in die Liste aufgenommen und die Antwort wird ausgegeben
+                            Eintrag NeuerEintrag = new Eintrag();
+                            NeuerEintrag.User = User;
+                            NeuerEintrag.UserEintrag = OptionalerTeilGesamt;
+                            NeuerEintrag.PlattformQuelle = Plattform;
 
-                        Nachricht = Text;
+                            item.Eintragsliste.Add(NeuerEintrag);
+
+                            String Ausgabe = item.HinzufügenAntwort;
+                            Ausgabe = Ausgabe.Replace("°Name", User);
+                            Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeilGesamt);
+
+                            Nachricht = Ausgabe;
+                        }
 
                         BefehlListSpeichern();
 

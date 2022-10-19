@@ -30,6 +30,9 @@ namespace AntonBot.PlatformAPI
         //Schalter um anzugeben, ob ein User nur seine eigenen Einträge löschen darf
         public string HinzufügenAntwort { get; set; }
         //Antwort, wenn ein neuer Eintrag hinzugefügt wird
+        public bool UpdateOwn { get; set; }
+        //Schalter, ob der Benutzer mehrere Einträge machen kann oder nur seinen Eintrag updaten kann
+        public string UpdateAntwort { get; set; }
     }
 
     public class Eintrag

@@ -52,7 +52,7 @@ namespace AntonBot
             PathBefehl = SettingsGroup.Instance.StandardPfad + "Befehl.json";
             PathZeit = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
             PathTwitch = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
-            PathListBefehl = SettingsGroup.Instance.StandardPfad + "List-Befehl,json";
+            PathListBefehl = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
 
             KonsolenPath = SettingsGroup.Instance.LogPfad + "KonsolenAusgabe.json";
             KonsolenLogPath = SettingsGroup.Instance.LogPfad + "KonsolenLogAusgabe.json";

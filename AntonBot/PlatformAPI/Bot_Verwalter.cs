@@ -408,52 +408,89 @@ public void Speichern() {
                         Ausgabe = Ausgabe.Replace("°Name", User);
                         Nachricht = Ausgabe;
                     }
+                    else if (item.OpenClose&&BefehlTeil2.Equals(item.BefehlTrennungszeichen+item.OpenCommand)) {
+                        //Kommandos um die Liste zu öffnen
+                        if (item.OpenCloseAdmin && Adminkennzeichen)
+                        {
+                            //Wenn ein Admin erwartet wird und einer da ist
+                            item.Status = true;
+                            Nachricht = item.OpenText;
+                        }
+                        else if (item.OpenCloseAdmin == false) {
+                            //Wenn keiner erwartet wird
+                            item.Status = true;
+                            Nachricht = item.OpenText;
+                        }
+                        
+                    }
+                    else if (item.OpenClose && BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CloseCommand))
+                    {
+                        //Kommando, um die Liste zu schliessen
+                        if (item.OpenCloseAdmin && Adminkennzeichen)
+                        {
+                            item.Status = false;
+                            Nachricht = item.CloseText;
+                        }
+                        else if (item.OpenCloseAdmin == false) {
+                            item.Status = false;
+                            Nachricht = item.CloseText;
+                        }
+                        
+                    }
                     else
                     {
-                        
-                        bool Gefunden = false;
-                        
-                        if (item.UpdateOwn) { 
-                            //Wenn die eigenen Einträge geupdatet werden soll, wird erstmal nach einem Eintrag gesucht
-                            foreach(Eintrag eintrag in item.Eintragsliste)
+                        if (!item.OpenClose) {
+                            //Status wird immer auf True gesetzt, wenn OpenClose nicht verwendet wird
+                            //Damit kann die Liste nicht deaktiviert sein
+                            item.Status = true;
+                        }
+                        if (item.Status)
+                        {
+
+                            bool Gefunden = false;
+
+                            if (item.UpdateOwn)
                             {
-                                if (eintrag.User.ToLower().Equals(User.ToLower()))
+                                //Wenn die eigenen Einträge geupdatet werden soll, wird erstmal nach einem Eintrag gesucht
+                                for (int i = 1; i < item.Eintragsliste.Count; i++)
                                 {
-                                    //Wenn ein Eintrag gefunden wurde, wird dieser gleich ersetzt
-                                    Gefunden = true;
-                                    eintrag.UserEintrag = OptionalerTeilGesamt;
+                                    if (item.Eintragsliste[i].User.ToLower().Equals(User.ToLower()))
+                                    {
+                                        //Wenn ein Eintrag gefunden wurde, wird dieser gleich ersetzt. Da die Schleife ab 1 zählt, wird der Eintrag 0 nicht beachtet
+                                        Gefunden = true;
+                                        item.Eintragsliste[i].UserEintrag = OptionalerTeilGesamt;
+                                    }
                                 }
                             }
+
+                            if (Gefunden)
+                            {
+                                String Ausgabe = item.UpdateAntwort;
+                                Ausgabe = Ausgabe.Replace("°Name", User);
+                                Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
+
+                                Nachricht = Ausgabe;
+                            }
+                            else
+                            {
+                                //Alle anderen Nachrichten werden als Eintrag in die Liste aufgenommen und die Antwort wird ausgegeben
+                                Eintrag NeuerEintrag = new Eintrag();
+                                NeuerEintrag.User = User;
+                                NeuerEintrag.UserEintrag = OptionalerTeilGesamt;
+                                NeuerEintrag.PlattformQuelle = Plattform;
+
+                                item.Eintragsliste.Add(NeuerEintrag);
+
+                                String Ausgabe = item.HinzufügenAntwort;
+                                Ausgabe = Ausgabe.Replace("°Name", User);
+                                Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeilGesamt);
+
+                                Nachricht = Ausgabe;
+                            }
+
+                            BefehlListSpeichern();
+
                         }
-
-                        if (Gefunden)
-                        {
-                            String Ausgabe = item.UpdateAntwort;
-                            Ausgabe = Ausgabe.Replace("°Name", User);
-                            Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
-
-                            Nachricht = Ausgabe;
-                        }
-                        else
-                        {
-                            //Alle anderen Nachrichten werden als Eintrag in die Liste aufgenommen und die Antwort wird ausgegeben
-                            Eintrag NeuerEintrag = new Eintrag();
-                            NeuerEintrag.User = User;
-                            NeuerEintrag.UserEintrag = OptionalerTeilGesamt;
-                            NeuerEintrag.PlattformQuelle = Plattform;
-
-                            item.Eintragsliste.Add(NeuerEintrag);
-
-                            String Ausgabe = item.HinzufügenAntwort;
-                            Ausgabe = Ausgabe.Replace("°Name", User);
-                            Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeilGesamt);
-
-                            Nachricht = Ausgabe;
-                        }
-
-                        BefehlListSpeichern();
-
-
                     }
                 }
             }

@@ -33,6 +33,13 @@ namespace AntonBot.Fenster
             chkUpdateEintrag.Checked = List_Befehll.UpdateOwn;
             txtUpdate.Text = List_Befehll.UpdateAntwort;
 
+            chkOpenCloseUse.Checked = List_Befehll.OpenClose;
+            txtOpenCommand.Text = List_Befehll.OpenCommand;
+            txtOpenText.Text = List_Befehll.OpenText;
+            txtCloseCommand.Text = List_Befehll.CloseCommand;
+            txtCloseText.Text = List_Befehll.CloseText;
+            chkOpenCloseAdmin.Checked = List_Befehll.OpenCloseAdmin;
+
             txtCurrentAntwort.Text = List_Befehll.CurrentAntwort;
             txtCurrentBefehl.Text = List_Befehll.CurrentBefehl;
 
@@ -92,6 +99,10 @@ namespace AntonBot.Fenster
             {
                 MessageBox.Show("Die Antwort für einen Update fehlt. Eine Rückmeldung wäre nicht schlecht", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            else if (txtOpenCommand.Text.Equals("")||txtCloseCommand.Text.Equals("") && chkOpenCloseUse.Checked)
+            {
+                MessageBox.Show("Die Kommandos für die Open-Close-Funktion sind nicht gesetzt", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             else
             {
                 List_Befehll.Kommando = txtKommando.Text;
@@ -113,6 +124,13 @@ namespace AntonBot.Fenster
                 List_Befehll.CurrentAntwort = txtCurrentAntwort.Text;
                 List_Befehll.CurrentBefehl = txtCurrentBefehl.Text;
                 List_Befehll.HinzufügenAntwort = txtHinzufügen.Text;
+
+                List_Befehll.OpenClose = chkOpenCloseUse.Checked;
+                List_Befehll.OpenCommand = txtOpenCommand.Text;
+                List_Befehll.OpenText = txtOpenText.Text;
+                List_Befehll.CloseCommand = txtCloseCommand.Text;
+                List_Befehll.CloseText = txtCloseText.Text;
+                List_Befehll.OpenCloseAdmin = chkOpenCloseAdmin.Checked;
 
                 if (List_Befehll.Eintragsliste == null)
                 {

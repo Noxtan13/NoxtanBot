@@ -33,6 +33,14 @@ namespace AntonBot.PlatformAPI
         public bool UpdateOwn { get; set; }
         //Schalter, ob der Benutzer mehrere Einträge machen kann oder nur seinen Eintrag updaten kann
         public string UpdateAntwort { get; set; }
+
+        public bool OpenClose { get; set; }
+        public string OpenCommand { get; set; }
+        public string OpenText { get; set; }
+        public string CloseCommand { get; set; }
+        public string CloseText { get; set; }
+        public bool OpenCloseAdmin { get; set; }
+        public bool Status { get; set; }
     }
 
     public class Eintrag

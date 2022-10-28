@@ -99,6 +99,10 @@ namespace AntonBot
                 }
             }
             BefehlListeUpdate();
+
+            //Beide GroupBoxen sind übereinander
+            grpZeit.Visible = false;
+            grpListe.Visible = false;
         }
 
         private void BefehlListeUpdate()
@@ -716,6 +720,9 @@ namespace AntonBot
             chkTwitch.Checked = false;
             chkYouTube.Checked = false;
 
+            //Diese Groupboxen liegen übereinander
+            grpZeit.Visible = false;
+            grpListe.Visible = false;
             //Dann die Steuerelemente entsprechend aktivieren oder deaktivieren, wenn diese nicht schon deaktiviert wurden (z.B. txtAlternativAnswer)
             switch (e.TabPage.Text)
             {
@@ -736,6 +743,7 @@ namespace AntonBot
                     chkDiscord.Enabled = true;
                     chkTwitch.Enabled = true;
                     chkYouTube.Enabled = true;
+                    grpZeit.Visible = true;
                     break;
                 case "Twitch-Kommandos":
                     byteIndex = 3;
@@ -755,7 +763,7 @@ namespace AntonBot
                     byteIndex = 5;
                     txtAnswer.Enabled = false;
                     btnZufallAntwort.Enabled = false;
-
+                    grpListe.Visible = true;
                     btnListBefehle.Enabled = true;
                     break;
             }

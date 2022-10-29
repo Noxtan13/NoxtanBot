@@ -1,6 +1,9 @@
 ﻿using AntonBot.PlatformAPI;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
@@ -19,6 +22,7 @@ namespace AntonBot.Fenster
         private int iVariablenInhaltEvent;
         private int iVariablenInhaltTextFeld;
         private DiscordFunction DiscordClient;
+        private List<DiscordGilde> DiscordListe;
 
         public DiscordEinstellungen(DiscordFunction client)
         {
@@ -36,9 +40,37 @@ namespace AntonBot.Fenster
             lblSumme.Text = Summe.ToString();
             Erststart = false;
 
+
+            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "DiscordServer.json";
+
+            if (File.Exists(Path))
+            {
+                String InhaltJSON = File.ReadAllText(Path);
+                try
+                {
+                    DiscordListe = JsonConvert.DeserializeObject<List<DiscordGilde>>(InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Die Discord-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DiscordListe = new List<DiscordGilde>();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es existiert keine DiscordServer.json. Diese Datei wird erzeugt, wenn sich der Bot an Discord anmeldet oder die Discord-Einstellungen aufgerufen werden.", "Keine Discord-Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DiscordListe = new List<DiscordGilde>();
+            }
+
             //Änderung des Index, damit der erste Wert auch eingelesen wird (onStreamOnline) und nicht manuell geklickt werden muss
             LstEvents.SelectedIndex = 1;
             LstEvents.SelectedIndex = 0;
+
+            cmbServerAuswahl.Items.Clear();
+            foreach(var Server in DiscordListe)
+            {
+                cmbServerAuswahl.Items.Add(Server.Name);
+            }
         }
 
         private void DiscordEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -591,5 +623,29 @@ namespace AntonBot.Fenster
             }
         }
         #endregion
+
+        private void cmbServerAuswahl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstEmotes.Items.Clear();
+            foreach(var Server in DiscordListe)
+            {
+                if (cmbServerAuswahl.SelectedItem.Equals(Server.Name))
+                {
+                    foreach (var Emotes in Server.Emotes)
+                    {
+                        string item = "<"+Emotes.Name+":"+Emotes.ID+">";
+                        lstEmotes.Items.Add(item);
+                    }
+                }
+            }
+        }
+
+        private void btnEmotesCopy_Click(object sender, EventArgs e)
+        {
+            if (lstEmotes.SelectedItem != null)
+            {
+                Clipboard.SetText(lstEmotes.SelectedItem.ToString());
+            }
+        }
     }
 }

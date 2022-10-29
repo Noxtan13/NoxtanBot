@@ -431,5 +431,13 @@ A token cannot be null, empty, or contain only whitespace.
             CommandListFill(BefehlListe);
             //CommandListFill(lTwitchBefehlListe); Hier werden die Discordeigenen Befehle dann geladen
         }
+
+        public void LoadAllEmotes()
+        {
+            foreach(var Server in client.Guilds)
+            {
+                
+            }
+        }
     }
 }

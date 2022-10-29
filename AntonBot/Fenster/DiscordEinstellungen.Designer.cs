@@ -64,11 +64,17 @@ namespace AntonBot.Fenster
             this.cmbVariable = new System.Windows.Forms.ComboBox();
             this.LstEvents = new System.Windows.Forms.ListBox();
             this.tabInfos = new System.Windows.Forms.TabPage();
+            this.cmbServerAuswahl = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lstEmotes = new System.Windows.Forms.ListBox();
+            this.btnEmotesCopy = new System.Windows.Forms.Button();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.TabEvents.SuspendLayout();
             this.grpEvent.SuspendLayout();
+            this.tabInfos.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabFenster
@@ -78,7 +84,7 @@ namespace AntonBot.Fenster
             this.tabFenster.Controls.Add(this.tabInfos);
             this.tabFenster.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 15.75F, System.Drawing.FontStyle.Bold);
             this.tabFenster.Location = new System.Drawing.Point(16, 15);
-            this.tabFenster.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabFenster.Margin = new System.Windows.Forms.Padding(4);
             this.tabFenster.Name = "tabFenster";
             this.tabFenster.SelectedIndex = 0;
             this.tabFenster.Size = new System.Drawing.Size(1076, 880);
@@ -96,9 +102,9 @@ namespace AntonBot.Fenster
             this.TabEinrichtung.Controls.Add(this.btnScopesAnfordern);
             this.TabEinrichtung.Controls.Add(this.linkLabel1);
             this.TabEinrichtung.Location = new System.Drawing.Point(4, 45);
-            this.TabEinrichtung.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabEinrichtung.Margin = new System.Windows.Forms.Padding(4);
             this.TabEinrichtung.Name = "TabEinrichtung";
-            this.TabEinrichtung.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabEinrichtung.Padding = new System.Windows.Forms.Padding(4);
             this.TabEinrichtung.Size = new System.Drawing.Size(1068, 831);
             this.TabEinrichtung.TabIndex = 0;
             this.TabEinrichtung.Text = "Einrichtung";
@@ -117,7 +123,7 @@ namespace AntonBot.Fenster
             // txtToken
             // 
             this.txtToken.Location = new System.Drawing.Point(15, 144);
-            this.txtToken.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtToken.Margin = new System.Windows.Forms.Padding(4);
             this.txtToken.Name = "txtToken";
             this.txtToken.Size = new System.Drawing.Size(595, 42);
             this.txtToken.TabIndex = 25;
@@ -134,9 +140,9 @@ namespace AntonBot.Fenster
             this.groupBox1.Controls.Add(this.ChkListAllgemein);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(8, 240);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(1005, 582);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
@@ -145,7 +151,7 @@ namespace AntonBot.Fenster
             // 
             this.chkAdmin.AutoSize = true;
             this.chkAdmin.Location = new System.Drawing.Point(12, 538);
-            this.chkAdmin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAdmin.Margin = new System.Windows.Forms.Padding(4);
             this.chkAdmin.Name = "chkAdmin";
             this.chkAdmin.Size = new System.Drawing.Size(209, 41);
             this.chkAdmin.TabIndex = 6;
@@ -166,7 +172,7 @@ namespace AntonBot.Fenster
             "Use Voice Activity",
             "Priority Speaker"});
             this.ChkListSprache.Location = new System.Drawing.Point(668, 46);
-            this.ChkListSprache.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ChkListSprache.Margin = new System.Windows.Forms.Padding(4);
             this.ChkListSprache.Name = "ChkListSprache";
             this.ChkListSprache.Size = new System.Drawing.Size(319, 448);
             this.ChkListSprache.TabIndex = 5;
@@ -198,7 +204,7 @@ namespace AntonBot.Fenster
             "Add Reactions",
             "Use Slash Commands"});
             this.ChkListText.Location = new System.Drawing.Point(340, 46);
-            this.ChkListText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ChkListText.Margin = new System.Windows.Forms.Padding(4);
             this.ChkListText.Name = "ChkListText";
             this.ChkListText.Size = new System.Drawing.Size(319, 448);
             this.ChkListText.TabIndex = 4;
@@ -243,7 +249,7 @@ namespace AntonBot.Fenster
             "Manage Webhooks",
             "View Channels"});
             this.ChkListAllgemein.Location = new System.Drawing.Point(12, 46);
-            this.ChkListAllgemein.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ChkListAllgemein.Margin = new System.Windows.Forms.Padding(4);
             this.ChkListAllgemein.Name = "ChkListAllgemein";
             this.ChkListAllgemein.Size = new System.Drawing.Size(319, 448);
             this.ChkListAllgemein.TabIndex = 1;
@@ -263,7 +269,7 @@ namespace AntonBot.Fenster
             // btnToken
             // 
             this.btnToken.Location = new System.Drawing.Point(643, 144);
-            this.btnToken.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnToken.Margin = new System.Windows.Forms.Padding(4);
             this.btnToken.Name = "btnToken";
             this.btnToken.Size = new System.Drawing.Size(377, 47);
             this.btnToken.TabIndex = 20;
@@ -284,7 +290,7 @@ namespace AntonBot.Fenster
             // btnHilfe
             // 
             this.btnHilfe.Location = new System.Drawing.Point(643, 89);
-            this.btnHilfe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnHilfe.Margin = new System.Windows.Forms.Padding(4);
             this.btnHilfe.Name = "btnHilfe";
             this.btnHilfe.Size = new System.Drawing.Size(377, 48);
             this.btnHilfe.TabIndex = 18;
@@ -294,7 +300,7 @@ namespace AntonBot.Fenster
             // txtClientID
             // 
             this.txtClientID.Location = new System.Drawing.Point(15, 57);
-            this.txtClientID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtClientID.Margin = new System.Windows.Forms.Padding(4);
             this.txtClientID.Name = "txtClientID";
             this.txtClientID.Size = new System.Drawing.Size(595, 42);
             this.txtClientID.TabIndex = 17;
@@ -303,7 +309,7 @@ namespace AntonBot.Fenster
             // btnScopesAnfordern
             // 
             this.btnScopesAnfordern.Location = new System.Drawing.Point(643, 33);
-            this.btnScopesAnfordern.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnScopesAnfordern.Margin = new System.Windows.Forms.Padding(4);
             this.btnScopesAnfordern.Name = "btnScopesAnfordern";
             this.btnScopesAnfordern.Size = new System.Drawing.Size(377, 48);
             this.btnScopesAnfordern.TabIndex = 15;
@@ -329,9 +335,9 @@ namespace AntonBot.Fenster
             this.TabEvents.Controls.Add(this.grpEvent);
             this.TabEvents.Controls.Add(this.LstEvents);
             this.TabEvents.Location = new System.Drawing.Point(4, 45);
-            this.TabEvents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TabEvents.Margin = new System.Windows.Forms.Padding(4);
             this.TabEvents.Name = "TabEvents";
-            this.TabEvents.Size = new System.Drawing.Size(1068, 801);
+            this.TabEvents.Size = new System.Drawing.Size(1068, 831);
             this.TabEvents.TabIndex = 1;
             this.TabEvents.Text = "Event-Reaktionen";
             this.TabEvents.UseVisualStyleBackColor = true;
@@ -340,7 +346,7 @@ namespace AntonBot.Fenster
             // 
             this.chkUse.AutoSize = true;
             this.chkUse.Location = new System.Drawing.Point(401, 4);
-            this.chkUse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkUse.Margin = new System.Windows.Forms.Padding(4);
             this.chkUse.Name = "chkUse";
             this.chkUse.Size = new System.Drawing.Size(286, 41);
             this.chkUse.TabIndex = 32;
@@ -353,7 +359,7 @@ namespace AntonBot.Fenster
             this.btnÜbernehmen.BackColor = System.Drawing.Color.LightGreen;
             this.btnÜbernehmen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnÜbernehmen.Location = new System.Drawing.Point(397, 756);
-            this.btnÜbernehmen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnÜbernehmen.Margin = new System.Windows.Forms.Padding(4);
             this.btnÜbernehmen.Name = "btnÜbernehmen";
             this.btnÜbernehmen.Size = new System.Drawing.Size(223, 28);
             this.btnÜbernehmen.TabIndex = 31;
@@ -374,9 +380,9 @@ namespace AntonBot.Fenster
             this.grpEvent.Controls.Add(this.cmbVariable);
             this.grpEvent.Enabled = false;
             this.grpEvent.Location = new System.Drawing.Point(401, 48);
-            this.grpEvent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEvent.Margin = new System.Windows.Forms.Padding(4);
             this.grpEvent.Name = "grpEvent";
-            this.grpEvent.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEvent.Padding = new System.Windows.Forms.Padding(4);
             this.grpEvent.Size = new System.Drawing.Size(649, 700);
             this.grpEvent.TabIndex = 30;
             this.grpEvent.TabStop = false;
@@ -384,7 +390,7 @@ namespace AntonBot.Fenster
             // btnDiscordChannel
             // 
             this.btnDiscordChannel.Location = new System.Drawing.Point(516, 22);
-            this.btnDiscordChannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDiscordChannel.Margin = new System.Windows.Forms.Padding(4);
             this.btnDiscordChannel.Name = "btnDiscordChannel";
             this.btnDiscordChannel.Size = new System.Drawing.Size(133, 43);
             this.btnDiscordChannel.TabIndex = 27;
@@ -395,7 +401,7 @@ namespace AntonBot.Fenster
             // txtDiscordChat
             // 
             this.txtDiscordChat.Location = new System.Drawing.Point(8, 73);
-            this.txtDiscordChat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDiscordChat.Margin = new System.Windows.Forms.Padding(4);
             this.txtDiscordChat.Multiline = true;
             this.txtDiscordChat.Name = "txtDiscordChat";
             this.txtDiscordChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -408,7 +414,7 @@ namespace AntonBot.Fenster
             // 
             this.chkDiscordAusgabe.AutoSize = true;
             this.chkDiscordAusgabe.Location = new System.Drawing.Point(8, 23);
-            this.chkDiscordAusgabe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkDiscordAusgabe.Margin = new System.Windows.Forms.Padding(4);
             this.chkDiscordAusgabe.Name = "chkDiscordAusgabe";
             this.chkDiscordAusgabe.Size = new System.Drawing.Size(488, 41);
             this.chkDiscordAusgabe.TabIndex = 25;
@@ -419,7 +425,7 @@ namespace AntonBot.Fenster
             // txtKonsolenFenster
             // 
             this.txtKonsolenFenster.Location = new System.Drawing.Point(8, 311);
-            this.txtKonsolenFenster.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtKonsolenFenster.Margin = new System.Windows.Forms.Padding(4);
             this.txtKonsolenFenster.Multiline = true;
             this.txtKonsolenFenster.Name = "txtKonsolenFenster";
             this.txtKonsolenFenster.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -432,7 +438,7 @@ namespace AntonBot.Fenster
             // 
             this.chkTextReaction.AutoSize = true;
             this.chkTextReaction.Location = new System.Drawing.Point(8, 454);
-            this.chkTextReaction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkTextReaction.Margin = new System.Windows.Forms.Padding(4);
             this.chkTextReaction.Name = "chkTextReaction";
             this.chkTextReaction.Size = new System.Drawing.Size(458, 41);
             this.chkTextReaction.TabIndex = 0;
@@ -443,7 +449,7 @@ namespace AntonBot.Fenster
             // txtChatReaktion
             // 
             this.txtChatReaktion.Location = new System.Drawing.Point(8, 503);
-            this.txtChatReaktion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtChatReaktion.Margin = new System.Windows.Forms.Padding(4);
             this.txtChatReaktion.Multiline = true;
             this.txtChatReaktion.Name = "txtChatReaktion";
             this.txtChatReaktion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -456,7 +462,7 @@ namespace AntonBot.Fenster
             // 
             this.chkKonsoleAusgabe.AutoSize = true;
             this.chkKonsoleAusgabe.Location = new System.Drawing.Point(8, 262);
-            this.chkKonsoleAusgabe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkKonsoleAusgabe.Margin = new System.Windows.Forms.Padding(4);
             this.chkKonsoleAusgabe.Name = "chkKonsoleAusgabe";
             this.chkKonsoleAusgabe.Size = new System.Drawing.Size(413, 41);
             this.chkKonsoleAusgabe.TabIndex = 23;
@@ -468,7 +474,7 @@ namespace AntonBot.Fenster
             // 
             this.btnVariable.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnVariable.Location = new System.Drawing.Point(443, 646);
-            this.btnVariable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVariable.Margin = new System.Windows.Forms.Padding(4);
             this.btnVariable.Name = "btnVariable";
             this.btnVariable.Size = new System.Drawing.Size(199, 47);
             this.btnVariable.TabIndex = 20;
@@ -487,7 +493,7 @@ namespace AntonBot.Fenster
             "KommandosBefehlsKette",
             "TwitchBefehlsKette"});
             this.cmbVariable.Location = new System.Drawing.Point(8, 646);
-            this.cmbVariable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbVariable.Margin = new System.Windows.Forms.Padding(4);
             this.cmbVariable.Name = "cmbVariable";
             this.cmbVariable.Size = new System.Drawing.Size(423, 44);
             this.cmbVariable.TabIndex = 19;
@@ -500,7 +506,7 @@ namespace AntonBot.Fenster
             "OnUserJoined",
             "OnUserLeft"});
             this.LstEvents.Location = new System.Drawing.Point(4, 4);
-            this.LstEvents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LstEvents.Margin = new System.Windows.Forms.Padding(4);
             this.LstEvents.Name = "LstEvents";
             this.LstEvents.Size = new System.Drawing.Size(384, 760);
             this.LstEvents.TabIndex = 29;
@@ -508,13 +514,64 @@ namespace AntonBot.Fenster
             // 
             // tabInfos
             // 
+            this.tabInfos.Controls.Add(this.btnEmotesCopy);
+            this.tabInfos.Controls.Add(this.lstEmotes);
+            this.tabInfos.Controls.Add(this.label7);
+            this.tabInfos.Controls.Add(this.label6);
+            this.tabInfos.Controls.Add(this.cmbServerAuswahl);
             this.tabInfos.Location = new System.Drawing.Point(4, 45);
-            this.tabInfos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabInfos.Margin = new System.Windows.Forms.Padding(4);
             this.tabInfos.Name = "tabInfos";
-            this.tabInfos.Size = new System.Drawing.Size(1068, 801);
+            this.tabInfos.Size = new System.Drawing.Size(1068, 831);
             this.tabInfos.TabIndex = 2;
             this.tabInfos.Text = "Emotes & Rollen";
             this.tabInfos.UseVisualStyleBackColor = true;
+            // 
+            // cmbServerAuswahl
+            // 
+            this.cmbServerAuswahl.FormattingEnabled = true;
+            this.cmbServerAuswahl.Location = new System.Drawing.Point(120, 19);
+            this.cmbServerAuswahl.Name = "cmbServerAuswahl";
+            this.cmbServerAuswahl.Size = new System.Drawing.Size(308, 44);
+            this.cmbServerAuswahl.TabIndex = 0;
+            this.cmbServerAuswahl.SelectedIndexChanged += new System.EventHandler(this.cmbServerAuswahl_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 37);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Server:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 85);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(114, 37);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Emotes:";
+            // 
+            // lstEmotes
+            // 
+            this.lstEmotes.FormattingEnabled = true;
+            this.lstEmotes.ItemHeight = 36;
+            this.lstEmotes.Location = new System.Drawing.Point(20, 125);
+            this.lstEmotes.Name = "lstEmotes";
+            this.lstEmotes.Size = new System.Drawing.Size(421, 616);
+            this.lstEmotes.TabIndex = 4;
+            // 
+            // btnEmotesCopy
+            // 
+            this.btnEmotesCopy.Location = new System.Drawing.Point(20, 759);
+            this.btnEmotesCopy.Name = "btnEmotesCopy";
+            this.btnEmotesCopy.Size = new System.Drawing.Size(421, 49);
+            this.btnEmotesCopy.TabIndex = 5;
+            this.btnEmotesCopy.Text = "In Zwischenablage kopieren";
+            this.btnEmotesCopy.UseVisualStyleBackColor = true;
+            this.btnEmotesCopy.Click += new System.EventHandler(this.btnEmotesCopy_Click);
             // 
             // DiscordEinstellungen
             // 
@@ -523,7 +580,7 @@ namespace AntonBot.Fenster
             this.ClientSize = new System.Drawing.Size(1107, 896);
             this.Controls.Add(this.tabFenster);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DiscordEinstellungen";
@@ -539,6 +596,8 @@ namespace AntonBot.Fenster
             this.TabEvents.PerformLayout();
             this.grpEvent.ResumeLayout(false);
             this.grpEvent.PerformLayout();
+            this.tabInfos.ResumeLayout(false);
+            this.tabInfos.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -579,5 +638,10 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.ListBox LstEvents;
         private System.Windows.Forms.CheckBox chkUse;
         private System.Windows.Forms.TabPage tabInfos;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbServerAuswahl;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ListBox lstEmotes;
+        private System.Windows.Forms.Button btnEmotesCopy;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AntonBot.PlatformAPI
 {
-    internal class DiscordGilde
+    public class DiscordGilde
     {
         public ulong ID { get; set; }
         public ulong OwnerID { get; set; }
@@ -13,7 +13,7 @@ namespace AntonBot.PlatformAPI
         public List<DiscordServerRoles> Roles { get; set; }
     }
 
-    internal class DiscordServerChannel
+    public class DiscordServerChannel
     {
         public DiscordServerChannel(ulong id, string name)
         {
@@ -24,7 +24,7 @@ namespace AntonBot.PlatformAPI
         public string Name { get; set; }
     }
 
-    internal class DiscordServerUser
+    public class DiscordServerUser
     {
         public DiscordServerUser(ulong id, string name, bool isbot)
         {
@@ -38,7 +38,7 @@ namespace AntonBot.PlatformAPI
 
     }
 
-    internal class DiscordServerEmotes
+    public class DiscordServerEmotes
     {
         public DiscordServerEmotes(ulong id, string name)
         {
@@ -49,7 +49,7 @@ namespace AntonBot.PlatformAPI
         public string Name { get; set; }
     }
 
-    internal class DiscordServerRoles
+    public class DiscordServerRoles
     {
         public DiscordServerRoles(ulong id, string name)
         {

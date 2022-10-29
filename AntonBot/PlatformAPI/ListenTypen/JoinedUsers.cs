@@ -4,7 +4,7 @@ namespace AntonBot.PlatformAPI
 {
     //Die Klasse ist für die User, die meinem Channel in einer auffälligen weise (wenn ich offline bin und dies häufiger passert) joinen
     //Dies sind Bot User und sollten dann gesperrt werden
-    internal class JoinedUsers
+    public class JoinedUsers
     {
         public string ID;
         public string Name;

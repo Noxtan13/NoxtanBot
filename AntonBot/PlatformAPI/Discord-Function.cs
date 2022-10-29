@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AntonBot
 {
-    internal class DiscordFunction : Bot_Verwalter
+    public class DiscordFunction : Bot_Verwalter
     {
         private static void TestMain(string[] args) => new DiscordFunction().RunBotAsync().GetAwaiter().GetResult();
 

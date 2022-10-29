@@ -6,17 +6,17 @@ using System.IO;
 
 namespace AntonBot
 {
-    internal class Bot_Verwalter
+    public class Bot_Verwalter
     {
         protected bool Active = false;
         //private String Ausgabe = "";
         private KonsolenAusgabe Ausgabe1 = new KonsolenAusgabe();
         private bool Ausgeben = false;
 
-        protected OtherChannel OtherChannel = new OtherChannel();
+        internal OtherChannel OtherChannel = new OtherChannel();
 
-        protected List<Befehl> BefehlListe = new List<Befehl>();
-        protected List<Zeit_Befehl> ZeitBefehlListe = new List<Zeit_Befehl>();
+        internal List<Befehl> BefehlListe = new List<Befehl>();
+        internal List<Zeit_Befehl> ZeitBefehlListe = new List<Zeit_Befehl>();
 
         protected List<List_Befehl> ListBefehlListe = new List<List_Befehl>();
         public bool ZeitBefehlSenden { get; set; } = false;

@@ -11,7 +11,6 @@ namespace AntonBot.Fenster
         private string sClientID;
         private bool Erststart = true;
         private bool bAccessTokenChange;
-        private HttpListener http = new HttpListener();
         private long Summe = 0x0000000000;
         private bool bÄnderung;
         private bool bÄnderungAusIndex;
@@ -19,10 +18,12 @@ namespace AntonBot.Fenster
         private int iAltIndex;
         private int iVariablenInhaltEvent;
         private int iVariablenInhaltTextFeld;
+        private DiscordFunction DiscordClient;
 
-        public DiscordEinstellungen()
+        public DiscordEinstellungen(DiscordFunction client)
         {
             InitializeComponent();
+            DiscordClient = client;
         }
 
         private void DiscordEinstellungen_Load(object sender, EventArgs e)

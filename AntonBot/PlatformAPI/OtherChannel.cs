@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AntonBot.PlatformAPI
 {
-    internal class OtherChannel
+    public class OtherChannel
     {
         private bool SendOtherChannel = false;
         private List<OtherChannelMessage> ChannelMessages = new List<OtherChannelMessage>();

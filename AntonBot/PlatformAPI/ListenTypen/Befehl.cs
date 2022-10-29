@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AntonBot.PlatformAPI
 {
-    internal class Befehl
+    public class Befehl
     {
         public String Kommando { get; set; }
         public String Antwort { get; set; }

@@ -267,7 +267,7 @@ namespace AntonBot
 
         private void discordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DiscordEinstellungen discordEinstellungen = new DiscordEinstellungen();
+            DiscordEinstellungen discordEinstellungen = new DiscordEinstellungen(Discord);
             discordEinstellungen.Show();
         }
 

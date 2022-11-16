@@ -141,6 +141,7 @@
             this.DiscordStatusStrip.Name = "DiscordStatusStrip";
             this.DiscordStatusStrip.Size = new System.Drawing.Size(53, 17);
             this.DiscordStatusStrip.Text = "Discord: ";
+            this.DiscordStatusStrip.Click += new System.EventHandler(this.DiscordStatusStrip_Click);
             // 
             // TwitchStatusStrip
             // 
@@ -276,14 +277,14 @@
             // discordToolStripMenuItem
             // 
             this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-            this.discordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.discordToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.discordToolStripMenuItem.Text = "Discord";
             this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
             // 
             // twitchToolStripMenuItem
             // 
             this.twitchToolStripMenuItem.Name = "twitchToolStripMenuItem";
-            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.twitchToolStripMenuItem.Text = "Twitch";
             this.twitchToolStripMenuItem.Click += new System.EventHandler(this.twitchToolStripMenuItem_Click);
             // 

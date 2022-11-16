@@ -12,7 +12,6 @@ namespace AntonBot
 {
     public class DiscordFunction : Bot_Verwalter
     {
-        private static void TestMain(string[] args) => new DiscordFunction().RunBotAsync().GetAwaiter().GetResult();
 
         private DiscordSocketClient client;
         private CommandService commands = new CommandService();
@@ -41,7 +40,8 @@ A token cannot be null, empty, or contain only whitespace.
             else
             {
                 var cfg = new DiscordSocketConfig();
-                cfg.GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans;
+                //Das sind die Infos, die ich von Discord abrufen darf. MessageContent ist notwendig, damit der Inhalt der Nachricht gelesen werden kann
+                cfg.GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans | GatewayIntents.MessageContent;
 
 
                 client = new DiscordSocketClient(cfg);
@@ -64,6 +64,7 @@ A token cannot be null, empty, or contain only whitespace.
 
                 try
                 {
+                    KonsolenAusgabe("LoginSync wird ausgeführt");
                     await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
                     Loginerfolgreich = true;
                 }
@@ -87,6 +88,7 @@ A token cannot be null, empty, or contain only whitespace.
 
                 try
                 {
+                    KonsolenAusgabe("StartAsync wird ausgeführt");
                     await client.StartAsync();
                     Starterfolgreich = true;
                 }
@@ -216,6 +218,11 @@ A token cannot be null, empty, or contain only whitespace.
                     bAusfall = false;
                     dtAusfallDauer = DateTime.Now - dtLetzerAusfall;
                     KonsolenAusgabe("Dauer Ausfall in Sekunden: ", dtAusfallDauer.TotalSeconds);
+                }
+                else
+                {
+                    //Einträge werden sonst doppelt ausgegeben, wenn dies nicht kommentiert ist
+                    //KonsolenAusgabe(arg.Message);
                 }
             }
 

@@ -150,7 +150,6 @@ namespace AntonBot
                 tcClient.OnWhisperReceived += Client_OnWhisperReceived;
                 tcClient.OnNewSubscriber += Client_OnNewSubscriber;
                 tcClient.OnConnected += Client_OnConnected;
-                tcClient.OnBeingHosted += Client_OnBeingHosted;
                 tcClient.OnRaidNotification += Client_OnRaidNotification;
 
                 tcClient.OnUserJoined += Client_OnUserJoined;
@@ -809,55 +808,6 @@ namespace AntonBot
 
 
             return text;
-        }
-
-        private void Client_OnBeingHosted(object sender, OnBeingHostedArgs e)
-        {
-
-            if (SettingsGroup.Instance.TeOnBeingHosted.Use)
-            {
-                if (e.BeingHostedNotification.Channel == sStandardChannel || e.BeingHostedNotification.Channel == sStandardChannel)
-                {
-                    if (SettingsGroup.Instance.TeOnBeingHosted.Chat)
-                    {
-                        string Text = SettingsGroup.Instance.TeOnBeingHosted.ChatText;
-
-                        Text = OnBeingHostedReplace(Text, e.BeingHostedNotification);
-                        SendMessage(Text, sStandardChannel);
-
-                    }
-                    if (SettingsGroup.Instance.TeOnBeingHosted.Discord)
-                    {
-                        string Text = SettingsGroup.Instance.TeOnBeingHosted.DiscordText;
-                        Text = OnBeingHostedReplace(Text, e.BeingHostedNotification);
-
-                        foreach (var item in SettingsGroup.Instance.TeOnBeingHosted.Channel)
-                        {
-                            SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
-                        }
-                    }
-                    if (SettingsGroup.Instance.TeOnBeingHosted.Konsole)
-                    {
-                        string Text = SettingsGroup.Instance.TeOnBeingHosted.KonsoleText;
-                        Text = OnBeingHostedReplace(Text, e.BeingHostedNotification);
-
-                        KonsolenAusgabe(Text);
-
-                    }
-                }
-            }
-        }
-        private String OnBeingHostedReplace(string Text, BeingHostedNotification e)
-        {
-
-            Text = Text.Replace("°Channel", e.Channel);
-            Text = Text.Replace("°HostedByChannel", e.HostedByChannel);
-            //Text.Replace("°IsAutoHosted", e.IsAutoHosted.);
-            int Anzahl = e.Viewers + 1;
-            Text = Text.Replace("°Viewers+1", Anzahl.ToString());
-
-            Text = Text.Replace("°Viewers", e.Viewers.ToString());
-            return Text;
         }
 
         private void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e)

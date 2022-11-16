@@ -477,10 +477,6 @@ namespace AntonBot
                 //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             }
         }
-        private void youTubeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Twitch.test();
-        }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -927,28 +923,9 @@ namespace AntonBot
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "...Ausgabe abgeschlossen"));
         }
 
-        private void testc(bool Aufruf)
+        private void testc()
         {
-            System.Reflection.Assembly _Assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            Stream str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.BotStatus.php");
-            StreamReader rd = new StreamReader(str);
-
-            string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "BotStatus.php";
-
-            string HTMLInhalt = rd.ReadToEnd().Replace("!!!Inhalt!!!", txtAusgabe.Text.Replace("\r\n", "<br />"));
-            HTMLInhalt = HTMLInhalt.Replace("!!!Bot-Status!!!", "Gestartet");
-            HTMLInhalt = HTMLInhalt.Replace("!!!Discord!!!", Discord.getClientStatus());
-            HTMLInhalt = HTMLInhalt.Replace("!!!Twitch!!!", Twitch.GetClientStatus().ToString());
-            HTMLInhalt = HTMLInhalt.Replace("!!!Stream!!!", SettingsGroup.Instance.TsOnline.ToString());
-
-            //HTMLInhalt = HTMLInhalt.Replace("\r\n", "</br>");
-            File.WriteAllText(Pfad, HTMLInhalt);
-
-
-            if (Aufruf)
-            {
-                System.Diagnostics.Process.Start(Pfad);
-            }
+            Discord.SendMessage(735764666424492062, "Hello My Friend");
         }
 
         private void txtAusgabe_DoubleClick(object sender, EventArgs e)
@@ -980,6 +957,11 @@ namespace AntonBot
             File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien gelöscht"));
+        }
+
+        private void DiscordStatusStrip_Click(object sender, EventArgs e)
+        {
+            testc();
         }
     }
 }

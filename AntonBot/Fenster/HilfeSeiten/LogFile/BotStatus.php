@@ -76,6 +76,12 @@
 
     $GesamtDauer = $Ausfalldauer+(int)$Anzahl*60;
     echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer";
+
+    echo "Inhalt der Log-Datei: '°LogPfadLog' <br/>";
+    echo "<div class=\"LogEintrag\">";
+    echo file_get_contents('°LogPfadLog');
+    echo "</div>";
+
     ?>
 
         </div>

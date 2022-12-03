@@ -356,7 +356,6 @@
             this.txtAusgabe.Size = new System.Drawing.Size(718, 336);
             this.txtAusgabe.TabIndex = 10;
             this.txtAusgabe.Text = "Ausgabe vom NOXTANBOT:";
-            this.txtAusgabe.TextChanged += new System.EventHandler(this.txtAusgabe_TextChanged);
             this.txtAusgabe.DoubleClick += new System.EventHandler(this.txtAusgabe_DoubleClick);
             // 
             // UpdateAusgabe

@@ -31,7 +31,6 @@ namespace AntonBot
         private int EventTimer;
         private int WaitForOnline = 20;
         private int RestartTimer = 30;
-        private string KonsolenPath = Application.StartupPath + Path.DirectorySeparatorChar + "KonsolenAusgabe.json";
         private string KonsolenLogPath = Application.StartupPath + Path.DirectorySeparatorChar + "KonsolenLogAusgabe.json";
         private List<KonsolenAusgabe> KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
         public MainWindow()
@@ -54,7 +53,7 @@ namespace AntonBot
             PathTwitch = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
             PathListBefehl = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
 
-            KonsolenPath = SettingsGroup.Instance.LogPfad + "KonsolenAusgabe.json";
+            LogWriter.LogPath = SettingsGroup.Instance.LogPfad + "Log.txt";
             KonsolenLogPath = SettingsGroup.Instance.LogPfad + "KonsolenLogAusgabe.json";
         }
 
@@ -293,22 +292,7 @@ namespace AntonBot
             txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeDatum + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText + Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
             Eingabe.ausgegeben();
 
-
-            if (!File.Exists(KonsolenPath))
-            {
-                //Wenn Datei nicht existiert
-                List<KonsolenAusgabe> content = new List<KonsolenAusgabe>();
-                content.Add(Eingabe);
-                File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(content, Formatting.Indented));
-            }
-            else
-            {
-                //Wenn Datei existiert
-                List<KonsolenAusgabe> content = JsonConvert.DeserializeObject<List<KonsolenAusgabe>>(File.ReadAllText(KonsolenPath));
-                content.Add(Eingabe);
-                File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(content, Formatting.Indented));
-            }
-
+            LogWriter.LogWrite(Eingabe.AusgabeTyp + "---" + Eingabe.AusgabeText);
 
         }
         private void UpdateAusgabe_Tick(object sender, EventArgs e)
@@ -424,7 +408,6 @@ namespace AntonBot
 
         private void timerResetBox_Tick(object sender, EventArgs e)
         {
-            KonsolenLogPfadSchreiben();
             txtAusgabe.Clear();
             if (Twitch.getActive())
             {
@@ -473,35 +456,13 @@ namespace AntonBot
                 {
                     timerOtherChannel.Interval = 10000;
                 }
-                //Wird hier mal eingefügt, um die Datei regelmäßig mit den aktuellen Dateien zu beschreiben
-                //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             }
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Twitch.BotUserSave();
-            KonsolenLogPfadSchreiben();
 
-        }
-
-        private void KonsolenLogPfadSchreiben()
-        {
-            if (File.Exists(KonsolenPath) && File.Exists(KonsolenLogPath))
-            {
-                List<KonsolenAusgabe> LogList = JsonConvert.DeserializeObject<List<KonsolenAusgabe>>(File.ReadAllText(KonsolenLogPath));
-
-                LogList.AddRange(KonsolenAusgabeJSON);
-
-                string LogInhalt = JsonConvert.SerializeObject(LogList, Formatting.Indented);
-                File.WriteAllText(KonsolenLogPath, LogInhalt);
-            }
-            else
-            {
-                File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
-            }
-            //Nachdem die Liste exportiert wurde, wird diese zurückgesetzt
-            KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
         }
 
         private void einstellungenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -937,11 +898,6 @@ namespace AntonBot
             test.NewJoined();
         }
 
-        private void txtAusgabe_TextChanged(object sender, EventArgs e)
-        {
-            //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
-        }
-
         private void webSeitenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SavePHPFile();
@@ -951,8 +907,7 @@ namespace AntonBot
         {
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien werden gelöscht"));
-            File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
-
+            
 
             File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();

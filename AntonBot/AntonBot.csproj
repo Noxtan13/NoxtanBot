@@ -327,6 +327,7 @@
     <Compile Include="PlatformAPI\ListenTypen\List_Befehl.cs" />
     <Compile Include="PlatformAPI\ListenTypen\Quest.cs" />
     <Compile Include="PlatformAPI\ListenTypen\SkillAusgabe.cs" />
+    <Compile Include="PlatformAPI\LogWriter.cs" />
     <Compile Include="PlatformAPI\SettingsTypen\TwitchAdminBefehl.cs" />
     <Compile Include="PlatformAPI\OtherChannel.cs" />
     <Compile Include="PlatformAPI\ListenTypen\RandomBefehl.cs" />

@@ -75,7 +75,7 @@
     echo "<br/>Ausgabe ZusatzInfo: $Ausfalldauer<br/>"; 
 
     $GesamtDauer = $Ausfalldauer+(int)$Anzahl*60;
-    echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer";
+    echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer <br/>";
 
     echo "Inhalt der Log-Datei: '°LogPfadLog' <br/>";
     echo "<div class=\"LogEintrag\">";

@@ -40,11 +40,11 @@ namespace AntonBot.PlatformAPI
             try
             {
                 txtWriter.Write("\r\nLog Entry : ");
-                txtWriter.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                txtWriter.WriteLine("{0} {1} <br/>", DateTime.Now.ToLongTimeString(),
                     DateTime.Now.ToLongDateString());
-                txtWriter.WriteLine("  :");
-                txtWriter.WriteLine("  :{0}", logMessage);
-                txtWriter.WriteLine("-------------------------------");
+                txtWriter.WriteLine("  :<br/>");
+                txtWriter.WriteLine("  :{0}<br/>", logMessage);
+                txtWriter.WriteLine("-------------------------------<br/>");
             }
             catch (Exception ex)
             {

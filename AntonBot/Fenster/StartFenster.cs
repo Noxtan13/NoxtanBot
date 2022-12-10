@@ -908,7 +908,7 @@ namespace AntonBot
         {
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien werden gelöscht"));
-            
+            File.Delete(LogWriter.LogPath);
 
             File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();

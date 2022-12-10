@@ -311,6 +311,12 @@
     <Compile Include="Fenster\ListEintragFenster.Designer.cs">
       <DependentUpon>ListEintragFenster.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fenster\MessageSendTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fenster\MessageSendTest.Designer.cs">
+      <DependentUpon>MessageSendTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Fenster\TwitchEinstellungen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Fenster\ListEintragFenster.resx">
       <DependentUpon>ListEintragFenster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fenster\MessageSendTest.resx">
+      <DependentUpon>MessageSendTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fenster\StartFenster.resx">
       <DependentUpon>StartFenster.cs</DependentUpon>

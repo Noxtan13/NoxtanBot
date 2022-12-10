@@ -919,5 +919,11 @@ namespace AntonBot
         {
             testc();
         }
+
+        private void nachrichtTestenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageSendTest SendTest = new MessageSendTest(Twitch,Discord);
+            SendTest.Show();
+        }
     }
 }

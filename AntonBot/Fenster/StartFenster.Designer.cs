@@ -66,6 +66,7 @@
             this.timerOtherChannel = new System.Windows.Forms.Timer(this.components);
             this.sfdEinstellungExport = new System.Windows.Forms.SaveFileDialog();
             this.ofdEinstellungImport = new System.Windows.Forms.OpenFileDialog();
+            this.nachrichtTestenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DiscordGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.MenuLeiste.SuspendLayout();
@@ -116,7 +117,7 @@
             this.chkDiscordZeit.Location = new System.Drawing.Point(204, 44);
             this.chkDiscordZeit.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.chkDiscordZeit.Name = "chkDiscordZeit";
-            this.chkDiscordZeit.Size = new System.Drawing.Size(134, 34);
+            this.chkDiscordZeit.Size = new System.Drawing.Size(171, 41);
             this.chkDiscordZeit.TabIndex = 15;
             this.chkDiscordZeit.Text = "Auto-Send";
             this.chkDiscordZeit.UseVisualStyleBackColor = true;
@@ -129,31 +130,31 @@
             this.DiscordStatusStrip,
             this.TwitchStatusStrip,
             this.toolLoadBefehle});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 631);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 627);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(757, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(757, 26);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // DiscordStatusStrip
             // 
             this.DiscordStatusStrip.Name = "DiscordStatusStrip";
-            this.DiscordStatusStrip.Size = new System.Drawing.Size(53, 17);
+            this.DiscordStatusStrip.Size = new System.Drawing.Size(67, 20);
             this.DiscordStatusStrip.Text = "Discord: ";
             this.DiscordStatusStrip.Click += new System.EventHandler(this.DiscordStatusStrip_Click);
             // 
             // TwitchStatusStrip
             // 
             this.TwitchStatusStrip.Name = "TwitchStatusStrip";
-            this.TwitchStatusStrip.Size = new System.Drawing.Size(47, 17);
+            this.TwitchStatusStrip.Size = new System.Drawing.Size(58, 20);
             this.TwitchStatusStrip.Text = "Twitch: ";
             this.TwitchStatusStrip.Click += new System.EventHandler(this.TwitchStatusStrip_Click);
             // 
             // toolLoadBefehle
             // 
             this.toolLoadBefehle.Name = "toolLoadBefehle";
-            this.toolLoadBefehle.Size = new System.Drawing.Size(126, 17);
+            this.toolLoadBefehle.Size = new System.Drawing.Size(159, 20);
             this.toolLoadBefehle.Text = "Befehle: Nicht geladen";
             // 
             // MenuLeiste
@@ -166,7 +167,7 @@
             this.MenuLeiste.Location = new System.Drawing.Point(0, 0);
             this.MenuLeiste.Name = "MenuLeiste";
             this.MenuLeiste.Padding = new System.Windows.Forms.Padding(12, 5, 0, 5);
-            this.MenuLeiste.Size = new System.Drawing.Size(757, 31);
+            this.MenuLeiste.Size = new System.Drawing.Size(757, 37);
             this.MenuLeiste.TabIndex = 6;
             this.MenuLeiste.Text = " ";
             // 
@@ -181,34 +182,34 @@
             this.importExportToolStripMenuItem,
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(64, 27);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // allgemeineEinstellungenToolStripMenuItem
             // 
             this.allgemeineEinstellungenToolStripMenuItem.Name = "allgemeineEinstellungenToolStripMenuItem";
-            this.allgemeineEinstellungenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.allgemeineEinstellungenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.allgemeineEinstellungenToolStripMenuItem.Text = "Allgemeine Einstellungen";
             this.allgemeineEinstellungenToolStripMenuItem.Click += new System.EventHandler(this.allgemeineEinstellungenToolStripMenuItem_Click);
             // 
             // befehleCommandsToolStripMenuItem
             // 
             this.befehleCommandsToolStripMenuItem.Name = "befehleCommandsToolStripMenuItem";
-            this.befehleCommandsToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.befehleCommandsToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.befehleCommandsToolStripMenuItem.Text = "Befehle / Commands";
             this.befehleCommandsToolStripMenuItem.Click += new System.EventHandler(this.befehleCommandsToolStripMenuItem_Click);
             // 
             // webSeitenExportierenToolStripMenuItem
             // 
             this.webSeitenExportierenToolStripMenuItem.Name = "webSeitenExportierenToolStripMenuItem";
-            this.webSeitenExportierenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.webSeitenExportierenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.webSeitenExportierenToolStripMenuItem.Text = "Web-Seiten exportieren";
             this.webSeitenExportierenToolStripMenuItem.Click += new System.EventHandler(this.webSeitenExportierenToolStripMenuItem_Click);
             // 
             // logZurücksetzenToolStripMenuItem
             // 
             this.logZurücksetzenToolStripMenuItem.Name = "logZurücksetzenToolStripMenuItem";
-            this.logZurücksetzenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.logZurücksetzenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.logZurücksetzenToolStripMenuItem.Text = "Log zurücksetzen";
             this.logZurücksetzenToolStripMenuItem.Click += new System.EventHandler(this.logZurücksetzenToolStripMenuItem_Click);
             // 
@@ -218,20 +219,20 @@
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem});
             this.telegrammBotToolStripMenuItem.Name = "telegrammBotToolStripMenuItem";
-            this.telegrammBotToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.telegrammBotToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.telegrammBotToolStripMenuItem.Text = "Telegramm-Bot";
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(130, 28);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(130, 28);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -241,27 +242,27 @@
             this.einstellungenExportierenToolStripMenuItem,
             this.einstellungenImportierenToolStripMenuItem});
             this.importExportToolStripMenuItem.Name = "importExportToolStripMenuItem";
-            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.importExportToolStripMenuItem.Text = "Import/Export";
             // 
             // einstellungenExportierenToolStripMenuItem
             // 
             this.einstellungenExportierenToolStripMenuItem.Name = "einstellungenExportierenToolStripMenuItem";
-            this.einstellungenExportierenToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.einstellungenExportierenToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
             this.einstellungenExportierenToolStripMenuItem.Text = "Einstellungen exportieren";
             this.einstellungenExportierenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenExportierenToolStripMenuItem_Click);
             // 
             // einstellungenImportierenToolStripMenuItem
             // 
             this.einstellungenImportierenToolStripMenuItem.Name = "einstellungenImportierenToolStripMenuItem";
-            this.einstellungenImportierenToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.einstellungenImportierenToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
             this.einstellungenImportierenToolStripMenuItem.Text = "Einstellungen importieren";
             this.einstellungenImportierenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenImportierenToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -269,22 +270,23 @@
             // 
             this.einstellungenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.discordToolStripMenuItem,
-            this.twitchToolStripMenuItem});
+            this.twitchToolStripMenuItem,
+            this.nachrichtTestenToolStripMenuItem});
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(163, 21);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(205, 27);
             this.einstellungenToolStripMenuItem.Text = "Plattform-Einstellungen";
             // 
             // discordToolStripMenuItem
             // 
             this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-            this.discordToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.discordToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.discordToolStripMenuItem.Text = "Discord";
             this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
             // 
             // twitchToolStripMenuItem
             // 
             this.twitchToolStripMenuItem.Name = "twitchToolStripMenuItem";
-            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.twitchToolStripMenuItem.Text = "Twitch";
             this.twitchToolStripMenuItem.Click += new System.EventHandler(this.twitchToolStripMenuItem_Click);
             // 
@@ -314,7 +316,7 @@
             this.chkTwitchZeit.Location = new System.Drawing.Point(204, 44);
             this.chkTwitchZeit.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.chkTwitchZeit.Name = "chkTwitchZeit";
-            this.chkTwitchZeit.Size = new System.Drawing.Size(134, 34);
+            this.chkTwitchZeit.Size = new System.Drawing.Size(171, 41);
             this.chkTwitchZeit.TabIndex = 16;
             this.chkTwitchZeit.Text = "Auto-Send";
             this.chkTwitchZeit.UseVisualStyleBackColor = true;
@@ -392,9 +394,16 @@
             this.sfdEinstellungExport.FileName = "Einstellung";
             this.sfdEinstellungExport.RestoreDirectory = true;
             // 
+            // nachrichtTestenToolStripMenuItem
+            // 
+            this.nachrichtTestenToolStripMenuItem.Name = "nachrichtTestenToolStripMenuItem";
+            this.nachrichtTestenToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.nachrichtTestenToolStripMenuItem.Text = "Nachricht testen";
+            this.nachrichtTestenToolStripMenuItem.Click += new System.EventHandler(this.nachrichtTestenToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 36F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 653);
             this.Controls.Add(this.btnLoadBefehle);
@@ -463,6 +472,7 @@
         private System.Windows.Forms.OpenFileDialog ofdEinstellungImport;
         private System.Windows.Forms.ToolStripMenuItem webSeitenExportierenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logZurücksetzenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nachrichtTestenToolStripMenuItem;
     }
 }
 

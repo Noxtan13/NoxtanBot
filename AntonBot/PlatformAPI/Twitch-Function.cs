@@ -2624,7 +2624,7 @@ namespace AntonBot
             }
             return "No MainQuest";
         }
-
+        #region Quest
         private void ClearQuest(String ID)
         {
             bool QuestGefunden = false;
@@ -2981,6 +2981,7 @@ namespace AntonBot
                 }
             }
         }
+        #endregion
         public void setClearGame()
         {
             Ausgabe = new SkillAusgabe();
@@ -3022,6 +3023,10 @@ namespace AntonBot
             }
             SaveQuest();
         }
+        public String getStandardChannel() {
+            return sStandardChannel;
+        }
+
         public void test()
         {
             if (SettingsGroup.Instance.SkillUse)

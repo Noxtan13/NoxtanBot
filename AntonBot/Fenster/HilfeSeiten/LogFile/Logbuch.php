@@ -56,6 +56,12 @@
                 $InhaltStatInkSalmon = file_get_contents('/home/pi/AusgabeCronPySalmon.txt');
                 echo str_replace("\n","</br>",$InhaltStatInkSalmon);
                 echo"</div>";
+
+                echo"<h3>Log-File Uploader Statink-Salmon</h3>";
+                echo"<div class =\"LogEintrag\">";
+                $InhaltStatInkSalmon = file_get_contents('/home/pi/AusgabeCronPySalmon.txt');
+                echo str_replace("\n","</br>",$InhaltStatInkSalmon);
+                echo"</div>";
             ?>
 
         </div>

@@ -50,6 +50,7 @@ namespace AntonBot.Fenster
 
         private void Change() {
             cbbKanal.Items.Clear();
+            cbbKanal.Text = "";
             if (rdbTwitch.Checked && Twitch.getActive())
             {
                 cbbKanal.Items.Add(Twitch.getStandardChannel());

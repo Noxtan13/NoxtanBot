@@ -2569,7 +2569,17 @@ namespace AntonBot
             try
             {
                 var test = TwitchAPI.Helix.Clips.CreateClipAsync(sChannelID, SettingsGroup.Instance.TsAccessToken);
-                KonsolenAusgabe("Clip-Create-Result:" + test.Result.CreatedClips.ToString());
+
+                KonsolenAusgabe("Ausgabe von Clip-Create");
+
+                foreach (var item in test.Result.CreatedClips)
+                {
+                    KonsolenAusgabe("Result:" + item.ToString());
+                    KonsolenAusgabe("Clip-Create-Result EditUrl:" + item.EditUrl);
+                    KonsolenAusgabe("Clip-Create-Result ID:" + item.Id);
+                    KonsolenAusgabe("---------------------------------------------");
+                }
+
                 SendMessage(SettingsGroup.Instance.TeClipCreate.ChatText, sStandardChannel);
             }
             catch (Exception e)

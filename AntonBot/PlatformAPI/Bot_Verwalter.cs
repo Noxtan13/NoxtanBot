@@ -249,6 +249,9 @@ public void Speichern() {
             BefehlTeil2 = getBefehlTeil(getOptionalerTeil(Message));
             string OptionalerTeil = getOptionalerTeil(OptionalerTeilGesamt);
 
+            //Bevor mit der Liste gearbeitet wird, wird diese nochmal neu eingelesen, falls die Liste an einer anderen Plattform geändert hat 
+            LoadBefehle(SettingsGroup.Instance.StandardPfad + "List-Befehl.json", 3);
+
             foreach (List_Befehl item in ListBefehlListe)
             {
                 if (BefehlTeil1.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
@@ -497,7 +500,7 @@ public void Speichern() {
 
             if (Nachricht == null)
             {
-
+                Nachricht = "";
             }
             //Nachricht = "BefehlTeil1: " + BefehlTeil1 + " BefehlTeil2: " + BefehlTeil2 + " OptionalerTeil " + OptionalerTeil;
 

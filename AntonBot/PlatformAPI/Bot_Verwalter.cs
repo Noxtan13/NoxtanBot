@@ -500,7 +500,7 @@ public void Speichern() {
 
             if (Nachricht == null)
             {
-                Nachricht = "";
+                //Muss leer bleiben, damit die Befehle für die anderen Kommandos geprüft werden (dort läuft die Prüfung auf Nachricht == null)
             }
             //Nachricht = "BefehlTeil1: " + BefehlTeil1 + " BefehlTeil2: " + BefehlTeil2 + " OptionalerTeil " + OptionalerTeil;
 

@@ -50,17 +50,16 @@
                 echo str_replace("\n","</br>",$InhaltStatInk);
                 echo"</div>";
 
-
                 echo"<h3>Log-File Uploader Statink-Salmon</h3>";
                 echo"<div class =\"LogEintrag\">";
                 $InhaltStatInkSalmon = file_get_contents('/home/pi/AusgabeCronPySalmon.txt');
                 echo str_replace("\n","</br>",$InhaltStatInkSalmon);
                 echo"</div>";
 
-                echo"<h3>Log-File Uploader Statink-Salmon</h3>";
+                echo"<h3>Log-File Uploader Statink von Splatoon 3</h3>";
                 echo"<div class =\"LogEintrag\">";
-                $InhaltStatInkSalmon = file_get_contents('/home/pi/AusgabeCronPySalmon.txt');
-                echo str_replace("\n","</br>",$InhaltStatInkSalmon);
+                $InhaltStatInkS3s = file_get_contents('/home/pi/AusgabeS3s.txt');
+                echo str_replace("\n","</br>",$InhaltStatInkS3s);
                 echo"</div>";
             ?>
 

@@ -30,12 +30,7 @@ namespace AntonBot
         //Variable zum erneuten Versuchsaufbau, wenn z.B. keine Verbindung ins Internet möglich war
         protected bool Restart = false;
 
-        /*
-public void Speichern() {
-   String welt = JsonConvert.SerializeObject(new Gespeicherte_Commands() { Anton = "ANTON 3", Antwort = "Hallo ich heiße Anton 3", Befehl = "!ANTON3" });
-   Gespeicherte_Commands deserialisiert = JsonConvert.DeserializeObject<Gespeicherte_Commands>(welt);
-}
-*/
+
         public bool getRestart()
         {
             return Restart;
@@ -50,15 +45,14 @@ public void Speichern() {
 
                 InhaltJSON = File.ReadAllText(Path);
 
-                LastLoadTime = File.GetLastWriteTime(Path);
+                
                 switch (BefehlArt)
                 {
                     case 1:
                         try
                         {
                             BefehlListe = JsonConvert.DeserializeObject<List<Befehl>>(InhaltJSON);
-
-                            //ZufallGewichtung(BefehlListe);
+                            LastLoadTime = DateTime.Now; //Aktuell wird die letze Ladezeit nur für die Befehlliste benöigt. Daher wird diese auch beim Laden dieser aktualisiert
                         }
                         catch (Exception Fehler)
                         {
@@ -89,7 +83,6 @@ public void Speichern() {
                     default:
                         break;
                 }
-                //FileStream stream = File.OpenRead(Path);
 
             }
         }
@@ -183,26 +176,26 @@ public void Speichern() {
         {
             string BefehlTeil = getBefehlTeil(Message);
             string OptionalerTeil = getOptionalerTeil(Message);
-
+            bool Ausgabe = false;
 
 
             Message = null;
 
+            CheckLastLoad("Befehl.json", 1);
+
             if (BefehlTeil.StartsWith(SettingsGroup.Instance.SBefehlSymbol))
             {
+                int index = 0;
                 foreach (Befehl item in BefehlListe)
                 {
                     if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
                     {
-                        CheckLastLoad("Befehl.json", 1);
                         Message = item.Antwort;
                         string Ersatzantwort = item.ErsatzAntwort;
                         //String für die Ersatzantwort, da diese auch bei der Zufallsantwort angepasst werden müsste (auch wenn diese gerade nicht verwenden werden würde)
 
                         if (item.HatZufallAntowort)
                         {
-
-
                             int Wert = Zufallszahl.Next(item.ZufallAntwort.Count);
 
                             Message = Message.Replace("°VariablerTeil", item.ZufallAntwort[Wert].Text);
@@ -227,13 +220,20 @@ public void Speichern() {
                         Message = Message.Replace("°Name", User);
                         Message = Message.Replace("°KommandosBefehlsKette", Befehlskette(AllCommands));
 
-                        item.IncrementAnzahl();
+                       
+                        BefehlListe[index].IncrementAnzahl(); //Da die Änderung im item in einer foreach-Schleife nicht gespeichert wird, wird die Anzahl über den Index direkt erhöht
                         Message = Message.Replace("°Zähler", item.Anzahl.ToString());
 
-                        BefehlSpeichern(BefehlListe, "Befehl.json");
+                        Ausgabe = true;
                         //ZufallGewichtung(BefehlListe);
                     }
+                    index++;
                 }
+            }
+
+            if (Ausgabe)
+            {
+                BefehlSpeichern(BefehlListe, "Befehl.json");
             }
 
             return Message;
@@ -516,15 +516,13 @@ public void Speichern() {
 
 
             File.WriteAllText(Path, InhaltJSON);
-
-            LoadBefehle(Path, 3);
         }
 
         protected void CheckLastLoad(String Name, int BefehlArt)
         {
             string Path = SettingsGroup.Instance.StandardPfad + Name;
 
-            if (LastLoadTime < File.GetLastWriteTime(Path))
+            if (LastLoadTime.AddMinutes(1) < DateTime.Now)
             {
                 LoadBefehle(Path, BefehlArt);
                 KonsolenAusgabe(Name + " wurde neu geladen, da nicht aktuell");

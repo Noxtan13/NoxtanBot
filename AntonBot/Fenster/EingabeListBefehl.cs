@@ -95,11 +95,11 @@ namespace AntonBot.Fenster
             {
                 MessageBox.Show("Die Antwort für einen gescheiterten Lösch-Versuch fehlt. Soll den niemand wissen, wie verzweifelt der Bot gesucht hat?", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (txtUpdate.Text.Equals("")&& chkUpdateEintrag.Checked)
+            else if (txtUpdate.Text.Equals("") && chkUpdateEintrag.Checked)
             {
                 MessageBox.Show("Die Antwort für einen Update fehlt. Eine Rückmeldung wäre nicht schlecht", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (txtOpenCommand.Text.Equals("")||txtCloseCommand.Text.Equals("") && chkOpenCloseUse.Checked)
+            else if (txtOpenCommand.Text.Equals("") || txtCloseCommand.Text.Equals("") && chkOpenCloseUse.Checked)
             {
                 MessageBox.Show("Die Kommandos für die Open-Close-Funktion sind nicht gesetzt", "Nicht Vollständig", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -358,7 +358,7 @@ namespace AntonBot.Fenster
 
         private void chkUpdateEintrag_CheckedChanged(object sender, EventArgs e)
         {
-            txtUpdate.Enabled= chkUpdateEintrag.Checked;
+            txtUpdate.Enabled = chkUpdateEintrag.Checked;
         }
     }
 }

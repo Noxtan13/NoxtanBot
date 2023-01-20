@@ -383,7 +383,8 @@ namespace AntonBot.PlatformAPI
                     StandardPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar;
                 }
             }
-            if (load.HTMLPfad != null) {
+            if (load.HTMLPfad != null)
+            {
                 if (Directory.Exists(load.HTMLPfad))
                 {
                     HTMLPfad = load.HTMLPfad;
@@ -393,7 +394,8 @@ namespace AntonBot.PlatformAPI
                     HTMLPfad = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar; ;
                 }
             }
-            if (load.LogPfad != null) {
+            if (load.LogPfad != null)
+            {
                 if (Directory.Exists(load.LogPfad))
                 {
                     LogPfad = load.LogPfad;

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
 
 namespace AntonBot.Fenster
@@ -67,7 +66,7 @@ namespace AntonBot.Fenster
             LstEvents.SelectedIndex = 0;
 
             cmbServerAuswahl.Items.Clear();
-            foreach(var Server in DiscordListe)
+            foreach (var Server in DiscordListe)
             {
                 cmbServerAuswahl.Items.Add(Server.Name);
             }
@@ -132,7 +131,7 @@ namespace AntonBot.Fenster
         }
         private void SummeBerechnen()
         {
-            long NeueSumme= 0x0000000000;
+            long NeueSumme = 0x0000000000;
             if (chkAdmin.Checked)
             {
                 NeueSumme = 0x0000000008;
@@ -627,13 +626,13 @@ namespace AntonBot.Fenster
         private void cmbServerAuswahl_SelectedIndexChanged(object sender, EventArgs e)
         {
             lstEmotes.Items.Clear();
-            foreach(var Server in DiscordListe)
+            foreach (var Server in DiscordListe)
             {
                 if (cmbServerAuswahl.SelectedItem.Equals(Server.Name))
                 {
                     foreach (var Emotes in Server.Emotes)
                     {
-                        string item = "<"+Emotes.Name+":"+Emotes.ID+">";
+                        string item = "<" + Emotes.Name + ":" + Emotes.ID + ">";
                         lstEmotes.Items.Add(item);
                     }
                 }

@@ -544,7 +544,7 @@ namespace AntonBot
             string PHPInhalt;
             string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
             //Export der Startseite und Meta-Daten
-            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe nach " +Pfad+" ..."));
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe nach " + Pfad + " ..."));
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Index.html");
@@ -750,7 +750,7 @@ namespace AntonBot
                 rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
                 PHPInhalt = PHPInhalt.Replace("°LogPfadLog", SettingsGroup.Instance.StandardPfad + "Log.txt");
-                PHPInhalt = PHPInhalt.Replace("°LogPfad", SettingsGroup.Instance.StandardPfad + "KonsolenLogAusgabe.json");               
+                PHPInhalt = PHPInhalt.Replace("°LogPfad", SettingsGroup.Instance.StandardPfad + "KonsolenLogAusgabe.json");
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "BotStatus.php";
                 (new FileInfo(Pfad)).Directory.Create();
                 File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
@@ -922,7 +922,7 @@ namespace AntonBot
 
         private void nachrichtTestenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageSendTest SendTest = new MessageSendTest(Twitch,Discord);
+            MessageSendTest SendTest = new MessageSendTest(Twitch, Discord);
             SendTest.Show();
         }
     }

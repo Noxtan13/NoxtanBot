@@ -163,16 +163,6 @@ namespace AntonBot
             Close();
         }
 
-        private void chkTwitchAuto_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chkAutoTwitch_CheckedChanged(object sender, EventArgs e)
-        {
-            chkTwitchAutoMessage.Enabled = chkAutoTwitch.Checked;
-        }
-
         private void chkAutoBotBannUse_CheckedChanged(object sender, EventArgs e)
         {
             TabControllList.Enabled = chkAutoBotBannUse.Checked;

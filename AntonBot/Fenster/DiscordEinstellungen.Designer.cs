@@ -64,17 +64,31 @@ namespace AntonBot.Fenster
             this.cmbVariable = new System.Windows.Forms.ComboBox();
             this.LstEvents = new System.Windows.Forms.ListBox();
             this.tabInfos = new System.Windows.Forms.TabPage();
-            this.cmbServerAuswahl = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lstEmotes = new System.Windows.Forms.ListBox();
             this.btnEmotesCopy = new System.Windows.Forms.Button();
+            this.lstEmotes = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmbServerAuswahl = new System.Windows.Forms.ComboBox();
+            this.TabReactionRoles = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmbReactChannel = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmdReactRollServer = new System.Windows.Forms.ComboBox();
+            this.tabMessage = new System.Windows.Forms.TabControl();
+            this.tabNachricht = new System.Windows.Forms.TabPage();
+            this.tabEmotes = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmdRollMessage = new System.Windows.Forms.ComboBox();
+            this.btnReactSave = new System.Windows.Forms.Button();
+            this.btnReactAbbrechen = new System.Windows.Forms.Button();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.TabEvents.SuspendLayout();
             this.grpEvent.SuspendLayout();
             this.tabInfos.SuspendLayout();
+            this.TabReactionRoles.SuspendLayout();
+            this.tabMessage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabFenster
@@ -82,6 +96,7 @@ namespace AntonBot.Fenster
             this.tabFenster.Controls.Add(this.TabEinrichtung);
             this.tabFenster.Controls.Add(this.TabEvents);
             this.tabFenster.Controls.Add(this.tabInfos);
+            this.tabFenster.Controls.Add(this.TabReactionRoles);
             this.tabFenster.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 15.75F, System.Drawing.FontStyle.Bold);
             this.tabFenster.Location = new System.Drawing.Point(16, 15);
             this.tabFenster.Margin = new System.Windows.Forms.Padding(4);
@@ -527,32 +542,15 @@ namespace AntonBot.Fenster
             this.tabInfos.Text = "Emotes & Rollen";
             this.tabInfos.UseVisualStyleBackColor = true;
             // 
-            // cmbServerAuswahl
+            // btnEmotesCopy
             // 
-            this.cmbServerAuswahl.FormattingEnabled = true;
-            this.cmbServerAuswahl.Location = new System.Drawing.Point(120, 19);
-            this.cmbServerAuswahl.Name = "cmbServerAuswahl";
-            this.cmbServerAuswahl.Size = new System.Drawing.Size(308, 44);
-            this.cmbServerAuswahl.TabIndex = 0;
-            this.cmbServerAuswahl.SelectedIndexChanged += new System.EventHandler(this.cmbServerAuswahl_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 37);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Server:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 85);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(114, 37);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Emotes:";
+            this.btnEmotesCopy.Location = new System.Drawing.Point(20, 759);
+            this.btnEmotesCopy.Name = "btnEmotesCopy";
+            this.btnEmotesCopy.Size = new System.Drawing.Size(421, 49);
+            this.btnEmotesCopy.TabIndex = 5;
+            this.btnEmotesCopy.Text = "In Zwischenablage kopieren";
+            this.btnEmotesCopy.UseVisualStyleBackColor = true;
+            this.btnEmotesCopy.Click += new System.EventHandler(this.btnEmotesCopy_Click);
             // 
             // lstEmotes
             // 
@@ -563,15 +561,149 @@ namespace AntonBot.Fenster
             this.lstEmotes.Size = new System.Drawing.Size(421, 616);
             this.lstEmotes.TabIndex = 4;
             // 
-            // btnEmotesCopy
+            // label7
             // 
-            this.btnEmotesCopy.Location = new System.Drawing.Point(20, 759);
-            this.btnEmotesCopy.Name = "btnEmotesCopy";
-            this.btnEmotesCopy.Size = new System.Drawing.Size(421, 49);
-            this.btnEmotesCopy.TabIndex = 5;
-            this.btnEmotesCopy.Text = "In Zwischenablage kopieren";
-            this.btnEmotesCopy.UseVisualStyleBackColor = true;
-            this.btnEmotesCopy.Click += new System.EventHandler(this.btnEmotesCopy_Click);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 85);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(114, 37);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Emotes:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 37);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Server:";
+            // 
+            // cmbServerAuswahl
+            // 
+            this.cmbServerAuswahl.FormattingEnabled = true;
+            this.cmbServerAuswahl.Location = new System.Drawing.Point(120, 19);
+            this.cmbServerAuswahl.Name = "cmbServerAuswahl";
+            this.cmbServerAuswahl.Size = new System.Drawing.Size(308, 44);
+            this.cmbServerAuswahl.TabIndex = 0;
+            this.cmbServerAuswahl.SelectedIndexChanged += new System.EventHandler(this.cmbServerAuswahl_SelectedIndexChanged);
+            // 
+            // TabReactionRoles
+            // 
+            this.TabReactionRoles.Controls.Add(this.btnReactAbbrechen);
+            this.TabReactionRoles.Controls.Add(this.btnReactSave);
+            this.TabReactionRoles.Controls.Add(this.label10);
+            this.TabReactionRoles.Controls.Add(this.cmdRollMessage);
+            this.TabReactionRoles.Controls.Add(this.tabMessage);
+            this.TabReactionRoles.Controls.Add(this.label9);
+            this.TabReactionRoles.Controls.Add(this.cmbReactChannel);
+            this.TabReactionRoles.Controls.Add(this.label8);
+            this.TabReactionRoles.Controls.Add(this.cmdReactRollServer);
+            this.TabReactionRoles.Location = new System.Drawing.Point(4, 45);
+            this.TabReactionRoles.Name = "TabReactionRoles";
+            this.TabReactionRoles.Size = new System.Drawing.Size(1068, 831);
+            this.TabReactionRoles.TabIndex = 3;
+            this.TabReactionRoles.Text = "ReaktionsRollen";
+            this.TabReactionRoles.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 72);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(124, 37);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Channel:";
+            // 
+            // cmbReactChannel
+            // 
+            this.cmbReactChannel.FormattingEnabled = true;
+            this.cmbReactChannel.Location = new System.Drawing.Point(164, 72);
+            this.cmbReactChannel.Name = "cmbReactChannel";
+            this.cmbReactChannel.Size = new System.Drawing.Size(308, 44);
+            this.cmbReactChannel.TabIndex = 4;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(101, 37);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Server:";
+            // 
+            // cmdReactRollServer
+            // 
+            this.cmdReactRollServer.FormattingEnabled = true;
+            this.cmdReactRollServer.Location = new System.Drawing.Point(164, 12);
+            this.cmdReactRollServer.Name = "cmdReactRollServer";
+            this.cmdReactRollServer.Size = new System.Drawing.Size(308, 44);
+            this.cmdReactRollServer.TabIndex = 2;
+            // 
+            // tabMessage
+            // 
+            this.tabMessage.Controls.Add(this.tabNachricht);
+            this.tabMessage.Controls.Add(this.tabEmotes);
+            this.tabMessage.Location = new System.Drawing.Point(21, 210);
+            this.tabMessage.Name = "tabMessage";
+            this.tabMessage.SelectedIndex = 0;
+            this.tabMessage.Size = new System.Drawing.Size(1044, 566);
+            this.tabMessage.TabIndex = 6;
+            // 
+            // tabNachricht
+            // 
+            this.tabNachricht.Location = new System.Drawing.Point(4, 45);
+            this.tabNachricht.Name = "tabNachricht";
+            this.tabNachricht.Padding = new System.Windows.Forms.Padding(3);
+            this.tabNachricht.Size = new System.Drawing.Size(1036, 517);
+            this.tabNachricht.TabIndex = 0;
+            this.tabNachricht.Text = "Nachricht";
+            this.tabNachricht.UseVisualStyleBackColor = true;
+            // 
+            // tabEmotes
+            // 
+            this.tabEmotes.Location = new System.Drawing.Point(4, 45);
+            this.tabEmotes.Name = "tabEmotes";
+            this.tabEmotes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEmotes.Size = new System.Drawing.Size(1036, 624);
+            this.tabEmotes.TabIndex = 1;
+            this.tabEmotes.Text = "Emotes und Rollen";
+            this.tabEmotes.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 132);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(144, 37);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Nachricht:";
+            // 
+            // cmdRollMessage
+            // 
+            this.cmdRollMessage.FormattingEnabled = true;
+            this.cmdRollMessage.Location = new System.Drawing.Point(164, 132);
+            this.cmdRollMessage.Name = "cmdRollMessage";
+            this.cmdRollMessage.Size = new System.Drawing.Size(308, 44);
+            this.cmdRollMessage.TabIndex = 7;
+            // 
+            // btnReactSave
+            // 
+            this.btnReactSave.Location = new System.Drawing.Point(638, 778);
+            this.btnReactSave.Name = "btnReactSave";
+            this.btnReactSave.Size = new System.Drawing.Size(207, 46);
+            this.btnReactSave.TabIndex = 9;
+            this.btnReactSave.Text = "Speichern";
+            this.btnReactSave.UseVisualStyleBackColor = true;
+            // 
+            // btnReactAbbrechen
+            // 
+            this.btnReactAbbrechen.Location = new System.Drawing.Point(851, 778);
+            this.btnReactAbbrechen.Name = "btnReactAbbrechen";
+            this.btnReactAbbrechen.Size = new System.Drawing.Size(207, 46);
+            this.btnReactAbbrechen.TabIndex = 0;
+            this.btnReactAbbrechen.Text = "Abbrechen";
+            this.btnReactAbbrechen.UseVisualStyleBackColor = true;
             // 
             // DiscordEinstellungen
             // 
@@ -598,6 +730,9 @@ namespace AntonBot.Fenster
             this.grpEvent.PerformLayout();
             this.tabInfos.ResumeLayout(false);
             this.tabInfos.PerformLayout();
+            this.TabReactionRoles.ResumeLayout(false);
+            this.TabReactionRoles.PerformLayout();
+            this.tabMessage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -643,5 +778,17 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListBox lstEmotes;
         private System.Windows.Forms.Button btnEmotesCopy;
+        private System.Windows.Forms.TabPage TabReactionRoles;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cmbReactChannel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cmdReactRollServer;
+        private System.Windows.Forms.TabControl tabMessage;
+        private System.Windows.Forms.TabPage tabNachricht;
+        private System.Windows.Forms.TabPage tabEmotes;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cmdRollMessage;
+        private System.Windows.Forms.Button btnReactAbbrechen;
+        private System.Windows.Forms.Button btnReactSave;
     }
 }

@@ -70,17 +70,28 @@ namespace AntonBot.Fenster
             this.label6 = new System.Windows.Forms.Label();
             this.cmbServerAuswahl = new System.Windows.Forms.ComboBox();
             this.TabReactionRoles = new System.Windows.Forms.TabPage();
+            this.btnReactAbbrechen = new System.Windows.Forms.Button();
+            this.btnReactSave = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmdRollMessage = new System.Windows.Forms.ComboBox();
+            this.tabMessage = new System.Windows.Forms.TabControl();
+            this.tabNachricht = new System.Windows.Forms.TabPage();
+            this.tabEmotes = new System.Windows.Forms.TabPage();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbReactChannel = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmdReactRollServer = new System.Windows.Forms.ComboBox();
-            this.tabMessage = new System.Windows.Forms.TabControl();
-            this.tabNachricht = new System.Windows.Forms.TabPage();
-            this.tabEmotes = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.cmdRollMessage = new System.Windows.Forms.ComboBox();
-            this.btnReactSave = new System.Windows.Forms.Button();
-            this.btnReactAbbrechen = new System.Windows.Forms.Button();
+            this.btnReactionNew = new System.Windows.Forms.Button();
+            this.btnReactionDelete = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtReactionName = new System.Windows.Forms.TextBox();
+            this.txtReactTitle = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtReactFooter = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtReactMessage = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cdgFarbpicker = new System.Windows.Forms.ColorDialog();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -89,6 +100,7 @@ namespace AntonBot.Fenster
             this.tabInfos.SuspendLayout();
             this.TabReactionRoles.SuspendLayout();
             this.tabMessage.SuspendLayout();
+            this.tabNachricht.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabFenster
@@ -590,6 +602,8 @@ namespace AntonBot.Fenster
             // 
             // TabReactionRoles
             // 
+            this.TabReactionRoles.Controls.Add(this.btnReactionDelete);
+            this.TabReactionRoles.Controls.Add(this.btnReactionNew);
             this.TabReactionRoles.Controls.Add(this.btnReactAbbrechen);
             this.TabReactionRoles.Controls.Add(this.btnReactSave);
             this.TabReactionRoles.Controls.Add(this.label10);
@@ -605,6 +619,79 @@ namespace AntonBot.Fenster
             this.TabReactionRoles.TabIndex = 3;
             this.TabReactionRoles.Text = "ReaktionsRollen";
             this.TabReactionRoles.UseVisualStyleBackColor = true;
+            // 
+            // btnReactAbbrechen
+            // 
+            this.btnReactAbbrechen.Location = new System.Drawing.Point(851, 778);
+            this.btnReactAbbrechen.Name = "btnReactAbbrechen";
+            this.btnReactAbbrechen.Size = new System.Drawing.Size(207, 46);
+            this.btnReactAbbrechen.TabIndex = 0;
+            this.btnReactAbbrechen.Text = "Abbrechen";
+            this.btnReactAbbrechen.UseVisualStyleBackColor = true;
+            // 
+            // btnReactSave
+            // 
+            this.btnReactSave.Location = new System.Drawing.Point(638, 778);
+            this.btnReactSave.Name = "btnReactSave";
+            this.btnReactSave.Size = new System.Drawing.Size(207, 46);
+            this.btnReactSave.TabIndex = 9;
+            this.btnReactSave.Text = "Speichern";
+            this.btnReactSave.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 132);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(144, 37);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Nachricht:";
+            // 
+            // cmdRollMessage
+            // 
+            this.cmdRollMessage.FormattingEnabled = true;
+            this.cmdRollMessage.Location = new System.Drawing.Point(164, 132);
+            this.cmdRollMessage.Name = "cmdRollMessage";
+            this.cmdRollMessage.Size = new System.Drawing.Size(308, 44);
+            this.cmdRollMessage.TabIndex = 7;
+            // 
+            // tabMessage
+            // 
+            this.tabMessage.Controls.Add(this.tabNachricht);
+            this.tabMessage.Controls.Add(this.tabEmotes);
+            this.tabMessage.Location = new System.Drawing.Point(21, 210);
+            this.tabMessage.Name = "tabMessage";
+            this.tabMessage.SelectedIndex = 0;
+            this.tabMessage.Size = new System.Drawing.Size(1044, 566);
+            this.tabMessage.TabIndex = 6;
+            // 
+            // tabNachricht
+            // 
+            this.tabNachricht.Controls.Add(this.txtReactMessage);
+            this.tabNachricht.Controls.Add(this.label14);
+            this.tabNachricht.Controls.Add(this.txtReactFooter);
+            this.tabNachricht.Controls.Add(this.label13);
+            this.tabNachricht.Controls.Add(this.txtReactTitle);
+            this.tabNachricht.Controls.Add(this.label12);
+            this.tabNachricht.Controls.Add(this.txtReactionName);
+            this.tabNachricht.Controls.Add(this.label11);
+            this.tabNachricht.Location = new System.Drawing.Point(4, 45);
+            this.tabNachricht.Name = "tabNachricht";
+            this.tabNachricht.Padding = new System.Windows.Forms.Padding(3);
+            this.tabNachricht.Size = new System.Drawing.Size(1036, 517);
+            this.tabNachricht.TabIndex = 0;
+            this.tabNachricht.Text = "Nachricht";
+            this.tabNachricht.UseVisualStyleBackColor = true;
+            // 
+            // tabEmotes
+            // 
+            this.tabEmotes.Location = new System.Drawing.Point(4, 45);
+            this.tabEmotes.Name = "tabEmotes";
+            this.tabEmotes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEmotes.Size = new System.Drawing.Size(1036, 517);
+            this.tabEmotes.TabIndex = 1;
+            this.tabEmotes.Text = "Emotes und Rollen";
+            this.tabEmotes.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -640,70 +727,92 @@ namespace AntonBot.Fenster
             this.cmdReactRollServer.Size = new System.Drawing.Size(308, 44);
             this.cmdReactRollServer.TabIndex = 2;
             // 
-            // tabMessage
+            // btnReactionNew
             // 
-            this.tabMessage.Controls.Add(this.tabNachricht);
-            this.tabMessage.Controls.Add(this.tabEmotes);
-            this.tabMessage.Location = new System.Drawing.Point(21, 210);
-            this.tabMessage.Name = "tabMessage";
-            this.tabMessage.SelectedIndex = 0;
-            this.tabMessage.Size = new System.Drawing.Size(1044, 566);
-            this.tabMessage.TabIndex = 6;
+            this.btnReactionNew.Location = new System.Drawing.Point(500, 132);
+            this.btnReactionNew.Name = "btnReactionNew";
+            this.btnReactionNew.Size = new System.Drawing.Size(177, 44);
+            this.btnReactionNew.TabIndex = 10;
+            this.btnReactionNew.Text = "Neu";
+            this.btnReactionNew.UseVisualStyleBackColor = true;
             // 
-            // tabNachricht
+            // btnReactionDelete
             // 
-            this.tabNachricht.Location = new System.Drawing.Point(4, 45);
-            this.tabNachricht.Name = "tabNachricht";
-            this.tabNachricht.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNachricht.Size = new System.Drawing.Size(1036, 517);
-            this.tabNachricht.TabIndex = 0;
-            this.tabNachricht.Text = "Nachricht";
-            this.tabNachricht.UseVisualStyleBackColor = true;
+            this.btnReactionDelete.Location = new System.Drawing.Point(683, 132);
+            this.btnReactionDelete.Name = "btnReactionDelete";
+            this.btnReactionDelete.Size = new System.Drawing.Size(177, 44);
+            this.btnReactionDelete.TabIndex = 11;
+            this.btnReactionDelete.Text = "Löschen";
+            this.btnReactionDelete.UseVisualStyleBackColor = true;
             // 
-            // tabEmotes
+            // label11
             // 
-            this.tabEmotes.Location = new System.Drawing.Point(4, 45);
-            this.tabEmotes.Name = "tabEmotes";
-            this.tabEmotes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEmotes.Size = new System.Drawing.Size(1036, 624);
-            this.tabEmotes.TabIndex = 1;
-            this.tabEmotes.Text = "Emotes und Rollen";
-            this.tabEmotes.UseVisualStyleBackColor = true;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(16, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(97, 37);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Name:";
             // 
-            // label10
+            // txtReactionName
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 132);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(144, 37);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Nachricht:";
+            this.txtReactionName.Location = new System.Drawing.Point(119, 12);
+            this.txtReactionName.Name = "txtReactionName";
+            this.txtReactionName.Size = new System.Drawing.Size(299, 42);
+            this.txtReactionName.TabIndex = 1;
             // 
-            // cmdRollMessage
+            // txtReactTitle
             // 
-            this.cmdRollMessage.FormattingEnabled = true;
-            this.cmdRollMessage.Location = new System.Drawing.Point(164, 132);
-            this.cmdRollMessage.Name = "cmdRollMessage";
-            this.cmdRollMessage.Size = new System.Drawing.Size(308, 44);
-            this.cmdRollMessage.TabIndex = 7;
+            this.txtReactTitle.Location = new System.Drawing.Point(119, 69);
+            this.txtReactTitle.Name = "txtReactTitle";
+            this.txtReactTitle.Size = new System.Drawing.Size(299, 42);
+            this.txtReactTitle.TabIndex = 3;
             // 
-            // btnReactSave
+            // label12
             // 
-            this.btnReactSave.Location = new System.Drawing.Point(638, 778);
-            this.btnReactSave.Name = "btnReactSave";
-            this.btnReactSave.Size = new System.Drawing.Size(207, 46);
-            this.btnReactSave.TabIndex = 9;
-            this.btnReactSave.Text = "Speichern";
-            this.btnReactSave.UseVisualStyleBackColor = true;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(16, 69);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(77, 37);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Title:";
             // 
-            // btnReactAbbrechen
+            // txtReactFooter
             // 
-            this.btnReactAbbrechen.Location = new System.Drawing.Point(851, 778);
-            this.btnReactAbbrechen.Name = "btnReactAbbrechen";
-            this.btnReactAbbrechen.Size = new System.Drawing.Size(207, 46);
-            this.btnReactAbbrechen.TabIndex = 0;
-            this.btnReactAbbrechen.Text = "Abbrechen";
-            this.btnReactAbbrechen.UseVisualStyleBackColor = true;
+            this.txtReactFooter.Location = new System.Drawing.Point(119, 127);
+            this.txtReactFooter.Name = "txtReactFooter";
+            this.txtReactFooter.Size = new System.Drawing.Size(299, 42);
+            this.txtReactFooter.TabIndex = 5;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 127);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(103, 37);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Footer:";
+            // 
+            // txtReactMessage
+            // 
+            this.txtReactMessage.Location = new System.Drawing.Point(23, 227);
+            this.txtReactMessage.Multiline = true;
+            this.txtReactMessage.Name = "txtReactMessage";
+            this.txtReactMessage.Size = new System.Drawing.Size(1007, 284);
+            this.txtReactMessage.TabIndex = 7;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(16, 187);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(144, 37);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Nachricht:";
+            // 
+            // cdgFarbpicker
+            // 
+            this.cdgFarbpicker.AnyColor = true;
             // 
             // DiscordEinstellungen
             // 
@@ -733,6 +842,8 @@ namespace AntonBot.Fenster
             this.TabReactionRoles.ResumeLayout(false);
             this.TabReactionRoles.PerformLayout();
             this.tabMessage.ResumeLayout(false);
+            this.tabNachricht.ResumeLayout(false);
+            this.tabNachricht.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -790,5 +901,16 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.ComboBox cmdRollMessage;
         private System.Windows.Forms.Button btnReactAbbrechen;
         private System.Windows.Forms.Button btnReactSave;
+        private System.Windows.Forms.Button btnReactionDelete;
+        private System.Windows.Forms.Button btnReactionNew;
+        private System.Windows.Forms.TextBox txtReactMessage;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtReactFooter;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtReactTitle;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtReactionName;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ColorDialog cdgFarbpicker;
     }
 }

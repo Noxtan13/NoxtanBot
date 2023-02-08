@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AntonBot.PlatformAPI;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using AntonBot.PlatformAPI;
+using System.Windows.Forms;
 
 namespace AntonBot.Fenster
 {
@@ -31,7 +31,8 @@ namespace AntonBot.Fenster
                 rdbDiscord.Enabled = false;
                 rdbTwitch.Checked = true;
             }
-            if (!rdbDiscord.Enabled && !rdbTwitch.Enabled) {
+            if (!rdbDiscord.Enabled && !rdbTwitch.Enabled)
+            {
                 cbbKanal.Enabled = false;
                 txtMessage.Enabled = false;
                 btnSenden.Enabled = false;
@@ -48,14 +49,15 @@ namespace AntonBot.Fenster
             Change();
         }
 
-        private void Change() {
+        private void Change()
+        {
             cbbKanal.Items.Clear();
             cbbKanal.Text = "";
             if (rdbTwitch.Checked && Twitch.getActive())
             {
                 cbbKanal.Items.Add(Twitch.getStandardChannel());
             }
-            else if (rdbDiscord.Checked&& Discord.getActive())
+            else if (rdbDiscord.Checked && Discord.getActive())
             {
                 String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "DiscordServer.json";
 
@@ -104,7 +106,8 @@ namespace AntonBot.Fenster
             }
 
 
-            if (Validierung) {
+            if (Validierung)
+            {
                 if (rdbTwitch.Checked)
                 {
                     Twitch.SendMessage(txtMessage.Text, cbbKanal.Text);
@@ -132,7 +135,8 @@ namespace AntonBot.Fenster
                         }
                     }
 
-                    if (ChannelID != 0) {
+                    if (ChannelID != 0)
+                    {
                         Discord.SendMessage(ChannelID, txtMessage.Text);
                     }
                     else

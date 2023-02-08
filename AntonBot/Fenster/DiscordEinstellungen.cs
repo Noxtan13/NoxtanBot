@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
 
 namespace AntonBot.Fenster
@@ -67,7 +66,7 @@ namespace AntonBot.Fenster
             LstEvents.SelectedIndex = 0;
 
             cmbServerAuswahl.Items.Clear();
-            foreach(var Server in DiscordListe)
+            foreach (var Server in DiscordListe)
             {
                 cmbServerAuswahl.Items.Add(Server.Name);
             }
@@ -132,7 +131,7 @@ namespace AntonBot.Fenster
         }
         private void SummeBerechnen()
         {
-            long NeueSumme= 0x0000000000;
+            long NeueSumme = 0x0000000000;
             if (chkAdmin.Checked)
             {
                 NeueSumme = 0x0000000008;
@@ -145,46 +144,46 @@ namespace AntonBot.Fenster
                     switch (item.ToString())
                     {
                         case "Administrator":
-                            NeueSumme = NeueSumme + 0x0000000008;
+                            NeueSumme += 0x0000000008;
                             break;
                         case "View Audit Log":
-                            NeueSumme = NeueSumme + 0x0000000080;
+                            NeueSumme += 0x0000000080;
                             break;
                         case "View Server Insights":
-                            NeueSumme = NeueSumme + 0x0000080000;
+                            NeueSumme += 0x0000080000;
                             break;
                         case "Manage Server":
-                            NeueSumme = NeueSumme + 0x0000000020;
+                            NeueSumme += 0x0000000020;
                             break;
                         case "Manage Roles":
-                            NeueSumme = NeueSumme + 0x0010000000;
+                            NeueSumme += 0x0010000000;
                             break;
                         case "Manage Channels":
-                            NeueSumme = NeueSumme + 0x0000000010;
+                            NeueSumme += 0x0000000010;
                             break;
                         case "Kick Members":
-                            NeueSumme = NeueSumme + 0x0000000002;
+                            NeueSumme += 0x0000000002;
                             break;
                         case "Ban Members":
-                            NeueSumme = NeueSumme + 0x0000000004;
+                            NeueSumme += 0x0000000004;
                             break;
                         case "Create Instant Invite":
-                            NeueSumme = NeueSumme + 0x0000000001;
+                            NeueSumme += 0x0000000001;
                             break;
                         case "Change Nickname":
-                            NeueSumme = NeueSumme + 0x0004000000;
+                            NeueSumme += 0x0004000000;
                             break;
                         case "Manage Nicknames":
-                            NeueSumme = NeueSumme + 0x0008000000;
+                            NeueSumme += 0x0008000000;
                             break;
                         case "Manage Emojis":
-                            NeueSumme = NeueSumme + 0x0040000000;
+                            NeueSumme += 0x0040000000;
                             break;
                         case "Manage Webhooks":
-                            NeueSumme = NeueSumme + 0x0020000000;
+                            NeueSumme += 0x0020000000;
                             break;
                         case "View Channels":
-                            NeueSumme = NeueSumme + 0x0000000400;
+                            NeueSumme += 0x0000000400;
                             break;
                     }
                 }
@@ -193,34 +192,34 @@ namespace AntonBot.Fenster
                     switch (item.ToString())
                     {
                         case "Send Messages":
-                            NeueSumme = NeueSumme + 0x0000000800;
+                            NeueSumme += 0x0000000800;
                             break;
                         case "Send TTS Messages":
-                            NeueSumme = NeueSumme + 0x0000001000;
+                            NeueSumme += 0x0000001000;
                             break;
                         case "Manage Messages":
-                            NeueSumme = NeueSumme + 0x0000002000;
+                            NeueSumme += 0x0000002000;
                             break;
                         case "Embed Links":
-                            NeueSumme = NeueSumme + 0x0000004000;
+                            NeueSumme += 0x0000004000;
                             break;
                         case "Attach Files":
-                            NeueSumme = NeueSumme + 0x0000008000;
+                            NeueSumme += 0x0000008000;
                             break;
                         case "Read Message History":
-                            NeueSumme = NeueSumme + 0x0000010000;
+                            NeueSumme += 0x0000010000;
                             break;
                         case "Mention Everyone":
-                            NeueSumme = NeueSumme + 0x0000020000;
+                            NeueSumme += 0x0000020000;
                             break;
                         case "Use External Emojis":
-                            NeueSumme = NeueSumme + 0x0000040000;
+                            NeueSumme += 0x0000040000;
                             break;
                         case "Add Reactions":
-                            NeueSumme = NeueSumme + 0x0000000040;
+                            NeueSumme += 0x0000000040;
                             break;
                         case "Use Slash Commands":
-                            NeueSumme = NeueSumme + 0x0080000000;
+                            NeueSumme += 0x0080000000;
                             break;
                     }
                 }
@@ -229,28 +228,28 @@ namespace AntonBot.Fenster
                     switch (item.ToString())
                     {
                         case "Connect":
-                            NeueSumme = NeueSumme + 0x0000100000;
+                            NeueSumme += 0x0000100000;
                             break;
                         case "Speak":
-                            NeueSumme = NeueSumme + 0x0000200000;
+                            NeueSumme += 0x0000200000;
                             break;
                         case "Video":
-                            NeueSumme = NeueSumme + 0x0000000200;
+                            NeueSumme += 0x0000000200;
                             break;
                         case "Mute Members":
-                            NeueSumme = NeueSumme + 0x0000400000;
+                            NeueSumme += 0x0000400000;
                             break;
                         case "Deafen Members":
-                            NeueSumme = NeueSumme + 0x0010000000;
+                            NeueSumme += 0x0010000000;
                             break;
                         case "Move Members":
-                            NeueSumme = NeueSumme + 0x0000800000;
+                            NeueSumme += 0x0000800000;
                             break;
                         case "Use Voice Activity":
-                            NeueSumme = NeueSumme + 0x0002000000;
+                            NeueSumme += 0x0002000000;
                             break;
                         case "Priority Speaker":
-                            NeueSumme = NeueSumme + 0x0000000100;
+                            NeueSumme += 0x0000000100;
                             break;
                     }
                 }
@@ -627,13 +626,13 @@ namespace AntonBot.Fenster
         private void cmbServerAuswahl_SelectedIndexChanged(object sender, EventArgs e)
         {
             lstEmotes.Items.Clear();
-            foreach(var Server in DiscordListe)
+            foreach (var Server in DiscordListe)
             {
                 if (cmbServerAuswahl.SelectedItem.Equals(Server.Name))
                 {
                     foreach (var Emotes in Server.Emotes)
                     {
-                        string item = "<"+Emotes.Name+":"+Emotes.ID+">";
+                        string item = "<" + Emotes.Name + ":" + Emotes.ID + ">";
                         lstEmotes.Items.Add(item);
                     }
                 }

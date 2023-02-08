@@ -441,9 +441,9 @@ A token cannot be null, empty, or contain only whitespace.
 
         public void LoadAllEmotes()
         {
-            foreach(var Server in client.Guilds)
+            foreach (var Server in client.Guilds)
             {
-                
+
             }
         }
     }

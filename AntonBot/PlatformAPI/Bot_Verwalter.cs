@@ -45,7 +45,7 @@ namespace AntonBot
 
                 InhaltJSON = File.ReadAllText(Path);
 
-                
+
                 switch (BefehlArt)
                 {
                     case 1:
@@ -220,7 +220,7 @@ namespace AntonBot
                         Message = Message.Replace("°Name", User);
                         Message = Message.Replace("°KommandosBefehlsKette", Befehlskette(AllCommands));
 
-                       
+
                         BefehlListe[index].IncrementAnzahl(); //Da die Änderung im item in einer foreach-Schleife nicht gespeichert wird, wird die Anzahl über den Index direkt erhöht
                         Message = Message.Replace("°Zähler", item.Anzahl.ToString());
 
@@ -411,7 +411,8 @@ namespace AntonBot
                         Ausgabe = Ausgabe.Replace("°Name", User);
                         Nachricht = Ausgabe;
                     }
-                    else if (item.OpenClose&&BefehlTeil2.Equals(item.BefehlTrennungszeichen+item.OpenCommand)) {
+                    else if (item.OpenClose && BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.OpenCommand))
+                    {
                         //Kommandos um die Liste zu öffnen
                         if (item.OpenCloseAdmin && Adminkennzeichen)
                         {
@@ -419,12 +420,13 @@ namespace AntonBot
                             item.Status = true;
                             Nachricht = item.OpenText;
                         }
-                        else if (item.OpenCloseAdmin == false) {
+                        else if (item.OpenCloseAdmin == false)
+                        {
                             //Wenn keiner erwartet wird
                             item.Status = true;
                             Nachricht = item.OpenText;
                         }
-                        
+
                     }
                     else if (item.OpenClose && BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CloseCommand))
                     {
@@ -434,15 +436,17 @@ namespace AntonBot
                             item.Status = false;
                             Nachricht = item.CloseText;
                         }
-                        else if (item.OpenCloseAdmin == false) {
+                        else if (item.OpenCloseAdmin == false)
+                        {
                             item.Status = false;
                             Nachricht = item.CloseText;
                         }
-                        
+
                     }
                     else
                     {
-                        if (!item.OpenClose) {
+                        if (!item.OpenClose)
+                        {
                             //Status wird immer auf True gesetzt, wenn OpenClose nicht verwendet wird
                             //Damit kann die Liste nicht deaktiviert sein
                             item.Status = true;
@@ -644,7 +648,7 @@ namespace AntonBot
                 }
             }
         }
-       
+
         public Boolean getActive()
         {
             return Active;

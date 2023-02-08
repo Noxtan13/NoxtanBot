@@ -2328,7 +2328,7 @@ namespace AntonBot
         private void CheckAutoBannBot(string Name)
         {
 
-            if (SettingsGroup.Instance.STwitchAutoBotBann && SettingsGroup.Instance.STwitchAutoBotAmount != 0 && SettingsGroup.Instance.STwitchAutoBotDuration!=0)
+            if (SettingsGroup.Instance.STwitchAutoBotBann && SettingsGroup.Instance.STwitchAutoBotAmount != 0 && SettingsGroup.Instance.STwitchAutoBotDuration != 0)
             {
                 bool gefunden = false;
                 //Daten des Benutzers suchen
@@ -2668,7 +2668,7 @@ namespace AntonBot
                                 Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                                 Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
 
-                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),item.AbschlussEXP);
+                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(), item.AbschlussEXP);
                             }
                         }
                     }
@@ -2697,7 +2697,7 @@ namespace AntonBot
                                 Nachricht = Nachricht.Replace("°Level", CurrentGame.Level.ToString());
                                 Nachricht = Nachricht.Replace("°Anzahl", item.AnzahlAbschluss.ToString());
 
-                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),item.AbschlussEXP);
+                                Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(), item.AbschlussEXP);
                             }
                         }
                     }
@@ -3015,7 +3015,7 @@ namespace AntonBot
                         CurrentGame = item;
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),0);
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(), 0);
                     }
                     else if (item.Game.Equals(GameName))
                     {
@@ -3027,13 +3027,14 @@ namespace AntonBot
 
                         Ausgabe = new SkillAusgabe();
                         Ausgabe.SetAltWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel());
-                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(),0);
+                        Ausgabe.SetNeuWerte(CurrentGame.EXP, CurrentGame.EXPNextLevel, CurrentGame.Level, CurrentGame.getEXPlastLevel(), getCurrentQuest(), 0);
                     }
                 }
             }
             SaveQuest();
         }
-        public String getStandardChannel() {
+        public String getStandardChannel()
+        {
             return sStandardChannel;
         }
 

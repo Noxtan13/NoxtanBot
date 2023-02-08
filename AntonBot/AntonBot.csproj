@@ -350,7 +350,6 @@
       <DependentUpon>StartFenster.cs</DependentUpon>
     </Compile>
     <Compile Include="PlatformAPI\ListenTypen\Zeit_Befehl.cs" />
-    <Compile Include="PlatformAPI\Zertifikat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Fenster\AllgEinstellungen.resx">

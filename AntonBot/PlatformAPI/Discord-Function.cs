@@ -1,10 +1,12 @@
 ﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.ListenTypen;
 using Discord;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -24,6 +26,8 @@ namespace AntonBot
         private DateTime dtLetzerAusfall;
         private TimeSpan dtAusfallDauer;
         private bool bAusfall = false;
+
+        private List<OwnEmote> Emotelist;
         public async Task RunBotAsync()
         {
             //Fehlermeldung bei leeren Token 
@@ -441,9 +445,29 @@ A token cannot be null, empty, or contain only whitespace.
 
         public void LoadAllEmotes()
         {
-            foreach (var Server in client.Guilds)
+            if (Active)
             {
+                Emotelist = new List<OwnEmote>();
+                if (client.Guilds.Count > 0)
+                {
+                    foreach (var Server in client.Guilds)
+                    {
+                        if (Server.Emotes.Count > 0)
+                        {
+                            foreach (var Emote in Server.Emotes)
+                            {
+                                OwnEmote Eintrag = new OwnEmote();
+                                Eintrag.ServerID = Server.Id;
+                                Eintrag.ServerName = Server.Name;
+                                Eintrag.ID = Emote.Id;
+                                Eintrag.Name = Emote.Name;
+                                Eintrag.URL = Emote.Url;
 
+                                Emotelist.Add(Eintrag);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

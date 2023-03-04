@@ -327,6 +327,7 @@
     <Compile Include="PlatformAPI\ListenTypen\BitElement.cs" />
     <Compile Include="PlatformAPI\Bot_Verwalter.cs" />
     <Compile Include="PlatformAPI\ListenTypen\DiscordGilde.cs" />
+    <Compile Include="PlatformAPI\ListenTypen\OwnEmote.cs" />
     <Compile Include="PlatformAPI\ListenTypen\GameSkill.cs" />
     <Compile Include="PlatformAPI\ListenTypen\JoinedUsers.cs" />
     <Compile Include="PlatformAPI\ListenTypen\KonsolenAusgabe.cs" />

@@ -70,6 +70,8 @@ namespace AntonBot.Fenster
             {
                 cmbServerAuswahl.Items.Add(Server.Name);
             }
+
+            DiscordClient.LoadAllEmotes();
         }
 
         private void DiscordEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -645,6 +647,21 @@ namespace AntonBot.Fenster
             {
                 Clipboard.SetText(lstEmotes.SelectedItem.ToString());
             }
+        }
+
+        private void btnEmoteRoleAdd_Click(object sender, EventArgs e)
+        {
+            //get a reference to the previous existent 
+            //increase panel rows count by one
+            EmoteRoleTable.RowCount++;
+            //add a new RowStyle as a copy of the previous one
+            EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            //add your three controls
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Bild", AutoSize=true, Anchor=AnchorStyles.Left }, 0, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "NAME", AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Ein ewig lange rolle", AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left }, 3, EmoteRoleTable.RowCount - 1);
+
         }
     }
 }

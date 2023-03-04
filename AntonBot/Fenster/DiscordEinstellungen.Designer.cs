@@ -70,28 +70,37 @@ namespace AntonBot.Fenster
             this.label6 = new System.Windows.Forms.Label();
             this.cmbServerAuswahl = new System.Windows.Forms.ComboBox();
             this.TabReactionRoles = new System.Windows.Forms.TabPage();
+            this.btnReactionDelete = new System.Windows.Forms.Button();
+            this.btnReactionNew = new System.Windows.Forms.Button();
             this.btnReactAbbrechen = new System.Windows.Forms.Button();
             this.btnReactSave = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdRollMessage = new System.Windows.Forms.ComboBox();
             this.tabMessage = new System.Windows.Forms.TabControl();
             this.tabNachricht = new System.Windows.Forms.TabPage();
+            this.txtReactMessage = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtReactFooter = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtReactTitle = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtReactionName = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabEmotes = new System.Windows.Forms.TabPage();
+            this.EmoteRoleTable = new System.Windows.Forms.TableLayoutPanel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbReactChannel = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmdReactRollServer = new System.Windows.Forms.ComboBox();
-            this.btnReactionNew = new System.Windows.Forms.Button();
-            this.btnReactionDelete = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtReactionName = new System.Windows.Forms.TextBox();
-            this.txtReactTitle = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtReactFooter = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtReactMessage = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.cdgFarbpicker = new System.Windows.Forms.ColorDialog();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.btnEmoteRoleAdd = new System.Windows.Forms.Button();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,6 +110,8 @@ namespace AntonBot.Fenster
             this.TabReactionRoles.SuspendLayout();
             this.tabMessage.SuspendLayout();
             this.tabNachricht.SuspendLayout();
+            this.tabEmotes.SuspendLayout();
+            this.EmoteRoleTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabFenster
@@ -602,6 +613,7 @@ namespace AntonBot.Fenster
             // 
             // TabReactionRoles
             // 
+            this.TabReactionRoles.AutoScroll = true;
             this.TabReactionRoles.Controls.Add(this.btnReactionDelete);
             this.TabReactionRoles.Controls.Add(this.btnReactionNew);
             this.TabReactionRoles.Controls.Add(this.btnReactAbbrechen);
@@ -619,6 +631,24 @@ namespace AntonBot.Fenster
             this.TabReactionRoles.TabIndex = 3;
             this.TabReactionRoles.Text = "ReaktionsRollen";
             this.TabReactionRoles.UseVisualStyleBackColor = true;
+            // 
+            // btnReactionDelete
+            // 
+            this.btnReactionDelete.Location = new System.Drawing.Point(683, 132);
+            this.btnReactionDelete.Name = "btnReactionDelete";
+            this.btnReactionDelete.Size = new System.Drawing.Size(177, 44);
+            this.btnReactionDelete.TabIndex = 11;
+            this.btnReactionDelete.Text = "Löschen";
+            this.btnReactionDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnReactionNew
+            // 
+            this.btnReactionNew.Location = new System.Drawing.Point(500, 132);
+            this.btnReactionNew.Name = "btnReactionNew";
+            this.btnReactionNew.Size = new System.Drawing.Size(177, 44);
+            this.btnReactionNew.TabIndex = 10;
+            this.btnReactionNew.Text = "Neu";
+            this.btnReactionNew.UseVisualStyleBackColor = true;
             // 
             // btnReactAbbrechen
             // 
@@ -683,8 +713,79 @@ namespace AntonBot.Fenster
             this.tabNachricht.Text = "Nachricht";
             this.tabNachricht.UseVisualStyleBackColor = true;
             // 
+            // txtReactMessage
+            // 
+            this.txtReactMessage.Location = new System.Drawing.Point(23, 227);
+            this.txtReactMessage.Multiline = true;
+            this.txtReactMessage.Name = "txtReactMessage";
+            this.txtReactMessage.Size = new System.Drawing.Size(1007, 284);
+            this.txtReactMessage.TabIndex = 7;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(16, 187);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(144, 37);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Nachricht:";
+            // 
+            // txtReactFooter
+            // 
+            this.txtReactFooter.Location = new System.Drawing.Point(119, 127);
+            this.txtReactFooter.Name = "txtReactFooter";
+            this.txtReactFooter.Size = new System.Drawing.Size(299, 42);
+            this.txtReactFooter.TabIndex = 5;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 127);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(103, 37);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Footer:";
+            // 
+            // txtReactTitle
+            // 
+            this.txtReactTitle.Location = new System.Drawing.Point(119, 69);
+            this.txtReactTitle.Name = "txtReactTitle";
+            this.txtReactTitle.Size = new System.Drawing.Size(299, 42);
+            this.txtReactTitle.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(16, 69);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(77, 37);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Title:";
+            // 
+            // txtReactionName
+            // 
+            this.txtReactionName.Location = new System.Drawing.Point(119, 12);
+            this.txtReactionName.Name = "txtReactionName";
+            this.txtReactionName.Size = new System.Drawing.Size(299, 42);
+            this.txtReactionName.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(16, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(97, 37);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Name:";
+            // 
             // tabEmotes
             // 
+            this.tabEmotes.Controls.Add(this.btnEmoteRoleAdd);
+            this.tabEmotes.Controls.Add(this.comboBox2);
+            this.tabEmotes.Controls.Add(this.label19);
+            this.tabEmotes.Controls.Add(this.comboBox1);
+            this.tabEmotes.Controls.Add(this.label18);
+            this.tabEmotes.Controls.Add(this.EmoteRoleTable);
             this.tabEmotes.Location = new System.Drawing.Point(4, 45);
             this.tabEmotes.Name = "tabEmotes";
             this.tabEmotes.Padding = new System.Windows.Forms.Padding(3);
@@ -692,6 +793,60 @@ namespace AntonBot.Fenster
             this.tabEmotes.TabIndex = 1;
             this.tabEmotes.Text = "Emotes und Rollen";
             this.tabEmotes.UseVisualStyleBackColor = true;
+            // 
+            // EmoteRoleTable
+            // 
+            this.EmoteRoleTable.AutoScroll = true;
+            this.EmoteRoleTable.AutoSize = true;
+            this.EmoteRoleTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.EmoteRoleTable.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
+            this.EmoteRoleTable.ColumnCount = 4;
+            this.EmoteRoleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.EmoteRoleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.EmoteRoleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EmoteRoleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.EmoteRoleTable.Controls.Add(this.label17, 1, 0);
+            this.EmoteRoleTable.Controls.Add(this.label16, 2, 0);
+            this.EmoteRoleTable.Controls.Add(this.label15, 0, 0);
+            this.EmoteRoleTable.Location = new System.Drawing.Point(6, 6);
+            this.EmoteRoleTable.MaximumSize = new System.Drawing.Size(750, 505);
+            this.EmoteRoleTable.MinimumSize = new System.Drawing.Size(750, 0);
+            this.EmoteRoleTable.Name = "EmoteRoleTable";
+            this.EmoteRoleTable.RowCount = 1;
+            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.EmoteRoleTable.Size = new System.Drawing.Size(750, 54);
+            this.EmoteRoleTable.TabIndex = 0;
+            // 
+            // label17
+            // 
+            this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(107, 8);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(163, 37);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "Emotename";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label15.Location = new System.Drawing.Point(9, 15);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(59, 23);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Emote";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(448, 8);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 37);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Rolle";
             // 
             // label9
             // 
@@ -727,92 +882,53 @@ namespace AntonBot.Fenster
             this.cmdReactRollServer.Size = new System.Drawing.Size(308, 44);
             this.cmdReactRollServer.TabIndex = 2;
             // 
-            // btnReactionNew
-            // 
-            this.btnReactionNew.Location = new System.Drawing.Point(500, 132);
-            this.btnReactionNew.Name = "btnReactionNew";
-            this.btnReactionNew.Size = new System.Drawing.Size(177, 44);
-            this.btnReactionNew.TabIndex = 10;
-            this.btnReactionNew.Text = "Neu";
-            this.btnReactionNew.UseVisualStyleBackColor = true;
-            // 
-            // btnReactionDelete
-            // 
-            this.btnReactionDelete.Location = new System.Drawing.Point(683, 132);
-            this.btnReactionDelete.Name = "btnReactionDelete";
-            this.btnReactionDelete.Size = new System.Drawing.Size(177, 44);
-            this.btnReactionDelete.TabIndex = 11;
-            this.btnReactionDelete.Text = "Löschen";
-            this.btnReactionDelete.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 12);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(97, 37);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Name:";
-            // 
-            // txtReactionName
-            // 
-            this.txtReactionName.Location = new System.Drawing.Point(119, 12);
-            this.txtReactionName.Name = "txtReactionName";
-            this.txtReactionName.Size = new System.Drawing.Size(299, 42);
-            this.txtReactionName.TabIndex = 1;
-            // 
-            // txtReactTitle
-            // 
-            this.txtReactTitle.Location = new System.Drawing.Point(119, 69);
-            this.txtReactTitle.Name = "txtReactTitle";
-            this.txtReactTitle.Size = new System.Drawing.Size(299, 42);
-            this.txtReactTitle.TabIndex = 3;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(16, 69);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(77, 37);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Title:";
-            // 
-            // txtReactFooter
-            // 
-            this.txtReactFooter.Location = new System.Drawing.Point(119, 127);
-            this.txtReactFooter.Name = "txtReactFooter";
-            this.txtReactFooter.Size = new System.Drawing.Size(299, 42);
-            this.txtReactFooter.TabIndex = 5;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 127);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(103, 37);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Footer:";
-            // 
-            // txtReactMessage
-            // 
-            this.txtReactMessage.Location = new System.Drawing.Point(23, 227);
-            this.txtReactMessage.Multiline = true;
-            this.txtReactMessage.Name = "txtReactMessage";
-            this.txtReactMessage.Size = new System.Drawing.Size(1007, 284);
-            this.txtReactMessage.TabIndex = 7;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(16, 187);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(144, 37);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "Nachricht:";
-            // 
             // cdgFarbpicker
             // 
             this.cdgFarbpicker.AnyColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(761, 79);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(95, 37);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Emote";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(768, 119);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(262, 44);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(761, 182);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(78, 37);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "Rolle";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(768, 222);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(262, 44);
+            this.comboBox2.TabIndex = 4;
+            // 
+            // btnEmoteRoleAdd
+            // 
+            this.btnEmoteRoleAdd.Location = new System.Drawing.Point(768, 303);
+            this.btnEmoteRoleAdd.Name = "btnEmoteRoleAdd";
+            this.btnEmoteRoleAdd.Size = new System.Drawing.Size(262, 44);
+            this.btnEmoteRoleAdd.TabIndex = 5;
+            this.btnEmoteRoleAdd.Text = "Hinzufügen";
+            this.btnEmoteRoleAdd.UseVisualStyleBackColor = true;
+            this.btnEmoteRoleAdd.Click += new System.EventHandler(this.btnEmoteRoleAdd_Click);
             // 
             // DiscordEinstellungen
             // 
@@ -844,6 +960,10 @@ namespace AntonBot.Fenster
             this.tabMessage.ResumeLayout(false);
             this.tabNachricht.ResumeLayout(false);
             this.tabNachricht.PerformLayout();
+            this.tabEmotes.ResumeLayout(false);
+            this.tabEmotes.PerformLayout();
+            this.EmoteRoleTable.ResumeLayout(false);
+            this.EmoteRoleTable.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -912,5 +1032,14 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.TextBox txtReactionName;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ColorDialog cdgFarbpicker;
+        private System.Windows.Forms.TableLayoutPanel EmoteRoleTable;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btnEmoteRoleAdd;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label18;
     }
 }

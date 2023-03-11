@@ -27,7 +27,7 @@ namespace AntonBot
         private TimeSpan dtAusfallDauer;
         private bool bAusfall = false;
 
-        private List<OwnEmote> Emotelist;
+        public List<OwnEmote> Emotelist;
         public async Task RunBotAsync()
         {
             //Fehlermeldung bei leeren Token 
@@ -470,5 +470,6 @@ A token cannot be null, empty, or contain only whitespace.
                 }
             }
         }
+
     }
 }

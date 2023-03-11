@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI.ListenTypen
 {
-    class OwnEmote
+    public class OwnEmote
     {
         public String ServerName { get; set; }
         public ulong ServerID { get; set; }

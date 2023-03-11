@@ -657,7 +657,7 @@ namespace AntonBot.Fenster
             //add a new RowStyle as a copy of the previous one
             EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
             //add your three controls
-            EmoteRoleTable.Controls.Add(new Label() { Text = "Bild", AutoSize=true, Anchor=AnchorStyles.Left }, 0, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new PictureBox() {Image=DiscordClient.Emotelist[0].getEmoteBitmap(), AutoSize = true, Anchor = AnchorStyles.Left }, 0, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = "NAME", AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = "Ein ewig lange rolle", AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left }, 3, EmoteRoleTable.RowCount - 1);

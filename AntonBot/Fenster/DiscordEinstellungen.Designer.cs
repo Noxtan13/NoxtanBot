@@ -88,9 +88,9 @@ namespace AntonBot.Fenster
             this.label11 = new System.Windows.Forms.Label();
             this.tabEmotes = new System.Windows.Forms.TabPage();
             this.btnEmoteRoleAdd = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbRoleSelect = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbEmoteSelect = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.EmoteRoleTable = new System.Windows.Forms.TableLayoutPanel();
             this.label17 = new System.Windows.Forms.Label();
@@ -640,6 +640,7 @@ namespace AntonBot.Fenster
             this.btnReactionDelete.TabIndex = 11;
             this.btnReactionDelete.Text = "Löschen";
             this.btnReactionDelete.UseVisualStyleBackColor = true;
+            this.btnReactionDelete.Click += new System.EventHandler(this.btnReactionDelete_Click);
             // 
             // btnReactionNew
             // 
@@ -684,6 +685,7 @@ namespace AntonBot.Fenster
             this.cmdRollMessage.Name = "cmdRollMessage";
             this.cmdRollMessage.Size = new System.Drawing.Size(308, 44);
             this.cmdRollMessage.TabIndex = 7;
+            this.cmdRollMessage.SelectedIndexChanged += new System.EventHandler(this.cmdRollMessage_SelectedIndexChanged);
             // 
             // tabMessage
             // 
@@ -781,9 +783,9 @@ namespace AntonBot.Fenster
             // tabEmotes
             // 
             this.tabEmotes.Controls.Add(this.btnEmoteRoleAdd);
-            this.tabEmotes.Controls.Add(this.comboBox2);
+            this.tabEmotes.Controls.Add(this.cmbRoleSelect);
             this.tabEmotes.Controls.Add(this.label19);
-            this.tabEmotes.Controls.Add(this.comboBox1);
+            this.tabEmotes.Controls.Add(this.cmbEmoteSelect);
             this.tabEmotes.Controls.Add(this.label18);
             this.tabEmotes.Controls.Add(this.EmoteRoleTable);
             this.tabEmotes.Location = new System.Drawing.Point(4, 45);
@@ -804,13 +806,13 @@ namespace AntonBot.Fenster
             this.btnEmoteRoleAdd.UseVisualStyleBackColor = true;
             this.btnEmoteRoleAdd.Click += new System.EventHandler(this.btnEmoteRoleAdd_Click);
             // 
-            // comboBox2
+            // cmbRoleSelect
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(768, 222);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(262, 44);
-            this.comboBox2.TabIndex = 4;
+            this.cmbRoleSelect.FormattingEnabled = true;
+            this.cmbRoleSelect.Location = new System.Drawing.Point(768, 222);
+            this.cmbRoleSelect.Name = "cmbRoleSelect";
+            this.cmbRoleSelect.Size = new System.Drawing.Size(262, 44);
+            this.cmbRoleSelect.TabIndex = 4;
             // 
             // label19
             // 
@@ -821,13 +823,13 @@ namespace AntonBot.Fenster
             this.label19.TabIndex = 3;
             this.label19.Text = "Rolle";
             // 
-            // comboBox1
+            // cmbEmoteSelect
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(768, 119);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(262, 44);
-            this.comboBox1.TabIndex = 2;
+            this.cmbEmoteSelect.FormattingEnabled = true;
+            this.cmbEmoteSelect.Location = new System.Drawing.Point(768, 119);
+            this.cmbEmoteSelect.Name = "cmbEmoteSelect";
+            this.cmbEmoteSelect.Size = new System.Drawing.Size(262, 44);
+            this.cmbEmoteSelect.TabIndex = 2;
             // 
             // label18
             // 
@@ -857,15 +859,15 @@ namespace AntonBot.Fenster
             this.EmoteRoleTable.MinimumSize = new System.Drawing.Size(750, 0);
             this.EmoteRoleTable.Name = "EmoteRoleTable";
             this.EmoteRoleTable.RowCount = 1;
-            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            this.EmoteRoleTable.Size = new System.Drawing.Size(750, 56);
+            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.EmoteRoleTable.Size = new System.Drawing.Size(750, 58);
             this.EmoteRoleTable.TabIndex = 0;
             // 
             // label17
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(107, 9);
+            this.label17.Location = new System.Drawing.Point(107, 10);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(163, 37);
             this.label17.TabIndex = 1;
@@ -875,7 +877,7 @@ namespace AntonBot.Fenster
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(448, 9);
+            this.label16.Location = new System.Drawing.Point(448, 10);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(78, 37);
             this.label16.TabIndex = 1;
@@ -886,7 +888,7 @@ namespace AntonBot.Fenster
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label15.Location = new System.Drawing.Point(9, 16);
+            this.label15.Location = new System.Drawing.Point(9, 17);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(59, 23);
             this.label15.TabIndex = 0;
@@ -1039,9 +1041,9 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button btnEmoteRoleAdd;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbRoleSelect;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbEmoteSelect;
         private System.Windows.Forms.Label label18;
     }
 }

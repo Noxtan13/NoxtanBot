@@ -79,7 +79,8 @@ namespace AntonBot.Fenster
 
             //EmoteReactionRole
             DiscordClient.LoadAllEmotes();
-            foreach(var Server in DiscordListe)
+            LoadReactionRoles();
+            foreach (var Server in DiscordListe)
             {
                 cmdReactRollServer.Items.Add(Server.Name);
             }
@@ -682,6 +683,7 @@ namespace AntonBot.Fenster
             {
                 MessageBox.Show("Es existiert keine ReactionRole.json. Diese Datei wird nun erzeugt.", "Keine ReactionRole", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ReactionRoleList = new List<EmbededMessageReactionRole>();
+                SaveReactionRole();
             }
         }
 
@@ -692,26 +694,89 @@ namespace AntonBot.Fenster
 
         private void btnEmoteRoleAdd_Click(object sender, EventArgs e)
         {
-            //get a reference to the previous existent 
+            bool gefunden = false;
+            OwnEmote ownEmote = new OwnEmote();
+            foreach (var Emote in DiscordClient.Emotelist)
+            {
+                if (Emote.Name.Equals(cmbEmoteSelect.SelectedItem)) {
+                    ownEmote = Emote;
+                    gefunden = true;
+                }
+            }
+
+            if (gefunden) {
+                AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
+            }
+
+        }
+
+        private void AddRow(Image image, String name, String role) {
             //increase panel rows count by one
             EmoteRoleTable.RowCount++;
             //add a new RowStyle as a copy of the previous one
             EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
             //add your three controls
-            EmoteRoleTable.Controls.Add(new PictureBox() {Image=DiscordClient.Emotelist[0].getEmoteBitmap(), AutoSize = true, Anchor = AnchorStyles.Left }, 0, EmoteRoleTable.RowCount - 1);
-            EmoteRoleTable.Controls.Add(new Label() { Text = "NAME", AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
-            EmoteRoleTable.Controls.Add(new Label() { Text = "Ein ewig lange rolle", AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new PictureBox() { Image = image, AutoSize = true, Anchor = AnchorStyles.Left, SizeMode = PictureBoxSizeMode.StretchImage }, 0, EmoteRoleTable.RowCount - 1) ;
+            EmoteRoleTable.Controls.Add(new Label() { Text = name, AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = role, AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left }, 3, EmoteRoleTable.RowCount - 1);
+        }
 
+        private void ResetTable() {
+            EmoteRoleTable.Controls.Clear();
+            EmoteRoleTable.RowStyles.Clear();
+            EmoteRoleTable.RowCount = 1;
+
+            EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            //add your three controls
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Emote", AutoSize = true, Anchor = AnchorStyles.None, Font = label15.Font }, 0, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Emotename", AutoSize = true, Anchor = AnchorStyles.None }, 1, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Rolle", AutoSize = true, Anchor = AnchorStyles.None }, 2, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "", AutoSize = true, Anchor = AnchorStyles.None }, 3, EmoteRoleTable.RowCount - 1);
+
+        }
+
+        private void ResetAll(int Ebene)
+        {
+            //Ebene gibt an wie viele Felder zurück gesetzt werden, damit die Funktion nicht 10-fach geschrieben werden muss
+            //Je niedriger der Wert, desto mehr Felder werden zurück gesetzt
+
+            if (Ebene < 1) { 
+                cmdReactRollServer.Items.Clear(); cmdReactRollServer.Text = "";
+            }
+            if (Ebene < 2) { 
+                cmbReactChannel.Items.Clear(); cmbReactChannel.Text = "";
+                cmbEmoteSelect.Items.Clear();
+                cmbEmoteSelect.Text = "";
+                cmbRoleSelect.Items.Clear();
+                cmbRoleSelect.Text = "";
+            }
+            if (Ebene < 3) { cmdRollMessage.Items.Clear();cmdRollMessage.Text = "";}
+            if (Ebene < 4) { 
+                txtReactionName.Text = "";
+                txtReactFooter.Text = "";
+                txtReactMessage.Text = "";
+                txtReactTitle.Text = "";
+                ResetTable();
+            }
         }
 
         private void cmdReactRollServer_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ResetAll(1);
             foreach (var Server in DiscordListe) {
                 if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
                 {
                     foreach (var Channel in Server.Channels) {
                         cmbReactChannel.Items.Add(Channel.Name);
+                    }
+                    foreach (var Emote in Server.Emotes)
+                    {
+                        cmbEmoteSelect.Items.Add(Emote.Name);
+                    }
+                    foreach (var Role in Server.Roles)
+                    {
+                        cmbRoleSelect.Items.Add(Role.Name);
                     }
                 }
             }
@@ -719,6 +784,7 @@ namespace AntonBot.Fenster
 
         private void cmbReactChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ResetAll(2);
             foreach (var Server in DiscordListe)
             {
                 if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
@@ -727,12 +793,40 @@ namespace AntonBot.Fenster
                     {
                         if (cmbReactChannel.SelectedItem.Equals(Channel.Name))
                         {
-
+                            foreach (var ReactionRole in ReactionRoleList) {
+                                cmdRollMessage.Items.Add(ReactionRole.MessageName);
+                            }
                         }
                     }
                 }
             }
         }
+ 
+        private void cmdRollMessage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ResetAll(3);
+            foreach (var ReactionRole in ReactionRoleList)
+            {
+                if (cmdRollMessage.SelectedItem.Equals(ReactionRole.MessageName)) {
+                    txtReactionName.Text = ReactionRole.MessageName;
+                    txtReactTitle.Text = ReactionRole.MessageTitle;
+                    txtReactFooter.Text = ReactionRole.MessageFooter;
+                    txtReactMessage.Text = ReactionRole.MessageText;
+                    ResetTable();
+                    foreach (var Emote in ReactionRole.RollenEinträge) {
+                        //vorher die Tabelle auf leer setzen
+                         AddRow(Emote.Emote.getEmoteBitmap(), Emote.Emote.Name,Emote.RoleName);
+                    }
+                }
+            }
+        }
+
+        
+
+        private void btnReactionDelete_Click(object sender, EventArgs e)
+        {
+        }
+
         #endregion
     }
 }

@@ -23,7 +23,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
     }
 
     class EmbededMessageReactionRole : EmbededMessage {
-        List<ReactionRoleEntry> RollenEinträge = new List<ReactionRoleEntry>();
+        public List<ReactionRoleEntry> RollenEinträge = new List<ReactionRoleEntry>();
 
         public EmbededMessageReactionRole() {
             ServerName = "";
@@ -82,9 +82,9 @@ namespace AntonBot.PlatformAPI.ListenTypen
     public class ReactionRoleEntry {
         
         public int ID { get; set; }
-        OwnEmote Emote { get; set; }
-        ulong RoleID { get; set; }
-        string RoleName { get; set; }
+        public OwnEmote Emote { get; set; }
+        public ulong RoleID { get; set; }
+        public string RoleName { get; set; }
         public ReactionRoleEntry(OwnEmote emote, ulong roleID, string roleName,int iD) {
             this.Emote = emote;
             this.RoleID = roleID;

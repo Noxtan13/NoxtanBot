@@ -705,6 +705,7 @@ namespace AntonBot.Fenster
             }
 
             if (gefunden) {
+                //AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
                 AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
             }
 
@@ -825,6 +826,7 @@ namespace AntonBot.Fenster
 
         private void btnReactionDelete_Click(object sender, EventArgs e)
         {
+            
         }
 
         #endregion

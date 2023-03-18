@@ -1,4 +1,5 @@
 ﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.ListenTypen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace AntonBot.Fenster
         private int iVariablenInhaltTextFeld;
         private DiscordFunction DiscordClient;
         private List<DiscordGilde> DiscordListe;
+        private List<EmbededMessageReactionRole> ReactionRoleList;
+        private String PathReactionRoleList = Application.StartupPath + Path.DirectorySeparatorChar + "ReactionRole.json";
 
         public DiscordEinstellungen(DiscordFunction client)
         {
@@ -38,6 +41,8 @@ namespace AntonBot.Fenster
 
             lblSumme.Text = Summe.ToString();
             Erststart = false;
+
+            DiscordClient.DiscordWriteGuilds();
 
 
             String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "DiscordServer.json";
@@ -65,13 +70,19 @@ namespace AntonBot.Fenster
             LstEvents.SelectedIndex = 1;
             LstEvents.SelectedIndex = 0;
 
+            //Emote Auswahl
             cmbServerAuswahl.Items.Clear();
             foreach (var Server in DiscordListe)
             {
                 cmbServerAuswahl.Items.Add(Server.Name);
             }
 
+            //EmoteReactionRole
             DiscordClient.LoadAllEmotes();
+            foreach(var Server in DiscordListe)
+            {
+                cmdReactRollServer.Items.Add(Server.Name);
+            }
         }
 
         private void DiscordEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -625,6 +636,7 @@ namespace AntonBot.Fenster
         }
         #endregion
 
+        #region Emotes
         private void cmbServerAuswahl_SelectedIndexChanged(object sender, EventArgs e)
         {
             lstEmotes.Items.Clear();
@@ -649,6 +661,35 @@ namespace AntonBot.Fenster
             }
         }
 
+        #endregion
+
+        #region ReactionRoles
+        private void LoadReactionRoles() {
+            if (File.Exists(PathReactionRoleList))
+            {
+                String InhaltJSON = File.ReadAllText(PathReactionRoleList);
+                try
+                {
+                    ReactionRoleList = JsonConvert.DeserializeObject<List<EmbededMessageReactionRole>>(InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Die ReactionRole-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ReactionRoleList = new List<EmbededMessageReactionRole>();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es existiert keine ReactionRole.json. Diese Datei wird nun erzeugt.", "Keine ReactionRole", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ReactionRoleList = new List<EmbededMessageReactionRole>();
+            }
+        }
+
+        private void SaveReactionRole() {
+            string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(ReactionRoleList,Formatting.Indented);
+            File.WriteAllText(PathReactionRoleList, InhaltJSON);
+        }
+
         private void btnEmoteRoleAdd_Click(object sender, EventArgs e)
         {
             //get a reference to the previous existent 
@@ -663,5 +704,35 @@ namespace AntonBot.Fenster
             EmoteRoleTable.Controls.Add(new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left }, 3, EmoteRoleTable.RowCount - 1);
 
         }
+
+        private void cmdReactRollServer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var Server in DiscordListe) {
+                if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
+                {
+                    foreach (var Channel in Server.Channels) {
+                        cmbReactChannel.Items.Add(Channel.Name);
+                    }
+                }
+            }
+        }
+
+        private void cmbReactChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var Server in DiscordListe)
+            {
+                if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
+                {
+                    foreach (var Channel in Server.Channels)
+                    {
+                        if (cmbReactChannel.SelectedItem.Equals(Channel.Name))
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

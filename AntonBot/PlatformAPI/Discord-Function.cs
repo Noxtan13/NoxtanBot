@@ -153,7 +153,7 @@ A token cannot be null, empty, or contain only whitespace.
                     discordGilde[discordGilde.Count - 1].Roles.Add(new PlatformAPI.DiscordServerRoles(Role.Id, Role.Name));
                 }
 
-                string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde);
+                string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde, Newtonsoft.Json.Formatting.Indented);
                 String Path = SettingsGroup.Instance.StandardPfad + "DiscordServer.json";
 
                 System.IO.File.WriteAllText(Path, InhaltJSON);

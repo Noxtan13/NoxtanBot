@@ -1734,7 +1734,7 @@ namespace AntonBot.Fenster
             String Path = SettingsGroup.Instance.StandardPfad + "BitListe.json";
             String InhaltJSON = "";
 
-            InhaltJSON += JsonConvert.SerializeObject(BitListe);
+            InhaltJSON += JsonConvert.SerializeObject(BitListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
         }

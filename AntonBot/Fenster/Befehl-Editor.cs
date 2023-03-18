@@ -508,25 +508,25 @@ namespace AntonBot
             String Path = SettingsGroup.Instance.StandardPfad + "Befehl.json";
             String InhaltJSON = "";
 
-            InhaltJSON += JsonConvert.SerializeObject(lBefehlListe);
+            InhaltJSON += JsonConvert.SerializeObject(lBefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
             Path = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
             InhaltJSON = "";
-            InhaltJSON += JsonConvert.SerializeObject(lZeitBefehlListe);
+            InhaltJSON += JsonConvert.SerializeObject(lZeitBefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
             Path = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
             InhaltJSON = "";
-            InhaltJSON += JsonConvert.SerializeObject(lTwitchBefehlListe);
+            InhaltJSON += JsonConvert.SerializeObject(lTwitchBefehlListe,Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 
             Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
             InhaltJSON = "";
-            InhaltJSON += JsonConvert.SerializeObject(lList_BefehlListe);
+            InhaltJSON += JsonConvert.SerializeObject(lList_BefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 

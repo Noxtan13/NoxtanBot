@@ -87,20 +87,20 @@ namespace AntonBot.Fenster
             this.txtReactionName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tabEmotes = new System.Windows.Forms.TabPage();
+            this.btnEmoteRoleAdd = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.EmoteRoleTable = new System.Windows.Forms.TableLayoutPanel();
             this.label17 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbReactChannel = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmdReactRollServer = new System.Windows.Forms.ComboBox();
             this.cdgFarbpicker = new System.Windows.Forms.ColorDialog();
-            this.label18 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.btnEmoteRoleAdd = new System.Windows.Forms.Button();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -794,6 +794,50 @@ namespace AntonBot.Fenster
             this.tabEmotes.Text = "Emotes und Rollen";
             this.tabEmotes.UseVisualStyleBackColor = true;
             // 
+            // btnEmoteRoleAdd
+            // 
+            this.btnEmoteRoleAdd.Location = new System.Drawing.Point(768, 303);
+            this.btnEmoteRoleAdd.Name = "btnEmoteRoleAdd";
+            this.btnEmoteRoleAdd.Size = new System.Drawing.Size(262, 44);
+            this.btnEmoteRoleAdd.TabIndex = 5;
+            this.btnEmoteRoleAdd.Text = "Hinzufügen";
+            this.btnEmoteRoleAdd.UseVisualStyleBackColor = true;
+            this.btnEmoteRoleAdd.Click += new System.EventHandler(this.btnEmoteRoleAdd_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(768, 222);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(262, 44);
+            this.comboBox2.TabIndex = 4;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(761, 182);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(78, 37);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "Rolle";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(768, 119);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(262, 44);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(761, 79);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(95, 37);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Emote";
+            // 
             // EmoteRoleTable
             // 
             this.EmoteRoleTable.AutoScroll = true;
@@ -813,40 +857,40 @@ namespace AntonBot.Fenster
             this.EmoteRoleTable.MinimumSize = new System.Drawing.Size(750, 0);
             this.EmoteRoleTable.Name = "EmoteRoleTable";
             this.EmoteRoleTable.RowCount = 1;
-            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.EmoteRoleTable.Size = new System.Drawing.Size(750, 54);
+            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.EmoteRoleTable.Size = new System.Drawing.Size(750, 56);
             this.EmoteRoleTable.TabIndex = 0;
             // 
             // label17
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(107, 8);
+            this.label17.Location = new System.Drawing.Point(107, 9);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(163, 37);
             this.label17.TabIndex = 1;
             this.label17.Text = "Emotename";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(448, 9);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 37);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Rolle";
             // 
             // label15
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label15.Location = new System.Drawing.Point(9, 15);
+            this.label15.Location = new System.Drawing.Point(9, 16);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(59, 23);
             this.label15.TabIndex = 0;
             this.label15.Text = "Emote";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(448, 8);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(78, 37);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "Rolle";
             // 
             // label9
             // 
@@ -864,6 +908,7 @@ namespace AntonBot.Fenster
             this.cmbReactChannel.Name = "cmbReactChannel";
             this.cmbReactChannel.Size = new System.Drawing.Size(308, 44);
             this.cmbReactChannel.TabIndex = 4;
+            this.cmbReactChannel.SelectedIndexChanged += new System.EventHandler(this.cmbReactChannel_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -881,54 +926,11 @@ namespace AntonBot.Fenster
             this.cmdReactRollServer.Name = "cmdReactRollServer";
             this.cmdReactRollServer.Size = new System.Drawing.Size(308, 44);
             this.cmdReactRollServer.TabIndex = 2;
+            this.cmdReactRollServer.SelectedIndexChanged += new System.EventHandler(this.cmdReactRollServer_SelectedIndexChanged);
             // 
             // cdgFarbpicker
             // 
             this.cdgFarbpicker.AnyColor = true;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(761, 79);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(95, 37);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "Emote";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(768, 119);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(262, 44);
-            this.comboBox1.TabIndex = 2;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(761, 182);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(78, 37);
-            this.label19.TabIndex = 3;
-            this.label19.Text = "Rolle";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(768, 222);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(262, 44);
-            this.comboBox2.TabIndex = 4;
-            // 
-            // btnEmoteRoleAdd
-            // 
-            this.btnEmoteRoleAdd.Location = new System.Drawing.Point(768, 303);
-            this.btnEmoteRoleAdd.Name = "btnEmoteRoleAdd";
-            this.btnEmoteRoleAdd.Size = new System.Drawing.Size(262, 44);
-            this.btnEmoteRoleAdd.TabIndex = 5;
-            this.btnEmoteRoleAdd.Text = "Hinzufügen";
-            this.btnEmoteRoleAdd.UseVisualStyleBackColor = true;
-            this.btnEmoteRoleAdd.Click += new System.EventHandler(this.btnEmoteRoleAdd_Click);
             // 
             // DiscordEinstellungen
             // 

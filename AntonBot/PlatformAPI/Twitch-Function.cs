@@ -746,13 +746,14 @@ namespace AntonBot
 
             }
         }
-        private String OnNewFollowerReplace(string Text, TwitchLib.Api.Helix.Models.Users.GetUserFollows.Follow e)
+        private String OnNewFollowerReplace(string Text, TwitchLib.Api.Helix.Models.Channels.GetChannelFollowers.ChannelFollower e)
         {
+            
             Text = Text.Replace("°NewFollowedAt", e.FollowedAt.ToString());
-            Text = Text.Replace("°NewFromUserName", e.FromUserName);
-            Text = Text.Replace("°NewFromUserId", e.FromUserId);
-            Text = Text.Replace("°NewToUserId", e.ToUserId);
-            Text = Text.Replace("°NewToUserName", e.ToUserName);
+            Text = Text.Replace("°NewFromUserName", e.UserName);
+            Text = Text.Replace("°NewFromUserId", e.UserId);
+            Text = Text.Replace("°NewToUserId", sChannelID);
+            Text = Text.Replace("°NewToUserName", sStandardChannel);
 
             return Text;
         }

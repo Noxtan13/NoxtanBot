@@ -8,22 +8,22 @@ namespace AntonBot.PlatformAPI.ListenTypen
 {
     class EmbededMessage
     {
-        public string ServerName { get; set; }
-        public ulong ServerID { get; set; }
+        public string ServerName { get; set; } //Name des Servers wo die Embeded Message gesendet werden soll
+        public ulong ServerID { get; set; } //ID des Servers
 
-        public string ChannelName { get; set; }
-        public ulong ChannelID { get; set; }
+        public string ChannelName { get; set; } //Name des Kanals des jeweiligen Servers, wo die Nachricht gesendet werden soll
+        public ulong ChannelID { get; set; } //ID des Channels
 
-        public string MessageName { get; set; }
-        public ulong MessageID { get; set; }
+        public string MessageName { get; set; } //Name der Nachricht, falls mehrere Nachrichten in einem Channel vorhanden sein sollen
+        public ulong MessageID { get; set; } //ID der Nachricht
 
-        public string MessageTitle { get; set; }
-        public string MessageFooter { get; set; }
-        public string MessageText { get; set; }
+        public string MessageTitle { get; set; } //Der Titel der Nachricht, die angezeigt wird
+        public string MessageFooter { get; set; } //Die Fußnote der Nachricht, die angezeigt wird
+        public string MessageText { get; set; } //Der Nachrichtentext
     }
 
     class EmbededMessageReactionRole : EmbededMessage {
-        public List<ReactionRoleEntry> RollenEinträge = new List<ReactionRoleEntry>();
+        public List<ReactionRoleEntry> RollenEinträge = new List<ReactionRoleEntry>(); //Liste der Einträge von Emote - Rolle
 
         public EmbededMessageReactionRole() {
             ServerName = "";
@@ -81,10 +81,10 @@ namespace AntonBot.PlatformAPI.ListenTypen
 
     public class ReactionRoleEntry {
         
-        public int ID { get; set; }
-        public OwnEmote Emote { get; set; }
-        public ulong RoleID { get; set; }
-        public string RoleName { get; set; }
+        public int ID { get; set; } //Individuelle ID des Eintrages. Wird mit der Funktion GetNextID festgelegt
+        public OwnEmote Emote { get; set; } //Der Emote, auf dem sich der Eintrag auswirkt
+        public ulong RoleID { get; set; } //ID der Discord-Rolle
+        public string RoleName { get; set; } //Name der Discord-Rolle
         public ReactionRoleEntry(OwnEmote emote, ulong roleID, string roleName,int iD) {
             this.Emote = emote;
             this.RoleID = roleID;

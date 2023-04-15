@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace AntonBot.Fenster
@@ -25,6 +26,7 @@ namespace AntonBot.Fenster
         private List<DiscordGilde> DiscordListe;
         private List<EmbededMessageReactionRole> ReactionRoleList;
         private String PathReactionRoleList = Application.StartupPath + Path.DirectorySeparatorChar + "ReactionRole.json";
+        private bool EmoteDiscordSwitch = true;
 
         public DiscordEinstellungen(DiscordFunction client)
         {
@@ -84,6 +86,7 @@ namespace AntonBot.Fenster
             {
                 cmdReactRollServer.Items.Add(Server.Name);
             }
+            chkDiscordEmote.Checked = EmoteDiscordSwitch;
         }
 
         private void DiscordEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -696,11 +699,27 @@ namespace AntonBot.Fenster
         {
             bool gefunden = false;
             OwnEmote ownEmote = new OwnEmote();
-            foreach (var Emote in DiscordClient.Emotelist)
+
+            if (EmoteDiscordSwitch)
             {
-                if (Emote.Name.Equals(cmbEmoteSelect.SelectedItem)) {
-                    ownEmote = Emote;
+                foreach (var Emote in DiscordClient.getEmotelist())
+                {
+                    if (Emote.Name.Equals(cmbEmoteSelect.SelectedItem))
+                    {
+                        ownEmote = Emote;
+                        gefunden = true;
+                    }
+                }
+            }
+            else {
+                if (txtEmoteSelect.BackColor == Color.LightGreen)
+                {
+                    ownEmote = new OwnEmote(txtEmoteSelect.Text);
                     gefunden = true;
+                }
+                else
+                {
+                    MessageBox.Show("Eingetragener Emote ist nicht gültig");
                 }
             }
 
@@ -720,9 +739,40 @@ namespace AntonBot.Fenster
             EmoteRoleTable.Controls.Add(new PictureBox() { Image = image, AutoSize = true, Anchor = AnchorStyles.Left, SizeMode = PictureBoxSizeMode.StretchImage }, 0, EmoteRoleTable.RowCount - 1) ;
             EmoteRoleTable.Controls.Add(new Label() { Text = name, AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = role, AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
-            EmoteRoleTable.Controls.Add(new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left }, 3, EmoteRoleTable.RowCount - 1);
-        }
 
+            Label DeleteLabel = new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left, Name = EmoteRoleTable.RowCount.ToString()};
+            DeleteLabel.ForeColor = Color.Red;
+            DeleteLabel.Click += new EventHandler(RowDelete);
+            EmoteRoleTable.Controls.Add(DeleteLabel, 3, EmoteRoleTable.RowCount - 1);
+            
+            
+        }
+        private void RowDelete(object sender, EventArgs e) {
+            Label GedrückterLabel = (Label)sender; //Label, welches geklickt wurde
+            int row = 0; //Zeile die gelöscht werden soll
+            int Coll = 0; //Zähler der Spalte zum herausfinden der Zeile
+            bool found = false;
+            foreach (var Objekt in EmoteRoleTable.Controls) {
+                //Alle Objekte werden von oben links nach unten recht in Controls aufgelistet, daher kann diese durchlaufen werden
+                Coll++; //Für jeden Control wird die Spalte erhöht
+                if (Coll == 4 && found==false) { //Bei 4 Spalten (so groß ist die Tabelle), wird zurück gesetzt und eine neue Zeile beginnt. Solange wie nichts gefunden worden ist
+                    Coll = 0;
+                    row++;
+                }
+                if (GedrückterLabel.Equals(Objekt)) { //Ist das geklickte Objekt das gleiche, wie das durchlaufene, wird die Suche als gefunden markiert
+                    found = true;
+                }
+            }
+            if (found)
+            {
+                //-1 da sonst die Zeile unter dem Objekt gelöscht wird
+                TableLayoutHelper.RemoveArbitraryRow(EmoteRoleTable, row - 1);
+            }
+            else
+            {
+                MessageBox.Show("Gecklickter Label wurde nicht gefunden. Zeile konnte nicht gelöscht werden", "Huh?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void ResetTable() {
             EmoteRoleTable.Controls.Clear();
             EmoteRoleTable.RowStyles.Clear();
@@ -835,6 +885,101 @@ namespace AntonBot.Fenster
         {
 
         }
+
+
+        private void chkDiscordEmote_CheckedChanged(object sender, EventArgs e)
+        {
+            EmoteDiscordSwitch = chkDiscordEmote.Checked;
+            if (EmoteDiscordSwitch)
+            {
+                cmbEmoteSelect.Enabled = true;
+                txtEmoteSelect.Enabled = false;
+            }
+            else {
+                cmbEmoteSelect.Enabled = false;
+                txtEmoteSelect.Enabled = true;
+            }
+        }
+
+        private bool EmoteValidate = false;
+        private bool TimerRun = false;
+        private void txtEmoteSelect_TextChanged(object sender, EventArgs e)
+        {
+            string testname = EmojiOne.EmojiOne.ToShort(txtEmoteSelect.Text);
+            string test = EmojiOne.EmojiOne.UnifyUnicode(txtEmoteSelect.Text);
+            string Pattern = @"^\\S{1,9}"; //ein UnicodeEmote hat 6 Zeichen
+            string Pattern2 = "^:\\S*:$"; //ein UnicodeEmote hat 6 Zeichen
+
+
+            Match matche1 = Regex.Match(testname,Pattern2,RegexOptions.IgnoreCase);
+            if (matche1.Success)
+            {
+                Console.WriteLine("Treffer");
+                EmoteValidate = true;
+            }
+            else
+            {
+                Console.WriteLine("Kein Treffer mit " + testname);
+            }
+
+            if (!TimerRun) {
+                TimerRun = true;
+                TEmoteValidate.Start();
+            }
+        }
+
+        private void TEmoteValidate_Tick(object sender, EventArgs e)
+        {
+            if (EmoteValidate)
+            {
+                txtEmoteSelect.BackColor = Color.LightGreen;
+            }
+            else {
+                txtEmoteSelect.BackColor = Color.LightGray;
+            }
+            EmoteValidate = false;
+            TEmoteValidate.Stop();
+            TimerRun = false;
+        }
         #endregion
+    }
+}
+
+//Helper aus StackOverflow kopiert, um eine Zeile in der Tabelle zu löschen
+public static class TableLayoutHelper
+{
+    public static void RemoveArbitraryRow(TableLayoutPanel panel, int rowIndex)
+    {
+        if (rowIndex >= panel.RowCount)
+        {
+            return;
+        }
+
+        // delete all controls of row that we want to delete
+        for (int i = 0; i < panel.ColumnCount; i++)
+        {
+            var control = panel.GetControlFromPosition(i, rowIndex);
+            panel.Controls.Remove(control);
+        }
+
+        // move up row controls that comes after row we want to remove
+        for (int i = rowIndex + 1; i < panel.RowCount; i++)
+        {
+            for (int j = 0; j < panel.ColumnCount; j++)
+            {
+                var control = panel.GetControlFromPosition(j, i);
+                if (control != null)
+                {
+                    panel.SetRow(control, i - 1);
+                }
+            }
+        }
+
+        var removeStyle = panel.RowCount - 1;
+
+        if (panel.RowStyles.Count > removeStyle)
+            panel.RowStyles.RemoveAt(removeStyle);
+
+        panel.RowCount--;
     }
 }

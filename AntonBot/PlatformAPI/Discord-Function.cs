@@ -121,47 +121,52 @@ A token cannot be null, empty, or contain only whitespace.
         public void DiscordWriteGuilds()
         {
             System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
-            foreach (var server in client.Guilds)
+            if (client != null)
             {
-
-                discordGilde.Add(new PlatformAPI.DiscordGilde());
-                discordGilde[discordGilde.Count - 1].ID = server.Id;
-                discordGilde[discordGilde.Count - 1].OwnerID = server.OwnerId;
-                discordGilde[discordGilde.Count - 1].Name = server.Name;
-
-                discordGilde[discordGilde.Count - 1].Channels = new System.Collections.Generic.List<PlatformAPI.DiscordServerChannel>();
-                discordGilde[discordGilde.Count - 1].Users = new System.Collections.Generic.List<PlatformAPI.DiscordServerUser>();
-                discordGilde[discordGilde.Count - 1].Emotes = new System.Collections.Generic.List<PlatformAPI.DiscordServerEmotes>();
-                discordGilde[discordGilde.Count - 1].Roles = new System.Collections.Generic.List<PlatformAPI.DiscordServerRoles>();
-
-
-                foreach (var Kanal in server.TextChannels)
+                foreach (var server in client.Guilds)
                 {
-                    discordGilde[discordGilde.Count - 1].Channels.Add(new PlatformAPI.DiscordServerChannel(Kanal.Id, Kanal.Name));
+
+                    discordGilde.Add(new PlatformAPI.DiscordGilde());
+                    discordGilde[discordGilde.Count - 1].ID = server.Id;
+                    discordGilde[discordGilde.Count - 1].OwnerID = server.OwnerId;
+                    discordGilde[discordGilde.Count - 1].Name = server.Name;
+
+                    discordGilde[discordGilde.Count - 1].Channels = new System.Collections.Generic.List<PlatformAPI.DiscordServerChannel>();
+                    discordGilde[discordGilde.Count - 1].Users = new System.Collections.Generic.List<PlatformAPI.DiscordServerUser>();
+                    discordGilde[discordGilde.Count - 1].Emotes = new System.Collections.Generic.List<PlatformAPI.DiscordServerEmotes>();
+                    discordGilde[discordGilde.Count - 1].Roles = new System.Collections.Generic.List<PlatformAPI.DiscordServerRoles>();
+
+
+                    foreach (var Kanal in server.TextChannels)
+                    {
+                        discordGilde[discordGilde.Count - 1].Channels.Add(new PlatformAPI.DiscordServerChannel(Kanal.Id, Kanal.Name));
+                    }
+
+                    foreach (var User in server.Users)
+                    {
+                        discordGilde[discordGilde.Count - 1].Users.Add(new PlatformAPI.DiscordServerUser(User.Id, User.Username, User.IsBot));
+                    }
+
+                    foreach (var Emote in server.Emotes)
+                    {
+                        discordGilde[discordGilde.Count - 1].Emotes.Add(new PlatformAPI.DiscordServerEmotes(Emote.Id, Emote.Name));
+                    }
+
+                    foreach (var Role in server.Roles)
+                    {
+                        discordGilde[discordGilde.Count - 1].Roles.Add(new PlatformAPI.DiscordServerRoles(Role.Id, Role.Name));
+                    }
+
+                    string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde, Newtonsoft.Json.Formatting.Indented);
+                    String Path = SettingsGroup.Instance.StandardPfad + "DiscordServer.json";
+
+                    System.IO.File.WriteAllText(Path, InhaltJSON);
                 }
-
-                foreach (var User in server.Users)
-                {
-                    discordGilde[discordGilde.Count - 1].Users.Add(new PlatformAPI.DiscordServerUser(User.Id, User.Username, User.IsBot));
-                }
-
-                foreach (var Emote in server.Emotes)
-                {
-                    discordGilde[discordGilde.Count - 1].Emotes.Add(new PlatformAPI.DiscordServerEmotes(Emote.Id, Emote.Name));
-                }
-
-                foreach (var Role in server.Roles)
-                {
-                    discordGilde[discordGilde.Count - 1].Roles.Add(new PlatformAPI.DiscordServerRoles(Role.Id, Role.Name));
-                }
-
-                string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde, Newtonsoft.Json.Formatting.Indented);
-                String Path = SettingsGroup.Instance.StandardPfad + "DiscordServer.json";
-
-                System.IO.File.WriteAllText(Path, InhaltJSON);
+            }
+            else {
+                KonsolenAusgabe("Client war noch nicht gestartet. DiscordWriteGuilds() wird nicht ausgeführt");
             }
         }
-
         public async Task StopBotAsync()
         {
 
@@ -473,5 +478,14 @@ A token cannot be null, empty, or contain only whitespace.
             }
         }
 
+        public List<OwnEmote> getEmotelist() {
+
+            if (Emotelist == null) {
+                Emotelist = new List<OwnEmote>();
+                LoadAllEmotes();
+            }
+
+            return Emotelist;
+        }
     }
 }

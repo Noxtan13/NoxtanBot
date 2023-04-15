@@ -1,5 +1,4 @@
 ﻿using AntonBot.PlatformAPI;
-using AntonBot.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,18 +6,17 @@ using System.IO;
 
 namespace AntonBot
 {
-
-    class Bot_Verwalter
-    {        
+    public class Bot_Verwalter
+    {
         protected bool Active = false;
         //private String Ausgabe = "";
-        private KonsolenAusgabe Ausgabe1=new KonsolenAusgabe();
+        private KonsolenAusgabe Ausgabe1 = new KonsolenAusgabe();
         private bool Ausgeben = false;
 
-        protected OtherChannel OtherChannel = new OtherChannel();
+        internal OtherChannel OtherChannel = new OtherChannel();
 
-        protected List<Befehl> BefehlListe = new List<Befehl>();
-        protected List<Zeit_Befehl> ZeitBefehlListe = new List<Zeit_Befehl>();
+        internal List<Befehl> BefehlListe = new List<Befehl>();
+        internal List<Zeit_Befehl> ZeitBefehlListe = new List<Zeit_Befehl>();
 
         protected List<List_Befehl> ListBefehlListe = new List<List_Befehl>();
         public bool ZeitBefehlSenden { get; set; } = false;
@@ -32,34 +30,29 @@ namespace AntonBot
         //Variable zum erneuten Versuchsaufbau, wenn z.B. keine Verbindung ins Internet möglich war
         protected bool Restart = false;
 
-        /*
-public void Speichern() {
-   String welt = JsonConvert.SerializeObject(new Gespeicherte_Commands() { Anton = "ANTON 3", Antwort = "Hallo ich heiße Anton 3", Befehl = "!ANTON3" });
-   Gespeicherte_Commands deserialisiert = JsonConvert.DeserializeObject<Gespeicherte_Commands>(welt);
-}
-*/
-        public bool getRestart() {
+
+        public bool getRestart()
+        {
             return Restart;
         }
 
-        public void LoadBefehle(String Path, int BefehlArt) {
-            //Path = Application.StartupPath + "\\Befehl.json";
+        public void LoadBefehle(String Path, int BefehlArt)
+        {
             String InhaltJSON = "";
 
             if (File.Exists(Path))
             {
-                
+
                 InhaltJSON = File.ReadAllText(Path);
 
-                LastLoadTime = File.GetLastWriteTime(Path);
+
                 switch (BefehlArt)
                 {
                     case 1:
                         try
                         {
                             BefehlListe = JsonConvert.DeserializeObject<List<Befehl>>(InhaltJSON);
-                            
-                            //ZufallGewichtung(BefehlListe);
+                            LastLoadTime = DateTime.Now; //Aktuell wird die letze Ladezeit nur für die Befehlliste benöigt. Daher wird diese auch beim Laden dieser aktualisiert
                         }
                         catch (Exception Fehler)
                         {
@@ -90,11 +83,11 @@ public void Speichern() {
                     default:
                         break;
                 }
-                //FileStream stream = File.OpenRead(Path);
 
             }
         }
-        protected List<Befehl> LoadList(String Path) {
+        protected List<Befehl> LoadList(String Path)
+        {
             String InhaltJSON = "";
 
             if (File.Exists(Path))
@@ -110,14 +103,15 @@ public void Speichern() {
                     return null;
                 }
             }
-            else {
+            else
+            {
                 return null;
             }
         }
 
         protected List<JoinedUsers> LoadJoinedUserList()
         {
-            String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "JoinedUsers.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "JoinedUsers.json";
             String InhaltJSON = "";
             if (File.Exists(Path))
             {
@@ -135,20 +129,23 @@ public void Speichern() {
             }
             else
             {
+                KonsolenAusgabe("Die Liste der gejointen User existiert nicht. Eine neue Liste wird verwendet");
                 return new List<JoinedUsers>();
             }
         }
-        protected void SaveJoinedUserList(List<JoinedUsers> UserList) {
+        protected void SaveJoinedUserList(List<JoinedUsers> UserList)
+        {
 
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "JoinedUsers.json";
+            string Path = SettingsGroup.Instance.StandardPfad + "JoinedUsers.json";
             string InhaltJSON = "";
-            InhaltJSON += JsonConvert.SerializeObject(UserList,Formatting.Indented);
-            
+            InhaltJSON += JsonConvert.SerializeObject(UserList, Formatting.Indented);
+
 
             File.WriteAllText(Path, InhaltJSON);
         }
 
-        protected List<Befehl> ZufallGewichtung(List<Befehl> Liste) {
+        protected List<Befehl> ZufallGewichtung(List<Befehl> Liste)
+        {
             //Hier werden die Zufallsantworten anhand ihrer Gewichtung zusätzlich erzeugt, damit die Zufallsgenerierung für diese auch mit Gewichtung funktioniert.
 
 
@@ -179,25 +176,26 @@ public void Speichern() {
         {
             string BefehlTeil = getBefehlTeil(Message);
             string OptionalerTeil = getOptionalerTeil(Message);
+            bool Ausgabe = false;
 
-            
 
             Message = null;
 
+            CheckLastLoad("Befehl.json", 1);
+
             if (BefehlTeil.StartsWith(SettingsGroup.Instance.SBefehlSymbol))
             {
+                int index = 0;
                 foreach (Befehl item in BefehlListe)
                 {
-                    if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol+item.Kommando.ToLower())) {
-                        CheckLastLoad("Befehl.json", 1);
+                    if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
+                    {
                         Message = item.Antwort;
                         string Ersatzantwort = item.ErsatzAntwort;
                         //String für die Ersatzantwort, da diese auch bei der Zufallsantwort angepasst werden müsste (auch wenn diese gerade nicht verwenden werden würde)
 
                         if (item.HatZufallAntowort)
                         {
-                            
-
                             int Wert = Zufallszahl.Next(item.ZufallAntwort.Count);
 
                             Message = Message.Replace("°VariablerTeil", item.ZufallAntwort[Wert].Text);
@@ -213,7 +211,8 @@ public void Speichern() {
 
                                 Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
                             }
-                            else {
+                            else
+                            {
                                 Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
                             }
                         }
@@ -221,20 +220,28 @@ public void Speichern() {
                         Message = Message.Replace("°Name", User);
                         Message = Message.Replace("°KommandosBefehlsKette", Befehlskette(AllCommands));
 
-                        item.IncrementAnzahl();
+
+                        BefehlListe[index].IncrementAnzahl(); //Da die Änderung im item in einer foreach-Schleife nicht gespeichert wird, wird die Anzahl über den Index direkt erhöht
                         Message = Message.Replace("°Zähler", item.Anzahl.ToString());
 
-                        BefehlSpeichern(BefehlListe, "Befehl.json");
+                        Ausgabe = true;
                         //ZufallGewichtung(BefehlListe);
                     }
+                    index++;
                 }
+            }
+
+            if (Ausgabe)
+            {
+                BefehlSpeichern(BefehlListe, "Befehl.json");
             }
 
             return Message;
         }
 
-        protected string CheckListBefehl(string Message, string User, bool Adminkennzeichen, string Plattform) {
-            string Nachricht=null;
+        protected string CheckListBefehl(string Message, string User, bool Adminkennzeichen, string Plattform)
+        {
+            string Nachricht = null;
             string BefehlTeil1 = getBefehlTeil(Message);
             string BefehlTeil2 = "UPS";
             string OptionalerTeilGesamt = getOptionalerTeil(Message);
@@ -242,27 +249,38 @@ public void Speichern() {
             BefehlTeil2 = getBefehlTeil(getOptionalerTeil(Message));
             string OptionalerTeil = getOptionalerTeil(OptionalerTeilGesamt);
 
-            foreach (List_Befehl item in ListBefehlListe) {
-                if (BefehlTeil1.Equals(SettingsGroup.Instance.SBefehlSymbol+ item.Kommando.ToLower()))
+            //Bevor mit der Liste gearbeitet wird, wird diese nochmal neu eingelesen, falls die Liste an einer anderen Plattform geändert hat 
+            LoadBefehle(SettingsGroup.Instance.StandardPfad + "List-Befehl.json", 3);
+
+            foreach (List_Befehl item in ListBefehlListe)
+            {
+                if (BefehlTeil1.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
                 {
 
 
-                    if (item.BefehlTrennungszeichen.Equals(' ')) {
+                    if (item.BefehlTrennungszeichen.Equals(' '))
+                    {
                         BefehlTeil2 = " " + BefehlTeil2;
                         //Damit das Leerzeichen auch als Befehlteil ausgewertet werden kann, muss das abgeschnittene Leerzeichen wieder hinzugefügt werden
                     }
 
-                    if (BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CurrentBefehl))
+                    if (BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CurrentBefehl.ToLower()))
                     {
                         //Hier steht die Ausgabe für den Aktuellen Eintrag
                         string Ausgabe = item.CurrentAntwort;
 
-                        Ausgabe = Ausgabe.Replace("°Auflistung", item.AufbauEintrag);
-                        Ausgabe = Ausgabe.Replace("°ListNummer", " ");
-                        Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
-                        Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
-                        Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
-
+                        if (item.Eintragsliste.Count > 0)
+                        {
+                            Ausgabe = Ausgabe.Replace("°Auflistung", item.AufbauEintrag);
+                            Ausgabe = Ausgabe.Replace("°ListNummer", " ");
+                            Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
+                            Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
+                            Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
+                        }
+                        else
+                        {
+                            Ausgabe = "The List is empty";
+                        }
                         Ausgabe = Ausgabe.Replace("°Name", User);
                         Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
 
@@ -282,9 +300,16 @@ public void Speichern() {
 
                             Ausgabe = Ausgabe.Replace("°Auflistung", item.AufbauEintrag);
                             Ausgabe = Ausgabe.Replace("°ListNummer", " ");
-                            Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
-                            Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
-                            Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
+                            if (item.Eintragsliste.Count > 0)
+                            {
+                                Ausgabe = Ausgabe.Replace("°ListEintrag", item.Eintragsliste[0].UserEintrag);
+                                Ausgabe = Ausgabe.Replace("°ListBenutzer", item.Eintragsliste[0].User);
+                                Ausgabe = Ausgabe.Replace("°ListQuelle", item.Eintragsliste[0].PlattformQuelle);
+                            }
+                            else
+                            {
+                                Ausgabe = "The List ist empty";
+                            }
 
                             Ausgabe = Ausgabe.Replace("°Name", User);
                             Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
@@ -338,7 +363,7 @@ public void Speichern() {
                             }
                         }
 
-                        
+
                         if (Eintragitem == null)
                         {
                             //Nicht gefunden
@@ -370,7 +395,7 @@ public void Speichern() {
                         string Ausgabe = item.AusgabeListe;
                         string Eintrag = "";
 
-                        for (int i = 1; i < item.AnzahlEinträge && i < item.Eintragsliste.Count; i++)
+                        for (int i = 0; i <= item.AnzahlEinträge && i < item.Eintragsliste.Count; i++)
                         {
 
                             Eintrag Eintragitem = item.Eintragsliste[i];
@@ -386,53 +411,123 @@ public void Speichern() {
                         Ausgabe = Ausgabe.Replace("°Name", User);
                         Nachricht = Ausgabe;
                     }
+                    else if (item.OpenClose && BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.OpenCommand))
+                    {
+                        //Kommandos um die Liste zu öffnen
+                        if (item.OpenCloseAdmin && Adminkennzeichen)
+                        {
+                            //Wenn ein Admin erwartet wird und einer da ist
+                            item.Status = true;
+                            Nachricht = item.OpenText;
+                        }
+                        else if (item.OpenCloseAdmin == false)
+                        {
+                            //Wenn keiner erwartet wird
+                            item.Status = true;
+                            Nachricht = item.OpenText;
+                        }
+
+                    }
+                    else if (item.OpenClose && BefehlTeil2.Equals(item.BefehlTrennungszeichen + item.CloseCommand))
+                    {
+                        //Kommando, um die Liste zu schliessen
+                        if (item.OpenCloseAdmin && Adminkennzeichen)
+                        {
+                            item.Status = false;
+                            Nachricht = item.CloseText;
+                        }
+                        else if (item.OpenCloseAdmin == false)
+                        {
+                            item.Status = false;
+                            Nachricht = item.CloseText;
+                        }
+
+                    }
                     else
                     {
-                        //Alle anderen Nachrichten werden als Eintrag in die Liste aufgenommen und die Antwort wird ausgegeben
-                        Eintrag NeuerEintrag = new Eintrag();
-                        NeuerEintrag.User = User;
-                        NeuerEintrag.UserEintrag = OptionalerTeilGesamt;
-                        NeuerEintrag.PlattformQuelle = Plattform;
+                        if (!item.OpenClose)
+                        {
+                            //Status wird immer auf True gesetzt, wenn OpenClose nicht verwendet wird
+                            //Damit kann die Liste nicht deaktiviert sein
+                            item.Status = true;
+                        }
+                        if (item.Status)
+                        {
 
-                        item.Eintragsliste.Add(NeuerEintrag);
+                            bool Gefunden = false;
 
-                        string Text = item.HinzufügenAntwort;
-                        Text = Text.Replace("°Name", User);
-                        Text = Text.Replace("°OptionalerTeil", OptionalerTeilGesamt);
+                            if (item.UpdateOwn)
+                            {
+                                //Wenn die eigenen Einträge geupdatet werden soll, wird erstmal nach einem Eintrag gesucht
+                                for (int i = 1; i < item.Eintragsliste.Count; i++)
+                                {
+                                    if (item.Eintragsliste[i].User.ToLower().Equals(User.ToLower()))
+                                    {
+                                        //Wenn ein Eintrag gefunden wurde, wird dieser gleich ersetzt. Da die Schleife ab 1 zählt, wird der Eintrag 0 nicht beachtet
+                                        Gefunden = true;
+                                        item.Eintragsliste[i].UserEintrag = OptionalerTeilGesamt;
+                                    }
+                                }
+                            }
 
-                        Nachricht = Text;
+                            if (Gefunden)
+                            {
+                                String Ausgabe = item.UpdateAntwort;
+                                Ausgabe = Ausgabe.Replace("°Name", User);
+                                Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeil);
 
-                        BefehlListSpeichern();
+                                Nachricht = Ausgabe;
+                            }
+                            else
+                            {
+                                //Alle anderen Nachrichten werden als Eintrag in die Liste aufgenommen und die Antwort wird ausgegeben
+                                Eintrag NeuerEintrag = new Eintrag();
+                                NeuerEintrag.User = User;
+                                NeuerEintrag.UserEintrag = OptionalerTeilGesamt;
+                                NeuerEintrag.PlattformQuelle = Plattform;
 
-                        
+                                item.Eintragsliste.Add(NeuerEintrag);
+
+                                String Ausgabe = item.HinzufügenAntwort;
+                                Ausgabe = Ausgabe.Replace("°Name", User);
+                                Ausgabe = Ausgabe.Replace("°OptionalerTeil", OptionalerTeilGesamt);
+
+                                Nachricht = Ausgabe;
+                            }
+
+                            BefehlListSpeichern();
+
+                        }
                     }
                 }
             }
 
-            if (Nachricht == null) {
-                
+            if (Nachricht == null)
+            {
+                //Muss leer bleiben, damit die Befehle für die anderen Kommandos geprüft werden (dort läuft die Prüfung auf Nachricht == null)
             }
             //Nachricht = "BefehlTeil1: " + BefehlTeil1 + " BefehlTeil2: " + BefehlTeil2 + " OptionalerTeil " + OptionalerTeil;
 
             return Nachricht;
         }
 
-        protected void BefehlListSpeichern() {
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "List-Befehl.json";
+        protected void BefehlListSpeichern()
+        {
+            string Path = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(ListBefehlListe, Formatting.Indented);
 
-            
+
 
             File.WriteAllText(Path, InhaltJSON);
-
-            LoadBefehle(Path, 3);
         }
 
-        protected void CheckLastLoad(String Name, int BefehlArt) {
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Name; // "\\Befehl.json";
-            
-            if (LastLoadTime < File.GetLastWriteTime(Path)) {
+        protected void CheckLastLoad(String Name, int BefehlArt)
+        {
+            string Path = SettingsGroup.Instance.StandardPfad + Name;
+
+            if (LastLoadTime.AddMinutes(1) < DateTime.Now)
+            {
                 LoadBefehle(Path, BefehlArt);
                 KonsolenAusgabe(Name + " wurde neu geladen, da nicht aktuell");
             }
@@ -440,7 +535,7 @@ public void Speichern() {
 
         protected void BefehlSpeichern(List<Befehl> Liste, String Name)
         {
-            string Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Name; //"\\Befehl.json";
+            string Path = SettingsGroup.Instance.StandardPfad + Name; //"\\Befehl.json";
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(Liste, Formatting.Indented);
 
@@ -448,7 +543,8 @@ public void Speichern() {
             LastLoadTime = File.GetLastWriteTime(Path);
         }
 
-        protected string getBefehlTeil(string message) {
+        protected string getBefehlTeil(string message)
+        {
 
             String BefehlTeil;
             //Unterscheidung ob Befehl (bzw. in dem Fall Nachricht" weitere "Parameter" getrennt nach "Leerzeichen" beinhaltet
@@ -480,22 +576,27 @@ public void Speichern() {
             return OptionalerTeil;
         }
 
-        protected void CommandListFill(List<Befehl> Liste) {
-            foreach (var item in Liste)
+        protected void CommandListFill(List<Befehl> Liste)
+        {
+            if (Liste != null)
             {
-                AllCommands.Add(item.Kommando.ToString());
+                foreach (var item in Liste)
+                {
+                    AllCommands.Add(item.Kommando.ToString());
+                }
             }
         }
 
 
-        protected string Befehlskette(List<Befehl> Liste) {
-            String HilfeBefehl="";
+        protected string Befehlskette(List<Befehl> Liste)
+        {
+            String HilfeBefehl = "";
 
             foreach (Befehl item in Liste)
             {
-                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol+ item.Kommando;
+                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol + item.Kommando;
             }
-            HilfeBefehl = HilfeBefehl.Remove(0,1);
+            HilfeBefehl = HilfeBefehl.Remove(0, 1);
             return HilfeBefehl;
         }
         protected string Befehlskette(List<string> Liste)
@@ -504,14 +605,15 @@ public void Speichern() {
 
             foreach (var item in Liste)
             {
-                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol+ item;
+                HilfeBefehl += ", " + SettingsGroup.Instance.SBefehlSymbol + item;
             }
-            HilfeBefehl = HilfeBefehl.Remove(0,1);
+            HilfeBefehl = HilfeBefehl.Remove(0, 1);
             return HilfeBefehl;
         }
 
 
-        public async void Zeitschritt(DiscordFunction Dclient = null) {
+        public async void Zeitschritt(DiscordFunction Dclient = null)
+        {
             if (ZeitBefehlSenden)
             {
                 foreach (Zeit_Befehl item in ZeitBefehlListe)
@@ -546,73 +648,65 @@ public void Speichern() {
                 }
             }
         }
-        public void Zeitschritt(YouTube_Functions Yclient = null)
+
+        public Boolean getActive()
         {
-            if (ZeitBefehlSenden)
-            {
-                foreach (Zeit_Befehl item in ZeitBefehlListe)
-                {
-                    item.DeltaZeit += 1;
-                    if (item.DeltaZeit > item.Zeitspanne)
-                    {
-                        if (item.ZeitAnYouTube)
-                        {
-                            item.DeltaZeit = 0;
-                            Yclient.SendMessage(item.Antwort);
-                        }
-                    }
-                }
-            }
-        }
-        public Boolean getActive() {
             return Active;
         }
-        
-        public void KonsolenAusgabe(String text) {
+
+        public void KonsolenAusgabe(String text)
+        {
             //Ausgabe = Ausgabe + Environment.NewLine + text;
             KonsolenAusgabe(text, 0);
         }
-        public void KonsolenAusgabe(String text, double Zusatz) {
+        public void KonsolenAusgabe(String text, double Zusatz)
+        {
             //Ausgabe = Ausgabe + Environment.NewLine + text + " " + Zusatz;
             if (Ausgeben)
             {
                 //Eintrag schon vorhanden, wird erweitert
                 if (Zusatz == 0)
-                    //Wenn der Wert 0 entspricht, muss er auch im Text nicht ausgegeben werden
+                //Wenn der Wert 0 entspricht, muss er auch im Text nicht ausgegeben werden
                 {
                     Ausgabe1.AusgabeText = Ausgabe1.AusgabeText + Environment.NewLine + text;
                 }
-                else {
+                else
+                {
                     Ausgabe1.AusgabeText = Ausgabe1.AusgabeText + Environment.NewLine + text + " - " + Zusatz.ToString();
-                }             
+                }
                 Ausgabe1.AusgabeZeitmessung = Ausgabe1.AusgabeZeitmessung + Zusatz;
             }
-            else {
+            else
+            {
                 //Eintrag nicht vorhanden, wird neu gesetzt
                 Ausgabe1 = new KonsolenAusgabe(DateTime.Now.TimeOfDay, text, Zusatz);
             }
             Ausgeben = true;
         }
-        public bool isAusgeben() {
+        public bool isAusgeben()
+        {
             return Ausgeben;
         }
-        public KonsolenAusgabe getKonsoleAusgabe() {
+        public KonsolenAusgabe getKonsoleAusgabe()
+        {
             Ausgeben = false;
-            return Ausgabe1; 
+            return Ausgabe1;
         }
 
-        public void SendOtherChannel (String Message, String Plattform)
+        public void SendOtherChannel(String Message, String Plattform)
         {
             OtherChannel.SendMessageToOtherChannel(Message, Plattform);
         }
-        public void SendOtherChannel(String Message, String Plattform,ulong DiscordChannel)
+        public void SendOtherChannel(String Message, String Plattform, ulong DiscordChannel)
         {
-            OtherChannel.SendMessageToOtherChannel(Message, Plattform,DiscordChannel);
+            OtherChannel.SendMessageToOtherChannel(Message, Plattform, DiscordChannel);
         }
-        public bool IsOtherChannel() {
+        public bool IsOtherChannel()
+        {
             return OtherChannel.isSendOtherChannel();
         }
-        public OtherChannel getSendOtherChannel() {
+        public OtherChannel getSendOtherChannel()
+        {
             return OtherChannel;
         }
         public void OtherChannelDone()
@@ -620,5 +714,5 @@ public void Speichern() {
             OtherChannel.Done();
         }
 
-     }
+    }
 }

@@ -1,30 +1,37 @@
-﻿using System;
+﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.ListenTypen;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Net;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using AntonBot.PlatformAPI;
 
 namespace AntonBot.Fenster
 {
     public partial class DiscordEinstellungen : Form
     {
-        string sClientID;
-        bool Erststart = true;
-        bool bAccessTokenChange;
-
-        HttpListener http = new HttpListener();
-
-        long Summe = 0x0000000000;
+        private string sClientID;
+        private bool Erststart = true;
+        private bool bAccessTokenChange;
+        private long Summe = 0x0000000000;
         private bool bÄnderung;
         private bool bÄnderungAusIndex;
         private int iEventIndex;
         private int iAltIndex;
         private int iVariablenInhaltEvent;
         private int iVariablenInhaltTextFeld;
+        private DiscordFunction DiscordClient;
+        private List<DiscordGilde> DiscordListe;
+        private List<EmbededMessageReactionRole> ReactionRoleList;
+        private String PathReactionRoleList = Application.StartupPath + Path.DirectorySeparatorChar + "ReactionRole.json";
+        private bool EmoteDiscordSwitch = true;
 
-        public DiscordEinstellungen()
+        public DiscordEinstellungen(DiscordFunction client)
         {
             InitializeComponent();
+            DiscordClient = client;
         }
 
         private void DiscordEinstellungen_Load(object sender, EventArgs e)
@@ -37,9 +44,49 @@ namespace AntonBot.Fenster
             lblSumme.Text = Summe.ToString();
             Erststart = false;
 
+            DiscordClient.DiscordWriteGuilds();
+
+
+            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "DiscordServer.json";
+
+            if (File.Exists(Path))
+            {
+                String InhaltJSON = File.ReadAllText(Path);
+                try
+                {
+                    DiscordListe = JsonConvert.DeserializeObject<List<DiscordGilde>>(InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Die Discord-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DiscordListe = new List<DiscordGilde>();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es existiert keine DiscordServer.json. Diese Datei wird erzeugt, wenn sich der Bot an Discord anmeldet oder die Discord-Einstellungen aufgerufen werden.", "Keine Discord-Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DiscordListe = new List<DiscordGilde>();
+            }
+
             //Änderung des Index, damit der erste Wert auch eingelesen wird (onStreamOnline) und nicht manuell geklickt werden muss
             LstEvents.SelectedIndex = 1;
             LstEvents.SelectedIndex = 0;
+
+            //Emote Auswahl
+            cmbServerAuswahl.Items.Clear();
+            foreach (var Server in DiscordListe)
+            {
+                cmbServerAuswahl.Items.Add(Server.Name);
+            }
+
+            //EmoteReactionRole
+            DiscordClient.LoadAllEmotes();
+            LoadReactionRoles();
+            foreach (var Server in DiscordListe)
+            {
+                cmdReactRollServer.Items.Add(Server.Name);
+            }
+            chkDiscordEmote.Checked = EmoteDiscordSwitch;
         }
 
         private void DiscordEinstellungen_FormClosing(object sender, FormClosingEventArgs e)
@@ -77,12 +124,13 @@ namespace AntonBot.Fenster
             }
             else
             {
+                /*
                 string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, "8443"); //Port 8443 ist der https Port am Rechner selber
 
                 http.Prefixes.Clear();
                 http.Prefixes.Add(redirectURI);
                 http.Start();
-
+                */
                 // Creates the OAuth 2.0 authorization request.
                 string authorizationRequest = string.Format("http://discord.com/api/oauth2/authorize?client_id={0}&permissions={1}&scope=bot",
                     ClientID,
@@ -101,118 +149,126 @@ namespace AntonBot.Fenster
         private void SummeBerechnen()
         {
             long NeueSumme = 0x0000000000;
-            foreach (var item in ChkListAllgemein.CheckedItems)
+            if (chkAdmin.Checked)
             {
-                switch (item.ToString())
-                {
-                    case "Administrator":
-                        NeueSumme = NeueSumme + 0x0000000008;
-                        break;
-                    case "View Audit Log":
-                        NeueSumme = NeueSumme + 0x0000000080;
-                        break;
-                    case "View Server Insights":
-                        NeueSumme = NeueSumme + 0x0000080000;
-                        break;
-                    case "Manage Server":
-                        NeueSumme = NeueSumme + 0x0000000020;
-                        break;
-                    case "Manage Roles":
-                        NeueSumme = NeueSumme + 0x0010000000;
-                        break;
-                    case "Manage Channels":
-                        NeueSumme = NeueSumme + 0x0000000010;
-                        break;
-                    case "Kick Members":
-                        NeueSumme = NeueSumme + 0x0000000002;
-                        break;
-                    case "Ban Members":
-                        NeueSumme = NeueSumme + 0x0000000004;
-                        break;
-                    case "Create Instant Invite":
-                        NeueSumme = NeueSumme + 0x0000000001;
-                        break;
-                    case "Change Nickname":
-                        NeueSumme = NeueSumme + 0x0004000000;
-                        break;
-                    case "Manage Nicknames":
-                        NeueSumme = NeueSumme + 0x0008000000;
-                        break;
-                    case "Manage Emojis":
-                        NeueSumme = NeueSumme + 0x0040000000;
-                        break;
-                    case "Manage Webhooks":
-                        NeueSumme = NeueSumme + 0x0020000000;
-                        break;
-                    case "View Channels":
-                        NeueSumme = NeueSumme + 0x0000000400;
-                        break;
-                }
+                NeueSumme = 0x0000000008;
             }
-            foreach (var item in ChkListText.CheckedItems)
+            else
             {
-                switch (item.ToString())
+                NeueSumme = 0x0000000000;
+                foreach (var item in ChkListAllgemein.CheckedItems)
                 {
-                    case "Send Messages":
-                        NeueSumme = NeueSumme + 0x0000000800;
-                        break;
-                    case "Send TTS Messages":
-                        NeueSumme = NeueSumme + 0x0000001000;
-                        break;
-                    case "Manage Messages":
-                        NeueSumme = NeueSumme + 0x0000002000;
-                        break;
-                    case "Embed Links":
-                        NeueSumme = NeueSumme + 0x0000004000;
-                        break;
-                    case "Attach Files":
-                        NeueSumme = NeueSumme + 0x0000008000;
-                        break;
-                    case "Read Message History":
-                        NeueSumme = NeueSumme + 0x0000010000;
-                        break;
-                    case "Mention Everyone":
-                        NeueSumme = NeueSumme + 0x0000020000;
-                        break;
-                    case "Use External Emojis":
-                        NeueSumme = NeueSumme + 0x0000040000;
-                        break;
-                    case "Add Reactions":
-                        NeueSumme = NeueSumme + 0x0000000040;
-                        break;
-                    case "Use Slash Commands":
-                        NeueSumme = NeueSumme + 0x0080000000;
-                        break;
+                    switch (item.ToString())
+                    {
+                        case "Administrator":
+                            NeueSumme += 0x0000000008;
+                            break;
+                        case "View Audit Log":
+                            NeueSumme += 0x0000000080;
+                            break;
+                        case "View Server Insights":
+                            NeueSumme += 0x0000080000;
+                            break;
+                        case "Manage Server":
+                            NeueSumme += 0x0000000020;
+                            break;
+                        case "Manage Roles":
+                            NeueSumme += 0x0010000000;
+                            break;
+                        case "Manage Channels":
+                            NeueSumme += 0x0000000010;
+                            break;
+                        case "Kick Members":
+                            NeueSumme += 0x0000000002;
+                            break;
+                        case "Ban Members":
+                            NeueSumme += 0x0000000004;
+                            break;
+                        case "Create Instant Invite":
+                            NeueSumme += 0x0000000001;
+                            break;
+                        case "Change Nickname":
+                            NeueSumme += 0x0004000000;
+                            break;
+                        case "Manage Nicknames":
+                            NeueSumme += 0x0008000000;
+                            break;
+                        case "Manage Emojis":
+                            NeueSumme += 0x0040000000;
+                            break;
+                        case "Manage Webhooks":
+                            NeueSumme += 0x0020000000;
+                            break;
+                        case "View Channels":
+                            NeueSumme += 0x0000000400;
+                            break;
+                    }
                 }
-            }
-            foreach (var item in ChkListSprache.CheckedItems)
-            {
-                switch (item.ToString())
+                foreach (var item in ChkListText.CheckedItems)
                 {
-                    case "Connect":
-                        NeueSumme = NeueSumme + 0x0000100000;
-                        break;
-                    case "Speak":
-                        NeueSumme = NeueSumme + 0x0000200000;
-                        break;
-                    case "Video":
-                        NeueSumme = NeueSumme + 0x0000000200;
-                        break;
-                    case "Mute Members":
-                        NeueSumme = NeueSumme + 0x0000400000;
-                        break;
-                    case "Deafen Members":
-                        NeueSumme = NeueSumme + 0x0010000000;
-                        break;
-                    case "Move Members":
-                        NeueSumme = NeueSumme + 0x0000800000;
-                        break;
-                    case "Use Voice Activity":
-                        NeueSumme = NeueSumme + 0x0002000000;
-                        break;
-                    case "Priority Speaker":
-                        NeueSumme = NeueSumme + 0x0000000100;
-                        break;
+                    switch (item.ToString())
+                    {
+                        case "Send Messages":
+                            NeueSumme += 0x0000000800;
+                            break;
+                        case "Send TTS Messages":
+                            NeueSumme += 0x0000001000;
+                            break;
+                        case "Manage Messages":
+                            NeueSumme += 0x0000002000;
+                            break;
+                        case "Embed Links":
+                            NeueSumme += 0x0000004000;
+                            break;
+                        case "Attach Files":
+                            NeueSumme += 0x0000008000;
+                            break;
+                        case "Read Message History":
+                            NeueSumme += 0x0000010000;
+                            break;
+                        case "Mention Everyone":
+                            NeueSumme += 0x0000020000;
+                            break;
+                        case "Use External Emojis":
+                            NeueSumme += 0x0000040000;
+                            break;
+                        case "Add Reactions":
+                            NeueSumme += 0x0000000040;
+                            break;
+                        case "Use Slash Commands":
+                            NeueSumme += 0x0080000000;
+                            break;
+                    }
+                }
+                foreach (var item in ChkListSprache.CheckedItems)
+                {
+                    switch (item.ToString())
+                    {
+                        case "Connect":
+                            NeueSumme += 0x0000100000;
+                            break;
+                        case "Speak":
+                            NeueSumme += 0x0000200000;
+                            break;
+                        case "Video":
+                            NeueSumme += 0x0000000200;
+                            break;
+                        case "Mute Members":
+                            NeueSumme += 0x0000400000;
+                            break;
+                        case "Deafen Members":
+                            NeueSumme += 0x0010000000;
+                            break;
+                        case "Move Members":
+                            NeueSumme += 0x0000800000;
+                            break;
+                        case "Use Voice Activity":
+                            NeueSumme += 0x0002000000;
+                            break;
+                        case "Priority Speaker":
+                            NeueSumme += 0x0000000100;
+                            break;
+                    }
                 }
             }
 
@@ -257,7 +313,7 @@ namespace AntonBot.Fenster
             {
                 bAccessTokenChange = true;
             }
-            
+
         }
         private void txtClientID_TextChanged(object sender, EventArgs e)
         {
@@ -269,7 +325,7 @@ namespace AntonBot.Fenster
         }
         private void btnToken_Click(object sender, EventArgs e)
         {
-            sClientID = SettingsGroup.Instance.DSclientID;
+            sClientID = txtClientID.Text;
             if (sClientID.Equals(""))
             {
                 MessageBox.Show("Es ist keine ClientID für den Bot eingetragen" + Environment.NewLine + "Ohne ClientID kann die richtige Seite nicht aufgerufen werden.", "ClientID eingeben", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -333,7 +389,7 @@ namespace AntonBot.Fenster
                         txtKonsolenFenster.Text = txtKonsolenFenster.Text + "°" + cmbVariable.Text;
                         break;
                     case 3:
-                        txtChatReaktion.Text = txtChatReaktion.Text + "°" + cmbVariable.Text; 
+                        txtChatReaktion.Text = txtChatReaktion.Text + "°" + cmbVariable.Text;
                         break;
                 }
             }
@@ -463,7 +519,7 @@ namespace AntonBot.Fenster
                     chkKonsoleAusgabe.Checked = SettingsGroup.Instance.DsLeftUser.Konsole;
                     txtKonsolenFenster.Text = SettingsGroup.Instance.DsLeftUser.KonsoleText;
                     break;
-                
+
             }
             btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
 
@@ -509,7 +565,7 @@ namespace AntonBot.Fenster
                     cmbVariable.Items.Add("UserName");
 
                     break;
-                
+
             }
 
             cmbVariable.Items.Add("---------------------------------");
@@ -528,7 +584,7 @@ namespace AntonBot.Fenster
             Änderungchange(true);
         }
 
-        
+
 
         private void btnÜbernehmen_Click(object sender, EventArgs e)
         {
@@ -583,5 +639,347 @@ namespace AntonBot.Fenster
             }
         }
         #endregion
+
+        #region Emotes
+        private void cmbServerAuswahl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstEmotes.Items.Clear();
+            foreach (var Server in DiscordListe)
+            {
+                if (cmbServerAuswahl.SelectedItem.Equals(Server.Name))
+                {
+                    foreach (var Emotes in Server.Emotes)
+                    {
+                        string item = "<" + Emotes.Name + ":" + Emotes.ID + ">";
+                        lstEmotes.Items.Add(item);
+                    }
+                }
+            }
+        }
+
+        private void btnEmotesCopy_Click(object sender, EventArgs e)
+        {
+            if (lstEmotes.SelectedItem != null)
+            {
+                Clipboard.SetText(lstEmotes.SelectedItem.ToString());
+            }
+        }
+
+        #endregion
+
+        #region ReactionRoles
+        private void LoadReactionRoles() {
+            if (File.Exists(PathReactionRoleList))
+            {
+                String InhaltJSON = File.ReadAllText(PathReactionRoleList);
+                try
+                {
+                    ReactionRoleList = JsonConvert.DeserializeObject<List<EmbededMessageReactionRole>>(InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Die ReactionRole-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ReactionRoleList = new List<EmbededMessageReactionRole>();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es existiert keine ReactionRole.json. Diese Datei wird nun erzeugt.", "Keine ReactionRole", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ReactionRoleList = new List<EmbededMessageReactionRole>();
+                SaveReactionRole();
+            }
+        }
+
+        private void SaveReactionRole() {
+            string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(ReactionRoleList,Formatting.Indented);
+            File.WriteAllText(PathReactionRoleList, InhaltJSON);
+        }
+
+        private void btnEmoteRoleAdd_Click(object sender, EventArgs e)
+        {
+            bool gefunden = false;
+            OwnEmote ownEmote = new OwnEmote();
+
+            if (EmoteDiscordSwitch)
+            {
+                foreach (var Emote in DiscordClient.getEmotelist())
+                {
+                    if (Emote.Name.Equals(cmbEmoteSelect.SelectedItem))
+                    {
+                        ownEmote = Emote;
+                        gefunden = true;
+                    }
+                }
+            }
+            else {
+                if (txtEmoteSelect.BackColor == Color.LightGreen)
+                {
+                    ownEmote = new OwnEmote(txtEmoteSelect.Text);
+                    gefunden = true;
+                }
+                else
+                {
+                    MessageBox.Show("Eingetragener Emote ist nicht gültig");
+                }
+            }
+
+            if (gefunden) {
+                //AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
+                AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
+            }
+
+        }
+
+        private void AddRow(Image image, String name, String role) {
+            //increase panel rows count by one
+            EmoteRoleTable.RowCount++;
+            //add a new RowStyle as a copy of the previous one
+            EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            //add your three controls
+            EmoteRoleTable.Controls.Add(new PictureBox() { Image = image, AutoSize = true, Anchor = AnchorStyles.Left, SizeMode = PictureBoxSizeMode.StretchImage }, 0, EmoteRoleTable.RowCount - 1) ;
+            EmoteRoleTable.Controls.Add(new Label() { Text = name, AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = role, AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
+
+            Label DeleteLabel = new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left, Name = EmoteRoleTable.RowCount.ToString()};
+            DeleteLabel.ForeColor = Color.Red;
+            DeleteLabel.Click += new EventHandler(RowDelete);
+            EmoteRoleTable.Controls.Add(DeleteLabel, 3, EmoteRoleTable.RowCount - 1);
+            
+            
+        }
+        private void RowDelete(object sender, EventArgs e) {
+            Label GedrückterLabel = (Label)sender; //Label, welches geklickt wurde
+            int row = 0; //Zeile die gelöscht werden soll
+            int Coll = 0; //Zähler der Spalte zum herausfinden der Zeile
+            bool found = false;
+            foreach (var Objekt in EmoteRoleTable.Controls) {
+                //Alle Objekte werden von oben links nach unten recht in Controls aufgelistet, daher kann diese durchlaufen werden
+                Coll++; //Für jeden Control wird die Spalte erhöht
+                if (Coll == 4 && found==false) { //Bei 4 Spalten (so groß ist die Tabelle), wird zurück gesetzt und eine neue Zeile beginnt. Solange wie nichts gefunden worden ist
+                    Coll = 0;
+                    row++;
+                }
+                if (GedrückterLabel.Equals(Objekt)) { //Ist das geklickte Objekt das gleiche, wie das durchlaufene, wird die Suche als gefunden markiert
+                    found = true;
+                }
+            }
+            if (found)
+            {
+                //-1 da sonst die Zeile unter dem Objekt gelöscht wird
+                TableLayoutHelper.RemoveArbitraryRow(EmoteRoleTable, row - 1);
+            }
+            else
+            {
+                MessageBox.Show("Gecklickter Label wurde nicht gefunden. Zeile konnte nicht gelöscht werden", "Huh?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ResetTable() {
+            EmoteRoleTable.Controls.Clear();
+            EmoteRoleTable.RowStyles.Clear();
+            EmoteRoleTable.RowCount = 1;
+
+            EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            //add your three controls
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Emote", AutoSize = true, Anchor = AnchorStyles.None, Font = label15.Font }, 0, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Emotename", AutoSize = true, Anchor = AnchorStyles.None }, 1, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "Rolle", AutoSize = true, Anchor = AnchorStyles.None }, 2, EmoteRoleTable.RowCount - 1);
+            EmoteRoleTable.Controls.Add(new Label() { Text = "", AutoSize = true, Anchor = AnchorStyles.None }, 3, EmoteRoleTable.RowCount - 1);
+
+        }
+
+        private void ResetAll(int Ebene)
+        {
+            //Ebene gibt an wie viele Felder zurück gesetzt werden, damit die Funktion nicht 10-fach geschrieben werden muss
+            //Je niedriger der Wert, desto mehr Felder werden zurück gesetzt
+
+            if (Ebene < 1) { 
+                cmdReactRollServer.Items.Clear(); cmdReactRollServer.Text = "";
+            }
+            if (Ebene < 2) { 
+                cmbReactChannel.Items.Clear(); cmbReactChannel.Text = "";
+                cmbEmoteSelect.Items.Clear();
+                cmbEmoteSelect.Text = "";
+                cmbRoleSelect.Items.Clear();
+                cmbRoleSelect.Text = "";
+            }
+            if (Ebene < 3) { cmdRollMessage.Items.Clear();cmdRollMessage.Text = "";}
+            if (Ebene < 4) { 
+                txtReactionName.Text = "";
+                txtReactFooter.Text = "";
+                txtReactMessage.Text = "";
+                txtReactTitle.Text = "";
+                ResetTable();
+            }
+        }
+
+        private void cmdReactRollServer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ResetAll(1);
+            foreach (var Server in DiscordListe) {
+                if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
+                {
+                    foreach (var Channel in Server.Channels) {
+                        cmbReactChannel.Items.Add(Channel.Name);
+                    }
+                    foreach (var Emote in Server.Emotes)
+                    {
+                        cmbEmoteSelect.Items.Add(Emote.Name);
+                    }
+                    foreach (var Role in Server.Roles)
+                    {
+                        cmbRoleSelect.Items.Add(Role.Name);
+                    }
+                }
+            }
+        }
+
+        private void cmbReactChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ResetAll(2);
+            foreach (var Server in DiscordListe)
+            {
+                if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
+                {
+                    foreach (var Channel in Server.Channels)
+                    {
+                        if (cmbReactChannel.SelectedItem.Equals(Channel.Name))
+                        {
+                            foreach (var ReactionRole in ReactionRoleList) {
+                                cmdRollMessage.Items.Add(ReactionRole.MessageName);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+ 
+        private void cmdRollMessage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ResetAll(3);
+            foreach (var ReactionRole in ReactionRoleList)
+            {
+                if (cmdRollMessage.SelectedItem.Equals(ReactionRole.MessageName)) {
+                    txtReactionName.Text = ReactionRole.MessageName;
+                    txtReactTitle.Text = ReactionRole.MessageTitle;
+                    txtReactFooter.Text = ReactionRole.MessageFooter;
+                    txtReactMessage.Text = ReactionRole.MessageText;
+                    ResetTable();
+                    foreach (var Emote in ReactionRole.RollenEinträge) {
+                        //vorher die Tabelle auf leer setzen
+                         AddRow(Emote.Emote.getEmoteBitmap(), Emote.Emote.Name,Emote.RoleName);
+                    }
+                }
+            }
+        }
+
+        
+
+        private void btnReactionDelete_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        
+
+        private void btnReactSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void chkDiscordEmote_CheckedChanged(object sender, EventArgs e)
+        {
+            EmoteDiscordSwitch = chkDiscordEmote.Checked;
+            if (EmoteDiscordSwitch)
+            {
+                cmbEmoteSelect.Enabled = true;
+                txtEmoteSelect.Enabled = false;
+            }
+            else {
+                cmbEmoteSelect.Enabled = false;
+                txtEmoteSelect.Enabled = true;
+            }
+        }
+
+        private bool EmoteValidate = false;
+        private bool TimerRun = false;
+        private void txtEmoteSelect_TextChanged(object sender, EventArgs e)
+        {
+            string testname = EmojiOne.EmojiOne.ToShort(txtEmoteSelect.Text);
+            string test = EmojiOne.EmojiOne.UnifyUnicode(txtEmoteSelect.Text);
+            string Pattern = @"^\\S{1,9}"; //ein UnicodeEmote hat 6 Zeichen
+            string Pattern2 = "^:\\S*:$"; //ein UnicodeEmote hat 6 Zeichen
+
+
+            Match matche1 = Regex.Match(testname,Pattern2,RegexOptions.IgnoreCase);
+            if (matche1.Success)
+            {
+                Console.WriteLine("Treffer");
+                EmoteValidate = true;
+            }
+            else
+            {
+                Console.WriteLine("Kein Treffer mit " + testname);
+            }
+
+            if (!TimerRun) {
+                TimerRun = true;
+                TEmoteValidate.Start();
+            }
+        }
+
+        private void TEmoteValidate_Tick(object sender, EventArgs e)
+        {
+            if (EmoteValidate)
+            {
+                txtEmoteSelect.BackColor = Color.LightGreen;
+            }
+            else {
+                txtEmoteSelect.BackColor = Color.LightGray;
+            }
+            EmoteValidate = false;
+            TEmoteValidate.Stop();
+            TimerRun = false;
+        }
+        #endregion
+    }
+}
+
+//Helper aus StackOverflow kopiert, um eine Zeile in der Tabelle zu löschen
+public static class TableLayoutHelper
+{
+    public static void RemoveArbitraryRow(TableLayoutPanel panel, int rowIndex)
+    {
+        if (rowIndex >= panel.RowCount)
+        {
+            return;
+        }
+
+        // delete all controls of row that we want to delete
+        for (int i = 0; i < panel.ColumnCount; i++)
+        {
+            var control = panel.GetControlFromPosition(i, rowIndex);
+            panel.Controls.Remove(control);
+        }
+
+        // move up row controls that comes after row we want to remove
+        for (int i = rowIndex + 1; i < panel.RowCount; i++)
+        {
+            for (int j = 0; j < panel.ColumnCount; j++)
+            {
+                var control = panel.GetControlFromPosition(j, i);
+                if (control != null)
+                {
+                    panel.SetRow(control, i - 1);
+                }
+            }
+        }
+
+        var removeStyle = panel.RowCount - 1;
+
+        if (panel.RowStyles.Count > removeStyle)
+            panel.RowStyles.RemoveAt(removeStyle);
+
+        panel.RowCount--;
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI
 {
-    class Befehl
+    public class Befehl
     {
         public String Kommando { get; set; }
         public String Antwort { get; set; }
@@ -21,11 +18,13 @@ namespace AntonBot.PlatformAPI
         //1 = Nur für Twitch
         //2 = Nur für Discord
 
-        public void IncrementAnzahl() {
+        public void IncrementAnzahl()
+        {
             Anzahl = Anzahl + 1;
         }
 
-        public Befehl() {
+        public Befehl()
+        {
             ZufallAntwort = new List<RandomBefehl>();
             Anzahl = 0;
         }

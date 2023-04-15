@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI.ListenTypen
 {
-    class TwitchAdminBefehl
+    internal class TwitchAdminBefehl
     {
         public String Name;
         public bool Use;
@@ -17,9 +13,10 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public String ChatText;
         public String FailText;
         public String Reward;
-        
 
-        public TwitchAdminBefehl(string name) {
+
+        public TwitchAdminBefehl(string name)
+        {
             Name = name;
             Admin = false;
             Broadcast = false;
@@ -31,7 +28,8 @@ namespace AntonBot.PlatformAPI.ListenTypen
             Use = false;
         }
 
-        public void UpdateCommand(TwitchAdminBefehl load) {
+        public void UpdateCommand(TwitchAdminBefehl load)
+        {
             if (load != null)
             {
                 Admin = load.Admin;

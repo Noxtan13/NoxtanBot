@@ -1,19 +1,19 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.ListenTypen;
 using Discord;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
-using AntonBot.PlatformAPI;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AntonBot
 {
-    
-    class DiscordFunction : Bot_Verwalter
+    public class DiscordFunction : Bot_Verwalter
     {
-        static void TestMain(string[] args) => new DiscordFunction().RunBotAsync().GetAwaiter().GetResult();
 
         private DiscordSocketClient client;
         private CommandService commands = new CommandService();
@@ -26,125 +26,149 @@ namespace AntonBot
         private DateTime dtLetzerAusfall;
         private TimeSpan dtAusfallDauer;
         private bool bAusfall = false;
+
+        public List<OwnEmote> Emotelist;
         public async Task RunBotAsync()
         {
+            //Fehlermeldung bei leeren Token 
+            /*
+             A supplied token was invalid.
+Exception: 
+A token cannot be null, empty, or contain only whitespace.
+             */
 
-
-
-            var cfg = new DiscordSocketConfig();
-            cfg.GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans;
-
-
-            client = new DiscordSocketClient(cfg);
-
-            bool Loginerfolgreich = false;
-            bool Starterfolgreich = false;
-
-            services = new ServiceCollection()
-                .AddSingleton(client)
-                .AddSingleton(commands)
-                .BuildServiceProvider();
-
-            if (!FirstStart)
+            if (SettingsGroup.Instance.DSAccessToken == null || SettingsGroup.Instance.DSAccessToken == "")
             {
-                client.Log += Client_Log;
-                await RegisterCommandsAsync();
-
-
-                
-                FirstStart = true;
-            }  
-
-            try
-            {
-                await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
-                Loginerfolgreich = true;
-            }
-            catch (Exception e)
-            {
-                if (e.Message.Contains("No such host is known"))
-                {
-                    KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                    Restart = true;
-                }
-                else if (e.InnerException.Message.Contains("Der Remotename konnte nicht aufgelöst werden: \'discord.com\'")) {
-                    KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                    Restart = true;
-                }
-                else
-                {
-                    KonsolenAusgabe("Die Funktion LoginAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                }
-            }
-
-            try
-            {
-                await client.StartAsync();
-                Starterfolgreich = true;
-            }
-            catch (Exception e)
-            {
-                KonsolenAusgabe("Die Funktion StartAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-            }
-
-
-            if (Loginerfolgreich == true && Starterfolgreich == true)
-            {
-                Active = true;
-                Restart = false;
-                DiscordWriteGuilds();
+                KonsolenAusgabe("Es ist kein Token verfügbar!" + Environment.NewLine + "Bitte Einrichtung durchführen");
             }
             else
             {
-                Active = false;
-                await StopBotAsync();
-            }
+                var cfg = new DiscordSocketConfig();
+                //Das sind die Infos, die ich von Discord abrufen darf. MessageContent ist notwendig, damit der Inhalt der Nachricht gelesen werden kann
+                cfg.GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans | GatewayIntents.MessageContent;
 
 
-            //await Task.Delay(-1);
-            
-            
-        }
+                client = new DiscordSocketClient(cfg);
 
-        public void DiscordWriteGuilds() {
-            System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
-            foreach (var server in client.Guilds) {
+                bool Loginerfolgreich = false;
+                bool Starterfolgreich = false;
 
-                discordGilde.Add(new PlatformAPI.DiscordGilde());
-                discordGilde[discordGilde.Count - 1].ID = server.Id;
-                discordGilde[discordGilde.Count - 1].OwnerID = server.OwnerId;
-                discordGilde[discordGilde.Count - 1].Name = server.Name;
+                services = new ServiceCollection()
+                    .AddSingleton(client)
+                    .AddSingleton(commands)
+                    .BuildServiceProvider();
 
-                discordGilde[discordGilde.Count - 1].Channels = new System.Collections.Generic.List<PlatformAPI.DiscordServerChannel>();
-                discordGilde[discordGilde.Count - 1].Users = new System.Collections.Generic.List<PlatformAPI.DiscordServerUser>();
-                discordGilde[discordGilde.Count - 1].Emotes = new System.Collections.Generic.List<PlatformAPI.DiscordServerEmotes>();
-                discordGilde[discordGilde.Count - 1].Roles = new System.Collections.Generic.List<PlatformAPI.DiscordServerRoles>();
+                if (!FirstStart)
+                {
+                    client.Log += Client_Log;
+                    await RegisterCommandsAsync();
 
-
-                foreach (var Kanal in server.TextChannels) {
-                    discordGilde[discordGilde.Count - 1].Channels.Add(new PlatformAPI.DiscordServerChannel(Kanal.Id, Kanal.Name));
+                    FirstStart = true;
                 }
 
-                foreach (var User in server.Users) {
-                    discordGilde[discordGilde.Count - 1].Users.Add(new PlatformAPI.DiscordServerUser(User.Id, User.Username, User.IsBot));
+                try
+                {
+                    KonsolenAusgabe("LoginSync wird ausgeführt");
+                    await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
+                    Loginerfolgreich = true;
+                }
+                catch (Exception e)
+                {
+                    if (e.Message.Contains("No such host is known"))
+                    {
+                        KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                        Restart = true;
+                    }
+                    else if (e.InnerException.Message.Contains("Der Remotename konnte nicht aufgelöst werden: \'discord.com\'"))
+                    {
+                        KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                        Restart = true;
+                    }
+                    else
+                    {
+                        KonsolenAusgabe("Die Funktion LoginAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                    }
                 }
 
-                foreach (var Emote in server.Emotes) {
-                    discordGilde[discordGilde.Count - 1].Emotes.Add(new PlatformAPI.DiscordServerEmotes(Emote.Id, Emote.Name));
+                try
+                {
+                    KonsolenAusgabe("StartAsync wird ausgeführt");
+                    await client.StartAsync();
+                    Starterfolgreich = true;
+                }
+                catch (Exception e)
+                {
+                    KonsolenAusgabe("Die Funktion StartAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
                 }
 
-                foreach (var Role in server.Roles) {
-                    discordGilde[discordGilde.Count - 1].Roles.Add(new PlatformAPI.DiscordServerRoles(Role.Id, Role.Name));
+
+                if (Loginerfolgreich == true && Starterfolgreich == true)
+                {
+                    Active = true;
+                    Restart = false;
+                    DiscordWriteGuilds();
+                }
+                else
+                {
+                    Active = false;
+                    await StopBotAsync();
                 }
 
-                string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde);
-                String Path = System.Windows.Forms.Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "DiscordServer.json";
                 
-                System.IO.File.WriteAllText(Path, InhaltJSON);
             }
         }
 
-        public async Task StopBotAsync() {
+        public void DiscordWriteGuilds()
+        {
+            System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
+            if (client != null)
+            {
+                foreach (var server in client.Guilds)
+                {
+
+                    discordGilde.Add(new PlatformAPI.DiscordGilde());
+                    discordGilde[discordGilde.Count - 1].ID = server.Id;
+                    discordGilde[discordGilde.Count - 1].OwnerID = server.OwnerId;
+                    discordGilde[discordGilde.Count - 1].Name = server.Name;
+
+                    discordGilde[discordGilde.Count - 1].Channels = new System.Collections.Generic.List<PlatformAPI.DiscordServerChannel>();
+                    discordGilde[discordGilde.Count - 1].Users = new System.Collections.Generic.List<PlatformAPI.DiscordServerUser>();
+                    discordGilde[discordGilde.Count - 1].Emotes = new System.Collections.Generic.List<PlatformAPI.DiscordServerEmotes>();
+                    discordGilde[discordGilde.Count - 1].Roles = new System.Collections.Generic.List<PlatformAPI.DiscordServerRoles>();
+
+
+                    foreach (var Kanal in server.TextChannels)
+                    {
+                        discordGilde[discordGilde.Count - 1].Channels.Add(new PlatformAPI.DiscordServerChannel(Kanal.Id, Kanal.Name));
+                    }
+
+                    foreach (var User in server.Users)
+                    {
+                        discordGilde[discordGilde.Count - 1].Users.Add(new PlatformAPI.DiscordServerUser(User.Id, User.Username, User.IsBot));
+                    }
+
+                    foreach (var Emote in server.Emotes)
+                    {
+                        discordGilde[discordGilde.Count - 1].Emotes.Add(new PlatformAPI.DiscordServerEmotes(Emote.Id, Emote.Name));
+                    }
+
+                    foreach (var Role in server.Roles)
+                    {
+                        discordGilde[discordGilde.Count - 1].Roles.Add(new PlatformAPI.DiscordServerRoles(Role.Id, Role.Name));
+                    }
+
+                    string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(discordGilde, Newtonsoft.Json.Formatting.Indented);
+                    String Path = SettingsGroup.Instance.StandardPfad + "DiscordServer.json";
+
+                    System.IO.File.WriteAllText(Path, InhaltJSON);
+                }
+            }
+            else {
+                KonsolenAusgabe("Client war noch nicht gestartet. DiscordWriteGuilds() wird nicht ausgeführt");
+            }
+        }
+        public async Task StopBotAsync()
+        {
 
             if (client != null)
             {
@@ -158,7 +182,8 @@ namespace AntonBot
             }
         }
 
-        public String getClientStatus() {
+        public String getClientStatus()
+        {
             if (client != null)
             {
                 return client.LoginState.ToString();
@@ -167,7 +192,7 @@ namespace AntonBot
             {
                 return "NULL";
             }
-            
+
         }
 
         private Task Client_Log(LogMessage arg)
@@ -185,8 +210,9 @@ namespace AntonBot
             */
 
 
-            string Text =arg.Message;
-            if (arg.Exception != null) {
+            string Text = arg.Message;
+            if (arg.Exception != null)
+            {
                 Text += Environment.NewLine + "Exception: " + Environment.NewLine + arg.Exception.Message + Environment.NewLine + "Source: " + arg.Source;
             }
             KonsolenAusgabe(Text);
@@ -203,6 +229,11 @@ namespace AntonBot
                     bAusfall = false;
                     dtAusfallDauer = DateTime.Now - dtLetzerAusfall;
                     KonsolenAusgabe("Dauer Ausfall in Sekunden: ", dtAusfallDauer.TotalSeconds);
+                }
+                else
+                {
+                    //Einträge werden sonst doppelt ausgegeben, wenn dies nicht kommentiert ist
+                    //KonsolenAusgabe(arg.Message);
                 }
             }
 
@@ -228,7 +259,7 @@ namespace AntonBot
                 if (SettingsGroup.Instance.DsLeftUser.Discord)
                 {
                     string Text = SettingsGroup.Instance.DsLeftUser.DiscordText;
-                    Text = OnUserLeftReplace(Text, arg1,arg2);
+                    Text = OnUserLeftReplace(Text, arg1, arg2);
 
                     foreach (var channels in arg1.Channels)
                     {
@@ -264,7 +295,8 @@ namespace AntonBot
             //arg2 ist der User
         }
 
-        private String OnUserLeftReplace(String Text, SocketGuild arg1, SocketUser arg2) {
+        private String OnUserLeftReplace(String Text, SocketGuild arg1, SocketUser arg2)
+        {
 
             Text = Text.Replace("°GuildName", arg1.Name);
             Text = Text.Replace("UserName°", arg2.Username);
@@ -274,12 +306,12 @@ namespace AntonBot
         private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
         {
             //string Nachricht = "WOW eine Reaktion :o";
-            var Message = (RestUserMessage) await arg2.GetMessageAsync(arg3.MessageId);
+            var Message = (RestUserMessage)await arg2.GetMessageAsync(arg3.MessageId);
 
             var Emoji = new Emoji("🔥");
 
             await Message.AddReactionAsync(arg3.Emote, new RequestOptions());
-            await Message.AddReactionAsync(Emoji , new RequestOptions());
+            await Message.AddReactionAsync(Emoji, new RequestOptions());
         }
 
         private async Task Client_UserJoined(SocketGuildUser arg)
@@ -322,29 +354,31 @@ namespace AntonBot
             }
         }
 
-        private String OnUserJoinReplace(String Text, SocketGuildUser arg) {
-            Text = Text.Replace("°Username",arg.Username);
+        private String OnUserJoinReplace(String Text, SocketGuildUser arg)
+        {
+            Text = Text.Replace("°Username", arg.Username);
             Text = Text.Replace("°DisplayName", arg.DisplayName);
             Text = Text.Replace("°Guild", arg.Guild.Name);
             Text = Text.Replace("°JoinedAt", arg.JoinedAt.Value.DateTime.ToString());
-            Text = Text.Replace("°Nickname", arg.Nickname);;
+            Text = Text.Replace("°Nickname", arg.Nickname); ;
             return Text;
         }
 
         private async Task HandleCommandAsync(SocketMessage RecievedMessage)
         {
- 
+
             await ReactToCommand(RecievedMessage);
-            
+
         }
 
         public async Task ReactToCommand(SocketMessage RecievedMessage)
         {
             string Nachricht = CheckBefehlAllg(RecievedMessage.Content, RecievedMessage.Author.Username);
 
-            if (Nachricht == null) {
+            if (Nachricht == null)
+            {
                 //Hier muss noch die Überprüfung der Adminrechte erfolgen
-               Nachricht = CheckListBefehl(RecievedMessage.Content, RecievedMessage.Author.Username, false ,"Discord");
+                Nachricht = CheckListBefehl(RecievedMessage.Content, RecievedMessage.Author.Username, false, "Discord");
             }
             //Nur wenn die Nachricht einen Inhalt hat, wird diese gesendet, 
             if (Nachricht != null)
@@ -361,7 +395,8 @@ namespace AntonBot
                 }
             }
         }
-        public async Task SendMessage(ulong ChannelID, String Nachricht) {
+        public async Task SendMessage(ulong ChannelID, String Nachricht)
+        {
             if (Active)
             {
                 try
@@ -378,7 +413,8 @@ namespace AntonBot
                     throw;
                 }
             }
-            else {
+            else
+            {
                 KonsolenAusgabe("Der Bot ist nicht aktiv oder angemeldet. Eine Nachricht zu senden ist nicht möglich.");
             }
         }
@@ -412,6 +448,44 @@ namespace AntonBot
             AllCommands.Clear();
             CommandListFill(BefehlListe);
             //CommandListFill(lTwitchBefehlListe); Hier werden die Discordeigenen Befehle dann geladen
+        }
+
+        public void LoadAllEmotes()
+        {
+            if (Active)
+            {
+                Emotelist = new List<OwnEmote>();
+                if (client.Guilds.Count > 0)
+                {
+                    foreach (var Server in client.Guilds)
+                    {
+                        if (Server.Emotes.Count > 0)
+                        {
+                            foreach (var Emote in Server.Emotes)
+                            {
+                                OwnEmote Eintrag = new OwnEmote();
+                                Eintrag.ServerID = Server.Id;
+                                Eintrag.ServerName = Server.Name;
+                                Eintrag.ID = Emote.Id;
+                                Eintrag.Name = Emote.Name;
+                                Eintrag.URL = Emote.Url;
+
+                                Emotelist.Add(Eintrag);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public List<OwnEmote> getEmotelist() {
+
+            if (Emotelist == null) {
+                Emotelist = new List<OwnEmote>();
+                LoadAllEmotes();
+            }
+
+            return Emotelist;
         }
     }
 }

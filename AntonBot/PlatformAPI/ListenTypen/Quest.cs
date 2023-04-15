@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AntonBot.PlatformAPI.ListenTypen
+﻿namespace AntonBot.PlatformAPI.ListenTypen
 {
-    class Quest
+    internal class Quest
     {
         public string ID;
         public string Name;
@@ -15,11 +9,13 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public bool Abschluss;
         public bool Repeat;
         public int AnzahlAbschluss;
-        public Quest(string name, decimal abschlussEXP, bool Main, bool abschluss, bool repeat, string id) {
+        public Quest(string name, decimal abschlussEXP, bool Main, bool abschluss, bool repeat, string id)
+        {
             Name = name;
             AbschlussEXP = abschlussEXP;
             isMain = Main;
-            if (id.Contains("S") || id.Contains("M")) {
+            if (id.Contains("S") || id.Contains("M"))
+            {
                 ID = id;
             }
             else

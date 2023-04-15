@@ -37,39 +37,47 @@
             this.txtDiscordOtherChannel = new System.Windows.Forms.TextBox();
             this.chkOtherChannelDiscord = new System.Windows.Forms.CheckBox();
             this.chkTwitchAutoMessage = new System.Windows.Forms.CheckBox();
-            this.chkTwitchAutoBan = new System.Windows.Forms.CheckBox();
             this.chkAutoTwitch = new System.Windows.Forms.CheckBox();
             this.chkAutoDiscord = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabAutoBot = new System.Windows.Forms.TabPage();
-            this.btnWhiteListDelete = new System.Windows.Forms.Button();
-            this.btnWhiteListAdd = new System.Windows.Forms.Button();
-            this.txtWhiteList = new System.Windows.Forms.TextBox();
-            this.lstWhiteList = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.NUDLogAmount = new System.Windows.Forms.NumericUpDown();
-            this.NUDLogDuration = new System.Windows.Forms.NumericUpDown();
-            this.chkAutoBotBannUse = new System.Windows.Forms.CheckBox();
-            this.tabPfade = new System.Windows.Forms.TabPage();
-            this.txtStandardPfad = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.TabControllList = new System.Windows.Forms.TabControl();
             this.tabWhite = new System.Windows.Forms.TabPage();
+            this.btnWhiteListDelete = new System.Windows.Forms.Button();
+            this.lstWhiteList = new System.Windows.Forms.ListBox();
+            this.btnWhiteListAdd = new System.Windows.Forms.Button();
+            this.NUDLogDuration = new System.Windows.Forms.NumericUpDown();
+            this.txtWhiteList = new System.Windows.Forms.TextBox();
+            this.NUDLogAmount = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabBlack = new System.Windows.Forms.TabPage();
             this.btnBlackRemove = new System.Windows.Forms.Button();
             this.lstBlackList = new System.Windows.Forms.ListBox();
             this.btnBlackAdd = new System.Windows.Forms.Button();
             this.txtBlackList = new System.Windows.Forms.TextBox();
+            this.chkAutoBotBannUse = new System.Windows.Forms.CheckBox();
+            this.tabPfade = new System.Windows.Forms.TabPage();
+            this.btnPfadRecover = new System.Windows.Forms.Button();
+            this.btnExplorerHTML = new System.Windows.Forms.Button();
+            this.btnExplorerLog = new System.Windows.Forms.Button();
+            this.btnExplorerStandard = new System.Windows.Forms.Button();
+            this.txtLogPfad = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtHTML = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtStandardPfad = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.fBDOrdnerAuswahl = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.TabStart.SuspendLayout();
             this.tabAutoBot.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUDLogAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUDLogDuration)).BeginInit();
-            this.tabPfade.SuspendLayout();
             this.TabControllList.SuspendLayout();
             this.tabWhite.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDLogDuration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDLogAmount)).BeginInit();
             this.tabBlack.SuspendLayout();
+            this.tabPfade.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSpeichern
@@ -111,14 +119,13 @@
             this.TabStart.Controls.Add(this.txtDiscordOtherChannel);
             this.TabStart.Controls.Add(this.chkOtherChannelDiscord);
             this.TabStart.Controls.Add(this.chkTwitchAutoMessage);
-            this.TabStart.Controls.Add(this.chkTwitchAutoBan);
             this.TabStart.Controls.Add(this.chkAutoTwitch);
             this.TabStart.Controls.Add(this.chkAutoDiscord);
             this.TabStart.Controls.Add(this.label1);
-            this.TabStart.Location = new System.Drawing.Point(4, 39);
+            this.TabStart.Location = new System.Drawing.Point(4, 45);
             this.TabStart.Name = "TabStart";
             this.TabStart.Padding = new System.Windows.Forms.Padding(3);
-            this.TabStart.Size = new System.Drawing.Size(720, 350);
+            this.TabStart.Size = new System.Drawing.Size(720, 344);
             this.TabStart.TabIndex = 0;
             this.TabStart.Text = "Start-Einstellung";
             this.TabStart.UseVisualStyleBackColor = true;
@@ -126,27 +133,26 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(183, 192);
+            this.label4.Location = new System.Drawing.Point(33, 221);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 30);
+            this.label4.Size = new System.Drawing.Size(124, 37);
             this.label4.TabIndex = 12;
             this.label4.Text = "Channel:";
             // 
             // txtDiscordOtherChannel
             // 
-            this.txtDiscordOtherChannel.Enabled = false;
-            this.txtDiscordOtherChannel.Location = new System.Drawing.Point(283, 189);
+            this.txtDiscordOtherChannel.Location = new System.Drawing.Point(133, 218);
             this.txtDiscordOtherChannel.Name = "txtDiscordOtherChannel";
-            this.txtDiscordOtherChannel.Size = new System.Drawing.Size(339, 35);
+            this.txtDiscordOtherChannel.Size = new System.Drawing.Size(339, 42);
             this.txtDiscordOtherChannel.TabIndex = 11;
             this.txtDiscordOtherChannel.Leave += new System.EventHandler(this.txtDiscordOtherChannel_Leave);
             // 
             // chkOtherChannelDiscord
             // 
             this.chkOtherChannelDiscord.AutoSize = true;
-            this.chkOtherChannelDiscord.Location = new System.Drawing.Point(188, 155);
+            this.chkOtherChannelDiscord.Location = new System.Drawing.Point(40, 177);
             this.chkOtherChannelDiscord.Name = "chkOtherChannelDiscord";
-            this.chkOtherChannelDiscord.Size = new System.Drawing.Size(434, 34);
+            this.chkOtherChannelDiscord.Size = new System.Drawing.Size(554, 41);
             this.chkOtherChannelDiscord.TabIndex = 10;
             this.chkOtherChannelDiscord.Text = "Einträge in Discord-Channel protokolieren";
             this.chkOtherChannelDiscord.UseVisualStyleBackColor = true;
@@ -156,22 +162,12 @@
             // 
             this.chkTwitchAutoMessage.AutoSize = true;
             this.chkTwitchAutoMessage.Enabled = false;
-            this.chkTwitchAutoMessage.Location = new System.Drawing.Point(188, 89);
+            this.chkTwitchAutoMessage.Location = new System.Drawing.Point(40, 130);
             this.chkTwitchAutoMessage.Name = "chkTwitchAutoMessage";
-            this.chkTwitchAutoMessage.Size = new System.Drawing.Size(202, 34);
+            this.chkTwitchAutoMessage.Size = new System.Drawing.Size(260, 41);
             this.chkTwitchAutoMessage.TabIndex = 9;
             this.chkTwitchAutoMessage.Text = "Auto-Nachrichten";
             this.chkTwitchAutoMessage.UseVisualStyleBackColor = true;
-            // 
-            // chkTwitchAutoBan
-            // 
-            this.chkTwitchAutoBan.AutoSize = true;
-            this.chkTwitchAutoBan.Location = new System.Drawing.Point(188, 129);
-            this.chkTwitchAutoBan.Name = "chkTwitchAutoBan";
-            this.chkTwitchAutoBan.Size = new System.Drawing.Size(237, 34);
-            this.chkTwitchAutoBan.TabIndex = 8;
-            this.chkTwitchAutoBan.Text = "Twitch Bots Auto Ban";
-            this.chkTwitchAutoBan.UseVisualStyleBackColor = true;
             // 
             // chkAutoTwitch
             // 
@@ -179,10 +175,11 @@
             this.chkAutoTwitch.Location = new System.Drawing.Point(14, 89);
             this.chkAutoTwitch.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.chkAutoTwitch.Name = "chkAutoTwitch";
-            this.chkAutoTwitch.Size = new System.Drawing.Size(93, 34);
+            this.chkAutoTwitch.Size = new System.Drawing.Size(117, 41);
             this.chkAutoTwitch.TabIndex = 7;
             this.chkAutoTwitch.Text = "Twitch";
             this.chkAutoTwitch.UseVisualStyleBackColor = true;
+            this.chkAutoTwitch.CheckedChanged += new System.EventHandler(this.chkAutoTwitch_CheckedChanged_1);
             // 
             // chkAutoDiscord
             // 
@@ -190,7 +187,7 @@
             this.chkAutoDiscord.Location = new System.Drawing.Point(14, 40);
             this.chkAutoDiscord.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.chkAutoDiscord.Name = "chkAutoDiscord";
-            this.chkAutoDiscord.Size = new System.Drawing.Size(105, 34);
+            this.chkAutoDiscord.Size = new System.Drawing.Size(132, 41);
             this.chkAutoDiscord.TabIndex = 5;
             this.chkAutoDiscord.Text = "Discord";
             this.chkAutoDiscord.UseVisualStyleBackColor = true;
@@ -201,7 +198,7 @@
             this.label1.Location = new System.Drawing.Point(9, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(669, 30);
+            this.label1.Size = new System.Drawing.Size(856, 37);
             this.label1.TabIndex = 6;
             this.label1.Text = "Auswahl der Plattformen, die beim Start sich automatisch verbinden:";
             // 
@@ -209,139 +206,13 @@
             // 
             this.tabAutoBot.Controls.Add(this.TabControllList);
             this.tabAutoBot.Controls.Add(this.chkAutoBotBannUse);
-            this.tabAutoBot.Location = new System.Drawing.Point(4, 39);
+            this.tabAutoBot.Location = new System.Drawing.Point(4, 45);
             this.tabAutoBot.Name = "tabAutoBot";
             this.tabAutoBot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAutoBot.Size = new System.Drawing.Size(720, 350);
+            this.tabAutoBot.Size = new System.Drawing.Size(720, 344);
             this.tabAutoBot.TabIndex = 1;
             this.tabAutoBot.Text = "AutoBot-Bann";
             this.tabAutoBot.UseVisualStyleBackColor = true;
-            // 
-            // btnWhiteListDelete
-            // 
-            this.btnWhiteListDelete.Location = new System.Drawing.Point(11, 182);
-            this.btnWhiteListDelete.Name = "btnWhiteListDelete";
-            this.btnWhiteListDelete.Size = new System.Drawing.Size(202, 38);
-            this.btnWhiteListDelete.TabIndex = 7;
-            this.btnWhiteListDelete.Text = "Eintrag löschen";
-            this.btnWhiteListDelete.UseVisualStyleBackColor = true;
-            this.btnWhiteListDelete.Click += new System.EventHandler(this.btnWhiteListDelete_Click);
-            // 
-            // btnWhiteListAdd
-            // 
-            this.btnWhiteListAdd.Location = new System.Drawing.Point(11, 138);
-            this.btnWhiteListAdd.Name = "btnWhiteListAdd";
-            this.btnWhiteListAdd.Size = new System.Drawing.Size(202, 38);
-            this.btnWhiteListAdd.TabIndex = 6;
-            this.btnWhiteListAdd.Text = "Eintrag hinzufügen";
-            this.btnWhiteListAdd.UseVisualStyleBackColor = true;
-            this.btnWhiteListAdd.Click += new System.EventHandler(this.btnWhiteListAdd_Click);
-            // 
-            // txtWhiteList
-            // 
-            this.txtWhiteList.Location = new System.Drawing.Point(11, 97);
-            this.txtWhiteList.Name = "txtWhiteList";
-            this.txtWhiteList.Size = new System.Drawing.Size(350, 35);
-            this.txtWhiteList.TabIndex = 5;
-            // 
-            // lstWhiteList
-            // 
-            this.lstWhiteList.FormattingEnabled = true;
-            this.lstWhiteList.ItemHeight = 30;
-            this.lstWhiteList.Location = new System.Drawing.Point(367, 15);
-            this.lstWhiteList.Name = "lstWhiteList";
-            this.lstWhiteList.Size = new System.Drawing.Size(325, 214);
-            this.lstWhiteList.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(198, 30);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Erlaubte Häufigkeit";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(229, 30);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Gültigkeit der Einträge";
-            // 
-            // NUDLogAmount
-            // 
-            this.NUDLogAmount.Location = new System.Drawing.Point(241, 56);
-            this.NUDLogAmount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NUDLogAmount.Name = "NUDLogAmount";
-            this.NUDLogAmount.Size = new System.Drawing.Size(120, 35);
-            this.NUDLogAmount.TabIndex = 1;
-            this.NUDLogAmount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // NUDLogDuration
-            // 
-            this.NUDLogDuration.Location = new System.Drawing.Point(241, 15);
-            this.NUDLogDuration.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NUDLogDuration.Name = "NUDLogDuration";
-            this.NUDLogDuration.Size = new System.Drawing.Size(120, 35);
-            this.NUDLogDuration.TabIndex = 0;
-            this.NUDLogDuration.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // chkAutoBotBannUse
-            // 
-            this.chkAutoBotBannUse.AutoSize = true;
-            this.chkAutoBotBannUse.Location = new System.Drawing.Point(6, 6);
-            this.chkAutoBotBannUse.Name = "chkAutoBotBannUse";
-            this.chkAutoBotBannUse.Size = new System.Drawing.Size(226, 34);
-            this.chkAutoBotBannUse.TabIndex = 0;
-            this.chkAutoBotBannUse.Text = "Funktion verwenden";
-            this.chkAutoBotBannUse.UseVisualStyleBackColor = true;
-            this.chkAutoBotBannUse.CheckedChanged += new System.EventHandler(this.chkAutoBotBannUse_CheckedChanged);
-            // 
-            // tabPfade
-            // 
-            this.tabPfade.Controls.Add(this.txtStandardPfad);
-            this.tabPfade.Controls.Add(this.label5);
-            this.tabPfade.Location = new System.Drawing.Point(4, 39);
-            this.tabPfade.Name = "tabPfade";
-            this.tabPfade.Size = new System.Drawing.Size(720, 350);
-            this.tabPfade.TabIndex = 2;
-            this.tabPfade.Text = "Pfade";
-            this.tabPfade.UseVisualStyleBackColor = true;
-            // 
-            // txtStandardPfad
-            // 
-            this.txtStandardPfad.Location = new System.Drawing.Point(177, 13);
-            this.txtStandardPfad.Name = "txtStandardPfad";
-            this.txtStandardPfad.Size = new System.Drawing.Size(527, 35);
-            this.txtStandardPfad.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 30);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Standard-Pfad:";
             // 
             // TabControllList
             // 
@@ -363,13 +234,81 @@
             this.tabWhite.Controls.Add(this.NUDLogAmount);
             this.tabWhite.Controls.Add(this.label2);
             this.tabWhite.Controls.Add(this.label3);
-            this.tabWhite.Location = new System.Drawing.Point(4, 39);
+            this.tabWhite.Location = new System.Drawing.Point(4, 45);
             this.tabWhite.Name = "tabWhite";
             this.tabWhite.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWhite.Size = new System.Drawing.Size(700, 249);
+            this.tabWhite.Size = new System.Drawing.Size(700, 243);
             this.tabWhite.TabIndex = 0;
             this.tabWhite.Text = "Whitelist";
             this.tabWhite.UseVisualStyleBackColor = true;
+            // 
+            // btnWhiteListDelete
+            // 
+            this.btnWhiteListDelete.Location = new System.Drawing.Point(11, 182);
+            this.btnWhiteListDelete.Name = "btnWhiteListDelete";
+            this.btnWhiteListDelete.Size = new System.Drawing.Size(202, 38);
+            this.btnWhiteListDelete.TabIndex = 7;
+            this.btnWhiteListDelete.Text = "Eintrag löschen";
+            this.btnWhiteListDelete.UseVisualStyleBackColor = true;
+            this.btnWhiteListDelete.Click += new System.EventHandler(this.btnWhiteListDelete_Click);
+            // 
+            // lstWhiteList
+            // 
+            this.lstWhiteList.FormattingEnabled = true;
+            this.lstWhiteList.ItemHeight = 36;
+            this.lstWhiteList.Location = new System.Drawing.Point(367, 15);
+            this.lstWhiteList.Name = "lstWhiteList";
+            this.lstWhiteList.Size = new System.Drawing.Size(325, 184);
+            this.lstWhiteList.TabIndex = 4;
+            // 
+            // btnWhiteListAdd
+            // 
+            this.btnWhiteListAdd.Location = new System.Drawing.Point(11, 138);
+            this.btnWhiteListAdd.Name = "btnWhiteListAdd";
+            this.btnWhiteListAdd.Size = new System.Drawing.Size(202, 38);
+            this.btnWhiteListAdd.TabIndex = 6;
+            this.btnWhiteListAdd.Text = "Eintrag hinzufügen";
+            this.btnWhiteListAdd.UseVisualStyleBackColor = true;
+            this.btnWhiteListAdd.Click += new System.EventHandler(this.btnWhiteListAdd_Click);
+            // 
+            // NUDLogDuration
+            // 
+            this.NUDLogDuration.Location = new System.Drawing.Point(241, 15);
+            this.NUDLogDuration.Name = "NUDLogDuration";
+            this.NUDLogDuration.Size = new System.Drawing.Size(120, 42);
+            this.NUDLogDuration.TabIndex = 0;
+            // 
+            // txtWhiteList
+            // 
+            this.txtWhiteList.Location = new System.Drawing.Point(11, 97);
+            this.txtWhiteList.Name = "txtWhiteList";
+            this.txtWhiteList.Size = new System.Drawing.Size(350, 42);
+            this.txtWhiteList.TabIndex = 5;
+            // 
+            // NUDLogAmount
+            // 
+            this.NUDLogAmount.Location = new System.Drawing.Point(241, 56);
+            this.NUDLogAmount.Name = "NUDLogAmount";
+            this.NUDLogAmount.Size = new System.Drawing.Size(120, 42);
+            this.NUDLogAmount.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(292, 37);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Gültigkeit der Einträge";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(252, 37);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Erlaubte Häufigkeit";
             // 
             // tabBlack
             // 
@@ -377,10 +316,10 @@
             this.tabBlack.Controls.Add(this.lstBlackList);
             this.tabBlack.Controls.Add(this.btnBlackAdd);
             this.tabBlack.Controls.Add(this.txtBlackList);
-            this.tabBlack.Location = new System.Drawing.Point(4, 39);
+            this.tabBlack.Location = new System.Drawing.Point(4, 45);
             this.tabBlack.Name = "tabBlack";
             this.tabBlack.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBlack.Size = new System.Drawing.Size(700, 249);
+            this.tabBlack.Size = new System.Drawing.Size(700, 243);
             this.tabBlack.TabIndex = 1;
             this.tabBlack.Text = "Blacklist";
             this.tabBlack.UseVisualStyleBackColor = true;
@@ -398,10 +337,10 @@
             // lstBlackList
             // 
             this.lstBlackList.FormattingEnabled = true;
-            this.lstBlackList.ItemHeight = 30;
+            this.lstBlackList.ItemHeight = 36;
             this.lstBlackList.Location = new System.Drawing.Point(368, 17);
             this.lstBlackList.Name = "lstBlackList";
-            this.lstBlackList.Size = new System.Drawing.Size(325, 214);
+            this.lstBlackList.Size = new System.Drawing.Size(325, 184);
             this.lstBlackList.TabIndex = 12;
             // 
             // btnBlackAdd
@@ -418,12 +357,133 @@
             // 
             this.txtBlackList.Location = new System.Drawing.Point(6, 17);
             this.txtBlackList.Name = "txtBlackList";
-            this.txtBlackList.Size = new System.Drawing.Size(350, 35);
+            this.txtBlackList.Size = new System.Drawing.Size(350, 42);
             this.txtBlackList.TabIndex = 13;
+            // 
+            // chkAutoBotBannUse
+            // 
+            this.chkAutoBotBannUse.AutoSize = true;
+            this.chkAutoBotBannUse.Location = new System.Drawing.Point(6, 6);
+            this.chkAutoBotBannUse.Name = "chkAutoBotBannUse";
+            this.chkAutoBotBannUse.Size = new System.Drawing.Size(288, 41);
+            this.chkAutoBotBannUse.TabIndex = 0;
+            this.chkAutoBotBannUse.Text = "Funktion verwenden";
+            this.chkAutoBotBannUse.UseVisualStyleBackColor = true;
+            this.chkAutoBotBannUse.CheckedChanged += new System.EventHandler(this.chkAutoBotBannUse_CheckedChanged);
+            // 
+            // tabPfade
+            // 
+            this.tabPfade.Controls.Add(this.btnPfadRecover);
+            this.tabPfade.Controls.Add(this.btnExplorerHTML);
+            this.tabPfade.Controls.Add(this.btnExplorerLog);
+            this.tabPfade.Controls.Add(this.btnExplorerStandard);
+            this.tabPfade.Controls.Add(this.txtLogPfad);
+            this.tabPfade.Controls.Add(this.label7);
+            this.tabPfade.Controls.Add(this.txtHTML);
+            this.tabPfade.Controls.Add(this.label6);
+            this.tabPfade.Controls.Add(this.txtStandardPfad);
+            this.tabPfade.Controls.Add(this.label5);
+            this.tabPfade.Location = new System.Drawing.Point(4, 45);
+            this.tabPfade.Name = "tabPfade";
+            this.tabPfade.Size = new System.Drawing.Size(720, 344);
+            this.tabPfade.TabIndex = 2;
+            this.tabPfade.Text = "Pfade";
+            this.tabPfade.UseVisualStyleBackColor = true;
+            // 
+            // btnPfadRecover
+            // 
+            this.btnPfadRecover.Location = new System.Drawing.Point(20, 156);
+            this.btnPfadRecover.Name = "btnPfadRecover";
+            this.btnPfadRecover.Size = new System.Drawing.Size(151, 38);
+            this.btnPfadRecover.TabIndex = 9;
+            this.btnPfadRecover.Text = "Standard wiederherrstellen";
+            this.btnPfadRecover.UseVisualStyleBackColor = true;
+            this.btnPfadRecover.Click += new System.EventHandler(this.btnPfadRecover_Click);
+            // 
+            // btnExplorerHTML
+            // 
+            this.btnExplorerHTML.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorerHTML.Image")));
+            this.btnExplorerHTML.Location = new System.Drawing.Point(679, 102);
+            this.btnExplorerHTML.Name = "btnExplorerHTML";
+            this.btnExplorerHTML.Size = new System.Drawing.Size(33, 33);
+            this.btnExplorerHTML.TabIndex = 8;
+            this.btnExplorerHTML.UseVisualStyleBackColor = true;
+            this.btnExplorerHTML.Click += new System.EventHandler(this.btnExplorerHTML_Click);
+            // 
+            // btnExplorerLog
+            // 
+            this.btnExplorerLog.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorerLog.Image")));
+            this.btnExplorerLog.Location = new System.Drawing.Point(679, 57);
+            this.btnExplorerLog.Name = "btnExplorerLog";
+            this.btnExplorerLog.Size = new System.Drawing.Size(33, 33);
+            this.btnExplorerLog.TabIndex = 7;
+            this.btnExplorerLog.UseVisualStyleBackColor = true;
+            this.btnExplorerLog.Click += new System.EventHandler(this.btnExplorerLog_Click);
+            // 
+            // btnExplorerStandard
+            // 
+            this.btnExplorerStandard.Image = global::AntonBot.Properties.Resources.WinExplorer;
+            this.btnExplorerStandard.Location = new System.Drawing.Point(679, 13);
+            this.btnExplorerStandard.Name = "btnExplorerStandard";
+            this.btnExplorerStandard.Size = new System.Drawing.Size(33, 33);
+            this.btnExplorerStandard.TabIndex = 6;
+            this.btnExplorerStandard.UseVisualStyleBackColor = true;
+            this.btnExplorerStandard.Click += new System.EventHandler(this.btnExplorerStandard_Click);
+            // 
+            // txtLogPfad
+            // 
+            this.txtLogPfad.Location = new System.Drawing.Point(177, 55);
+            this.txtLogPfad.Name = "txtLogPfad";
+            this.txtLogPfad.Size = new System.Drawing.Size(496, 42);
+            this.txtLogPfad.TabIndex = 5;
+            this.txtLogPfad.TextChanged += new System.EventHandler(this.txtLogPfad_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 58);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(128, 37);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Log-Pfad";
+            // 
+            // txtHTML
+            // 
+            this.txtHTML.Location = new System.Drawing.Point(177, 100);
+            this.txtHTML.Name = "txtHTML";
+            this.txtHTML.Size = new System.Drawing.Size(496, 42);
+            this.txtHTML.TabIndex = 3;
+            this.txtHTML.TextChanged += new System.EventHandler(this.txtHTML_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 103);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(163, 37);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "HTML-Pfad:";
+            // 
+            // txtStandardPfad
+            // 
+            this.txtStandardPfad.Location = new System.Drawing.Point(177, 13);
+            this.txtStandardPfad.Name = "txtStandardPfad";
+            this.txtStandardPfad.Size = new System.Drawing.Size(496, 42);
+            this.txtStandardPfad.TabIndex = 1;
+            this.txtStandardPfad.TextChanged += new System.EventHandler(this.txtStandardPfad_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(201, 37);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Standard-Pfad:";
             // 
             // AllgEinstellungen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 36F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(752, 484);
@@ -445,15 +505,15 @@
             this.TabStart.PerformLayout();
             this.tabAutoBot.ResumeLayout(false);
             this.tabAutoBot.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUDLogAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUDLogDuration)).EndInit();
-            this.tabPfade.ResumeLayout(false);
-            this.tabPfade.PerformLayout();
             this.TabControllList.ResumeLayout(false);
             this.tabWhite.ResumeLayout(false);
             this.tabWhite.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDLogDuration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDLogAmount)).EndInit();
             this.tabBlack.ResumeLayout(false);
             this.tabBlack.PerformLayout();
+            this.tabPfade.ResumeLayout(false);
+            this.tabPfade.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -464,7 +524,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage TabStart;
         private System.Windows.Forms.CheckBox chkTwitchAutoMessage;
-        private System.Windows.Forms.CheckBox chkTwitchAutoBan;
         private System.Windows.Forms.CheckBox chkAutoTwitch;
         private System.Windows.Forms.CheckBox chkAutoDiscord;
         private System.Windows.Forms.Label label1;
@@ -491,5 +550,14 @@
         private System.Windows.Forms.ListBox lstBlackList;
         private System.Windows.Forms.Button btnBlackAdd;
         private System.Windows.Forms.TextBox txtBlackList;
+        private System.Windows.Forms.TextBox txtHTML;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtLogPfad;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnExplorerStandard;
+        private System.Windows.Forms.Button btnExplorerHTML;
+        private System.Windows.Forms.Button btnExplorerLog;
+        private System.Windows.Forms.FolderBrowserDialog fBDOrdnerAuswahl;
+        private System.Windows.Forms.Button btnPfadRecover;
     }
 }

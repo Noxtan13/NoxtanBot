@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AntonBot.PlatformAPI
 {
@@ -11,7 +7,7 @@ namespace AntonBot.PlatformAPI
         public string Kommando { get; set; }
         public string AusgabeListe { get; set; }
         //Die "Antwort", wenn man nur den Kommando eingibt
-        public List<Eintrag> Eintragsliste {get;set;}
+        public List<Eintrag> Eintragsliste { get; set; }
         public string AufbauEintrag { get; set; }
         public int AnzahlEinträge { get; set; }
         public char BefehlTrennungszeichen { get; set; } = ' ';
@@ -34,9 +30,21 @@ namespace AntonBot.PlatformAPI
         //Schalter um anzugeben, ob ein User nur seine eigenen Einträge löschen darf
         public string HinzufügenAntwort { get; set; }
         //Antwort, wenn ein neuer Eintrag hinzugefügt wird
+        public bool UpdateOwn { get; set; }
+        //Schalter, ob der Benutzer mehrere Einträge machen kann oder nur seinen Eintrag updaten kann
+        public string UpdateAntwort { get; set; }
+
+        public bool OpenClose { get; set; }
+        public string OpenCommand { get; set; }
+        public string OpenText { get; set; }
+        public string CloseCommand { get; set; }
+        public string CloseText { get; set; }
+        public bool OpenCloseAdmin { get; set; }
+        public bool Status { get; set; }
     }
 
-    public class Eintrag { 
+    public class Eintrag
+    {
         public string User { get; set; }
         public string UserEintrag { get; set; }
         public string PlattformQuelle { get; set; }

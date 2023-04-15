@@ -34,7 +34,6 @@
             this.DiscordStop = new System.Windows.Forms.Button();
             this.DiscordGroupBox = new System.Windows.Forms.GroupBox();
             this.chkDiscordZeit = new System.Windows.Forms.CheckBox();
-            this.chkDiscord = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.DiscordStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.TwitchStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
@@ -43,6 +42,8 @@
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allgemeineEinstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.befehleCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.webSeitenExportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logZurücksetzenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.telegrammBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,12 +54,9 @@
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.twitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.youTubeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.TwitchGroupBox = new System.Windows.Forms.GroupBox();
-            this.btnJoin = new System.Windows.Forms.Button();
             this.chkTwitchZeit = new System.Windows.Forms.CheckBox();
-            this.chkTwitch = new System.Windows.Forms.CheckBox();
             this.TwitchStart = new System.Windows.Forms.Button();
             this.TwitchStop = new System.Windows.Forms.Button();
             this.txtAusgabe = new System.Windows.Forms.TextBox();
@@ -68,8 +66,7 @@
             this.timerOtherChannel = new System.Windows.Forms.Timer(this.components);
             this.sfdEinstellungExport = new System.Windows.Forms.SaveFileDialog();
             this.ofdEinstellungImport = new System.Windows.Forms.OpenFileDialog();
-            this.webSeitenExportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logZurücksetzenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nachrichtTestenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DiscordGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.MenuLeiste.SuspendLayout();
@@ -102,7 +99,6 @@
             // DiscordGroupBox
             // 
             this.DiscordGroupBox.Controls.Add(this.chkDiscordZeit);
-            this.DiscordGroupBox.Controls.Add(this.chkDiscord);
             this.DiscordGroupBox.Controls.Add(this.DiscordStart);
             this.DiscordGroupBox.Controls.Add(this.DiscordStop);
             this.DiscordGroupBox.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold);
@@ -121,67 +117,57 @@
             this.chkDiscordZeit.Location = new System.Drawing.Point(204, 44);
             this.chkDiscordZeit.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.chkDiscordZeit.Name = "chkDiscordZeit";
-            this.chkDiscordZeit.Size = new System.Drawing.Size(134, 34);
+            this.chkDiscordZeit.Size = new System.Drawing.Size(171, 41);
             this.chkDiscordZeit.TabIndex = 15;
             this.chkDiscordZeit.Text = "Auto-Send";
             this.chkDiscordZeit.UseVisualStyleBackColor = true;
             this.chkDiscordZeit.CheckedChanged += new System.EventHandler(this.chkDiscordZeit_CheckedChanged);
             // 
-            // chkDiscord
-            // 
-            this.chkDiscord.AutoSize = true;
-            this.chkDiscord.Checked = true;
-            this.chkDiscord.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDiscord.Location = new System.Drawing.Point(89, 16);
-            this.chkDiscord.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.chkDiscord.Name = "chkDiscord";
-            this.chkDiscord.Size = new System.Drawing.Size(15, 14);
-            this.chkDiscord.TabIndex = 11;
-            this.chkDiscord.UseVisualStyleBackColor = true;
-            this.chkDiscord.CheckedChanged += new System.EventHandler(this.chkDiscord_CheckedChanged);
-            // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DiscordStatusStrip,
             this.TwitchStatusStrip,
             this.toolLoadBefehle});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 631);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 627);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(757, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(757, 26);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // DiscordStatusStrip
             // 
             this.DiscordStatusStrip.Name = "DiscordStatusStrip";
-            this.DiscordStatusStrip.Size = new System.Drawing.Size(53, 17);
+            this.DiscordStatusStrip.Size = new System.Drawing.Size(67, 20);
             this.DiscordStatusStrip.Text = "Discord: ";
+            this.DiscordStatusStrip.Click += new System.EventHandler(this.DiscordStatusStrip_Click);
             // 
             // TwitchStatusStrip
             // 
             this.TwitchStatusStrip.Name = "TwitchStatusStrip";
-            this.TwitchStatusStrip.Size = new System.Drawing.Size(47, 17);
+            this.TwitchStatusStrip.Size = new System.Drawing.Size(58, 20);
             this.TwitchStatusStrip.Text = "Twitch: ";
             this.TwitchStatusStrip.Click += new System.EventHandler(this.TwitchStatusStrip_Click);
             // 
             // toolLoadBefehle
             // 
             this.toolLoadBefehle.Name = "toolLoadBefehle";
-            this.toolLoadBefehle.Size = new System.Drawing.Size(126, 17);
+            this.toolLoadBefehle.Size = new System.Drawing.Size(159, 20);
             this.toolLoadBefehle.Text = "Befehle: Nicht geladen";
             // 
             // MenuLeiste
             // 
             this.MenuLeiste.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MenuLeiste.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuLeiste.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
             this.einstellungenToolStripMenuItem});
             this.MenuLeiste.Location = new System.Drawing.Point(0, 0);
             this.MenuLeiste.Name = "MenuLeiste";
             this.MenuLeiste.Padding = new System.Windows.Forms.Padding(12, 5, 0, 5);
-            this.MenuLeiste.Size = new System.Drawing.Size(757, 31);
+            this.MenuLeiste.Size = new System.Drawing.Size(757, 37);
             this.MenuLeiste.TabIndex = 6;
             this.MenuLeiste.Text = " ";
             // 
@@ -196,22 +182,36 @@
             this.importExportToolStripMenuItem,
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(64, 27);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // allgemeineEinstellungenToolStripMenuItem
             // 
             this.allgemeineEinstellungenToolStripMenuItem.Name = "allgemeineEinstellungenToolStripMenuItem";
-            this.allgemeineEinstellungenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.allgemeineEinstellungenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.allgemeineEinstellungenToolStripMenuItem.Text = "Allgemeine Einstellungen";
             this.allgemeineEinstellungenToolStripMenuItem.Click += new System.EventHandler(this.allgemeineEinstellungenToolStripMenuItem_Click);
             // 
             // befehleCommandsToolStripMenuItem
             // 
             this.befehleCommandsToolStripMenuItem.Name = "befehleCommandsToolStripMenuItem";
-            this.befehleCommandsToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.befehleCommandsToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.befehleCommandsToolStripMenuItem.Text = "Befehle / Commands";
             this.befehleCommandsToolStripMenuItem.Click += new System.EventHandler(this.befehleCommandsToolStripMenuItem_Click);
+            // 
+            // webSeitenExportierenToolStripMenuItem
+            // 
+            this.webSeitenExportierenToolStripMenuItem.Name = "webSeitenExportierenToolStripMenuItem";
+            this.webSeitenExportierenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
+            this.webSeitenExportierenToolStripMenuItem.Text = "Web-Seiten exportieren";
+            this.webSeitenExportierenToolStripMenuItem.Click += new System.EventHandler(this.webSeitenExportierenToolStripMenuItem_Click);
+            // 
+            // logZurücksetzenToolStripMenuItem
+            // 
+            this.logZurücksetzenToolStripMenuItem.Name = "logZurücksetzenToolStripMenuItem";
+            this.logZurücksetzenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
+            this.logZurücksetzenToolStripMenuItem.Text = "Log zurücksetzen";
+            this.logZurücksetzenToolStripMenuItem.Click += new System.EventHandler(this.logZurücksetzenToolStripMenuItem_Click);
             // 
             // telegrammBotToolStripMenuItem
             // 
@@ -219,20 +219,20 @@
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem});
             this.telegrammBotToolStripMenuItem.Name = "telegrammBotToolStripMenuItem";
-            this.telegrammBotToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.telegrammBotToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.telegrammBotToolStripMenuItem.Text = "Telegramm-Bot";
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(130, 28);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(130, 28);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -242,27 +242,27 @@
             this.einstellungenExportierenToolStripMenuItem,
             this.einstellungenImportierenToolStripMenuItem});
             this.importExportToolStripMenuItem.Name = "importExportToolStripMenuItem";
-            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.importExportToolStripMenuItem.Text = "Import/Export";
             // 
             // einstellungenExportierenToolStripMenuItem
             // 
             this.einstellungenExportierenToolStripMenuItem.Name = "einstellungenExportierenToolStripMenuItem";
-            this.einstellungenExportierenToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.einstellungenExportierenToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
             this.einstellungenExportierenToolStripMenuItem.Text = "Einstellungen exportieren";
             this.einstellungenExportierenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenExportierenToolStripMenuItem_Click);
             // 
             // einstellungenImportierenToolStripMenuItem
             // 
             this.einstellungenImportierenToolStripMenuItem.Name = "einstellungenImportierenToolStripMenuItem";
-            this.einstellungenImportierenToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.einstellungenImportierenToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
             this.einstellungenImportierenToolStripMenuItem.Text = "Einstellungen importieren";
             this.einstellungenImportierenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenImportierenToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(286, 28);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -271,31 +271,24 @@
             this.einstellungenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.discordToolStripMenuItem,
             this.twitchToolStripMenuItem,
-            this.youTubeToolStripMenuItem});
+            this.nachrichtTestenToolStripMenuItem});
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(163, 21);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(205, 27);
             this.einstellungenToolStripMenuItem.Text = "Plattform-Einstellungen";
             // 
             // discordToolStripMenuItem
             // 
             this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-            this.discordToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.discordToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.discordToolStripMenuItem.Text = "Discord";
             this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
             // 
             // twitchToolStripMenuItem
             // 
             this.twitchToolStripMenuItem.Name = "twitchToolStripMenuItem";
-            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.twitchToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.twitchToolStripMenuItem.Text = "Twitch";
             this.twitchToolStripMenuItem.Click += new System.EventHandler(this.twitchToolStripMenuItem_Click);
-            // 
-            // youTubeToolStripMenuItem
-            // 
-            this.youTubeToolStripMenuItem.Name = "youTubeToolStripMenuItem";
-            this.youTubeToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.youTubeToolStripMenuItem.Text = "YouTube";
-            this.youTubeToolStripMenuItem.Click += new System.EventHandler(this.youTubeToolStripMenuItem_Click);
             // 
             // UpdateTimer
             // 
@@ -305,9 +298,7 @@
             // 
             // TwitchGroupBox
             // 
-            this.TwitchGroupBox.Controls.Add(this.btnJoin);
             this.TwitchGroupBox.Controls.Add(this.chkTwitchZeit);
-            this.TwitchGroupBox.Controls.Add(this.chkTwitch);
             this.TwitchGroupBox.Controls.Add(this.TwitchStart);
             this.TwitchGroupBox.Controls.Add(this.TwitchStop);
             this.TwitchGroupBox.Location = new System.Drawing.Point(392, 94);
@@ -319,40 +310,17 @@
             this.TwitchGroupBox.TabStop = false;
             this.TwitchGroupBox.Text = "Twitch";
             // 
-            // btnJoin
-            // 
-            this.btnJoin.Location = new System.Drawing.Point(195, 111);
-            this.btnJoin.Name = "btnJoin";
-            this.btnJoin.Size = new System.Drawing.Size(146, 53);
-            this.btnJoin.TabIndex = 17;
-            this.btnJoin.Text = "Join Channel";
-            this.btnJoin.UseVisualStyleBackColor = true;
-            this.btnJoin.Click += new System.EventHandler(this.btnJoin_Click);
-            // 
             // chkTwitchZeit
             // 
             this.chkTwitchZeit.AutoSize = true;
             this.chkTwitchZeit.Location = new System.Drawing.Point(204, 44);
             this.chkTwitchZeit.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.chkTwitchZeit.Name = "chkTwitchZeit";
-            this.chkTwitchZeit.Size = new System.Drawing.Size(134, 34);
+            this.chkTwitchZeit.Size = new System.Drawing.Size(171, 41);
             this.chkTwitchZeit.TabIndex = 16;
             this.chkTwitchZeit.Text = "Auto-Send";
             this.chkTwitchZeit.UseVisualStyleBackColor = true;
             this.chkTwitchZeit.CheckedChanged += new System.EventHandler(this.chkTwitchZeit_CheckedChanged);
-            // 
-            // chkTwitch
-            // 
-            this.chkTwitch.AutoSize = true;
-            this.chkTwitch.Checked = true;
-            this.chkTwitch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTwitch.Location = new System.Drawing.Point(79, 16);
-            this.chkTwitch.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.chkTwitch.Name = "chkTwitch";
-            this.chkTwitch.Size = new System.Drawing.Size(15, 14);
-            this.chkTwitch.TabIndex = 11;
-            this.chkTwitch.UseVisualStyleBackColor = true;
-            this.chkTwitch.CheckedChanged += new System.EventHandler(this.chkTwitch_CheckedChanged);
             // 
             // TwitchStart
             // 
@@ -390,7 +358,6 @@
             this.txtAusgabe.Size = new System.Drawing.Size(718, 336);
             this.txtAusgabe.TabIndex = 10;
             this.txtAusgabe.Text = "Ausgabe vom NOXTANBOT:";
-            this.txtAusgabe.TextChanged += new System.EventHandler(this.txtAusgabe_TextChanged);
             this.txtAusgabe.DoubleClick += new System.EventHandler(this.txtAusgabe_DoubleClick);
             // 
             // UpdateAusgabe
@@ -427,23 +394,16 @@
             this.sfdEinstellungExport.FileName = "Einstellung";
             this.sfdEinstellungExport.RestoreDirectory = true;
             // 
-            // webSeitenExportierenToolStripMenuItem
+            // nachrichtTestenToolStripMenuItem
             // 
-            this.webSeitenExportierenToolStripMenuItem.Name = "webSeitenExportierenToolStripMenuItem";
-            this.webSeitenExportierenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.webSeitenExportierenToolStripMenuItem.Text = "Web-Seiten exportieren";
-            this.webSeitenExportierenToolStripMenuItem.Click += new System.EventHandler(this.webSeitenExportierenToolStripMenuItem_Click);
-            // 
-            // logZurücksetzenToolStripMenuItem
-            // 
-            this.logZurücksetzenToolStripMenuItem.Name = "logZurücksetzenToolStripMenuItem";
-            this.logZurücksetzenToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.logZurücksetzenToolStripMenuItem.Text = "Log zurücksetzen";
-            this.logZurücksetzenToolStripMenuItem.Click += new System.EventHandler(this.logZurücksetzenToolStripMenuItem_Click);
+            this.nachrichtTestenToolStripMenuItem.Name = "nachrichtTestenToolStripMenuItem";
+            this.nachrichtTestenToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.nachrichtTestenToolStripMenuItem.Text = "Nachricht testen";
+            this.nachrichtTestenToolStripMenuItem.Click += new System.EventHandler(this.nachrichtTestenToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 36F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 653);
             this.Controls.Add(this.btnLoadBefehle);
@@ -493,9 +453,6 @@
         private System.Windows.Forms.Button TwitchStart;
         private System.Windows.Forms.Button TwitchStop;
         public System.Windows.Forms.TextBox txtAusgabe;
-        private System.Windows.Forms.CheckBox chkDiscord;
-        private System.Windows.Forms.CheckBox chkTwitch;
-        private System.Windows.Forms.ToolStripMenuItem youTubeToolStripMenuItem;
         private System.Windows.Forms.Timer UpdateAusgabe;
         private System.Windows.Forms.ToolStripMenuItem allgemeineEinstellungenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem befehleCommandsToolStripMenuItem;
@@ -508,7 +465,6 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolLoadBefehle;
         private System.Windows.Forms.Timer timerOtherChannel;
-        private System.Windows.Forms.Button btnJoin;
         private System.Windows.Forms.ToolStripMenuItem importExportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem einstellungenExportierenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem einstellungenImportierenToolStripMenuItem;
@@ -516,6 +472,7 @@
         private System.Windows.Forms.OpenFileDialog ofdEinstellungImport;
         private System.Windows.Forms.ToolStripMenuItem webSeitenExportierenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logZurücksetzenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nachrichtTestenToolStripMenuItem;
     }
 }
 

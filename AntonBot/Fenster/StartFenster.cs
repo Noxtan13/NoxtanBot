@@ -1,60 +1,64 @@
 ﻿using AntonBot.Fenster;
 using AntonBot.PlatformAPI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using System.Drawing;
 
 namespace AntonBot
 {
-    
+
     public partial class MainWindow : Form
     {
 
         //Bot_Verwalter Verwalter = new Bot_Verwalter();
 
-         DiscordFunction Discord = new DiscordFunction();
-         TwitchFunction Twitch = new TwitchFunction();
+        private DiscordFunction Discord = new DiscordFunction();
+        private TwitchFunction Twitch = new TwitchFunction();
 
         //YouTube_Functions YouTube = new YouTube_Functions();
         //PlatformAPI.Google_Function Google = new PlatformAPI.Google_Function();
 
-        Telegramm_Function Telegramm = new Telegramm_Function();
-
-        String PathBefehl = Application.StartupPath + Path.DirectorySeparatorChar + "Befehl.json";
-        String PathZeit = Application.StartupPath + Path.DirectorySeparatorChar + "Zeit-Befehl.json";
-        String PathTwitch = Application.StartupPath + Path.DirectorySeparatorChar + "Befehl-Twitch.json";
-        String PathListBefehl = Application.StartupPath + Path.DirectorySeparatorChar + "List-Befehl.json";
-
-        bool FirstStart = true;
-
-        int EventTimer;
-        int WaitForOnline = 20;
-        int RestartTimer = 30;
-
-        string KonsolenPath = Application.StartupPath + Path.DirectorySeparatorChar +"KonsolenAusgabe.json";
-        string KonsolenLogPath = Application.StartupPath + Path.DirectorySeparatorChar + "KonsolenLogAusgabe.json";
-        List<KonsolenAusgabe> KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
+        private Telegramm_Function Telegramm = new Telegramm_Function();
+        private String PathBefehl = Application.StartupPath + Path.DirectorySeparatorChar + "Befehl.json";
+        private String PathZeit = Application.StartupPath + Path.DirectorySeparatorChar + "Zeit-Befehl.json";
+        private String PathTwitch = Application.StartupPath + Path.DirectorySeparatorChar + "Befehl-Twitch.json";
+        private String PathListBefehl = Application.StartupPath + Path.DirectorySeparatorChar + "List-Befehl.json";
+        private bool FirstStart = true;
+        private int EventTimer;
+        private int WaitForOnline = 20;
+        private int RestartTimer = 30;
+        private string KonsolenLogPath = Application.StartupPath + Path.DirectorySeparatorChar + "KonsolenLogAusgabe.json";
+        private List<KonsolenAusgabe> KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
         public MainWindow()
         {
             SettingsGroup.Instance.LoadSettings();
             InitializeComponent();
-            
+
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             //SettingsGroup.Instance.LoadSettings();
-            
+
             EventTimer = SettingsGroup.Instance.SEventTimer;
             DiscordStatusStrip.Text = "Discord: " + Discord.getClientStatus();
             TwitchStatusStrip.Text = "Twitch: Disconnected - Online:" + SettingsGroup.Instance.TsOnline.ToString();
+
+            PathBefehl = SettingsGroup.Instance.StandardPfad + "Befehl.json";
+            PathZeit = SettingsGroup.Instance.StandardPfad + "Zeit-Befehl.json";
+            PathTwitch = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
+            PathListBefehl = SettingsGroup.Instance.StandardPfad + "List-Befehl.json";
+
+            LogWriter.LogPath = SettingsGroup.Instance.LogPfad + "Log.txt";
+            KonsolenLogPath = SettingsGroup.Instance.LogPfad + "KonsolenLogAusgabe.json";
         }
 
-        private async void autostart() {
+        private async void autostart()
+        {
             if (SettingsGroup.Instance.SDiscordAutoStart)
             {
                 if (!Discord.getActive())
@@ -95,13 +99,14 @@ namespace AntonBot
         private void timer1_Tick(object sender, EventArgs e)
         {
             string DiscordStatus = Discord.getClientStatus();
-            if (DiscordStatus == "LoggedOut")
+            if (DiscordStatus == "LoggedOut" || DiscordStatus == "NULL")
             {
                 //Wenn Discord sich nicht einloggen konnte
                 DiscordStop.Enabled = false;
                 DiscordStart.Enabled = true;
             }
-            else {
+            else
+            {
                 DiscordStop.Enabled = true;
                 DiscordStart.Enabled = false;
             }
@@ -129,25 +134,29 @@ namespace AntonBot
                     EventTimer = SettingsGroup.Instance.SEventTimer;
                 }
             }
-            else {
+            else
+            {
                 TwitchStatusStrip.Text = "Twitch: Disconnected - Online:" + SettingsGroup.Instance.TsOnline.ToString();
                 TwitchStop.Enabled = false;
                 TwitchStart.Enabled = true;
             }
 
             //Warten auf das Twitch-Online-Event. Erscheint es nach einer Zeit nicht, so wird der Online-Status zurückgesetzt
-            WaitForOnline = WaitForOnline-1;
-            if (WaitForOnline == 0) {
+            WaitForOnline = WaitForOnline - 1;
+            if (WaitForOnline == 0)
+            {
                 SettingsGroup.Instance.TsOnline = Twitch.IsChannelOnline();
             }
 
-            if (Discord.getRestart() || Twitch.getRestart()) {
+            if (Discord.getRestart() || Twitch.getRestart())
+            {
                 RestartTimer = RestartTimer - 1;
-                if (RestartTimer == 0) {
+                if (RestartTimer == 0)
+                {
                     RestartTimer = 30;
                     autostart();
                     AusgabeKonsole(new KonsolenAusgabe("Konsole", DateTime.Now.TimeOfDay, "Verbindungsaufbau wird erneut versucht...", 30));
-                    
+
                 }
             }
             //Timer für die AutoNachrichten, der einzelnen Channels
@@ -155,7 +164,8 @@ namespace AntonBot
             Twitch.Zeitschritt(Twitch);
         }
 
-        private async void CheckSendToOtherChannel() {
+        private async void CheckSendToOtherChannel()
+        {
 
             if (Twitch.IsOtherChannel())
             {
@@ -163,16 +173,17 @@ namespace AntonBot
                 if (otherChannel.getNextPlattform().Equals("Discord") && Discord.getActive())
                 {
                     //753593040731504751 ist die ID des Twitch-Spam-Chat
-                    if (otherChannel.getMessage().Equals("")) {
+                    if (otherChannel.getMessage().Equals(""))
+                    {
                         try
                         {
-                            await Discord.SendMessage(otherChannel.getDiscordChannelID(), "leere Nachricht");                           
+                            await Discord.SendMessage(otherChannel.getDiscordChannelID(), "leere Nachricht");
                         }
                         catch (Exception e)
                         {
                             AusgabeKonsole(new KonsolenAusgabe("Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + "leere Nachricht" + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException, DateTime.Now.TimeOfDay, "StartFenster"));
                         }
-                        
+
                     }
                     else if (otherChannel.getMessage().Length >= 1999)
                     {
@@ -182,59 +193,61 @@ namespace AntonBot
                         }
                         catch (Exception e)
                         {
-                            AusgabeKonsole(new KonsolenAusgabe("StartFenster",DateTime.Now.TimeOfDay,"Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + otherChannel.getMessage().Substring(0, 1999) + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
+                            AusgabeKonsole(new KonsolenAusgabe("StartFenster", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + otherChannel.getMessage().Substring(0, 1999) + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
                         }
-                        
+
                     }
-                    else {
+                    else
+                    {
                         try
                         {
                             await Discord.SendMessage(otherChannel.getDiscordChannelID(), otherChannel.getMessage());
                         }
                         catch (Exception e)
                         {
-                            AusgabeKonsole(new KonsolenAusgabe("StartFenster",DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + otherChannel.getMessage() + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
+                            AusgabeKonsole(new KonsolenAusgabe("StartFenster", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + otherChannel.getMessage() + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
                         }
-                        
+
                     }
                     Twitch.OtherChannelDone();
                 }
                 else
                 {
-                    if (otherChannel.getNextPlattform() == "") {
+                    if (otherChannel.getNextPlattform() == "")
+                    {
                         AusgabeKonsole(new KonsolenAusgabe("TWITCH", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - ungültiger Channel"));
                     }
                     else
                     {
                         AusgabeKonsole(new KonsolenAusgabe("TWITCH", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - Plattform: " + otherChannel.getNextPlattform() + " ist nicht aktiv"));
                     }
-                            
+
                 }
-                
+
             }
-            
+
 
             if (Discord.IsOtherChannel())
             {
                 OtherChannel otherChannel = Discord.getSendOtherChannel();
                 if (otherChannel.getNextPlattform().Equals("Twitch") && Twitch.getActive())
                 {
-                    Twitch.SendMessage(otherChannel.getMessage(),SettingsGroup.Instance.TsStandardChannel);
+                    Twitch.SendMessage(otherChannel.getMessage(), SettingsGroup.Instance.TsStandardChannel);
                 }
                 else
                 {
                     if (otherChannel.getNextPlattform() == "")
                     {
-                        AusgabeKonsole(new KonsolenAusgabe("DISCORD",DateTime.Now.TimeOfDay,"SendMessageToOtherChannel - ungültiger Channel"));
+                        AusgabeKonsole(new KonsolenAusgabe("DISCORD", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - ungültiger Channel"));
                     }
                     else
                     {
-                        AusgabeKonsole(new KonsolenAusgabe("DISCORD", DateTime.Now.TimeOfDay,"SendMessageToOtherChannel - Plattform: " + otherChannel.getNextPlattform() + " ist nicht aktiv"));
+                        AusgabeKonsole(new KonsolenAusgabe("DISCORD", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - Plattform: " + otherChannel.getNextPlattform() + " ist nicht aktiv"));
                     }
                 }
                 Discord.OtherChannelDone();
             }
-                        
+
 
         }
 
@@ -253,7 +266,7 @@ namespace AntonBot
 
         private void discordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DiscordEinstellungen discordEinstellungen = new DiscordEinstellungen();
+            DiscordEinstellungen discordEinstellungen = new DiscordEinstellungen(Discord);
             discordEinstellungen.Show();
         }
 
@@ -273,74 +286,18 @@ namespace AntonBot
             TwitchStart.Enabled = true;
         }
 
-        public void AusgabeKonsole(KonsolenAusgabe Eingabe) {
+        public void AusgabeKonsole(KonsolenAusgabe Eingabe)
+        {
             KonsolenAusgabeJSON.Add(Eingabe);
-            txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeDatum + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText +Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
+            txtAusgabe.Text = Eingabe.AusgabeTyp + " - " + Eingabe.AusgabeDatum + " - " + Eingabe.AusgabeZeitpunkt.ToString() + ":" + Environment.NewLine + Eingabe.AusgabeText + Environment.NewLine + Environment.NewLine + txtAusgabe.Text;
             Eingabe.ausgegeben();
 
-
-            if (!File.Exists(KonsolenPath))
-            {
-                //Wenn Datei nicht existiert
-                List<KonsolenAusgabe> content = new List<KonsolenAusgabe>();
-                content.Add(Eingabe);
-                File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(content, Formatting.Indented));
-            }
-            else {
-                //Wenn Datei existiert
-                List<KonsolenAusgabe> content = JsonConvert.DeserializeObject<List<KonsolenAusgabe>>(File.ReadAllText(KonsolenPath));
-                content.Add(Eingabe);
-                File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(content, Formatting.Indented));
-            }
-
+            LogWriter.LogWrite(Eingabe.AusgabeTyp + "---" + Eingabe.AusgabeText);
 
         }
-
-        private void chkDiscord_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkDiscord.Checked)
-            {
-                //DiscordGroupBox.Enabled = true;
-                if (Discord.getActive())
-                {
-                    DiscordStop.Enabled = true;
-                }
-                else {
-                    DiscordStart.Enabled = true;
-                }              
-            }
-            else {
-                //DiscordGroupBox.Enabled = false;
-                DiscordStart.Enabled = false;
-                DiscordStop.Enabled = false;
-            }
-        }
-
-        private void chkTwitch_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkTwitch.Checked)
-            {
-                //TwitchGroupBox.Enabled = true;
-                if (Twitch.getActive())
-                {
-                    TwitchStop.Enabled = true;
-                }
-                else {
-                    TwitchStart.Enabled = true;
-                }                
-            }
-            else
-            {
-                //TwitchGroupBox.Enabled = false;
-                TwitchStart.Enabled = true;
-                TwitchStop.Enabled = false;
-            }
-
-        }
-
         private void UpdateAusgabe_Tick(object sender, EventArgs e)
         {
-            KonsolenAusgabe ausgabe= null;
+            KonsolenAusgabe ausgabe = null;
             if (Discord.isAusgeben() == true)
             {
                 ausgabe = Discord.getKonsoleAusgabe();
@@ -370,7 +327,7 @@ namespace AntonBot
 
         private void twitchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             TwitchEinstellungen twitchEinstellungen = new TwitchEinstellungen();
             twitchEinstellungen.SetTwitch(Twitch);
             twitchEinstellungen.Show();
@@ -390,10 +347,11 @@ namespace AntonBot
             }
         }
 
-        private void LoadBefehle() {
+        private void LoadBefehle()
+        {
             if (Discord.getActive())
             {
-                AusgabeKonsole(new KonsolenAusgabe("KONSOLE",DateTime.Now.TimeOfDay, "Discord Befehle werden geladen..." ));
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Discord Befehle werden geladen..."));
                 toolLoadBefehle.Text = "Befehle: Laden Discord Start";
                 Discord.LoadBefehle(PathBefehl, 1);
                 toolLoadBefehle.Text = "Befehle: Laden Discord Befehle Fertig";
@@ -401,13 +359,13 @@ namespace AntonBot
                 toolLoadBefehle.Text = "Befehle: Laden Discord Zeit-Befehle Fertig";
                 Discord.LoadBefehle(PathListBefehl, 3);
                 toolLoadBefehle.Text = "Befehle: Laden Discord List-Befehle Fertig";
-                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay,"Discord Befehle sind alle geladen..."));
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Discord Befehle sind alle geladen..."));
 
                 Discord.LoadAllCommands();
             }
             if (Twitch.getActive())
             {
-                AusgabeKonsole(new KonsolenAusgabe("KONSOLE",DateTime.Now.TimeOfDay,"Twitch Befehle werden geladen..."));
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Twitch Befehle werden geladen..."));
                 Twitch.LoadBefehle(PathBefehl, 1);
                 toolLoadBefehle.Text = "Befehle: Laden Twitch Befehle Fertig";
                 Twitch.LoadBefehle(PathZeit, 2);
@@ -445,14 +403,14 @@ namespace AntonBot
 
         private void TwitchStatusStrip_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ID - Name - Anzahl - LastJoined"+Environment.NewLine + Twitch.getStringBotUser(), "Logbuch der gejointen User");
+            MessageBox.Show("ID - Name - Anzahl - LastJoined" + Environment.NewLine + Twitch.getStringBotUser(), "Logbuch der gejointen User");
         }
 
         private void timerResetBox_Tick(object sender, EventArgs e)
         {
-            KonsolenLogPfadSchreiben();
             txtAusgabe.Clear();
-            if (Twitch.getActive()) {
+            if (Twitch.getActive())
+            {
                 Twitch.TestAllCurrentTokens();
             }
         }
@@ -498,52 +456,20 @@ namespace AntonBot
                 {
                     timerOtherChannel.Interval = 10000;
                 }
-                //Wird hier mal eingefügt, um die Datei regelmäßig mit den aktuellen Dateien zu beschreiben
-                //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             }
-        }
-
-        private void btnJoin_Click(object sender, EventArgs e)
-        {
-            //Twitch.LevaeChannel();
-            Twitch.JoinChannel();
-        }
-
-        private void youTubeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Twitch.test();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Twitch.BotUserSave();
-            KonsolenLogPfadSchreiben();
 
-        }
-
-        private void KonsolenLogPfadSchreiben() {
-            if (File.Exists(KonsolenPath) && File.Exists(KonsolenLogPath))
-            {
-                List<KonsolenAusgabe> LogList = JsonConvert.DeserializeObject<List<KonsolenAusgabe>>(File.ReadAllText(KonsolenLogPath));
-                
-                LogList.AddRange(KonsolenAusgabeJSON);
-                
-                string LogInhalt = JsonConvert.SerializeObject(LogList,Formatting.Indented);
-                File.WriteAllText(KonsolenLogPath, LogInhalt);
-            }
-            else
-            {
-                File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
-            }
-            //Nachdem die Liste exportiert wurde, wird diese zurückgesetzt
-            KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
         }
 
         private void einstellungenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             //string Path = System.Windows.Forms.Application.StartupPath + "TEST-Einstellung"; //"\\Befehl.json";
-            SettingsGroup.Instance.ExportSettingsGroup(Application.StartupPath+ Path.DirectorySeparatorChar);
+            SettingsGroup.Instance.ExportSettingsGroup(Application.StartupPath + Path.DirectorySeparatorChar);
 
             string InhaltJSON = "";
             InhaltJSON += JsonConvert.SerializeObject(SettingsGroup.Instance, Formatting.Indented);
@@ -568,60 +494,62 @@ namespace AntonBot
 
         private void einstellungenImportierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
- 
+
             ofdEinstellungImport.InitialDirectory = Application.StartupPath;
             ofdEinstellungImport.Filter = "JSON-Files (*.json)|*.json";
             ofdEinstellungImport.FilterIndex = 2;
             ofdEinstellungImport.RestoreDirectory = true;
 
-                if (ofdEinstellungImport.ShowDialog() == DialogResult.OK)
+            if (ofdEinstellungImport.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file
+
+                //Read the contents of the file into a stream
+                var fileStream = ofdEinstellungImport.OpenFile();
+
+                using (StreamReader reader = new StreamReader(fileStream, Encoding.Default))
                 {
-                    //Get the path of specified file
-                    
-                    //Read the contents of the file into a stream
-                    var fileStream = ofdEinstellungImport.OpenFile();
 
-                    using (StreamReader reader = new StreamReader(fileStream,Encoding.Default))
+                    string Inhalt = reader.ReadToEnd();
+                    try
                     {
-                    
-                        string Inhalt = reader.ReadToEnd();
-                        try
+                        SettingsGroup Import = JsonConvert.DeserializeObject<SettingsGroup>(Inhalt);
+
+                        if (DialogResult.Yes == MessageBox.Show("Die aktuellen Einstellungen werden alle überschrieben \nFortfahren?", "Überschreiben der Einstellungen", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                         {
-                            SettingsGroup Import = JsonConvert.DeserializeObject<SettingsGroup>(Inhalt);
+                            Import.ImportSettingsGroup(Inhalt);
+                            LoadBefehle();
 
-                            if (DialogResult.Yes == MessageBox.Show("Die aktuellen Einstellungen werden alle überschrieben \nFortfahren?", "Überschreiben der Einstellungen", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                            if (DialogResult.Yes == MessageBox.Show("Einstellungen wurden importiert. Damit die Einstellungen verwendet werden können, wird ein neustart empfohlen. \nNeustart Durchführen?", "Import erfolgreich", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                             {
-                                Import.ImportSettingsGroup(Application.StartupPath + Path.DirectorySeparatorChar,Inhalt);
-                                LoadBefehle();
-
-                                if (DialogResult.Yes == MessageBox.Show("Einstellungen wurden importiert. Damit die Einstellungen verwendet werden können, wird ein neustart empfohlen. \nNeustart Durchführen?", "Import erfolgreich", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) {
-                                    Application.Restart();
-                                }
+                                Application.Restart();
                             }
                         }
-                        catch (Exception Fehler)
-                        {
-                            MessageBox.Show("Die ausgewählte Datei beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);                            
-                        }
-                        
                     }
+                    catch (Exception Fehler)
+                    {
+                        MessageBox.Show("Die ausgewählte Datei beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
+            }
 
         }
 
-        private void SavePHPFile() {
+        private void SavePHPFile()
+        {
             System.Reflection.Assembly _Assembly = System.Reflection.Assembly.GetExecutingAssembly();
             Stream str;
             StreamReader rd;
             string PHPInhalt;
-            string Pfad;
+            string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar;
             //Export der Startseite und Meta-Daten
-            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe..."));
+            AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Start der Ausgabe nach " + Pfad + " ..."));
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Index.html");
-                rd = new StreamReader(str,encoding: Encoding.GetEncoding("ISO-8859-1"));
-                
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+
                 PHPInhalt = rd.ReadToEnd();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
@@ -635,7 +563,7 @@ namespace AntonBot
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.PinguinServer.jpg");
                 Bitmap bmp = new Bitmap(str);
-               
+
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "PinguinServer.jpg";
                 (new FileInfo(Pfad)).Directory.Create();
                 Image.FromStream(str).Save(Pfad);
@@ -684,7 +612,59 @@ namespace AntonBot
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "TwitchAnleitung.html konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Einrichtung.DiscordAnleitung.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Einrichtung" + Path.DirectorySeparatorChar + "DiscordAnleitung.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "DiscordAnleitung.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
             //Export der Fenster
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.AllgEinstellungen.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "AllgEinstellungen.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellungen.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.BefehlEditor.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "BefehlEditor.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BefehlEditor.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.DiscordEinstellungen.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "DiscordEinstellungen.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "DiscordEinstellungen.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Index.html");
@@ -697,6 +677,45 @@ namespace AntonBot
             catch (Exception WriteFehler)
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Fenster-Index.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Startseite.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Startseite.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Startseite.jpg konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.StartFenster.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "StartFenster.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "StartFenster.html konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.TwitchEinstellungen.html");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "TwitchEinstellungen.html";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "TwitchEinstellungen.html konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
             try
             {
@@ -715,7 +734,7 @@ namespace AntonBot
             try
             {
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.Index.html");
-                rd = new StreamReader(str,encoding:Encoding.GetEncoding("ISO-8859-1"));
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd();
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "Index.html";
                 (new FileInfo(Pfad)).Directory.Create();
@@ -730,12 +749,29 @@ namespace AntonBot
                 str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.BotStatus.php");
                 rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
                 PHPInhalt = rd.ReadToEnd().Normalize();
+                PHPInhalt = PHPInhalt.Replace("°LogPfadLog", SettingsGroup.Instance.StandardPfad + "Log.txt");
+                PHPInhalt = PHPInhalt.Replace("°LogPfad", SettingsGroup.Instance.StandardPfad + "KonsolenLogAusgabe.json");
                 Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "BotStatus.php";
                 (new FileInfo(Pfad)).Directory.Create();
                 File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
             }
-            catch (Exception WriteFehler){
-                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BotStatus.php konnte nicht beschrieben werden: "+WriteFehler.Message));
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "BotStatus.php konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.LogFile.Logbuch.php");
+                rd = new StreamReader(str, encoding: Encoding.GetEncoding("ISO-8859-1"));
+                PHPInhalt = rd.ReadToEnd().Normalize();
+                PHPInhalt = PHPInhalt.Replace("°LogPfad", SettingsGroup.Instance.StandardPfad + "KonsolenAusgabe.json");
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "LogFile" + Path.DirectorySeparatorChar + "Logbuch.php";
+                (new FileInfo(Pfad)).Directory.Create();
+                File.WriteAllText(Pfad, PHPInhalt, Encoding.GetEncoding("ISO-8859-1"));
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Logbuch.php konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
             //Export des OnlineEditors
             try
@@ -778,41 +814,89 @@ namespace AntonBot
             {
                 AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "GameSkill.php konnte nicht beschrieben werden: " + WriteFehler.Message));
             }
+            //Ausgabe der Bilder
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung1.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung1.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung1.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung2.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung2.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung2.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung2_2.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung2_2.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung2_2.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.AllgEinstellung3.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "AllgEinstellung3.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "AllgEinstellung3.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+            try
+            {
+                str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.Fenster.Bilder.Befehle.png");
+                Bitmap bmp = new Bitmap(str);
+
+                Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "WebSite" + Path.DirectorySeparatorChar + "Fenster" + Path.DirectorySeparatorChar + "Bilder" + Path.DirectorySeparatorChar + "Befehle.png";
+                (new FileInfo(Pfad)).Directory.Create();
+                Image.FromStream(str).Save(Pfad);
+            }
+            catch (Exception WriteFehler)
+            {
+                AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Befehle.png konnte nicht beschrieben werden: " + WriteFehler.Message));
+            }
+
+
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "...Ausgabe abgeschlossen"));
         }
 
-        private void testc(bool Aufruf) {
-            System.Reflection.Assembly _Assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            Stream str = _Assembly.GetManifestResourceStream("AntonBot.Fenster.HilfeSeiten.BotStatus.php");
-            StreamReader rd = new StreamReader(str);
-
-            string Pfad = Application.StartupPath + Path.DirectorySeparatorChar + "BotStatus.php";
-
-            string HTMLInhalt = rd.ReadToEnd().Replace("!!!Inhalt!!!", txtAusgabe.Text.Replace("\r\n", "<br />"));
-            HTMLInhalt = HTMLInhalt.Replace("!!!Bot-Status!!!", "Gestartet");
-            HTMLInhalt = HTMLInhalt.Replace("!!!Discord!!!", Discord.getClientStatus());
-            HTMLInhalt = HTMLInhalt.Replace("!!!Twitch!!!", Twitch.GetClientStatus().ToString());
-            HTMLInhalt = HTMLInhalt.Replace("!!!Stream!!!", SettingsGroup.Instance.TsOnline.ToString());
-
-            //HTMLInhalt = HTMLInhalt.Replace("\r\n", "</br>");
-            File.WriteAllText(Pfad, HTMLInhalt);
-
-
-            if (Aufruf)
-            {
-                System.Diagnostics.Process.Start(Pfad);
-            }
+        private void testc()
+        {
+            Discord.SendMessage(735764666424492062, "Hello My Friend");
         }
 
         private void txtAusgabe_DoubleClick(object sender, EventArgs e)
         {
             SettingsGroup.Instance.Update();
             SavePHPFile();
-        }
 
-        private void txtAusgabe_TextChanged(object sender, EventArgs e)
-        {
-            //File.AppendAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
+            JoinedUsers test = new JoinedUsers("23", "Herbert");
+            test.NewJoined();
         }
 
         private void webSeitenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -824,12 +908,22 @@ namespace AntonBot
         {
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien werden gelöscht"));
-            File.WriteAllText(KonsolenPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
+            File.Delete(LogWriter.LogPath);
 
-             
             File.WriteAllText(KonsolenLogPath, JsonConvert.SerializeObject(KonsolenAusgabeJSON, Formatting.Indented));
             KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
             AusgabeKonsole(new KonsolenAusgabe("KONSOLE", DateTime.Now.TimeOfDay, "Log-Dateien gelöscht"));
+        }
+
+        private void DiscordStatusStrip_Click(object sender, EventArgs e)
+        {
+            testc();
+        }
+
+        private void nachrichtTestenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageSendTest SendTest = new MessageSendTest(Twitch, Discord);
+            SendTest.Show();
         }
     }
 }

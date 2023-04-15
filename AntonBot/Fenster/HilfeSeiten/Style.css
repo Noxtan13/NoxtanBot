@@ -5,17 +5,21 @@ body{
 	height:100%;
 }
 .MenuLeiste {
-	background-color: lightblue;
+	background-color: #5B90CE;
 	text-align: center;
 	padding: 10px;
+	margin: 5px;
 	height: auto;
-	max-height:50px;
+	max-height: 50px;
+	border-radius: 25px;
+	font-size:20px;
 }
 
 .container {
 	height:auto;
 	display:flex;
 	min-height:250px;
+	padding-bottom:10px;
 }
 
 .UnterMenu {
@@ -24,24 +28,31 @@ body{
 	width: 15%;
 	height: auto;
 	float: left;
-	background-color: forestgreen;
+	background-color: #8EABCC;
 	text-align: left;
 	font-family: Verdana, sans-serif;
+	margin-right: 5px;
+	border-radius: 25px;
+	font-size:18px;
 }
+	.UnterMenu > p {
+		border-radius: 25px;
+		text-decoration: none;
+	}
+	.UnterMenu>p>a{
+		display:block;
+	}
 
 .Inhalt {
 	font-family: Verdana, sans-serif;
-	background-color: indianred;
+	background-color: #B7C1CC;
 	height: inherit;
-	width:100%;
-	overflow:hidden;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 25px;
+	padding: 15px;
+	display: block;
 }
-
-.Inhalttext{
-	padding:15px;
-	display:block;
-}
-
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -50,37 +61,98 @@ ul {
 	font-family: Verdana, sans-serif;
 }
 
-li {
-	float: left;
-	width: 20%;
-	min-width:100px;
+ol > li > ul {
+	list-style-type: circle;
+	padding-left: 25px;
 }
 
-	li a {
-		display: block;
-		color: black;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
+h5 {
+	padding: 10px;
+	margin: 0px;
+	font-size: medium;
+	background-color: aquamarine;
+}
+h6{
+	font-size:15px;
+	background-color:burlywood;
+	margin:10px;
+	padding:5px;
+}
+
+details{
+	margin-bottom:5px;
+}
+
+	details > summary {
+		padding: 4px;
+		width: fit-content;
+		border: none;
+		cursor: pointer;
+		font-size: 18px;
+		font-weight: bold;
+		color: #1E6FCC;
 	}
 
+details > ol {
+	margin: 0;
+}
+details > ol > li {
+
+	float: inherit;
+	width: auto;
+	margin-bottom: 3px;
+	padding: 5px;
+	}
+details >  ol > li > ul > li {
+	float: inherit;
+	width: auto;
+}
+
+table {
+	width: 100%;
+	table-layout: auto;
+	display:table-cell;
+}
+td{
+	padding:5px;
+}
+
+.MenuLeiste li {
+	float: left;
+	width: 20%;
+	min-width: 100px;
+}
+
+.MenuLeiste li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+}
+
 		/* Change the link color to #111 (black) on hover */
-		li a:hover {
-			background-color: #111;
-			color: white;
-		}
+.MenuLeiste li a:hover {
+	background-color: #546;
+	color: white;
+	border-radius: 25px;
+}
 
 p {
-	height: 25px;
+	min-height: 25px;
 	text-align: center;
-	text-decoration: none;
-}
+}	
 	p:hover {
 		background-color: #546;
 		color: white;
 	}
 a, a:hover, a:visited, a:active {
-	display: block;
 	color: inherit;
 	text-decoration: none;
+}
+
+.Bild {
+	width: 75%;
+	padding-left: 12.5%;
+	padding-right: 12.5%;
+	text-align: center;
 }

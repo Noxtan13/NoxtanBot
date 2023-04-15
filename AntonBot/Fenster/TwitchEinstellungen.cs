@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -16,38 +15,32 @@ namespace AntonBot.Fenster
 {
     public partial class TwitchEinstellungen : Form
     {
-        TwitchFunction Twitch;
+        private TwitchFunction Twitch;
+        private string sClientID;
+        private bool bAccessTokenChange;
+        private string sAlterToken = "";
+        private string sAlterTokenPubSub = "";
+        private int iVariablenInhaltEvent;
+        private int iVariablenInhaltTextFeld;
+        private int iEventIndex;
 
-        string sClientID;
-
-
-        bool bAccessTokenChange;
-        string sAlterToken="";
-        string sAlterTokenPubSub="";
-
-        int iVariablenInhaltEvent;
-        int iVariablenInhaltTextFeld;
-
-        int iEventIndex;
         //0 = nichts
         //1 = ChatText
         //2 = KonsoleText
         //3 = DiscordText
-        bool bÄnderung;
-        bool bÄnderungAusIndex;
-        bool bÄnderungAdmin;
-        int iAltIndex;
+        private bool bÄnderung;
+        private bool bÄnderungAusIndex;
+        private bool bÄnderungAdmin;
+        private int iAltIndex;
+        private TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] Rewards;
+        private List<BitElement> BitListe = new List<BitElement>();
+        private BitElement BitAuswahl = new BitElement();
+        private String ListPattern = "#(\\d*)\\s*(\\d*)-(\\d*)";
+        private String ListPatternEinzel = "#(\\d*)\\s*(\\d*)";
+        private int BitsID = 0;
 
-        TwitchLib.Api.Helix.Models.ChannelPoints.CustomReward[] Rewards;
-
-
-        List<BitElement> BitListe = new List<BitElement>();
-        BitElement BitAuswahl = new BitElement();
-        String ListPattern = "#(\\d*)\\s*(\\d*)-(\\d*)";
-        String ListPatternEinzel = "#(\\d*)\\s*(\\d*)";
-        int BitsID = 0;
-
-        internal void SetTwitch(TwitchFunction function) {
+        internal void SetTwitch(TwitchFunction function)
+        {
             Twitch = function;
         }
         public TwitchEinstellungen()
@@ -127,7 +120,7 @@ namespace AntonBot.Fenster
                 {
                     //PupSub-Token wird deaktiviert, wenn das Feld leer ist.
                     chk_PubSubToken.Checked = false;
-                    SettingsGroup.Instance.TsPubSubZusatz= false;
+                    SettingsGroup.Instance.TsPubSubZusatz = false;
                     MessageBox.Show("Der Token für den PupSub ist leer. Ein zusätzlicher Token wird nicht verwendet", "leere Eingabe", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -139,11 +132,12 @@ namespace AntonBot.Fenster
                     SettingsGroup.Instance.TsclientID = txtClientID.Text;
                     SettingsGroup.Instance.Save();
                 }
-                else {
+                else
+                {
                     SettingsGroup.Instance.TsAccessToken = sAlterToken;
                     SettingsGroup.Instance.TsAccessTokenPubSub = sAlterTokenPubSub;
                 }
-                
+
             }
         }
 
@@ -177,13 +171,15 @@ namespace AntonBot.Fenster
 
                 // Opens request in the browser.
                 System.Diagnostics.Process.Start(authorizationRequest);
-        
+
             }
 
         }
 
-        private void CheckEmpyList() {
-            if (SettingsGroup.Instance.TeOnStreamOnline.Channel == null) {
+        private void CheckEmpyList()
+        {
+            if (SettingsGroup.Instance.TeOnStreamOnline.Channel == null)
+            {
                 SettingsGroup.Instance.TeOnStreamOnline.Channel = new System.Collections.Specialized.StringCollection();
             }
             if (SettingsGroup.Instance.TeOnStreamOffline.Channel == null)
@@ -256,8 +252,9 @@ namespace AntonBot.Fenster
         }
 
 
-        public string AbfrageAufbauen() {
-            string erzeugteAnfrage="";
+        public string AbfrageAufbauen()
+        {
+            string erzeugteAnfrage = "";
             bool ersteAnfrage = false;
 
             if (chk_chat_edit.Checked)
@@ -268,7 +265,7 @@ namespace AntonBot.Fenster
             if (chk_chat_read.Checked)
             {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "chat:read";;
+                erzeugteAnfrage += "chat:read"; ;
             }
             if (chk_whispers_edit.Checked)
             {
@@ -346,7 +343,7 @@ namespace AntonBot.Fenster
             string Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "TwitchAnleitung.html";
             File.WriteAllText(Path, rd.ReadToEnd());
 
-            
+
 
             var test = _Assembly.GetManifestResourceNames();
             System.Diagnostics.Process.Start(Path);
@@ -356,7 +353,8 @@ namespace AntonBot.Fenster
 
         }
 
-        private void Scopeübernahme() {
+        private void Scopeübernahme()
+        {
             SettingsGroup.Instance.Tschat_edit = chk_chat_edit.Checked;
             SettingsGroup.Instance.Tschat_read = chk_chat_read.Checked;
             SettingsGroup.Instance.Tswhispers_edit = chk_whispers_edit.Checked;
@@ -430,7 +428,8 @@ namespace AntonBot.Fenster
                 lblTokenNewPubSub.Text = "Neuer PubSub-Token: " + txtTokenPubSub.Text;
                 bAccessTokenChange = true;
             }
-            else {
+            else
+            {
                 MessageBox.Show("Das Feld ist leer. Der Token kann nicht übernommen werden.");
             }
         }
@@ -772,7 +771,8 @@ namespace AntonBot.Fenster
 
         #region TwitchEvents
 
-        private void IndexChange() {
+        private void IndexChange()
+        {
             /* Index:
             0 = OnStreamOnline
             1 = OnStreamOffline
@@ -909,7 +909,7 @@ namespace AntonBot.Fenster
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnJoinedChannel.KonsoleText;
 
                     //onUserJoined wird nur in der Konsole ausgegeben
-                    
+
                     chkTextReaction.Enabled = false;
                     txtChatReaktion.Enabled = false;
                     chkDiscordAusgabe.Enabled = false;
@@ -973,11 +973,12 @@ namespace AntonBot.Fenster
             btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
 
             iAltIndex = LstEvents.SelectedIndex;
-            
+
             VariableBefüllen(1, LstEvents.SelectedIndex);
         }
 
-        private void VariableBefüllen(int Teil, int Inhalt) {
+        private void VariableBefüllen(int Teil, int Inhalt)
+        {
             //Die Variable Teil wird verwendet, um anzugeben, welchen Part der Variablen "Neu" beschrieben wird
             //Es gibt zwei Teile:
             // 1) Die Variablen aus den Events
@@ -986,16 +987,19 @@ namespace AntonBot.Fenster
 
             cmbVariable.Text = "";
 
-            if (Teil == 1) {
+            if (Teil == 1)
+            {
                 iVariablenInhaltEvent = Inhalt;
             }
-            else if(Teil == 2){
+            else if (Teil == 2)
+            {
                 iVariablenInhaltTextFeld = Inhalt;
             }
 
             cmbVariable.Items.Clear();
 
-            switch (iVariablenInhaltEvent) {
+            switch (iVariablenInhaltEvent)
+            {
                 case 0:
                     //OnStreamOnline
                     cmbVariable.Items.Add("GameId");
@@ -1119,7 +1123,7 @@ namespace AntonBot.Fenster
                     break;
                 case 9:
                     //9 = OnRaidNotification
-                    cmbVariable.Items.Add("DisplayName");;
+                    cmbVariable.Items.Add("DisplayName"); ;
                     cmbVariable.Items.Add("MsgParamDisplayName");
                     cmbVariable.Items.Add("MsgParamLogin");
                     cmbVariable.Items.Add("MsgParamViewerCount");
@@ -1197,7 +1201,8 @@ namespace AntonBot.Fenster
                         SettingsGroup.Instance.TeOnStreamOnline.DiscordText = txtDiscordChat.Text;
                         SettingsGroup.Instance.TeOnStreamOnline.Konsole = chkKonsoleAusgabe.Checked;
                         SettingsGroup.Instance.TeOnStreamOnline.KonsoleText = txtKonsolenFenster.Text;
-                        if (SettingsGroup.Instance.TeOnStreamOnline.Channel.Count == 0 && chkDiscordAusgabe.Checked) {
+                        if (SettingsGroup.Instance.TeOnStreamOnline.Channel.Count == 0 && chkDiscordAusgabe.Checked)
+                        {
                             Validierung = false;
                         }
                         else { Validierung = true; }
@@ -1449,11 +1454,13 @@ namespace AntonBot.Fenster
                     SettingsGroup.Instance.Save();
                     Änderungchange(false);
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Es wurde eine Discord-Nachricht eingestellt, aber keine Channels. Bitte wähle Channels aus", "Fehlende Kanäle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else {
+            else
+            {
                 MessageBox.Show("Der Bot besitzt nicht die Standard-Berechtigungen für 'chat_read' und 'chat_edit'. Ein Einstellen ist nicht möglich", "Fehlende Berechtigung", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1649,7 +1656,8 @@ namespace AntonBot.Fenster
             iEventIndex = 3;
         }
 
-        private void Änderungchange(bool bArt) {
+        private void Änderungchange(bool bArt)
+        {
 
             if (bArt)
             {
@@ -1657,7 +1665,8 @@ namespace AntonBot.Fenster
                 bÄnderungAusIndex = false;
                 btnÜbernehmen.BackColor = Color.Tomato;
             }
-            else {
+            else
+            {
                 bÄnderung = false;
                 btnÜbernehmen.BackColor = Color.LightGreen;
             }
@@ -1698,8 +1707,9 @@ namespace AntonBot.Fenster
 
         #region Bits
 
-        private void LoadBits() {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "BitListe.json";
+        private void LoadBits()
+        {
+            String Path = SettingsGroup.Instance.StandardPfad + "BitListe.json";
             String InhaltJSON;
 
             if (File.Exists(Path))
@@ -1707,21 +1717,24 @@ namespace AntonBot.Fenster
                 //FileStream stream = File.OpenRead(Path);
                 InhaltJSON = File.ReadAllText(Path);
 
-                BitListe = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BitElement>>(InhaltJSON);
+                BitListe = JsonConvert.DeserializeObject<List<BitElement>>(InhaltJSON);
 
-                foreach (var item in BitListe) {
-                    if (BitsID < item.ID) {
+                foreach (var item in BitListe)
+                {
+                    if (BitsID < item.ID)
+                    {
                         BitsID = item.ID;
                     }
                 }
                 BitListeAktualisieren();
             }
         }
-        private void SaveBits() {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "BitListe.json";
+        private void SaveBits()
+        {
+            String Path = SettingsGroup.Instance.StandardPfad + "BitListe.json";
             String InhaltJSON = "";
 
-            InhaltJSON += Newtonsoft.Json.JsonConvert.SerializeObject(BitListe);
+            InhaltJSON += JsonConvert.SerializeObject(BitListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
         }
@@ -1733,7 +1746,8 @@ namespace AntonBot.Fenster
                 grpBits.Enabled = chkBits.Checked;
                 btnBitsSpeichern.BackColor = Color.Tomato;
             }
-            else {
+            else
+            {
                 MessageBox.Show("Der Bot besitzt nicht die Berechtigung für 'bits_read'. Ein Einstellen ist nicht möglich", "Fehlende Berechtigung", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1742,7 +1756,8 @@ namespace AntonBot.Fenster
         {
             Match ListEintrag = Regex.Match(lstBitMengen.SelectedItem.ToString(), ListPattern);
 
-            if (ListEintrag.Success == false) {
+            if (ListEintrag.Success == false)
+            {
                 ListEintrag = Regex.Match(lstBitMengen.SelectedItem.ToString(), ListPatternEinzel);
             }
 
@@ -1768,13 +1783,13 @@ namespace AntonBot.Fenster
             {
                 nudBisBetrag.Value = BitAuswahl.BisBetrag;
             }
-            
+
             chkBitsMaximum.Checked = BitAuswahl.bisMaximum;
             chkBitsKonsole.Checked = BitAuswahl.AusgabeKonsole;
             txtBitsChatText.Text = BitAuswahl.ChatText;
             txtBitsSoundPfad.Text = BitAuswahl.SoundPfad;
             chkBitsSound.Checked = BitAuswahl.Sound;
-            
+
             BitsID = BitAuswahl.ID;
 
             btnBitsLöschen.Enabled = true;
@@ -1791,12 +1806,12 @@ namespace AntonBot.Fenster
             btnTestSound.Enabled = chkBitsSound.Checked;
 
             grpBitsEditor.Enabled = true;
-            
+
         }
 
         private void btnBitsNeu_Click(object sender, EventArgs e)
         {
-            grpBitsEditor.Enabled =true;
+            grpBitsEditor.Enabled = true;
             BitAuswahl = new BitElement();
             BitsID += 1;
             nudBisBetrag.Value = 1;
@@ -1825,11 +1840,13 @@ namespace AntonBot.Fenster
             BitAuswahl.KeinBereich = chkKeinBereich.Checked;
             BitAuswahl.ID = BitsID;
 
-            if (BitAuswahl.bisMaximum) {
+            if (BitAuswahl.bisMaximum)
+            {
                 BitAuswahl.BisBetrag = int.MaxValue;
             }
 
-            if (BitAuswahl.KeinBereich) {
+            if (BitAuswahl.KeinBereich)
+            {
                 BitAuswahl.BisBetrag = 0;
                 Validierung = true;
             }
@@ -1846,8 +1863,10 @@ namespace AntonBot.Fenster
                 }
             }
 
-            if (BitAuswahl.Sound) {
-                if (txtBitsSoundPfad.Text != null) {
+            if (BitAuswahl.Sound)
+            {
+                if (txtBitsSoundPfad.Text != null)
+                {
                     Validierung = true;
                 }
                 else
@@ -1861,21 +1880,22 @@ namespace AntonBot.Fenster
             if (Validierung == true)
             {
                 //String Eintrag = string.Format("#{0} {1}-{2}", BitAuswahl.ID, BitAuswahl.AbBetrag, BitAuswahl.BisBetrag);
-                bool BitUpdate=false;
-                for (int i=0; i < BitListe.Count && BitUpdate == false; i++)
+                bool BitUpdate = false;
+                for (int i = 0; i < BitListe.Count && BitUpdate == false; i++)
                 {
-                    if (BitListe[i].ID == BitAuswahl.ID) {
+                    if (BitListe[i].ID == BitAuswahl.ID)
+                    {
                         BitUpdate = true;
                         BitListe[i] = BitAuswahl;
                     }
 
                 }
 
-                if (BitUpdate==false)
+                if (BitUpdate == false)
                 {
                     BitListe.Add(BitAuswahl);
                 }
-                
+
 
                 //List<BitElement> SortierteListe = BitListe.OrderBy(o => o.AbBetrag).ToList();
 
@@ -1887,17 +1907,20 @@ namespace AntonBot.Fenster
                 FelderReset();
 
                 btnBitsSpeichern.BackColor = Color.Tomato;
-                
+
             }
-            else {
+            else
+            {
                 BitAuswahl = new BitElement();
             }
         }
-        private void BitListeAktualisieren() {
+        private void BitListeAktualisieren()
+        {
             lstBitMengen.Items.Clear();
             foreach (var item in BitListe)
             {
-                if (item.KeinBereich) {
+                if (item.KeinBereich)
+                {
                     lstBitMengen.Items.Add(string.Format("#{0} {1}", item.ID, item.AbBetrag));
                 }
                 else
@@ -1919,12 +1942,14 @@ namespace AntonBot.Fenster
 
             foreach (var item in BitListe)
             {
-                if (item.ID == ausgewählteID) {
+                if (item.ID == ausgewählteID)
+                {
                     BitAuswahl = item;
                     gefunden = true;
                 }
             }
-            if (gefunden) {
+            if (gefunden)
+            {
                 BitListe.Remove(BitAuswahl);
                 BitAuswahl = new BitElement();
 
@@ -1993,7 +2018,7 @@ namespace AntonBot.Fenster
             {
                 try
                 {
-                    txtBitsSoundPfad.Text= ofdBitSoundAuswahl.FileName.ToString().Replace('\\', Path.DirectorySeparatorChar);
+                    txtBitsSoundPfad.Text = ofdBitSoundAuswahl.FileName.ToString().Replace('\\', Path.DirectorySeparatorChar);
                 }
                 catch (Exception ex)
                 {
@@ -2005,7 +2030,8 @@ namespace AntonBot.Fenster
 
         private void btnBitsVariable_Click(object sender, EventArgs e)
         {
-            if (cmbBitsVariable.Text != "") {
+            if (cmbBitsVariable.Text != "")
+            {
                 txtBitsChatText.Text = txtBitsChatText.Text + "°" + cmbBitsVariable.Text;
             }
         }
@@ -2064,7 +2090,8 @@ namespace AntonBot.Fenster
 
                 }
             }
-            else {
+            else
+            {
                 SettingsGroup.Instance.TeBitsReaction = chkBits.Checked;
                 SettingsGroup.Instance.Save();
             }
@@ -2077,7 +2104,7 @@ namespace AntonBot.Fenster
                 BitAuswahl.SoundPfad = txtBitsSoundPfad.Text;
                 if (BitAuswahl.playSound())
                 {
-                    MessageBox.Show("Bit-Sound wurde abgespielt","Test",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Bit-Sound wurde abgespielt", "Test", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     //Rückgabewert true bedeutet, dass der Sound abgespielt wird
                 }
                 else
@@ -2086,7 +2113,8 @@ namespace AntonBot.Fenster
                     //Rückgabewert false bedeutet, dass der Sound nicht gefunden wurde
                 }
             }
-            else {
+            else
+            {
                 MessageBox.Show("Angegebener Pfad ist nicht verfügbar. Bitte eine vorhandene Datei auswählen.", "Datei nicht gefunden", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -2098,7 +2126,8 @@ namespace AntonBot.Fenster
         {
             cmbAdminVariable.Items.Clear();
             cmbAdminVariable.Text = "";
-            switch (cmbAdmin.SelectedItem) {
+            switch (cmbAdmin.SelectedItem)
+            {
                 case "Update StreamTitle":
                     chkAdminUse.Checked = SettingsGroup.Instance.TeUpdateTitle.Use;
                     txtAdminKommando.Text = SettingsGroup.Instance.TeUpdateTitle.Command;
@@ -2356,15 +2385,16 @@ namespace AntonBot.Fenster
                         }
                         break;
                     case "Skill - Mainquest":
-                        if (!SettingsGroup.Instance.SkillUse) {
-                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet","Nicht verwendete Funktion",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                        if (!SettingsGroup.Instance.SkillUse)
+                        {
+                            MessageBox.Show("Der Bot verwendet keine Skills. Werte werden gespeichert, aber nicht verwendet", "Nicht verwendete Funktion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         SettingsGroup.Instance.SkillMain.Use = chkAdminUse.Checked;
-                        SettingsGroup.Instance.SkillMain.Command= txtAdminKommando.Text;
-                        SettingsGroup.Instance.SkillMain.ChatText= txtAdminChat.Text;
-                        SettingsGroup.Instance.SkillMain.FailText= txtAdminFalsch.Text;
-                        SettingsGroup.Instance.SkillMain.Admin= chkForAdmin.Checked;
-                        SettingsGroup.Instance.SkillMain.Broadcast= chkBroadcaster.Checked;
+                        SettingsGroup.Instance.SkillMain.Command = txtAdminKommando.Text;
+                        SettingsGroup.Instance.SkillMain.ChatText = txtAdminChat.Text;
+                        SettingsGroup.Instance.SkillMain.FailText = txtAdminFalsch.Text;
+                        SettingsGroup.Instance.SkillMain.Admin = chkForAdmin.Checked;
+                        SettingsGroup.Instance.SkillMain.Broadcast = chkBroadcaster.Checked;
                         SettingsGroup.Instance.SkillMain.VIP = chkVIP.Checked;
                         SettingsGroup.Instance.SkillMain.Reward = cmbAdminRewards.Text;
                         break;
@@ -2446,7 +2476,7 @@ namespace AntonBot.Fenster
             else
             {
                 MessageBox.Show("Der Bot besitzt nicht die Standard-Berechtigungen für 'chat_read' und 'chat_edit'. Ein Einstellen ist nicht möglich", "Fehlende Berechtigung", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
             }
         }
 
@@ -2515,18 +2545,18 @@ namespace AntonBot.Fenster
 
 
         #region Skill
-        List<GameSkill> SkillList;
-        GameSkill SelectedGame;
-        Quest SelectedQuest;
-        bool MainQuest = true; //true Mainquest. false Sidequest;
-        string GamePattern = "^([\\w\\d\\s]+) - (\\d+)";
-        int QuestIndex = 0;
-        int GameIndex = 0;
-        bool SkillÄnderung;
-        bool SkillGameChange = true;
+        private List<GameSkill> SkillList;
+        private GameSkill SelectedGame;
+        private Quest SelectedQuest;
+        private bool MainQuest = true; //true Mainquest. false Sidequest;
+        private string GamePattern = "^([\\w\\d\\s]+) - (\\d+)";
+        private int QuestIndex = 0;
+        private int GameIndex = 0;
+        private bool SkillÄnderung;
+        private bool SkillGameChange = true;
         private void LoadSkills()
         {
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
+            String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
             String InhaltJSON;
 
             if (File.Exists(Path))
@@ -2534,13 +2564,13 @@ namespace AntonBot.Fenster
                 //FileStream stream = File.OpenRead(Path);
                 InhaltJSON = File.ReadAllText(Path);
 
-                SkillList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
+                SkillList = JsonConvert.DeserializeObject<List<GameSkill>>(InhaltJSON);
                 cbxGame.Items.Clear();
                 foreach (var item in SkillList)
                 {
                     cbxGame.Items.Add(item.Game + " - " + item.GameID);
                 }
-                
+
             }
             else
             {
@@ -2574,9 +2604,11 @@ namespace AntonBot.Fenster
                 }
             }
         }
-        private void SkillÄnderungChange(bool nWert) {
+        private void SkillÄnderungChange(bool nWert)
+        {
             SkillÄnderung = nWert;
-            if (SkillÄnderung) {
+            if (SkillÄnderung)
+            {
                 btnSkillSave.BackColor = Color.Tomato;
             }
             else
@@ -2584,7 +2616,8 @@ namespace AntonBot.Fenster
                 btnSkillSave.BackColor = Color.LightGreen;
             }
         }
-        private void GameRefresh() {
+        private void GameRefresh()
+        {
             if (SelectedGame != null)
             {
                 if (SelectedGame.Wachstumsart != 0)
@@ -2613,7 +2646,7 @@ namespace AntonBot.Fenster
                 }
                 grpSkillGame.Enabled = true;
             }
-            
+
         }
 
         private void cbxGame_SelectedIndexChanged(object sender, EventArgs e)
@@ -2640,23 +2673,25 @@ namespace AntonBot.Fenster
 
         private void cbxGame_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            
+
             if (SkillÄnderung)
             {
                 if (MessageBox.Show("Es sind nicht gespeicherte Änderungen vorhanden. Fortfahren?", "Achtung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     int Index = -1;
                     SkillGameChange = true;
-                    foreach (var item in cbxGame.Items) { 
-                        if(item.Equals(SelectedGame.Game+" - 0"))
+                    foreach (var item in cbxGame.Items)
+                    {
+                        if (item.Equals(SelectedGame.Game + " - 0"))
                         {
                             Index = cbxGame.Items.IndexOf(item);
                         }
                     }
-                    if (Index !=-1) {
+                    if (Index != -1)
+                    {
                         cbxGame.Items.RemoveAt(Index);
                     }
-                                     
+
                 }
                 else
                 {
@@ -2672,8 +2707,8 @@ namespace AntonBot.Fenster
 
         private void btnDeleteGame_Click(object sender, EventArgs e)
         {
-            
-            
+
+
 
             int Gameindex = -1;
             foreach (var item in SkillList)
@@ -2695,13 +2730,14 @@ namespace AntonBot.Fenster
             grpSkillGame.Enabled = false;
             SkillÄnderungChange(false);
 
-            String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
-            String InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
+            String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
+            String InhaltJSON = JsonConvert.SerializeObject(SkillList, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
         }
 
-        private bool SkillValidierung() {
+        private bool SkillValidierung()
+        {
             bool Ergebnis = true;
             if (cbxLevelkurve.Text == "")
             {
@@ -2709,7 +2745,8 @@ namespace AntonBot.Fenster
                 Ergebnis = false;
             }
 
-            if (lstHQ.Items.Count < 1) {
+            if (lstHQ.Items.Count < 1)
+            {
                 MessageBox.Show("Es ist keine Hauptquest angegeben. Es muss mind. eine bestehen");
                 Ergebnis = false;
             }
@@ -2745,8 +2782,8 @@ namespace AntonBot.Fenster
 
                 }
 
-                String Path = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "SkillListe.json";
-                String InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(SkillList, Newtonsoft.Json.Formatting.Indented);
+                String Path = SettingsGroup.Instance.StandardPfad + "SkillListe.json";
+                String InhaltJSON = JsonConvert.SerializeObject(SkillList, Formatting.Indented);
 
                 File.WriteAllText(Path, InhaltJSON);
 
@@ -2754,12 +2791,13 @@ namespace AntonBot.Fenster
                 SettingsGroup.Instance.Save();
 
                 LoadSkills();
-                cbxGame.SelectedIndex=Gameindex;
+                cbxGame.SelectedIndex = Gameindex;
                 SkillÄnderungChange(false);
             }
         }
-        private void SaveSelectedGame() {
-            SelectedGame.Wachstumsart = cbxLevelkurve.SelectedIndex+1;
+        private void SaveSelectedGame()
+        {
+            SelectedGame.Wachstumsart = cbxLevelkurve.SelectedIndex + 1;
             SelectedGame.EXP = Convert.ToInt32(NudEXP.Value);
             SelectedGame.Level = Convert.ToInt32(NudLevel.Value);
             SelectedGame.UpdateLevelEXP();
@@ -2890,7 +2928,8 @@ namespace AntonBot.Fenster
                     GameRefresh();
                 }
             }
-            else {
+            else
+            {
                 txtQuestName.Enabled = true;
                 grpSkill.Enabled = true;
             }
@@ -2901,7 +2940,8 @@ namespace AntonBot.Fenster
             {
                 SelectedGame.MainQuest.Remove(SelectedQuest);
             }
-            else {
+            else
+            {
                 SelectedGame.SideQeust.Remove(SelectedQuest);
             }
             Leeren();
@@ -2909,7 +2949,8 @@ namespace AntonBot.Fenster
             SkillÄnderungChange(true);
         }
 
-        private void Auswahl(Quest Auswahl) {
+        private void Auswahl(Quest Auswahl)
+        {
             txtQuestName.Text = Auswahl.Name;
             txtQuestName.Enabled = true;
             grpSkill.Enabled = true;
@@ -2920,7 +2961,8 @@ namespace AntonBot.Fenster
             lblAbschluss.Text = "Abgeschlossen: x" + Auswahl.AnzahlAbschluss.ToString();
         }
 
-        private void Leeren() {
+        private void Leeren()
+        {
             txtQuestName.Text = "";
             txtQuestName.Enabled = false;
             grpSkill.Enabled = false;

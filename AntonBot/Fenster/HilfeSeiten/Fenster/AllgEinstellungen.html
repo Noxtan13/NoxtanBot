@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Allgemeine Einstellungen</title>
+    <link rel="icon" href="../PinguinServer.jpg" />
+    <link rel="stylesheet" href="../Style.css" />
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <div class="MenuLeiste">
+        <ul>
+            <li><a href="../Einrichtung/Index.html">Einrichtung</a></li>
+            <li><a href="../Fenster/Index.html">Fenster</a></li>
+            <li><a href="../LogFile/Index.html">Log-File</a></li>
+            <li><a href="../OnlineEditor/Index.html">Online-Editor</a></li>
+            <li><a href="../Sonstiges/Index.html">Sonstige Seiten</a></li>
+        </ul>
+    </div>
+    <div class="container">
+            <div class="UnterMenu">
+                <p><a href="AllgEinstellungen.html">Allgemeine Einstellungen</a></p>
+                <p><a href="BefehlEditor.html">Befehl-Editor</a></p>
+                <p><a href="DiscordEinstellungen.html">Discord Einstellungen</a></p>
+                <p><a href="StartFenster.html">Start Fenster</a></p>
+                <p><a href="TwitchEinstellungen.html">Twitch-Einstellungen</a></p>
+                <p><a href="VariableHilfe.html">Variablen</a></p>
+            </div>
+            <div class="Inhalt">
+                <div class="Bild">
+                    <img src="Bilder/AllgEinstellung1.png" alt="Seite 1 der Allgemeinen Einstellungen" width="500" height="342" />
+                </div>
+                <ol>
+                    <li>Plattformen, die beim Starten der Anwendung automatisch angemeldet werden. Sind die Keys nicht in Ordnung, scheitert die Anmeldung beim Start des Programms</li>
+                    <li>
+                        Zusätzliche Einstellungen zu Twitch
+                        <ul>
+                            <li>Auto-Nachrichten: Sendet automatisch Nachrichten, wenn der Stream online ist. Zeitintervall wird in den Befehlen gesetzt. Nur aktiv, wenn Auto-Anmeldung an Twitch erfolgt</li>
+                            <li>Einträge in Discord: Die Log-Einträge der Konsole werden zeitgleich in einem Discord-Channel gepostet </li>
+                            <li>Die Channel-ID des Discord-Channels. Post ist auch nur möglich, wenn der Bot auf den Channel zugreifen kann</li>
+                        </ul>
+                    </li>
+                    <li>Buttons zum Speichern oder Abbrechen der durchgeführten Änderungen</li>
+                </ol>
+                <div class="Bild">
+                    <img src="Bilder/AllgEinstellung2.png" alt="Seite 2 der Allgemeinen Einstellungen" width="500" height="342" />
+                </div>
+                <ol>
+                    <li>Wechsel zwischen der User-WhiteList und der WörterBlackList</li>
+                    <li>Einstellung der Gültigkeit in Tage und die Anzahl an versuchen, wie häufig gejoint werden darf.<br/> Ist eines der Werte Null erfolgt keine Prüfung <br/> Wird verwendet um automatisch gejointe User (meistens Bots) automatisch von Channel zu bannen.
+                        </li>
+                    <li>Einstellung zum Hinzufügen oder Entfernen von User. Diese Eingetragenen User können ohne Beschränkung Nachrichten schreiben und dem Channel joinen</li>
+                    <li>Die Liste aller User, die in der Whitelist aufgenommen worden sind. Der Streamer selber steht immer in der Liste. </li>
+                </ol>
+                <div class="Bild">
+                    <img src="Bilder/AllgEinstellung2_2.png" alt="Die Blacklist der Seite 2 der Allgemeinen Einstellungen" width="500" height="342" />
+                </div>
+                <ol>
+                    <li>Einstellung zum Hinzufügen oder Entfernen von Begriffen. Wird einer der Begriffe im Chat geschrieben, so versucht der Bot diesen Benutzer zu bannen.</li>
+                </ol>
+                <div class="Bild">
+                    <img src="Bilder/AllgEinstellung3.png" alt="Seite 3 der Allgemeinen Einstellungen" width="500" height="342" />
+                </div>
+                <ol>
+                    <li>Standardpfade der Ausgabe der Standard, Log, und HTML Einstellungen/Pfade</li>
+                    <li>Button zum Setzen der Ausgabe auf den Standardwert. Der Standardwert ist das Verzeichnis, in dem sich der Bot befindet. </li>
+                </ol>
+            </div>
+    </div>
+</body>
+</html>

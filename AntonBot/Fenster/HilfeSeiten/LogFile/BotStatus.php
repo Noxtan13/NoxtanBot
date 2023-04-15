@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Startseite NoxtanBot</title>
-    <link rel="icon" href="PinguinServer.jpg" />
+    <title>Log NoxtanBot</title>
+    <link rel="icon" href="../PinguinServer.jpg" />
     <link rel="stylesheet" href="../Style.css" />
+    <meta charset="UTF-8">
     <style>
         .LogEintrag{
         text-align: left;
@@ -27,11 +28,10 @@
     <div class="container">
         <div class="UnterMenu">
             <p><a href="BotStatus.php">Gesamtes Log</a></p>
-            <p><a>Eintrag 2</a></p>
+            <p><a href="Logbuch.php">Log Splatink</a></p>
             <p><a>Eintrag 3</a></p>
         </div>
         <div class="Inhalt">
-            <div class="Inhalttext">
                 
             <?php
 
@@ -47,7 +47,8 @@
     echo "$Anzahl <br/>";
     
     echo "Jetzt kommen die Einträge <br/>";
-    $InhaltJson = file_get_contents('/home/pi/Antonbot/KonsolenAusgabe.json');
+    $InhaltJson = file_get_contents('°LogPfad');
+    //$InhaltJson = file_get_contents('/home/pi/Antonbot/KonsolenAusgabe.json');
     //$Eintrag = new Eintraege;
     $Eintrag = json_decode($InhaltJson,true);
     //var_dump($Eintrag);
@@ -74,10 +75,15 @@
     echo "<br/>Ausgabe ZusatzInfo: $Ausfalldauer<br/>"; 
 
     $GesamtDauer = $Ausfalldauer+(int)$Anzahl*60;
-    echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer";
+    echo "Bisher gesamte Ausgefallene Zeit in Sekunden: $GesamtDauer <br/>";
+
+    echo "Inhalt der Log-Datei: '°LogPfadLog' <br/>";
+    echo "<div class=\"LogEintrag\">";
+    echo file_get_contents('°LogPfadLog');
+    echo "</div>";
+
     ?>
 
-            </div>
         </div>
     </div>
 

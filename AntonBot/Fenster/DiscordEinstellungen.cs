@@ -25,6 +25,8 @@ namespace AntonBot.Fenster
         private DiscordFunction DiscordClient;
         private List<DiscordGilde> DiscordListe;
         private List<EmbededMessageReactionRole> ReactionRoleList;
+        private EmbededMessageReactionRole currentReactionRole;
+        private bool newReactionRole = false;
         private String PathReactionRoleList = Application.StartupPath + Path.DirectorySeparatorChar + "ReactionRole.json";
         private bool EmoteDiscordSwitch = true;
 
@@ -726,6 +728,21 @@ namespace AntonBot.Fenster
             if (gefunden) {
                 //AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
                 AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
+
+                foreach (var Server in DiscordListe)
+                {
+                    if (Server.Name.Equals(cmdReactRollServer.Text))
+                    {
+                        foreach (var Role in Server.Roles)
+                        {
+                            if (Role.Name.Equals(cmbRoleSelect.Text))
+                            {
+                                currentReactionRole.AddRollenEnträge(ownEmote,Role.ID, Role.Name);
+                            }
+                        }
+                    }
+                }
+                                
             }
 
         }
@@ -765,6 +782,11 @@ namespace AntonBot.Fenster
             }
             if (found)
             {
+                //Hier das Löschen aus der Liste
+                //-2 weil die Zeile 1 zu weit geht + 1 weil die Liste bei 0 anfängt (sonst wird das Emote 1 drunter gelöscht)
+                currentReactionRole.RemoveEinträge(currentReactionRole.RollenEinträge[row - 2].ID);
+
+
                 //-1 da sonst die Zeile unter dem Objekt gelöscht wird
                 TableLayoutHelper.RemoveArbitraryRow(EmoteRoleTable, row - 1);
             }
@@ -793,23 +815,34 @@ namespace AntonBot.Fenster
             //Je niedriger der Wert, desto mehr Felder werden zurück gesetzt
 
             if (Ebene < 1) { 
-                cmdReactRollServer.Items.Clear(); cmdReactRollServer.Text = "";
+                cmdReactRollServer.Items.Clear(); 
+                cmdReactRollServer.Text = "";
             }
             if (Ebene < 2) { 
-                cmbReactChannel.Items.Clear(); cmbReactChannel.Text = "";
+                cmbReactChannel.Items.Clear(); 
+                cmbReactChannel.Text = "";
                 cmbEmoteSelect.Items.Clear();
                 cmbEmoteSelect.Text = "";
                 cmbRoleSelect.Items.Clear();
                 cmbRoleSelect.Text = "";
             }
-            if (Ebene < 3) { cmdRollMessage.Items.Clear();cmdRollMessage.Text = "";}
+            if (Ebene < 3) {
+                cmdRollMessage.Items.Clear();
+                cmdRollMessage.Text = "";
+                cmdRollMessage.Enabled = false;
+                btnReactionNew.Enabled = false;
+            }
             if (Ebene < 4) { 
                 txtReactionName.Text = "";
                 txtReactFooter.Text = "";
                 txtReactMessage.Text = "";
                 txtReactTitle.Text = "";
                 ResetTable();
+                tabMessage.Enabled = false;
+                btnReactionDelete.Enabled = false;
             }
+            //Wert wird zurückgesetzt, damit Wert nur aktiv ist, wenn auf den Button neu auch geklickt wurde
+            newReactionRole = false;
         }
 
         private void cmdReactRollServer_SelectedIndexChanged(object sender, EventArgs e)
@@ -829,6 +862,7 @@ namespace AntonBot.Fenster
                     {
                         cmbRoleSelect.Items.Add(Role.Name);
                     }
+                    cmbReactChannel.Enabled = true;
                 }
             }
         }
@@ -845,10 +879,15 @@ namespace AntonBot.Fenster
                         if (cmbReactChannel.SelectedItem.Equals(Channel.Name))
                         {
                             foreach (var ReactionRole in ReactionRoleList) {
-                                cmdRollMessage.Items.Add(ReactionRole.MessageName);
+                                if (ReactionRole.ChannelName.Equals(Channel.Name))
+                                {
+                                    cmdRollMessage.Items.Add(ReactionRole.MessageName);
+                                }
                             }
                         }
                     }
+                    cmdRollMessage.Enabled = true;
+                    btnReactionNew.Enabled = true;
                 }
             }
         }
@@ -868,6 +907,12 @@ namespace AntonBot.Fenster
                         //vorher die Tabelle auf leer setzen
                          AddRow(Emote.Emote.getEmoteBitmap(), Emote.Emote.Name,Emote.RoleName);
                     }
+                    tabMessage.Enabled = true;
+                    btnReactionDelete.Enabled = true;
+
+                    currentReactionRole = ReactionRole;
+
+                    //ReactionIndex = ReactionRoleList.IndexOf(ReactionRole);
                 }
             }
         }
@@ -876,14 +921,144 @@ namespace AntonBot.Fenster
 
         private void btnReactionDelete_Click(object sender, EventArgs e)
         {
-            
+            if (!newReactionRole) {
+                int ReactionIndex = ReactionRoleList.IndexOf(currentReactionRole);
+                ReactionRoleList.RemoveAt(ReactionIndex);
+                SaveReactionRole();
+                ResetAll(2);
+                cmdRollMessage.Enabled = true;
+                cmbReactChannel_SelectedIndexChanged(null, null);
+            }
         }
 
-        
+        private void btnReactRollDeleteAll_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Sicher, dass alle Embeded Nachrichten gelöscht werden sollen?", "Sicher?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ReactionRoleList = new List<EmbededMessageReactionRole>();
+                SaveReactionRole();
+                ResetAll(1);
+            }
+        }
+
+        private void btnReactionNew_Click(object sender, EventArgs e)
+        {
+            newReactionRole = true;
+            currentReactionRole = new EmbededMessageReactionRole();
+            tabMessage.Enabled = true;
+            txtReactionName.BackColor = Color.Red;
+        }
+
 
         private void btnReactSave_Click(object sender, EventArgs e)
         {
+            if (ReactRoleValidate())
+            {
+                foreach (var Server in DiscordListe)
+                {
+                    if (Server.Name.Equals(cmdReactRollServer.Text))
+                    {
+                        foreach (var Channel in Server.Channels)
+                        {
+                            if (Channel.Name.Equals(cmbReactChannel.Text))
+                            {
+                                currentReactionRole.ServerName = Server.Name;
+                                currentReactionRole.ChannelName = Channel.Name;
+                                currentReactionRole.ServerID = Server.ID;
+                                currentReactionRole.ChannelID = Channel.ID;
 
+                                currentReactionRole.MessageName = txtReactionName.Text;
+                                currentReactionRole.MessageTitle = txtReactTitle.Text;
+                                currentReactionRole.MessageFooter = txtReactFooter.Text;
+                                currentReactionRole.MessageText = txtReactMessage.Text;
+
+
+                            }
+                        }
+                    }
+                }
+
+                if (newReactionRole)
+                {
+                    ReactionRoleList.Add(currentReactionRole);
+                    newReactionRole = false;
+                }
+                else
+                {
+                    int ReactionIndex = ReactionRoleList.IndexOf(currentReactionRole);
+                    ReactionRoleList.RemoveAt(ReactionIndex);
+                    ReactionRoleList.Insert(ReactionIndex, currentReactionRole);
+                }
+
+                SaveReactionRole();
+                ResetAll(2);
+                cmdRollMessage.Enabled = true;
+                cmbReactChannel_SelectedIndexChanged(null, null);
+            }
+        }
+
+        private bool ReactRoleValidate() {
+
+            if (txtReactionName.Text.Equals("")){
+                MessageBox.Show("Der Name darf nicht leer sein", "Kein Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            int Count = 0;
+            foreach (var item in ReactionRoleList)
+            {
+                if (item.ChannelName.Equals(cmbReactChannel.Text)) {
+                    if (item.MessageName.Equals(txtReactionName.Text)) {
+                        Count++;
+                        if (Count > 1)
+                        {
+                            MessageBox.Show("Der Name darf nicht zweimal oder mehr innerhalb eines Channels existieren", "Mehrfacher Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+                }
+            }
+            if (txtReactMessage.Text.Equals(""))
+            {
+                MessageBox.Show("Es muss zur Nachricht ein Text angegeben werden", "Kein Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (currentReactionRole.RollenEinträge.Count<=0)
+            {
+                MessageBox.Show("Es sind keine Emotes den Rollen zugewiesen. Ohne diese braucht die Funktion nicht eingerichtet werden", "Keine Rollen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+
+        private void CheckbtnEmoteRoleAdd() {
+            if (cmbRoleSelect.Text != "" && cmbEmoteSelect.Text != "" || txtEmoteSelect.Text != "") {
+                btnEmoteRoleAdd.Enabled = true;
+            }
+            else
+            {
+                btnEmoteRoleAdd.Enabled = false;
+            }
+            
+        }
+
+        private void cmbEmoteSelect_TextUpdate(object sender, EventArgs e)
+        {
+            CheckbtnEmoteRoleAdd();
+        }
+
+        private void cmbRoleSelect_TextUpdate(object sender, EventArgs e)
+        {
+            CheckbtnEmoteRoleAdd();
+        }
+
+        private void cmbEmoteSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckbtnEmoteRoleAdd();
+        }
+
+        private void cmbRoleSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckbtnEmoteRoleAdd();
         }
 
 
@@ -926,6 +1101,7 @@ namespace AntonBot.Fenster
                 TimerRun = true;
                 TEmoteValidate.Start();
             }
+            CheckbtnEmoteRoleAdd();
         }
 
         private void TEmoteValidate_Tick(object sender, EventArgs e)
@@ -941,7 +1117,20 @@ namespace AntonBot.Fenster
             TEmoteValidate.Stop();
             TimerRun = false;
         }
+
+        private void txtReactionName_TextChanged(object sender, EventArgs e)
+        {
+            if (newReactionRole)
+            {
+                txtReactionName.BackColor = Color.LightGreen;
+            }
+        }
+
+
+
         #endregion
+
+
     }
 }
 

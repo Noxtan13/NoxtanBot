@@ -112,6 +112,7 @@ namespace AntonBot.PlatformAPI
         public List<List_Befehl> InhaltListBefehl;
         public List<Zeit_Befehl> InhaltZeitBefehl;
         public List<GameSkill> InhaltSkillList;
+        public List<EmbededMessageReactionRole> InhaltReactionRoleList;
         #endregion
 
         #region Skill
@@ -513,6 +514,10 @@ namespace AntonBot.PlatformAPI
             {
                 InhaltSkillList = JsonConvert.DeserializeObject<List<GameSkill>>(File.ReadAllText(ApplicationPath + "SkillListe.json"));
             }
+            if (File.Exists(ApplicationPath + "SkillListe.json"))
+            {
+                InhaltSkillList = JsonConvert.DeserializeObject<List<GameSkill>>(File.ReadAllText(ApplicationPath + "ReactionRole.json"));
+            }
         }
 
         public String WriteAllSettings()
@@ -527,6 +532,7 @@ namespace AntonBot.PlatformAPI
                 File.WriteAllText(StandardPfad + "Zeit-Befehl.json", JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "SkillListe.json", JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "JoinedUsers.json", JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "ReactionRole.json", JsonConvert.SerializeObject(InhaltReactionRoleList,Formatting.Indented));
                 return "Erfolg";
             }
             catch (Exception ex)

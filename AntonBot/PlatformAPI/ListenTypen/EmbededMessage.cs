@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AntonBot.PlatformAPI.ListenTypen
 {
-    class EmbededMessage
+    public class EmbededMessage
     {
         public string ServerName { get; set; } //Name des Servers wo die Embeded Message gesendet werden soll
         public ulong ServerID { get; set; } //ID des Servers
@@ -22,7 +22,7 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public string MessageText { get; set; } //Der Nachrichtentext
     }
 
-    class EmbededMessageReactionRole : EmbededMessage {
+    public class EmbededMessageReactionRole : EmbededMessage {
         public List<ReactionRoleEntry> RollenEinträge = new List<ReactionRoleEntry>(); //Liste der Einträge von Emote - Rolle
 
         public EmbededMessageReactionRole() {

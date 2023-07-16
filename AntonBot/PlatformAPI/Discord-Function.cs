@@ -5,10 +5,13 @@ using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AntonBot
 {
@@ -28,6 +31,9 @@ namespace AntonBot
         private bool bAusfall = false;
 
         public List<OwnEmote> Emotelist;
+
+        private List<EmbededMessageReactionRole> ReactionRoleList;
+        private String PathReactionRoleList = Application.StartupPath + Path.DirectorySeparatorChar + "ReactionRole.json";
         public async Task RunBotAsync()
         {
             //Fehlermeldung bei leeren Token 
@@ -107,6 +113,7 @@ A token cannot be null, empty, or contain only whitespace.
                     Active = true;
                     Restart = false;
                     DiscordWriteGuilds();
+                    LoadReactionRole();
                 }
                 else
                 {
@@ -117,7 +124,21 @@ A token cannot be null, empty, or contain only whitespace.
                 
             }
         }
-
+        private void LoadReactionRole() {
+            if (File.Exists(PathReactionRoleList))
+            {
+                String InhaltJSON = File.ReadAllText(PathReactionRoleList);
+                try
+                {
+                    ReactionRoleList = JsonConvert.DeserializeObject<List<EmbededMessageReactionRole>>(InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Die ReactionRole-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ReactionRoleList = new List<EmbededMessageReactionRole>();
+                }
+            }
+        }
         public void DiscordWriteGuilds()
         {
             System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
@@ -248,8 +269,60 @@ A token cannot be null, empty, or contain only whitespace.
             client.UserJoined += Client_UserJoined;
             client.UserLeft += Client_UserLeft1;
             //client.UserVoiceStateUpdated += Client_UserVoiceStateUpdated;
-            //client.ReactionAdded += Client_ReactionAdded;
+            client.ReactionAdded += Client_ReactionAdded;
+            client.ReactionRemoved += Client_ReactionRemoved;
             await commands.AddModulesAsync(Assembly.GetEntryAssembly(), services);
+        }
+
+        private async Task Client_ReactionRemoved(Cacheable<IUserMessage, ulong> arg1, Cacheable<IMessageChannel, ulong> arg2, SocketReaction arg3)
+        {
+            LoadReactionRole();//Aktuelle Rollen zur Sicherheit laden
+
+            var Message = (RestUserMessage)await arg2.Value.GetMessageAsync(arg3.MessageId);
+
+            foreach (var ReaktionRole in ReactionRoleList)
+            {
+                if (Message.Channel.Id == ReaktionRole.ChannelID)
+                {
+                    if (Message.Id == ReaktionRole.MessageID)
+                    {
+                        foreach (var Entry in ReaktionRole.RollenEinträge)
+                        {
+                            if (Entry.Emote.Name == arg3.Emote.Name)
+                            {
+                                var role = client.GetGuild(ReaktionRole.ServerID).GetRole(Entry.RoleID);
+                                var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
+
+                                await GuildUser.RemoveRoleAsync(role);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, Cacheable<IMessageChannel, ulong> arg2, SocketReaction arg3)
+        {
+            LoadReactionRole();//Aktuelle Rollen zur Sicherheit laden
+
+            var Message = (RestUserMessage)await arg2.Value.GetMessageAsync(arg3.MessageId);
+
+            foreach (var ReaktionRole in ReactionRoleList) {
+                if (Message.Channel.Id == ReaktionRole.ChannelID) {
+                    if (Message.Id == ReaktionRole.MessageID) {
+                        foreach (var Entry in ReaktionRole.RollenEinträge) {
+                            if (Entry.Emote.Name == arg3.Emote.Name) {
+                                var role = client.GetGuild(ReaktionRole.ServerID).GetRole(Entry.RoleID);
+                                var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
+                                
+                                await GuildUser.AddRoleAsync(role);
+                            }
+                        }
+                    }
+                }
+            }
+           
         }
 
         private async Task Client_UserLeft1(SocketGuild arg1, SocketUser arg2)
@@ -301,17 +374,6 @@ A token cannot be null, empty, or contain only whitespace.
             Text = Text.Replace("°GuildName", arg1.Name);
             Text = Text.Replace("UserName°", arg2.Username);
             return Text;
-        }
-
-        private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
-        {
-            //string Nachricht = "WOW eine Reaktion :o";
-            var Message = (RestUserMessage)await arg2.GetMessageAsync(arg3.MessageId);
-
-            var Emoji = new Emoji("🔥");
-
-            await Message.AddReactionAsync(arg3.Emote, new RequestOptions());
-            await Message.AddReactionAsync(Emoji, new RequestOptions());
         }
 
         private async Task Client_UserJoined(SocketGuildUser arg)
@@ -440,6 +502,46 @@ A token cannot be null, empty, or contain only whitespace.
             {
                 KonsolenAusgabe("Der Bot ist nicht aktiv oder angemeldet. Eine Nachricht zu senden ist nicht möglich.");
             }
+        }
+
+        public async Task<ulong> SendEmbededMessage(ulong ChannelID, Embed Message) {
+
+        
+            var Result = await ((ISocketMessageChannel)client.GetChannel(ChannelID)).SendMessageAsync("", embed: Message);
+
+            return Result.Id;
+        }
+
+        public async Task<ulong> SendReactionRoleMessage(EmbededMessageReactionRole embededMessageReactionRole) {
+            var Message = new EmbedBuilder();
+
+            Message.WithAuthor(client.CurrentUser)
+                .WithFooter(embededMessageReactionRole.MessageFooter)
+                .WithColor(Color.Gold)
+                .WithTitle(embededMessageReactionRole.MessageTitle)
+                .WithDescription(embededMessageReactionRole.MessageText)
+                .WithCurrentTimestamp();
+
+            return await SendEmbededMessage(embededMessageReactionRole.ChannelID, Message.Build());
+            
+        }
+
+        public async Task EditEmbededMessage(EmbededMessageReactionRole Message) {
+
+            var MessageBuild = new EmbedBuilder();
+
+            MessageBuild.WithAuthor(client.CurrentUser)
+                .WithFooter(Message.MessageFooter)
+                .WithColor(Color.Gold)
+                .WithTitle(Message.MessageTitle)
+                .WithDescription(Message.MessageText)
+                .WithCurrentTimestamp();
+
+            await ((ISocketMessageChannel)client.GetChannel(Message.ChannelID)).ModifyMessageAsync(Message.MessageID, msg => msg.Embed = MessageBuild.Build());
+        }
+
+        public async Task DeleteEmbedeMessage(EmbededMessageReactionRole Message) { 
+            await ((ISocketMessageChannel)client.GetChannel(Message.ChannelID)).DeleteMessageAsync(Message.MessageID);
         }
 
         public void LoadAllCommands()

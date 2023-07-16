@@ -693,7 +693,7 @@ namespace AntonBot.Fenster
         }
 
         private void SaveReactionRole() {
-            string InhaltJSON = Newtonsoft.Json.JsonConvert.SerializeObject(ReactionRoleList,Formatting.Indented);
+            string InhaltJSON = JsonConvert.SerializeObject(ReactionRoleList,Formatting.Indented);
             File.WriteAllText(PathReactionRoleList, InhaltJSON);
         }
 
@@ -852,6 +852,7 @@ namespace AntonBot.Fenster
                 if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
                 {
                     foreach (var Channel in Server.Channels) {
+                        
                         cmbReactChannel.Items.Add(Channel.Name);
                     }
                     foreach (var Emote in Server.Emotes)
@@ -919,22 +920,29 @@ namespace AntonBot.Fenster
 
         
 
-        private void btnReactionDelete_Click(object sender, EventArgs e)
+        private async void btnReactionDelete_Click(object sender, EventArgs e)
         {
             if (!newReactionRole) {
+                if (currentReactionRole.MessageID != 0) {
+                    await DiscordClient.DeleteEmbedeMessage(currentReactionRole);
+                }
                 int ReactionIndex = ReactionRoleList.IndexOf(currentReactionRole);
                 ReactionRoleList.RemoveAt(ReactionIndex);
                 SaveReactionRole();
                 ResetAll(2);
                 cmdRollMessage.Enabled = true;
                 cmbReactChannel_SelectedIndexChanged(null, null);
+                
             }
         }
 
-        private void btnReactRollDeleteAll_Click(object sender, EventArgs e)
+        private async void btnReactRollDeleteAll_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show("Sicher, dass alle Embeded Nachrichten gelöscht werden sollen?", "Sicher?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                foreach (var Message in ReactionRoleList) {
+                    await DiscordClient.DeleteEmbedeMessage(Message);
+                }
                 ReactionRoleList = new List<EmbededMessageReactionRole>();
                 SaveReactionRole();
                 ResetAll(1);
@@ -952,6 +960,11 @@ namespace AntonBot.Fenster
 
         private void btnReactSave_Click(object sender, EventArgs e)
         {
+            SaveMessage(true);
+        }
+
+        private void SaveMessage(bool Zurück) {
+            //Speichert die aktuell ausgewählte Nachricht ab
             if (ReactRoleValidate())
             {
                 foreach (var Server in DiscordListe)
@@ -991,9 +1004,12 @@ namespace AntonBot.Fenster
                 }
 
                 SaveReactionRole();
-                ResetAll(2);
-                cmdRollMessage.Enabled = true;
-                cmbReactChannel_SelectedIndexChanged(null, null);
+                if (Zurück)
+                {
+                    ResetAll(2);
+                    cmdRollMessage.Enabled = true;
+                    cmbReactChannel_SelectedIndexChanged(null, null);
+                }
             }
         }
 
@@ -1126,7 +1142,39 @@ namespace AntonBot.Fenster
             }
         }
 
+        private void btnSendEmbededMessage_Click(object sender, EventArgs e)
+        {
+            SaveMessage(false);
+            SendEmbededMessage(currentReactionRole);
+        }
 
+        private void btnSendAllEmbededMessages_Click(object sender, EventArgs e)
+        {
+            foreach (var Message in ReactionRoleList) {
+                SendEmbededMessage(Message);
+            }
+            
+        }
+
+        private async void SendEmbededMessage(EmbededMessageReactionRole Message) {
+
+
+            if (Message.MessageID == 0)
+            {
+                var MessageID = await DiscordClient.SendReactionRoleMessage(Message);
+                Message.MessageID = MessageID;
+
+                int ReactionIndex = ReactionRoleList.IndexOf(currentReactionRole);
+                ReactionRoleList.RemoveAt(ReactionIndex);
+                ReactionRoleList.Insert(ReactionIndex, currentReactionRole);
+                SaveReactionRole();
+
+            }
+            else {
+                await DiscordClient.EditEmbededMessage(Message);            
+            }
+
+        }
 
         #endregion
 

@@ -171,20 +171,15 @@ namespace AntonBot
                     KonsolenAusgabe("client.Connect() konnte nicht durchgeführt werden." + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException);
                     erfolgreich = false;
                     throw;
-                }
-
-
-
-
-                List<string> lst = new List<string> { sChannelID };
-                lsmMonitor.SetChannelsById(lst);
-                fsFollower.SetChannelsById(lst);
+                }               
 
 
                 lsmMonitor.OnStreamOnline += Monitor_OnStreamOnline;
                 lsmMonitor.OnStreamOffline += Monitor_OnStreamOffline;
                 lsmMonitor.OnStreamUpdate += Monitor_OnStreamUpdate;
 
+                fsFollower.OnChannelsSet += FsFollower_OnChannelsSet;
+                fsFollower.OnServiceStarted += FsFollower_OnServiceStarted;
                 fsFollower.OnNewFollowersDetected += Follower_OnNewFollowersDetected;
 
                 twitchPupSub = new TwitchPubSub();
@@ -202,6 +197,9 @@ namespace AntonBot
                 twitchPupSub.OnListenResponse += TwitchPupSub_OnListenResponse;
 
 
+                List<string> lst = new List<string> { sChannelID };
+                lsmMonitor.SetChannelsById(lst);
+                fsFollower.SetChannelsById(lst);                
 
 
                 //twitchPupSub.OnFollow wird geworfen, wenn ich jemanden Folge
@@ -283,6 +281,16 @@ namespace AntonBot
             {
                 KonsolenAusgabe("Der verwendete ChannelName " + SettingsGroup.Instance.TsStandardChannel + " exsistiert nicht. Bitte überprüfe den Namen in den Einstellungen oder versuche es erneut.");
             }
+        }
+
+        private void FsFollower_OnServiceStarted(object sender, TwitchLib.Api.Services.Events.OnServiceStartedArgs e)
+        {
+            KonsolenAusgabe("FsFollower_OnServiceStarted");
+        }
+
+        private void FsFollower_OnChannelsSet(object sender, TwitchLib.Api.Services.Events.OnChannelsSetArgs e)
+        {
+            KonsolenAusgabe("FsFollower_OnChannelSet: Channels: " + e.Channels.Count);
         }
 
         private void FollowerlistAufbau()
@@ -3041,11 +3049,24 @@ namespace AntonBot
 
         public void test()
         {
-            if (SettingsGroup.Instance.SkillUse)
-            {
-                GameLoad("495064", "Splatoon 2");
-            }
+            var Result = TwitchAPI.Helix.Search.SearchChannelsAsync(getStandardChannel(),false,null,25, SettingsGroup.Instance.TsAccessTokenPubSub);
+            var Result2 = TwitchAPI.Helix.Search.SearchChannelsAsync("416724577", false, null, 25, SettingsGroup.Instance.TsAccessTokenPubSub);
+            int zahl = 1;
 
+            zahl += 5;
+
+            KonsolenAusgabe(Result.Result.Channels[1].DisplayName);
+            KonsolenAusgabe(Result2.Result.Channels[1].DisplayName);
+
+            zahl += 5;
+
+            fsFollower.UpdateLatestFollowersAsync(true);
+
+            foreach (var Streamer in fsFollower.KnownFollowers) {
+                foreach (var Follower in Streamer.Value) { 
+                    KonsolenAusgabe(Follower.UserName);
+                }
+            }
         }
     }
 }

@@ -917,7 +917,7 @@ namespace AntonBot
 
         private void DiscordStatusStrip_Click(object sender, EventArgs e)
         {
-            testc();
+            Twitch.test();
         }
 
         private void nachrichtTestenToolStripMenuItem_Click(object sender, EventArgs e)

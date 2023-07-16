@@ -62,6 +62,7 @@ namespace AntonBot.Fenster
             chk_whispers_edit.Checked = SettingsGroup.Instance.Tswhispers_edit;
             chk_whispers_read.Checked = SettingsGroup.Instance.Tswhispers_read;
             chk_channel_moderate.Checked = SettingsGroup.Instance.Tschannel_moderate;
+            chk_read_follows.Checked = SettingsGroup.Instance.Tsread_follows;
             chk_bits_read.Checked = SettingsGroup.Instance.Tsbits_read;
             chk_channel_manage_redemptions.Checked = SettingsGroup.Instance.Tschannel_manage_redemptions;
             chk_channel_read_redemptions.Checked = SettingsGroup.Instance.Tschannel_read_redemptions;
@@ -282,6 +283,12 @@ namespace AntonBot.Fenster
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
                 erzeugteAnfrage += "channel:moderate";
             }
+            if (chk_read_follows.Checked)
+            {
+                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                erzeugteAnfrage += "user:read:follows" +"+moderator:read:followers"; //Es werden beide angefordert
+                                  //Die eigenen Follwer   //Die Follwer, wo der Acc ein Moderator ist
+            }
             if (chk_bits_read.Checked)
             {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
@@ -360,7 +367,7 @@ namespace AntonBot.Fenster
             SettingsGroup.Instance.Tswhispers_edit = chk_whispers_edit.Checked;
             SettingsGroup.Instance.Tswhispers_read = chk_whispers_read.Checked;
             SettingsGroup.Instance.Tschannel_moderate = chk_channel_moderate.Checked;
-
+            SettingsGroup.Instance.Tsread_follows = chk_read_follows.Checked;
             SettingsGroup.Instance.Tsbits_read = chk_bits_read.Checked;
             SettingsGroup.Instance.Tschannel_read_redemptions = chk_channel_read_redemptions.Checked;
             SettingsGroup.Instance.Tschannel_manage_redemptions = chk_channel_manage_redemptions.Checked;
@@ -557,6 +564,22 @@ namespace AntonBot.Fenster
                         chk_channel_moderate.ForeColor = Color.Orange;
                         Ausgabe += "Die Berechtigung  'channel:moderate'  wird nicht erwartet, ist aber im Token." + Environment.NewLine;
                         chk_channel_moderate.Checked = true;
+                    }
+                }
+                if (chk_read_follows.Checked ^ ErgebnisToken.Contains("user:read:follows"))
+                {
+                    if (chk_read_follows.Checked)
+                    {
+                        //Checkbox ist angehakt, aber das Recht ist nicht da. => Fehler, da muss neu angefordert werden
+                        chk_read_follows.ForeColor = Color.DarkRed;
+                        Ausgabe += "Die Berechtigung  'user:read:follows'  wird erwartet, aber ist nicht im Token." + Environment.NewLine;
+                    }
+                    else
+                    {
+                        //Recht ist da, aber Checkbox ist nicht angehakt => Kein Wirklicher Fehler, Haken muss nur übernommen werden
+                        chk_read_follows.ForeColor = Color.Orange;
+                        Ausgabe += "Die Berechtigung  'user:read:follows'  wird nicht erwartet, ist aber im Token." + Environment.NewLine;
+                        chk_read_follows.Checked = true;
                     }
                 }
 

@@ -94,6 +94,7 @@ namespace AntonBot.PlatformAPI
         public bool Tsuser_edit_broadcast;
         public bool Tschannel_editor;
         public bool Tschannel_moderate;
+        public bool Tsread_follows;
         public bool Tsuser_read;
         public bool Tsclips_edit;
         public String TsStandardChannel;
@@ -129,7 +130,7 @@ namespace AntonBot.PlatformAPI
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 8;
+            Version = 10;
         }
 
         public void LoadSettings()
@@ -222,6 +223,7 @@ namespace AntonBot.PlatformAPI
                 Tsuser_edit_broadcast = load.Tsuser_edit_broadcast;
                 Tschannel_editor = load.Tschannel_editor;
                 Tschannel_moderate = load.Tschannel_moderate;
+                Tsread_follows = load.Tsread_follows;
                 Tsuser_read = load.Tsuser_read;
                 Tsclips_edit = load.Tsclips_edit;
                 TsStandardChannel = load.TsStandardChannel;
@@ -332,6 +334,7 @@ namespace AntonBot.PlatformAPI
             Tsuser_edit_broadcast = false;
             Tschannel_editor = false;
             Tschannel_moderate = false;
+            Tsread_follows= false;
             Tsuser_read = false;
             Tsclips_edit = false;
             TsStandardChannel = "";
@@ -445,6 +448,7 @@ namespace AntonBot.PlatformAPI
             Tsuser_edit_broadcast = load.Tsuser_edit_broadcast;
             Tschannel_editor = load.Tschannel_editor;
             Tschannel_moderate = load.Tschannel_moderate;
+            Tsread_follows = load.Tsread_follows;
             Tsuser_read = load.Tsuser_read;
             Tsclips_edit = load.Tsclips_edit;
             if (load.TsStandardChannel != null) { TsStandardChannel = load.TsStandardChannel; }
@@ -605,6 +609,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.Tsuser_edit_broadcast = Import.Tsuser_edit_broadcast;
             SettingsGroup.Instance.Tschannel_editor = Import.Tschannel_editor;
             SettingsGroup.Instance.Tschannel_moderate = Import.Tschannel_moderate;
+            SettingsGroup.Instance.Tsread_follows = Import.Tsread_follows;
             SettingsGroup.Instance.Tsuser_read = Import.Tsuser_read;
             SettingsGroup.Instance.Tsclips_edit = Import.Tsclips_edit;
             SettingsGroup.Instance.TsStandardChannel = Import.TsStandardChannel;

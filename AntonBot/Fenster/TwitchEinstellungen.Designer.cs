@@ -152,6 +152,7 @@
             this.btnDeleteGame = new System.Windows.Forms.Button();
             this.btnAddGame = new System.Windows.Forms.Button();
             this.ofdBitSoundAuswahl = new System.Windows.Forms.OpenFileDialog();
+            this.chk_read_follows = new System.Windows.Forms.CheckBox();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -358,6 +359,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chk_read_follows);
             this.groupBox1.Controls.Add(this.chk_clips_edit);
             this.groupBox1.Controls.Add(this.lblTokenNewPubSub);
             this.groupBox1.Controls.Add(this.chk_channel_moderate);
@@ -1599,6 +1601,16 @@
             this.ofdBitSoundAuswahl.FileName = "openFileDialog1";
             this.ofdBitSoundAuswahl.Filter = "MP3-Dateien | *.mp3";
             // 
+            // chk_read_follows
+            // 
+            this.chk_read_follows.AutoSize = true;
+            this.chk_read_follows.Location = new System.Drawing.Point(566, 94);
+            this.chk_read_follows.Name = "chk_read_follows";
+            this.chk_read_follows.Size = new System.Drawing.Size(152, 34);
+            this.chk_read_follows.TabIndex = 33;
+            this.chk_read_follows.Text = "read_follows";
+            this.chk_read_follows.UseVisualStyleBackColor = true;
+            // 
             // TwitchEinstellungen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1774,5 +1786,6 @@
         private System.Windows.Forms.CheckBox chkVIP;
         private System.Windows.Forms.ComboBox cmbAdmin;
         private System.Windows.Forms.ComboBox cmbAdminRewards;
+        private System.Windows.Forms.CheckBox chk_read_follows;
     }
 }

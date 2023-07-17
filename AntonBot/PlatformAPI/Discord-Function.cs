@@ -281,6 +281,7 @@ A token cannot be null, empty, or contain only whitespace.
                                 var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
 
                                 await GuildUser.RemoveRoleAsync(role);
+                                KonsolenAusgabe("Rolle " + role.Name + " dem Benutzer " + GuildUser.DisplayName + " entfernt.");
                             }
                         }
                     }
@@ -306,6 +307,7 @@ A token cannot be null, empty, or contain only whitespace.
                                 var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
                                 
                                 await GuildUser.AddRoleAsync(role);
+                                KonsolenAusgabe("Rolle " + role.Name + " dem Benutzer " + GuildUser.DisplayName + " hinzugefügt.");
                             }
                         }
                     }

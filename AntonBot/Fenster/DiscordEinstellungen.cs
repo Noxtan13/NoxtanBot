@@ -843,6 +843,7 @@ namespace AntonBot.Fenster
             }
             //Wert wird zurückgesetzt, damit Wert nur aktiv ist, wenn auf den Button neu auch geklickt wurde
             newReactionRole = false;
+            ReactionChange = false;
         }
 
         private void cmdReactRollServer_SelectedIndexChanged(object sender, EventArgs e)
@@ -955,11 +956,13 @@ namespace AntonBot.Fenster
             currentReactionRole = new EmbededMessageReactionRole();
             tabMessage.Enabled = true;
             txtReactionName.BackColor = Color.Red;
+            ReactionChange = true;
         }
 
 
         private void btnReactSave_Click(object sender, EventArgs e)
         {
+            ReactionChange = false;
             SaveMessage(true);
         }
 
@@ -1054,6 +1057,7 @@ namespace AntonBot.Fenster
             {
                 btnEmoteRoleAdd.Enabled = false;
             }
+            ReactionChange = true;
             
         }
 
@@ -1094,6 +1098,7 @@ namespace AntonBot.Fenster
 
         private bool EmoteValidate = false;
         private bool TimerRun = false;
+        private bool ReactionChange = false;
         private void txtEmoteSelect_TextChanged(object sender, EventArgs e)
         {
             string testname = EmojiOne.EmojiOne.ToShort(txtEmoteSelect.Text);
@@ -1139,13 +1144,17 @@ namespace AntonBot.Fenster
             if (newReactionRole)
             {
                 txtReactionName.BackColor = Color.LightGreen;
+                ReactionChange = true;
             }
         }
 
         private void btnSendEmbededMessage_Click(object sender, EventArgs e)
         {
-            SaveMessage(false);
-            SendEmbededMessage(currentReactionRole);
+            if (ReactRoleValidate())
+            {
+                SaveMessage(false);
+                SendEmbededMessage(currentReactionRole);
+            }
         }
 
         private void btnSendAllEmbededMessages_Click(object sender, EventArgs e)
@@ -1176,6 +1185,24 @@ namespace AntonBot.Fenster
 
         }
 
+        private void btnReactAbbrechen_Click(object sender, EventArgs e)
+        {
+            if (ReactionChange)
+            {
+                if (MessageBox.Show("Es sind noch ungespeicherte Änderungen vorhanden. Fortfahren?","Ungespeicherte Änderungen", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+            else {
+                this.Close();
+            }
+        }
+
+        private void txtReactMessage_TextChanged(object sender, EventArgs e)
+        {
+            ReactionChange = true;
+        }
         #endregion
 
 

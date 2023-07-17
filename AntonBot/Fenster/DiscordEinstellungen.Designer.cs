@@ -71,6 +71,7 @@ namespace AntonBot.Fenster
             this.label6 = new System.Windows.Forms.Label();
             this.cmbServerAuswahl = new System.Windows.Forms.ComboBox();
             this.TabReactionRoles = new System.Windows.Forms.TabPage();
+            this.btnSendAllEmbededMessages = new System.Windows.Forms.Button();
             this.btnReactRollDeleteAll = new System.Windows.Forms.Button();
             this.btnReactionDelete = new System.Windows.Forms.Button();
             this.btnReactionNew = new System.Windows.Forms.Button();
@@ -81,6 +82,7 @@ namespace AntonBot.Fenster
             this.tabMessage = new System.Windows.Forms.TabControl();
             this.tabNachricht = new System.Windows.Forms.TabPage();
             this.txtReactMessage = new System.Windows.Forms.TextBox();
+            this.btnSendEmbededMessage = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.txtReactFooter = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -106,8 +108,6 @@ namespace AntonBot.Fenster
             this.cmdReactRollServer = new System.Windows.Forms.ComboBox();
             this.cdgFarbpicker = new System.Windows.Forms.ColorDialog();
             this.TEmoteValidate = new System.Windows.Forms.Timer(this.components);
-            this.btnSendEmbededMessage = new System.Windows.Forms.Button();
-            this.btnSendAllEmbededMessages = new System.Windows.Forms.Button();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -147,7 +147,7 @@ namespace AntonBot.Fenster
             this.TabEinrichtung.Controls.Add(this.linkLabel1);
             this.TabEinrichtung.Location = new System.Drawing.Point(4, 39);
             this.TabEinrichtung.Name = "TabEinrichtung";
-            this.TabEinrichtung.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TabEinrichtung.Padding = new System.Windows.Forms.Padding(3);
             this.TabEinrichtung.Size = new System.Drawing.Size(799, 672);
             this.TabEinrichtung.TabIndex = 0;
             this.TabEinrichtung.Text = "Einrichtung";
@@ -539,7 +539,7 @@ namespace AntonBot.Fenster
             // btnEmotesCopy
             // 
             this.btnEmotesCopy.Location = new System.Drawing.Point(15, 617);
-            this.btnEmotesCopy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEmotesCopy.Margin = new System.Windows.Forms.Padding(2);
             this.btnEmotesCopy.Name = "btnEmotesCopy";
             this.btnEmotesCopy.Size = new System.Drawing.Size(316, 40);
             this.btnEmotesCopy.TabIndex = 5;
@@ -552,7 +552,7 @@ namespace AntonBot.Fenster
             this.lstEmotes.FormattingEnabled = true;
             this.lstEmotes.ItemHeight = 30;
             this.lstEmotes.Location = new System.Drawing.Point(15, 102);
-            this.lstEmotes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstEmotes.Margin = new System.Windows.Forms.Padding(2);
             this.lstEmotes.Name = "lstEmotes";
             this.lstEmotes.Size = new System.Drawing.Size(317, 424);
             this.lstEmotes.TabIndex = 4;
@@ -581,7 +581,7 @@ namespace AntonBot.Fenster
             // 
             this.cmbServerAuswahl.FormattingEnabled = true;
             this.cmbServerAuswahl.Location = new System.Drawing.Point(90, 15);
-            this.cmbServerAuswahl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbServerAuswahl.Margin = new System.Windows.Forms.Padding(2);
             this.cmbServerAuswahl.Name = "cmbServerAuswahl";
             this.cmbServerAuswahl.Size = new System.Drawing.Size(232, 38);
             this.cmbServerAuswahl.TabIndex = 0;
@@ -604,17 +604,27 @@ namespace AntonBot.Fenster
             this.TabReactionRoles.Controls.Add(this.label8);
             this.TabReactionRoles.Controls.Add(this.cmdReactRollServer);
             this.TabReactionRoles.Location = new System.Drawing.Point(4, 39);
-            this.TabReactionRoles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabReactionRoles.Margin = new System.Windows.Forms.Padding(2);
             this.TabReactionRoles.Name = "TabReactionRoles";
             this.TabReactionRoles.Size = new System.Drawing.Size(799, 672);
             this.TabReactionRoles.TabIndex = 3;
             this.TabReactionRoles.Text = "ReaktionsRollen";
             this.TabReactionRoles.UseVisualStyleBackColor = true;
             // 
+            // btnSendAllEmbededMessages
+            // 
+            this.btnSendAllEmbededMessages.Location = new System.Drawing.Point(280, 632);
+            this.btnSendAllEmbededMessages.Name = "btnSendAllEmbededMessages";
+            this.btnSendAllEmbededMessages.Size = new System.Drawing.Size(193, 37);
+            this.btnSendAllEmbededMessages.TabIndex = 14;
+            this.btnSendAllEmbededMessages.Text = "Alle aktualisieren";
+            this.btnSendAllEmbededMessages.UseVisualStyleBackColor = true;
+            this.btnSendAllEmbededMessages.Click += new System.EventHandler(this.btnSendAllEmbededMessages_Click);
+            // 
             // btnReactRollDeleteAll
             // 
             this.btnReactRollDeleteAll.Location = new System.Drawing.Point(650, 107);
-            this.btnReactRollDeleteAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReactRollDeleteAll.Margin = new System.Windows.Forms.Padding(2);
             this.btnReactRollDeleteAll.Name = "btnReactRollDeleteAll";
             this.btnReactRollDeleteAll.Size = new System.Drawing.Size(142, 36);
             this.btnReactRollDeleteAll.TabIndex = 12;
@@ -626,7 +636,7 @@ namespace AntonBot.Fenster
             // 
             this.btnReactionDelete.Enabled = false;
             this.btnReactionDelete.Location = new System.Drawing.Point(512, 107);
-            this.btnReactionDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReactionDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btnReactionDelete.Name = "btnReactionDelete";
             this.btnReactionDelete.Size = new System.Drawing.Size(133, 36);
             this.btnReactionDelete.TabIndex = 11;
@@ -638,7 +648,7 @@ namespace AntonBot.Fenster
             // 
             this.btnReactionNew.Enabled = false;
             this.btnReactionNew.Location = new System.Drawing.Point(375, 107);
-            this.btnReactionNew.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReactionNew.Margin = new System.Windows.Forms.Padding(2);
             this.btnReactionNew.Name = "btnReactionNew";
             this.btnReactionNew.Size = new System.Drawing.Size(133, 36);
             this.btnReactionNew.TabIndex = 10;
@@ -649,17 +659,18 @@ namespace AntonBot.Fenster
             // btnReactAbbrechen
             // 
             this.btnReactAbbrechen.Location = new System.Drawing.Point(638, 632);
-            this.btnReactAbbrechen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReactAbbrechen.Margin = new System.Windows.Forms.Padding(2);
             this.btnReactAbbrechen.Name = "btnReactAbbrechen";
             this.btnReactAbbrechen.Size = new System.Drawing.Size(155, 37);
             this.btnReactAbbrechen.TabIndex = 0;
             this.btnReactAbbrechen.Text = "Abbrechen";
             this.btnReactAbbrechen.UseVisualStyleBackColor = true;
+            this.btnReactAbbrechen.Click += new System.EventHandler(this.btnReactAbbrechen_Click);
             // 
             // btnReactSave
             // 
             this.btnReactSave.Location = new System.Drawing.Point(478, 632);
-            this.btnReactSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReactSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnReactSave.Name = "btnReactSave";
             this.btnReactSave.Size = new System.Drawing.Size(155, 37);
             this.btnReactSave.TabIndex = 9;
@@ -682,7 +693,7 @@ namespace AntonBot.Fenster
             this.cmdRollMessage.Enabled = false;
             this.cmdRollMessage.FormattingEnabled = true;
             this.cmdRollMessage.Location = new System.Drawing.Point(123, 107);
-            this.cmdRollMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmdRollMessage.Margin = new System.Windows.Forms.Padding(2);
             this.cmdRollMessage.Name = "cmdRollMessage";
             this.cmdRollMessage.Size = new System.Drawing.Size(232, 38);
             this.cmdRollMessage.TabIndex = 7;
@@ -694,7 +705,7 @@ namespace AntonBot.Fenster
             this.tabMessage.Controls.Add(this.tabEmotes);
             this.tabMessage.Enabled = false;
             this.tabMessage.Location = new System.Drawing.Point(16, 171);
-            this.tabMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabMessage.Margin = new System.Windows.Forms.Padding(2);
             this.tabMessage.Name = "tabMessage";
             this.tabMessage.SelectedIndex = 0;
             this.tabMessage.Size = new System.Drawing.Size(783, 460);
@@ -712,9 +723,9 @@ namespace AntonBot.Fenster
             this.tabNachricht.Controls.Add(this.txtReactionName);
             this.tabNachricht.Controls.Add(this.label11);
             this.tabNachricht.Location = new System.Drawing.Point(4, 39);
-            this.tabNachricht.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabNachricht.Margin = new System.Windows.Forms.Padding(2);
             this.tabNachricht.Name = "tabNachricht";
-            this.tabNachricht.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabNachricht.Padding = new System.Windows.Forms.Padding(2);
             this.tabNachricht.Size = new System.Drawing.Size(775, 417);
             this.tabNachricht.TabIndex = 0;
             this.tabNachricht.Text = "Nachricht";
@@ -723,11 +734,22 @@ namespace AntonBot.Fenster
             // txtReactMessage
             // 
             this.txtReactMessage.Location = new System.Drawing.Point(17, 184);
-            this.txtReactMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtReactMessage.Margin = new System.Windows.Forms.Padding(2);
             this.txtReactMessage.Multiline = true;
             this.txtReactMessage.Name = "txtReactMessage";
             this.txtReactMessage.Size = new System.Drawing.Size(756, 232);
             this.txtReactMessage.TabIndex = 7;
+            this.txtReactMessage.TextChanged += new System.EventHandler(this.txtReactMessage_TextChanged);
+            // 
+            // btnSendEmbededMessage
+            // 
+            this.btnSendEmbededMessage.Location = new System.Drawing.Point(523, 10);
+            this.btnSendEmbededMessage.Name = "btnSendEmbededMessage";
+            this.btnSendEmbededMessage.Size = new System.Drawing.Size(247, 37);
+            this.btnSendEmbededMessage.TabIndex = 13;
+            this.btnSendEmbededMessage.Text = "Nachricht aktualisieren";
+            this.btnSendEmbededMessage.UseVisualStyleBackColor = true;
+            this.btnSendEmbededMessage.Click += new System.EventHandler(this.btnSendEmbededMessage_Click);
             // 
             // label14
             // 
@@ -742,7 +764,7 @@ namespace AntonBot.Fenster
             // txtReactFooter
             // 
             this.txtReactFooter.Location = new System.Drawing.Point(89, 103);
-            this.txtReactFooter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtReactFooter.Margin = new System.Windows.Forms.Padding(2);
             this.txtReactFooter.Name = "txtReactFooter";
             this.txtReactFooter.Size = new System.Drawing.Size(225, 35);
             this.txtReactFooter.TabIndex = 5;
@@ -760,7 +782,7 @@ namespace AntonBot.Fenster
             // txtReactTitle
             // 
             this.txtReactTitle.Location = new System.Drawing.Point(89, 56);
-            this.txtReactTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtReactTitle.Margin = new System.Windows.Forms.Padding(2);
             this.txtReactTitle.Name = "txtReactTitle";
             this.txtReactTitle.Size = new System.Drawing.Size(225, 35);
             this.txtReactTitle.TabIndex = 3;
@@ -778,7 +800,7 @@ namespace AntonBot.Fenster
             // txtReactionName
             // 
             this.txtReactionName.Location = new System.Drawing.Point(89, 10);
-            this.txtReactionName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtReactionName.Margin = new System.Windows.Forms.Padding(2);
             this.txtReactionName.Name = "txtReactionName";
             this.txtReactionName.Size = new System.Drawing.Size(225, 35);
             this.txtReactionName.TabIndex = 1;
@@ -805,9 +827,9 @@ namespace AntonBot.Fenster
             this.tabEmotes.Controls.Add(this.label18);
             this.tabEmotes.Controls.Add(this.EmoteRoleTable);
             this.tabEmotes.Location = new System.Drawing.Point(4, 39);
-            this.tabEmotes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabEmotes.Margin = new System.Windows.Forms.Padding(2);
             this.tabEmotes.Name = "tabEmotes";
-            this.tabEmotes.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabEmotes.Padding = new System.Windows.Forms.Padding(2);
             this.tabEmotes.Size = new System.Drawing.Size(775, 417);
             this.tabEmotes.TabIndex = 1;
             this.tabEmotes.Text = "Emotes und Rollen";
@@ -838,7 +860,7 @@ namespace AntonBot.Fenster
             // 
             this.btnEmoteRoleAdd.Enabled = false;
             this.btnEmoteRoleAdd.Location = new System.Drawing.Point(576, 302);
-            this.btnEmoteRoleAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEmoteRoleAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnEmoteRoleAdd.Name = "btnEmoteRoleAdd";
             this.btnEmoteRoleAdd.Size = new System.Drawing.Size(196, 36);
             this.btnEmoteRoleAdd.TabIndex = 5;
@@ -850,7 +872,7 @@ namespace AntonBot.Fenster
             // 
             this.cmbRoleSelect.FormattingEnabled = true;
             this.cmbRoleSelect.Location = new System.Drawing.Point(576, 236);
-            this.cmbRoleSelect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbRoleSelect.Margin = new System.Windows.Forms.Padding(2);
             this.cmbRoleSelect.Name = "cmbRoleSelect";
             this.cmbRoleSelect.Size = new System.Drawing.Size(198, 38);
             this.cmbRoleSelect.TabIndex = 4;
@@ -871,7 +893,7 @@ namespace AntonBot.Fenster
             // 
             this.cmbEmoteSelect.FormattingEnabled = true;
             this.cmbEmoteSelect.Location = new System.Drawing.Point(576, 97);
-            this.cmbEmoteSelect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbEmoteSelect.Margin = new System.Windows.Forms.Padding(2);
             this.cmbEmoteSelect.Name = "cmbEmoteSelect";
             this.cmbEmoteSelect.Size = new System.Drawing.Size(198, 38);
             this.cmbEmoteSelect.TabIndex = 2;
@@ -903,20 +925,20 @@ namespace AntonBot.Fenster
             this.EmoteRoleTable.Controls.Add(this.label16, 2, 0);
             this.EmoteRoleTable.Controls.Add(this.label15, 0, 0);
             this.EmoteRoleTable.Location = new System.Drawing.Point(4, 5);
-            this.EmoteRoleTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EmoteRoleTable.Margin = new System.Windows.Forms.Padding(2);
             this.EmoteRoleTable.MaximumSize = new System.Drawing.Size(562, 410);
             this.EmoteRoleTable.MinimumSize = new System.Drawing.Size(562, 0);
             this.EmoteRoleTable.Name = "EmoteRoleTable";
             this.EmoteRoleTable.RowCount = 1;
-            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
-            this.EmoteRoleTable.Size = new System.Drawing.Size(562, 71);
+            this.EmoteRoleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.EmoteRoleTable.Size = new System.Drawing.Size(562, 75);
             this.EmoteRoleTable.TabIndex = 0;
             // 
             // label17
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(77, 20);
+            this.label17.Location = new System.Drawing.Point(77, 22);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(128, 30);
@@ -927,7 +949,7 @@ namespace AntonBot.Fenster
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(334, 20);
+            this.label16.Location = new System.Drawing.Point(334, 22);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(60, 30);
@@ -939,7 +961,7 @@ namespace AntonBot.Fenster
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label15.Location = new System.Drawing.Point(5, 26);
+            this.label15.Location = new System.Drawing.Point(5, 28);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(48, 19);
@@ -961,7 +983,7 @@ namespace AntonBot.Fenster
             this.cmbReactChannel.Enabled = false;
             this.cmbReactChannel.FormattingEnabled = true;
             this.cmbReactChannel.Location = new System.Drawing.Point(123, 58);
-            this.cmbReactChannel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbReactChannel.Margin = new System.Windows.Forms.Padding(2);
             this.cmbReactChannel.Name = "cmbReactChannel";
             this.cmbReactChannel.Size = new System.Drawing.Size(232, 38);
             this.cmbReactChannel.TabIndex = 4;
@@ -981,7 +1003,7 @@ namespace AntonBot.Fenster
             // 
             this.cmdReactRollServer.FormattingEnabled = true;
             this.cmdReactRollServer.Location = new System.Drawing.Point(123, 10);
-            this.cmdReactRollServer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmdReactRollServer.Margin = new System.Windows.Forms.Padding(2);
             this.cmdReactRollServer.Name = "cmdReactRollServer";
             this.cmdReactRollServer.Size = new System.Drawing.Size(232, 38);
             this.cmdReactRollServer.TabIndex = 2;
@@ -995,26 +1017,6 @@ namespace AntonBot.Fenster
             // 
             this.TEmoteValidate.Interval = 200;
             this.TEmoteValidate.Tick += new System.EventHandler(this.TEmoteValidate_Tick);
-            // 
-            // btnSendEmbededMessage
-            // 
-            this.btnSendEmbededMessage.Location = new System.Drawing.Point(523, 10);
-            this.btnSendEmbededMessage.Name = "btnSendEmbededMessage";
-            this.btnSendEmbededMessage.Size = new System.Drawing.Size(247, 37);
-            this.btnSendEmbededMessage.TabIndex = 13;
-            this.btnSendEmbededMessage.Text = "Nachricht aktualisieren";
-            this.btnSendEmbededMessage.UseVisualStyleBackColor = true;
-            this.btnSendEmbededMessage.Click += new System.EventHandler(this.btnSendEmbededMessage_Click);
-            // 
-            // btnSendAllEmbededMessages
-            // 
-            this.btnSendAllEmbededMessages.Location = new System.Drawing.Point(280, 632);
-            this.btnSendAllEmbededMessages.Name = "btnSendAllEmbededMessages";
-            this.btnSendAllEmbededMessages.Size = new System.Drawing.Size(193, 37);
-            this.btnSendAllEmbededMessages.TabIndex = 14;
-            this.btnSendAllEmbededMessages.Text = "Alle aktualisieren";
-            this.btnSendAllEmbededMessages.UseVisualStyleBackColor = true;
-            this.btnSendAllEmbededMessages.Click += new System.EventHandler(this.btnSendAllEmbededMessages_Click);
             // 
             // DiscordEinstellungen
             // 

@@ -124,21 +124,7 @@ A token cannot be null, empty, or contain only whitespace.
                 
             }
         }
-        private void LoadReactionRole() {
-            if (File.Exists(PathReactionRoleList))
-            {
-                String InhaltJSON = File.ReadAllText(PathReactionRoleList);
-                try
-                {
-                    ReactionRoleList = JsonConvert.DeserializeObject<List<EmbededMessageReactionRole>>(InhaltJSON);
-                }
-                catch (Exception Fehler)
-                {
-                    MessageBox.Show("Die ReactionRole-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    ReactionRoleList = new List<EmbededMessageReactionRole>();
-                }
-            }
-        }
+        
         public void DiscordWriteGuilds()
         {
             System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
@@ -279,6 +265,7 @@ A token cannot be null, empty, or contain only whitespace.
             LoadReactionRole();//Aktuelle Rollen zur Sicherheit laden
 
             var Message = (RestUserMessage)await arg2.Value.GetMessageAsync(arg3.MessageId);
+            OwnEmote ownEmote = new OwnEmote(arg3.Emote.Name);
 
             foreach (var ReaktionRole in ReactionRoleList)
             {
@@ -288,7 +275,7 @@ A token cannot be null, empty, or contain only whitespace.
                     {
                         foreach (var Entry in ReaktionRole.RollenEinträge)
                         {
-                            if (Entry.Emote.Name == arg3.Emote.Name)
+                            if (Entry.Emote.Name == ownEmote.Name)
                             {
                                 var role = client.GetGuild(ReaktionRole.ServerID).GetRole(Entry.RoleID);
                                 var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
@@ -307,12 +294,14 @@ A token cannot be null, empty, or contain only whitespace.
             LoadReactionRole();//Aktuelle Rollen zur Sicherheit laden
 
             var Message = (RestUserMessage)await arg2.Value.GetMessageAsync(arg3.MessageId);
+            OwnEmote ownEmote = new OwnEmote(arg3.Emote.Name);
+
 
             foreach (var ReaktionRole in ReactionRoleList) {
                 if (Message.Channel.Id == ReaktionRole.ChannelID) {
                     if (Message.Id == ReaktionRole.MessageID) {
                         foreach (var Entry in ReaktionRole.RollenEinträge) {
-                            if (Entry.Emote.Name == arg3.Emote.Name) {
+                            if (Entry.Emote.Name == ownEmote.Name) {
                                 var role = client.GetGuild(ReaktionRole.ServerID).GetRole(Entry.RoleID);
                                 var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
                                 
@@ -514,7 +503,7 @@ A token cannot be null, empty, or contain only whitespace.
 
         public async Task<ulong> SendReactionRoleMessage(EmbededMessageReactionRole embededMessageReactionRole) {
             var Message = new EmbedBuilder();
-
+            embededMessageReactionRole = ValidateReactionMessage(embededMessageReactionRole);
             Message.WithAuthor(client.CurrentUser)
                 .WithFooter(embededMessageReactionRole.MessageFooter)
                 .WithColor(Color.Gold)
@@ -529,6 +518,7 @@ A token cannot be null, empty, or contain only whitespace.
         public async Task EditEmbededMessage(EmbededMessageReactionRole Message) {
 
             var MessageBuild = new EmbedBuilder();
+            Message = ValidateReactionMessage(Message);
 
             MessageBuild.WithAuthor(client.CurrentUser)
                 .WithFooter(Message.MessageFooter)
@@ -538,6 +528,23 @@ A token cannot be null, empty, or contain only whitespace.
                 .WithCurrentTimestamp();
 
             await ((ISocketMessageChannel)client.GetChannel(Message.ChannelID)).ModifyMessageAsync(Message.MessageID, msg => msg.Embed = MessageBuild.Build());
+        }
+
+        private EmbededMessageReactionRole ValidateReactionMessage(EmbededMessageReactionRole Message) {
+            //Leere Felder werden mit Dummywerten gefüllt
+
+            if (Message.MessageFooter == null) {
+                Message.MessageFooter = "<No Footer>";
+            }
+            if (Message.MessageTitle == null)
+            {
+                Message.MessageTitle = "<No Titel>";
+            }
+            if (Message.MessageText == null)
+            {
+                Message.MessageText = "<No Text>";
+            }
+            return Message;
         }
 
         public async Task DeleteEmbedeMessage(EmbededMessageReactionRole Message) { 
@@ -576,6 +583,23 @@ A token cannot be null, empty, or contain only whitespace.
                             }
                         }
                     }
+                }
+            }
+        }
+
+        private void LoadReactionRole()
+        {
+            if (File.Exists(PathReactionRoleList))
+            {
+                String InhaltJSON = File.ReadAllText(PathReactionRoleList);
+                try
+                {
+                    ReactionRoleList = JsonConvert.DeserializeObject<List<EmbededMessageReactionRole>>(InhaltJSON);
+                }
+                catch (Exception Fehler)
+                {
+                    MessageBox.Show("Die ReactionRole-Liste beinhaltet nicht die Einstellungen oder ist beschädigt \n Weitere Informationen: \n\n" + Fehler.InnerException.ToString(), "Fehler beim Einlesen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ReactionRoleList = new List<EmbededMessageReactionRole>();
                 }
             }
         }

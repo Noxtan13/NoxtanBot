@@ -47,6 +47,7 @@
             this.lblTokenCurrent = new System.Windows.Forms.Label();
             this.txtClientID = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chk_read_follows = new System.Windows.Forms.CheckBox();
             this.chk_clips_edit = new System.Windows.Forms.CheckBox();
             this.lblTokenNewPubSub = new System.Windows.Forms.Label();
             this.chk_channel_moderate = new System.Windows.Forms.CheckBox();
@@ -152,7 +153,6 @@
             this.btnDeleteGame = new System.Windows.Forms.Button();
             this.btnAddGame = new System.Windows.Forms.Button();
             this.ofdBitSoundAuswahl = new System.Windows.Forms.OpenFileDialog();
-            this.chk_read_follows = new System.Windows.Forms.CheckBox();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -384,6 +384,16 @@
             this.groupBox1.Size = new System.Drawing.Size(782, 369);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // chk_read_follows
+            // 
+            this.chk_read_follows.AutoSize = true;
+            this.chk_read_follows.Location = new System.Drawing.Point(566, 94);
+            this.chk_read_follows.Name = "chk_read_follows";
+            this.chk_read_follows.Size = new System.Drawing.Size(152, 34);
+            this.chk_read_follows.TabIndex = 33;
+            this.chk_read_follows.Text = "read_follows";
+            this.chk_read_follows.UseVisualStyleBackColor = true;
             // 
             // chk_clips_edit
             // 
@@ -750,7 +760,8 @@
             "OnRewardRedeemed",
             "OnRaidGo",
             "OnUserLeft",
-            "OnClipCreated"});
+            "OnClipCreated",
+            "OnLog"});
             this.LstEvents.Location = new System.Drawing.Point(3, 3);
             this.LstEvents.Name = "LstEvents";
             this.LstEvents.Size = new System.Drawing.Size(289, 634);
@@ -1600,16 +1611,6 @@
             // 
             this.ofdBitSoundAuswahl.FileName = "openFileDialog1";
             this.ofdBitSoundAuswahl.Filter = "MP3-Dateien | *.mp3";
-            // 
-            // chk_read_follows
-            // 
-            this.chk_read_follows.AutoSize = true;
-            this.chk_read_follows.Location = new System.Drawing.Point(566, 94);
-            this.chk_read_follows.Name = "chk_read_follows";
-            this.chk_read_follows.Size = new System.Drawing.Size(152, 34);
-            this.chk_read_follows.TabIndex = 33;
-            this.chk_read_follows.Text = "read_follows";
-            this.chk_read_follows.UseVisualStyleBackColor = true;
             // 
             // TwitchEinstellungen
             // 

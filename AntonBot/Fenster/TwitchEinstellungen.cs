@@ -247,6 +247,10 @@ namespace AntonBot.Fenster
             {
                 SettingsGroup.Instance.TeOnClipCreated.Channel = new System.Collections.Specialized.StringCollection();
             }
+            if (SettingsGroup.Instance.TeOnLog.Channel == null)
+            {
+                SettingsGroup.Instance.TeOnLog.Channel = new System.Collections.Specialized.StringCollection();
+            }
 
             SettingsGroup.Instance.Save();
 
@@ -814,6 +818,7 @@ namespace AntonBot.Fenster
             14 = OnRaidGo
             15 = OnUserLeft
             16 = OnClipCreated
+            17 = OnLog
             */
 
             //Die Felder werden als erstes alle aktiviert, für den Fall, dass diese vorher deaktiviert wurden...
@@ -992,6 +997,21 @@ namespace AntonBot.Fenster
                     chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnClipCreated.Konsole;
                     txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnClipCreated.KonsoleText;
                     break;
+                case 17:
+                    chkUse.Checked = SettingsGroup.Instance.TeOnLog.Use;
+                    chkTextReaction.Checked = SettingsGroup.Instance.TeOnLog.Chat;
+                    txtChatReaktion.Text = SettingsGroup.Instance.TeOnLog.ChatText;
+                    chkDiscordAusgabe.Checked = SettingsGroup.Instance.TeOnLog.Discord;
+                    txtDiscordChat.Text = SettingsGroup.Instance.TeOnLog.DiscordText;
+                    chkKonsoleAusgabe.Checked = SettingsGroup.Instance.TeOnLog.Konsole;
+                    txtKonsolenFenster.Text = SettingsGroup.Instance.TeOnLog.KonsoleText;
+                    //OnLog wird nur in der Konsole ausgegeben. Alternativ kann auch Discord ausgewählt werden. Keine Möglichkeit den Text anzupassen
+
+                    chkTextReaction.Enabled = false;
+                    txtChatReaktion.Enabled = false;
+                    txtKonsolenFenster.Enabled = false;                  
+                    txtDiscordChat.Enabled = false;
+                    break;
             }
             btnDiscordChannel.Enabled = chkDiscordAusgabe.Checked;
 
@@ -1154,6 +1174,7 @@ namespace AntonBot.Fenster
                     //cmbVariable.Items.Add("SystemMsgParsed");
                     cmbVariable.Items.Add("Game");
                     cmbVariable.Items.Add("Channel");
+                    cmbVariable.Items.Add("Language");
                     break;
                 case 10:
                     //10 = OnJoinedChannel
@@ -1196,6 +1217,9 @@ namespace AntonBot.Fenster
                     cmbVariable.Items.Add("GameId");
                     cmbVariable.Items.Add("Title");
                     cmbVariable.Items.Add("Url");
+                    break;
+                case 17:
+                    //Keine Variable beim Log
                     break;
             }
 
@@ -1470,6 +1494,20 @@ namespace AntonBot.Fenster
                         }
                         else { Validierung = true; }
                         break;
+                    case 17:
+                        SettingsGroup.Instance.TeOnLog.Use = chkUse.Checked;
+                        SettingsGroup.Instance.TeOnLog.Chat = chkTextReaction.Checked;
+                        SettingsGroup.Instance.TeOnLog.ChatText = txtChatReaktion.Text;
+                        SettingsGroup.Instance.TeOnLog.Discord = chkDiscordAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnLog.DiscordText = txtDiscordChat.Text;
+                        SettingsGroup.Instance.TeOnLog.Konsole = chkKonsoleAusgabe.Checked;
+                        SettingsGroup.Instance.TeOnLog.KonsoleText = txtKonsolenFenster.Text;
+                        if (SettingsGroup.Instance.TeOnLog.Channel.Count == 0 && chkDiscordAusgabe.Checked)
+                        {
+                            Validierung = false;
+                        }
+                        else { Validierung = true; }
+                        break;
                 }
 
                 if (Validierung == true)
@@ -1546,6 +1584,9 @@ namespace AntonBot.Fenster
                     case 16:
                         Fenster.Channels = SettingsGroup.Instance.TeOnClipCreated.Channel;
                         break;
+                    case 17:
+                        Fenster.Channels = SettingsGroup.Instance.TeOnLog.Channel;
+                        break;
                 }
 
                 DialogResult dr = Fenster.ShowDialog();
@@ -1604,6 +1645,9 @@ namespace AntonBot.Fenster
                             break;
                         case 16:
                             SettingsGroup.Instance.TeOnClipCreated.Channel = Fenster.Channels;
+                            break;
+                        case 17:
+                            SettingsGroup.Instance.TeOnLog.Channel = Fenster.Channels;
                             break;
                     }
                     SettingsGroup.Instance.Save();

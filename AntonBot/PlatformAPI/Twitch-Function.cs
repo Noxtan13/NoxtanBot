@@ -3,6 +3,7 @@ using AntonBot.PlatformAPI.ListenTypen;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using TwitchLib.Api;
 using TwitchLib.Api.Services;
 using TwitchLib.Client;
@@ -161,6 +162,9 @@ namespace AntonBot
 
                 tcClient.OnIncorrectLogin += TcClient_OnIncorrectLogin;
                 tcClient.OnUserLeft += TcClient_OnUserLeft;
+
+                tcClient.OnLog += TcClient_OnLog;
+
                 try
                 {
                     tcClient.Connect();
@@ -195,6 +199,7 @@ namespace AntonBot
                 twitchPupSub.OnPubSubServiceConnected += TwitchPupSub_OnPubSubServiceConnected;
                 twitchPupSub.OnPubSubServiceClosed += TwitchPupSub_OnPubSubServiceClosed;
                 twitchPupSub.OnListenResponse += TwitchPupSub_OnListenResponse;
+                twitchPupSub.OnLog += TwitchPupSub_OnLog;
 
 
                 List<string> lst = new List<string> { sChannelID };
@@ -280,6 +285,48 @@ namespace AntonBot
             else
             {
                 KonsolenAusgabe("Der verwendete ChannelName " + SettingsGroup.Instance.TsStandardChannel + " exsistiert nicht. Bitte überprüfe den Namen in den Einstellungen oder versuche es erneut.");
+            }
+        }
+
+        private void TcClient_OnLog(object sender, OnLogArgs e)
+        {
+            //Bei Logs wird der Text direkt in der Konsole oder Discord ausgegeben
+            if (SettingsGroup.Instance.TeOnLog.Use)
+            {
+                String Text = "TwitchClient OnLog - Event: " + Environment.NewLine + e.Data;
+                    if (SettingsGroup.Instance.TeOnRaidNotification.Discord)
+                    {
+                        foreach (var item in SettingsGroup.Instance.TeOnRaidNotification.Channel)
+                        {
+                            SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
+                        }
+                    }
+                    if (SettingsGroup.Instance.TeOnRaidNotification.Konsole)
+                    {                     
+                        KonsolenAusgabe(Text);                   }
+                
+            }
+
+        }
+
+        private void TwitchPupSub_OnLog(object sender, TwitchLib.PubSub.Events.OnLogArgs e)
+        {
+            //Bei Logs wird der Text direkt in der Konsole oder Discord ausgegeben
+            if (SettingsGroup.Instance.TeOnLog.Use)
+            {
+                String Text = "TwitchPupSub OnLog-Event: " + Environment.NewLine + e.Data;
+                if (SettingsGroup.Instance.TeOnRaidNotification.Discord)
+                {
+                    foreach (var item in SettingsGroup.Instance.TeOnRaidNotification.Channel)
+                    {
+                        SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
+                    }
+                }
+                if (SettingsGroup.Instance.TeOnRaidNotification.Konsole)
+                {
+                    KonsolenAusgabe(Text);
+                }
+
             }
         }
 
@@ -814,6 +861,7 @@ namespace AntonBot
             var ChannelDaten = searchOneChannel(e.DisplayName);
 
             text = text.Replace("°Game", ChannelDaten.GameName);
+            text = text.Replace("°Language", ChannelDaten.BroadcasterLanguage);
 
 
             return text;
@@ -1081,10 +1129,6 @@ namespace AntonBot
                 }
             }
         }
-        private void Client_OnLog(object sender, OnLogArgs e)
-        {
-            KonsolenAusgabe("OnLog-Event: " + Environment.NewLine + e.BotUsername + " - " + e.Data);
-        }
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
         {
@@ -1160,15 +1204,15 @@ namespace AntonBot
                 {
                     if (SettingsGroup.Instance.TeSO.Admin == true && SettingsGroup.Instance.TeSO.Admin == chatMessage.IsModerator)
                     {
-                        Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username, chatMessage.UserId);
                     }
                     else if (SettingsGroup.Instance.TeSO.Broadcast == true && SettingsGroup.Instance.TeSO.Broadcast == chatMessage.IsBroadcaster)
                     {
-                        Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username, chatMessage.UserId);
                     }
                     else if (SettingsGroup.Instance.TeSO.Admin == false && SettingsGroup.Instance.TeSO.Broadcast == false)
                     {
-                        Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username);
+                        Shoutout(getOptionalerTeil(chatMessage.Message), chatMessage.Username, chatMessage.UserId);
                     }
                 }
             }
@@ -1504,10 +1548,10 @@ namespace AntonBot
                 }
             }
 
-            OnRewardCommand(e.RewardRedeemed.Redemption.Reward.Title, e.RewardRedeemed.Redemption.User.DisplayName, e.RewardRedeemed.Redemption.UserInput);
+            OnRewardCommand(e.RewardRedeemed.Redemption.Reward.Title, e.RewardRedeemed.Redemption.User.DisplayName,e.RewardRedeemed.Redemption.User.Id, e.RewardRedeemed.Redemption.UserInput);
             //var test = e.RewardRedeemed.Redemption.UserInput; //Input ist Null, wenn der Reward keinen Text vorgibt
         }
-        private void OnRewardCommand(String RewardTitle, String User, String Input)
+        private void OnRewardCommand(String RewardTitle, String User, String UserID, String Input)
         {
             if (SettingsGroup.Instance.TeClipCreate.Reward.Equals(RewardTitle))
             {
@@ -1519,7 +1563,7 @@ namespace AntonBot
             }
             if (SettingsGroup.Instance.TeSO.Reward.Equals(RewardTitle))
             {
-                Shoutout(Input, User);
+                Shoutout(Input, User, UserID);
             }
             if (SettingsGroup.Instance.TeUpdateGame.Reward.Equals(RewardTitle))
             {
@@ -2062,7 +2106,7 @@ namespace AntonBot
             //ZufallGewichtung(lTwitchBefehlListe);
         }
 
-        private void Shoutout(String Channel, String User)
+        private void Shoutout(String Channel, String User, String UserID)
         {
             //Es wird der gesamte Optionale Teil übergeben. Da Twitch keine Namen mit Leerzeichen erlaubt, wird der Text abgeschnitten, bis zum ersten Leerzeichen, wenn Leerzeichen vorhanden sind
 
@@ -2091,6 +2135,9 @@ namespace AntonBot
                 Text = Text.Replace("°TargetGame", ChannelDaten.GameName);
                 Text = Text.Replace("°TargetUrl", "www.twitch.tv/" + ChannelDaten.BroadcasterLogin);
                 Text = Text.Replace("°User", User);
+                Text = Text.Replace("°Language", ChannelDaten.BroadcasterLanguage);
+
+                TwitchAPI.Helix.Chat.SendShoutoutAsync(User, ChannelDaten.Id, sChannelID);
 
                 SendMessage(Text, sStandardChannel);
             }

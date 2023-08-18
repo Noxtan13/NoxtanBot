@@ -76,9 +76,11 @@ namespace AntonBot.PlatformAPI
         public TwitchEvent TeOnUserJoined;
         public TwitchEvent TeOnUserLeft;
         public TwitchEvent TeOnWhisperReceived;
+        public TwitchEvent TeOnLog;
         public TwitchAdminBefehl TeSO;
         public TwitchAdminBefehl TeUpdateGame;
         public TwitchAdminBefehl TeUpdateTitle;
+        
         #endregion
         #region TwitchScopes
         public bool Tschat_edit;
@@ -131,7 +133,7 @@ namespace AntonBot.PlatformAPI
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 10;
+            Version = 11;
         }
 
         public void LoadSettings()
@@ -207,6 +209,7 @@ namespace AntonBot.PlatformAPI
                 TeOnUserJoined = load.TeOnUserJoined;
                 TeOnUserLeft = load.TeOnUserLeft;
                 TeOnWhisperReceived = load.TeOnWhisperReceived;
+                TeOnLog = load.TeOnLog;
                 TeSO = load.TeSO;
                 TeUpdateGame = load.TeUpdateGame;
                 TeUpdateTitle = load.TeUpdateTitle;
@@ -318,6 +321,7 @@ namespace AntonBot.PlatformAPI
 
             TeOnUserLeft = new TwitchEvent("OnUserLeft");
             TeOnWhisperReceived = new TwitchEvent("TeOnWhisperReceived");
+            TeOnLog = new TwitchEvent("TeOnLog");
             TeSO = new TwitchAdminBefehl("ShoutOut");
             TeUpdateGame = new TwitchAdminBefehl("Update StreamGame");
             TeUpdateTitle = new TwitchAdminBefehl("Update StreamTitle");
@@ -432,6 +436,7 @@ namespace AntonBot.PlatformAPI
             TeOnUserJoined.UpdateCommand(load.TeOnUserJoined);
             TeOnUserLeft.UpdateCommand(load.TeOnUserLeft);
             TeOnWhisperReceived.UpdateCommand(load.TeOnWhisperReceived);
+            TeOnLog.UpdateCommand(load.TeOnLog);
             TeSO.UpdateCommand(load.TeSO);
             TeUpdateGame.UpdateCommand(load.TeUpdateGame);
             TeUpdateTitle.UpdateCommand(load.TeUpdateTitle);
@@ -596,6 +601,7 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TeOnUserJoined = Import.TeOnUserJoined;
             SettingsGroup.Instance.TeOnUserLeft = Import.TeOnUserLeft;
             SettingsGroup.Instance.TeOnWhisperReceived = Import.TeOnWhisperReceived;
+            SettingsGroup.Instance.TeOnLog = Import.TeOnLog;
             SettingsGroup.Instance.TeSO = Import.TeSO;
             SettingsGroup.Instance.TeUpdateGame = Import.TeUpdateGame;
             SettingsGroup.Instance.TeUpdateTitle = Import.TeUpdateTitle;

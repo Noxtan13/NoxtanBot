@@ -62,6 +62,7 @@ namespace AntonBot.Fenster
             chk_whispers_edit.Checked = SettingsGroup.Instance.Tswhispers_edit;
             chk_whispers_read.Checked = SettingsGroup.Instance.Tswhispers_read;
             chk_channel_moderate.Checked = SettingsGroup.Instance.Tschannel_moderate;
+            chk_moderator_manage_shoutouts.Checked = SettingsGroup.Instance.Tsmoderator_manage_shoutout;
             chk_read_follows.Checked = SettingsGroup.Instance.Tsread_follows;
             chk_bits_read.Checked = SettingsGroup.Instance.Tsbits_read;
             chk_channel_manage_redemptions.Checked = SettingsGroup.Instance.Tschannel_manage_redemptions;
@@ -293,6 +294,10 @@ namespace AntonBot.Fenster
                 erzeugteAnfrage += "user:read:follows" +"+moderator:read:followers"; //Es werden beide angefordert
                                   //Die eigenen Follwer   //Die Follwer, wo der Acc ein Moderator ist
             }
+            if (chk_moderator_manage_shoutouts.Checked) {
+                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                erzeugteAnfrage += "moderator:manage:shoutouts";
+            }
             if (chk_bits_read.Checked)
             {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
@@ -371,6 +376,7 @@ namespace AntonBot.Fenster
             SettingsGroup.Instance.Tswhispers_edit = chk_whispers_edit.Checked;
             SettingsGroup.Instance.Tswhispers_read = chk_whispers_read.Checked;
             SettingsGroup.Instance.Tschannel_moderate = chk_channel_moderate.Checked;
+            SettingsGroup.Instance.Tsmoderator_manage_shoutout = chk_channel_moderate.Checked;
             SettingsGroup.Instance.Tsread_follows = chk_read_follows.Checked;
             SettingsGroup.Instance.Tsbits_read = chk_bits_read.Checked;
             SettingsGroup.Instance.Tschannel_read_redemptions = chk_channel_read_redemptions.Checked;

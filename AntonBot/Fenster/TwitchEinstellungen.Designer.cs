@@ -153,6 +153,7 @@
             this.btnDeleteGame = new System.Windows.Forms.Button();
             this.btnAddGame = new System.Windows.Forms.Button();
             this.ofdBitSoundAuswahl = new System.Windows.Forms.OpenFileDialog();
+            this.chk_moderator_manage_shoutouts = new System.Windows.Forms.CheckBox();
             this.tabFenster.SuspendLayout();
             this.TabEinrichtung.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -359,6 +360,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chk_moderator_manage_shoutouts);
             this.groupBox1.Controls.Add(this.chk_read_follows);
             this.groupBox1.Controls.Add(this.chk_clips_edit);
             this.groupBox1.Controls.Add(this.lblTokenNewPubSub);
@@ -388,7 +390,7 @@
             // chk_read_follows
             // 
             this.chk_read_follows.AutoSize = true;
-            this.chk_read_follows.Location = new System.Drawing.Point(566, 94);
+            this.chk_read_follows.Location = new System.Drawing.Point(315, 94);
             this.chk_read_follows.Name = "chk_read_follows";
             this.chk_read_follows.Size = new System.Drawing.Size(152, 34);
             this.chk_read_follows.TabIndex = 33;
@@ -419,7 +421,7 @@
             // chk_channel_moderate
             // 
             this.chk_channel_moderate.AutoSize = true;
-            this.chk_channel_moderate.Location = new System.Drawing.Point(568, 54);
+            this.chk_channel_moderate.Location = new System.Drawing.Point(315, 54);
             this.chk_channel_moderate.Name = "chk_channel_moderate";
             this.chk_channel_moderate.Size = new System.Drawing.Size(208, 34);
             this.chk_channel_moderate.TabIndex = 31;
@@ -467,7 +469,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 131);
+            this.label10.Location = new System.Drawing.Point(3, 141);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(327, 30);
             this.label10.TabIndex = 27;
@@ -516,7 +518,7 @@
             // chk_channel_manage_redemptions
             // 
             this.chk_channel_manage_redemptions.AutoSize = true;
-            this.chk_channel_manage_redemptions.Location = new System.Drawing.Point(326, 164);
+            this.chk_channel_manage_redemptions.Location = new System.Drawing.Point(326, 174);
             this.chk_channel_manage_redemptions.Name = "chk_channel_manage_redemptions";
             this.chk_channel_manage_redemptions.Size = new System.Drawing.Size(322, 34);
             this.chk_channel_manage_redemptions.TabIndex = 21;
@@ -526,7 +528,7 @@
             // chk_channel_read_redemptions
             // 
             this.chk_channel_read_redemptions.AutoSize = true;
-            this.chk_channel_read_redemptions.Location = new System.Drawing.Point(11, 164);
+            this.chk_channel_read_redemptions.Location = new System.Drawing.Point(11, 174);
             this.chk_channel_read_redemptions.Name = "chk_channel_read_redemptions";
             this.chk_channel_read_redemptions.Size = new System.Drawing.Size(288, 34);
             this.chk_channel_read_redemptions.TabIndex = 13;
@@ -545,7 +547,7 @@
             // chk_whispers_edit
             // 
             this.chk_whispers_edit.AutoSize = true;
-            this.chk_whispers_edit.Location = new System.Drawing.Point(326, 94);
+            this.chk_whispers_edit.Location = new System.Drawing.Point(142, 94);
             this.chk_whispers_edit.Name = "chk_whispers_edit";
             this.chk_whispers_edit.Size = new System.Drawing.Size(161, 34);
             this.chk_whispers_edit.TabIndex = 18;
@@ -555,7 +557,7 @@
             // chk_whispers_read
             // 
             this.chk_whispers_read.AutoSize = true;
-            this.chk_whispers_read.Location = new System.Drawing.Point(326, 54);
+            this.chk_whispers_read.Location = new System.Drawing.Point(142, 54);
             this.chk_whispers_read.Name = "chk_whispers_read";
             this.chk_whispers_read.Size = new System.Drawing.Size(167, 34);
             this.chk_whispers_read.TabIndex = 17;
@@ -1612,6 +1614,16 @@
             this.ofdBitSoundAuswahl.FileName = "openFileDialog1";
             this.ofdBitSoundAuswahl.Filter = "MP3-Dateien | *.mp3";
             // 
+            // chk_moderator_manage_shoutouts
+            // 
+            this.chk_moderator_manage_shoutouts.AutoSize = true;
+            this.chk_moderator_manage_shoutouts.Location = new System.Drawing.Point(529, 54);
+            this.chk_moderator_manage_shoutouts.Name = "chk_moderator_manage_shoutouts";
+            this.chk_moderator_manage_shoutouts.Size = new System.Drawing.Size(232, 34);
+            this.chk_moderator_manage_shoutouts.TabIndex = 34;
+            this.chk_moderator_manage_shoutouts.Text = "moderator_shoutout";
+            this.chk_moderator_manage_shoutouts.UseVisualStyleBackColor = true;
+            // 
             // TwitchEinstellungen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1788,5 +1800,6 @@
         private System.Windows.Forms.ComboBox cmbAdmin;
         private System.Windows.Forms.ComboBox cmbAdminRewards;
         private System.Windows.Forms.CheckBox chk_read_follows;
+        private System.Windows.Forms.CheckBox chk_moderator_manage_shoutouts;
     }
 }

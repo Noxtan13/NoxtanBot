@@ -2617,7 +2617,7 @@ namespace AntonBot
 
             //Suche.Start();
 
-            if (Suche.Result.Games != null)
+            if (Suche.Result.Games[0] != null||Suche.Result.Games!=null)
             {
                 return Suche.Result.Games[0].Name;
             }
@@ -3156,5 +3156,8 @@ namespace AntonBot
                 }
             }
         }
+
+//Löschen sobald die BA-Arbeit um ist
+        
     }
 }

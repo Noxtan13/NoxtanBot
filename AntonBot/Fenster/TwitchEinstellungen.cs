@@ -291,10 +291,11 @@ namespace AntonBot.Fenster
             if (chk_read_follows.Checked)
             {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "user:read:follows" +"+moderator:read:followers"; //Es werden beide angefordert
-                                  //Die eigenen Follwer   //Die Follwer, wo der Acc ein Moderator ist
+                erzeugteAnfrage += "user:read:follows" + "+moderator:read:followers"; //Es werden beide angefordert
+                                                                                      //Die eigenen Follwer   //Die Follwer, wo der Acc ein Moderator ist
             }
-            if (chk_moderator_manage_shoutouts.Checked) {
+            if (chk_moderator_manage_shoutouts.Checked)
+            {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
                 erzeugteAnfrage += "moderator:manage:shoutouts";
             }
@@ -1015,7 +1016,7 @@ namespace AntonBot.Fenster
 
                     chkTextReaction.Enabled = false;
                     txtChatReaktion.Enabled = false;
-                    txtKonsolenFenster.Enabled = false;                  
+                    txtKonsolenFenster.Enabled = false;
                     txtDiscordChat.Enabled = false;
                     break;
             }

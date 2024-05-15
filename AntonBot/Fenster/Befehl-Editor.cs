@@ -520,7 +520,7 @@ namespace AntonBot
 
             Path = SettingsGroup.Instance.StandardPfad + "Befehl-Twitch.json";
             InhaltJSON = "";
-            InhaltJSON += JsonConvert.SerializeObject(lTwitchBefehlListe,Formatting.Indented);
+            InhaltJSON += JsonConvert.SerializeObject(lTwitchBefehlListe, Formatting.Indented);
 
             File.WriteAllText(Path, InhaltJSON);
 

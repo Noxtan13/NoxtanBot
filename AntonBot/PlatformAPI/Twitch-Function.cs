@@ -3,7 +3,6 @@ using AntonBot.PlatformAPI.ListenTypen;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using TwitchLib.Api;
 using TwitchLib.Api.Services;
 using TwitchLib.Client;
@@ -136,18 +135,18 @@ namespace AntonBot
                 sStandardChannel = Standardchannel.BroadcasterLogin;
                 sChannelID = Standardchannel.Id;
 
-                
+
 
                 var clientOptions = new ClientOptions
                 {
-                    MessagesAllowedInPeriod = 750,
-                    ThrottlingPeriod = TimeSpan.FromSeconds(30)
+                    //MessagesAllowedInPeriod = 750,
+                    //ThrottlingPeriod = TimeSpan.FromSeconds(30)
                 };
                 WebSocketClient customClient = new WebSocketClient(clientOptions);
                 tcClient = new TwitchClient(customClient);
 
-                tcClient.Initialize(credentials,sStandardChannel);
-                
+                tcClient.Initialize(credentials, sStandardChannel);
+
 
                 //client.OnLog += Client_OnLog;
                 tcClient.OnJoinedChannel += Client_OnJoinedChannel;
@@ -178,7 +177,7 @@ namespace AntonBot
                     KonsolenAusgabe("client.Connect() konnte nicht durchgeführt werden." + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException);
                     erfolgreich = false;
                     throw;
-                }               
+                }
 
 
                 lsmMonitor.OnStreamOnline += Monitor_OnStreamOnline;
@@ -207,7 +206,7 @@ namespace AntonBot
 
                 List<string> lst = new List<string> { sChannelID };
                 lsmMonitor.SetChannelsById(lst);
-                fsFollower.SetChannelsById(lst);                
+                fsFollower.SetChannelsById(lst);
 
 
                 //twitchPupSub.OnFollow wird geworfen, wenn ich jemanden Folge
@@ -297,17 +296,18 @@ namespace AntonBot
             if (SettingsGroup.Instance.TeOnLog.Use)
             {
                 String Text = "TwitchClient OnLog - Event: " + Environment.NewLine + e.Data;
-                    if (SettingsGroup.Instance.TeOnLog.Discord)
+                if (SettingsGroup.Instance.TeOnLog.Discord)
+                {
+                    foreach (var item in SettingsGroup.Instance.TeOnLog.Channel)
                     {
-                        foreach (var item in SettingsGroup.Instance.TeOnLog.Channel)
-                        {
-                            SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
-                        }
+                        SendOtherChannel(Text, "Discord", Convert.ToUInt64(item));
                     }
-                    if (SettingsGroup.Instance.TeOnLog.Konsole)
-                    {                     
-                        KonsolenAusgabe(Text);                   }
-                
+                }
+                if (SettingsGroup.Instance.TeOnLog.Konsole)
+                {
+                    KonsolenAusgabe(Text);
+                }
+
             }
 
         }
@@ -806,7 +806,7 @@ namespace AntonBot
         }
         private String OnNewFollowerReplace(string Text, TwitchLib.Api.Helix.Models.Channels.GetChannelFollowers.ChannelFollower e)
         {
-            
+
             Text = Text.Replace("°NewFollowedAt", e.FollowedAt.ToString());
             Text = Text.Replace("°NewFromUserName", e.UserName);
             Text = Text.Replace("°NewFromUserId", e.UserId);
@@ -2172,7 +2172,7 @@ namespace AntonBot
                             TwitchAPI.Helix.Chat.SendShoutoutAsync(ChannelSendsDaten.Id, ChannelDaten.Id, sChannelID, SettingsGroup.Instance.TsAccessToken);
                         }
 
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -2617,7 +2617,7 @@ namespace AntonBot
 
             //Suche.Start();
 
-            if (Suche.Result.Games[0] != null||Suche.Result.Games!=null)
+            if (Suche.Result.Games[0] != null || Suche.Result.Games != null)
             {
                 return Suche.Result.Games[0].Name;
             }
@@ -3137,7 +3137,7 @@ namespace AntonBot
 
         public void test()
         {
-            var Result = TwitchAPI.Helix.Search.SearchChannelsAsync(getStandardChannel(),false,null,25, SettingsGroup.Instance.TsAccessTokenPubSub);
+            var Result = TwitchAPI.Helix.Search.SearchChannelsAsync(getStandardChannel(), false, null, 25, SettingsGroup.Instance.TsAccessTokenPubSub);
             var Result2 = TwitchAPI.Helix.Search.SearchChannelsAsync("416724577", false, null, 25, SettingsGroup.Instance.TsAccessTokenPubSub);
             int zahl = 1;
 
@@ -3150,14 +3150,16 @@ namespace AntonBot
 
             fsFollower.UpdateLatestFollowersAsync(true);
 
-            foreach (var Streamer in fsFollower.KnownFollowers) {
-                foreach (var Follower in Streamer.Value) { 
+            foreach (var Streamer in fsFollower.KnownFollowers)
+            {
+                foreach (var Follower in Streamer.Value)
+                {
                     KonsolenAusgabe(Follower.UserName);
                 }
             }
         }
 
-//Löschen sobald die BA-Arbeit um ist
-        
+        //Löschen sobald die BA-Arbeit um ist
+
     }
 }

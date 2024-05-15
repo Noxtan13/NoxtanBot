@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AntonBot.PlatformAPI.ListenTypen
 {
@@ -22,10 +18,12 @@ namespace AntonBot.PlatformAPI.ListenTypen
         public string MessageText { get; set; } //Der Nachrichtentext
     }
 
-    public class EmbededMessageReactionRole : EmbededMessage {
+    public class EmbededMessageReactionRole : EmbededMessage
+    {
         public List<ReactionRoleEntry> RollenEinträge = new List<ReactionRoleEntry>(); //Liste der Einträge von Emote - Rolle
 
-        public EmbededMessageReactionRole() {
+        public EmbededMessageReactionRole()
+        {
             ServerName = "";
             ServerID = 0;
             ChannelName = "";
@@ -37,14 +35,18 @@ namespace AntonBot.PlatformAPI.ListenTypen
             MessageText = "";
         }
 
-        public void AddRollenEnträge(OwnEmote ownEmote, ulong roleID, string roleName) { 
-            ReactionRoleEntry newEntry = new ReactionRoleEntry(ownEmote, roleID, roleName,getNextID());
+        public void AddRollenEnträge(OwnEmote ownEmote, ulong roleID, string roleName)
+        {
+            ReactionRoleEntry newEntry = new ReactionRoleEntry(ownEmote, roleID, roleName, getNextID());
             RollenEinträge.Add(newEntry);
         }
-        public void RemoveEinträge(int iD) {
+        public void RemoveEinträge(int iD)
+        {
             ReactionRoleEntry Entry = new ReactionRoleEntry();
-            foreach (var item in RollenEinträge) {
-                if (item.ID == iD) {
+            foreach (var item in RollenEinträge)
+            {
+                if (item.ID == iD)
+                {
                     Entry = item;
                 }
             }
@@ -55,10 +57,13 @@ namespace AntonBot.PlatformAPI.ListenTypen
             }
         }
 
-        private int getNextID() {
+        private int getNextID()
+        {
             int ID = 0;
-            foreach (var item in RollenEinträge) {
-                if (item.ID > ID) {
+            foreach (var item in RollenEinträge)
+            {
+                if (item.ID > ID)
+                {
                     ID = item.ID;
                 }
             }
@@ -66,7 +71,8 @@ namespace AntonBot.PlatformAPI.ListenTypen
             return ID;
         }
 
-        public void Save(EmbededMessage embededMessage) {
+        public void Save(EmbededMessage embededMessage)
+        {
             ServerName = embededMessage.ServerName;
             ServerID = embededMessage.ServerID;
             ChannelName = embededMessage.ChannelName;
@@ -79,19 +85,22 @@ namespace AntonBot.PlatformAPI.ListenTypen
         }
     }
 
-    public class ReactionRoleEntry {
-        
+    public class ReactionRoleEntry
+    {
+
         public int ID { get; set; } //Individuelle ID des Eintrages. Wird mit der Funktion GetNextID festgelegt
         public OwnEmote Emote { get; set; } //Der Emote, auf dem sich der Eintrag auswirkt
         public ulong RoleID { get; set; } //ID der Discord-Rolle
         public string RoleName { get; set; } //Name der Discord-Rolle
-        public ReactionRoleEntry(OwnEmote emote, ulong roleID, string roleName,int iD) {
+        public ReactionRoleEntry(OwnEmote emote, ulong roleID, string roleName, int iD)
+        {
             this.Emote = emote;
             this.RoleID = roleID;
             this.RoleName = roleName;
             this.ID = iD;
         }
-        public ReactionRoleEntry() {
+        public ReactionRoleEntry()
+        {
             this.Emote = null;
             this.RoleID = 0;
             this.RoleName = "";

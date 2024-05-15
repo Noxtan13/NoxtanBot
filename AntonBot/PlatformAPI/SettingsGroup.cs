@@ -80,7 +80,7 @@ namespace AntonBot.PlatformAPI
         public TwitchAdminBefehl TeSO;
         public TwitchAdminBefehl TeUpdateGame;
         public TwitchAdminBefehl TeUpdateTitle;
-        
+
         #endregion
         #region TwitchScopes
         public bool Tschat_edit;
@@ -541,7 +541,7 @@ namespace AntonBot.PlatformAPI
                 File.WriteAllText(StandardPfad + "Zeit-Befehl.json", JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "SkillListe.json", JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "JoinedUsers.json", JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
-                File.WriteAllText(StandardPfad + "ReactionRole.json", JsonConvert.SerializeObject(InhaltReactionRoleList,Formatting.Indented));
+                File.WriteAllText(StandardPfad + "ReactionRole.json", JsonConvert.SerializeObject(InhaltReactionRoleList, Formatting.Indented));
                 return "Erfolg";
             }
             catch (Exception ex)

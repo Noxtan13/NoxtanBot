@@ -670,7 +670,8 @@ namespace AntonBot.Fenster
         #endregion
 
         #region ReactionRoles
-        private void LoadReactionRoles() {
+        private void LoadReactionRoles()
+        {
             if (File.Exists(PathReactionRoleList))
             {
                 String InhaltJSON = File.ReadAllText(PathReactionRoleList);
@@ -692,8 +693,9 @@ namespace AntonBot.Fenster
             }
         }
 
-        private void SaveReactionRole() {
-            string InhaltJSON = JsonConvert.SerializeObject(ReactionRoleList,Formatting.Indented);
+        private void SaveReactionRole()
+        {
+            string InhaltJSON = JsonConvert.SerializeObject(ReactionRoleList, Formatting.Indented);
             File.WriteAllText(PathReactionRoleList, InhaltJSON);
         }
 
@@ -713,7 +715,8 @@ namespace AntonBot.Fenster
                     }
                 }
             }
-            else {
+            else
+            {
                 if (txtEmoteSelect.BackColor == Color.LightGreen)
                 {
                     ownEmote = new OwnEmote(txtEmoteSelect.Text);
@@ -725,7 +728,8 @@ namespace AntonBot.Fenster
                 }
             }
 
-            if (gefunden) {
+            if (gefunden)
+            {
                 //AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
                 AddRow(ownEmote.getEmoteBitmap(), ownEmote.Name, cmbRoleSelect.Text);
 
@@ -737,46 +741,51 @@ namespace AntonBot.Fenster
                         {
                             if (Role.Name.Equals(cmbRoleSelect.Text))
                             {
-                                currentReactionRole.AddRollenEnträge(ownEmote,Role.ID, Role.Name);
+                                currentReactionRole.AddRollenEnträge(ownEmote, Role.ID, Role.Name);
                             }
                         }
                     }
                 }
-                                
+
             }
 
         }
 
-        private void AddRow(Image image, String name, String role) {
+        private void AddRow(Image image, String name, String role)
+        {
             //increase panel rows count by one
             EmoteRoleTable.RowCount++;
             //add a new RowStyle as a copy of the previous one
             EmoteRoleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
             //add your three controls
-            EmoteRoleTable.Controls.Add(new PictureBox() { Image = image, AutoSize = true, Anchor = AnchorStyles.Left, SizeMode = PictureBoxSizeMode.StretchImage }, 0, EmoteRoleTable.RowCount - 1) ;
+            EmoteRoleTable.Controls.Add(new PictureBox() { Image = image, AutoSize = true, Anchor = AnchorStyles.Left, SizeMode = PictureBoxSizeMode.StretchImage }, 0, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = name, AutoSize = true, Anchor = AnchorStyles.Left }, 1, EmoteRoleTable.RowCount - 1);
             EmoteRoleTable.Controls.Add(new Label() { Text = role, AutoSize = true, Anchor = AnchorStyles.Left }, 2, EmoteRoleTable.RowCount - 1);
 
-            Label DeleteLabel = new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left, Name = EmoteRoleTable.RowCount.ToString()};
+            Label DeleteLabel = new Label() { Text = "X", AutoSize = true, Anchor = AnchorStyles.Left, Name = EmoteRoleTable.RowCount.ToString() };
             DeleteLabel.ForeColor = Color.Red;
             DeleteLabel.Click += new EventHandler(RowDelete);
             EmoteRoleTable.Controls.Add(DeleteLabel, 3, EmoteRoleTable.RowCount - 1);
-            
-            
+
+
         }
-        private void RowDelete(object sender, EventArgs e) {
+        private void RowDelete(object sender, EventArgs e)
+        {
             Label GedrückterLabel = (Label)sender; //Label, welches geklickt wurde
             int row = 0; //Zeile die gelöscht werden soll
             int Coll = 0; //Zähler der Spalte zum herausfinden der Zeile
             bool found = false;
-            foreach (var Objekt in EmoteRoleTable.Controls) {
+            foreach (var Objekt in EmoteRoleTable.Controls)
+            {
                 //Alle Objekte werden von oben links nach unten recht in Controls aufgelistet, daher kann diese durchlaufen werden
                 Coll++; //Für jeden Control wird die Spalte erhöht
-                if (Coll == 4 && found==false) { //Bei 4 Spalten (so groß ist die Tabelle), wird zurück gesetzt und eine neue Zeile beginnt. Solange wie nichts gefunden worden ist
+                if (Coll == 4 && found == false)
+                { //Bei 4 Spalten (so groß ist die Tabelle), wird zurück gesetzt und eine neue Zeile beginnt. Solange wie nichts gefunden worden ist
                     Coll = 0;
                     row++;
                 }
-                if (GedrückterLabel.Equals(Objekt)) { //Ist das geklickte Objekt das gleiche, wie das durchlaufene, wird die Suche als gefunden markiert
+                if (GedrückterLabel.Equals(Objekt))
+                { //Ist das geklickte Objekt das gleiche, wie das durchlaufene, wird die Suche als gefunden markiert
                     found = true;
                 }
             }
@@ -795,7 +804,8 @@ namespace AntonBot.Fenster
                 MessageBox.Show("Gecklickter Label wurde nicht gefunden. Zeile konnte nicht gelöscht werden", "Huh?", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void ResetTable() {
+        private void ResetTable()
+        {
             EmoteRoleTable.Controls.Clear();
             EmoteRoleTable.RowStyles.Clear();
             EmoteRoleTable.RowCount = 1;
@@ -814,25 +824,29 @@ namespace AntonBot.Fenster
             //Ebene gibt an wie viele Felder zurück gesetzt werden, damit die Funktion nicht 10-fach geschrieben werden muss
             //Je niedriger der Wert, desto mehr Felder werden zurück gesetzt
 
-            if (Ebene < 1) { 
-                cmdReactRollServer.Items.Clear(); 
+            if (Ebene < 1)
+            {
+                cmdReactRollServer.Items.Clear();
                 cmdReactRollServer.Text = "";
             }
-            if (Ebene < 2) { 
-                cmbReactChannel.Items.Clear(); 
+            if (Ebene < 2)
+            {
+                cmbReactChannel.Items.Clear();
                 cmbReactChannel.Text = "";
                 cmbEmoteSelect.Items.Clear();
                 cmbEmoteSelect.Text = "";
                 cmbRoleSelect.Items.Clear();
                 cmbRoleSelect.Text = "";
             }
-            if (Ebene < 3) {
+            if (Ebene < 3)
+            {
                 cmdRollMessage.Items.Clear();
                 cmdRollMessage.Text = "";
                 cmdRollMessage.Enabled = false;
                 btnReactionNew.Enabled = false;
             }
-            if (Ebene < 4) { 
+            if (Ebene < 4)
+            {
                 txtReactionName.Text = "";
                 txtReactFooter.Text = "";
                 txtReactMessage.Text = "";
@@ -849,11 +863,13 @@ namespace AntonBot.Fenster
         private void cmdReactRollServer_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetAll(1);
-            foreach (var Server in DiscordListe) {
+            foreach (var Server in DiscordListe)
+            {
                 if (cmdReactRollServer.SelectedItem.Equals(Server.Name))
                 {
-                    foreach (var Channel in Server.Channels) {
-                        
+                    foreach (var Channel in Server.Channels)
+                    {
+
                         cmbReactChannel.Items.Add(Channel.Name);
                     }
                     foreach (var Emote in Server.Emotes)
@@ -880,7 +896,8 @@ namespace AntonBot.Fenster
                     {
                         if (cmbReactChannel.SelectedItem.Equals(Channel.Name))
                         {
-                            foreach (var ReactionRole in ReactionRoleList) {
+                            foreach (var ReactionRole in ReactionRoleList)
+                            {
                                 if (ReactionRole.ChannelName.Equals(Channel.Name))
                                 {
                                     cmdRollMessage.Items.Add(ReactionRole.MessageName);
@@ -893,21 +910,23 @@ namespace AntonBot.Fenster
                 }
             }
         }
- 
+
         private void cmdRollMessage_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetAll(3);
             foreach (var ReactionRole in ReactionRoleList)
             {
-                if (cmdRollMessage.SelectedItem.Equals(ReactionRole.MessageName)) {
+                if (cmdRollMessage.SelectedItem.Equals(ReactionRole.MessageName))
+                {
                     txtReactionName.Text = ReactionRole.MessageName;
                     txtReactTitle.Text = ReactionRole.MessageTitle;
                     txtReactFooter.Text = ReactionRole.MessageFooter;
                     txtReactMessage.Text = ReactionRole.MessageText;
                     ResetTable();
-                    foreach (var Emote in ReactionRole.RollenEinträge) {
+                    foreach (var Emote in ReactionRole.RollenEinträge)
+                    {
                         //vorher die Tabelle auf leer setzen
-                         AddRow(Emote.Emote.getEmoteBitmap(), Emote.Emote.Name,Emote.RoleName);
+                        AddRow(Emote.Emote.getEmoteBitmap(), Emote.Emote.Name, Emote.RoleName);
                     }
                     tabMessage.Enabled = true;
                     btnReactionDelete.Enabled = true;
@@ -919,12 +938,14 @@ namespace AntonBot.Fenster
             }
         }
 
-        
+
 
         private async void btnReactionDelete_Click(object sender, EventArgs e)
         {
-            if (!newReactionRole) {
-                if (currentReactionRole.MessageID != 0) {
+            if (!newReactionRole)
+            {
+                if (currentReactionRole.MessageID != 0)
+                {
                     await DiscordClient.DeleteEmbedeMessage(currentReactionRole);
                 }
                 int ReactionIndex = ReactionRoleList.IndexOf(currentReactionRole);
@@ -933,15 +954,16 @@ namespace AntonBot.Fenster
                 ResetAll(2);
                 cmdRollMessage.Enabled = true;
                 cmbReactChannel_SelectedIndexChanged(null, null);
-                
+
             }
         }
 
         private async void btnReactRollDeleteAll_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Sicher, dass alle Embeded Nachrichten gelöscht werden sollen?", "Sicher?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Sicher, dass alle Embeded Nachrichten gelöscht werden sollen?", "Sicher?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                foreach (var Message in ReactionRoleList) {
+                foreach (var Message in ReactionRoleList)
+                {
                     await DiscordClient.DeleteEmbedeMessage(Message);
                 }
                 ReactionRoleList = new List<EmbededMessageReactionRole>();
@@ -966,7 +988,8 @@ namespace AntonBot.Fenster
             SaveMessage(true);
         }
 
-        private void SaveMessage(bool Zurück) {
+        private void SaveMessage(bool Zurück)
+        {
             //Speichert die aktuell ausgewählte Nachricht ab
             if (ReactRoleValidate())
             {
@@ -1016,17 +1039,21 @@ namespace AntonBot.Fenster
             }
         }
 
-        private bool ReactRoleValidate() {
+        private bool ReactRoleValidate()
+        {
 
-            if (txtReactionName.Text.Equals("")){
+            if (txtReactionName.Text.Equals(""))
+            {
                 MessageBox.Show("Der Name darf nicht leer sein", "Kein Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             int Count = 0;
             foreach (var item in ReactionRoleList)
             {
-                if (item.ChannelName.Equals(cmbReactChannel.Text)) {
-                    if (item.MessageName.Equals(txtReactionName.Text)) {
+                if (item.ChannelName.Equals(cmbReactChannel.Text))
+                {
+                    if (item.MessageName.Equals(txtReactionName.Text))
+                    {
                         Count++;
                         if (Count > 1)
                         {
@@ -1041,7 +1068,7 @@ namespace AntonBot.Fenster
                 MessageBox.Show("Es muss zur Nachricht ein Text angegeben werden", "Kein Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (currentReactionRole.RollenEinträge.Count<=0)
+            if (currentReactionRole.RollenEinträge.Count <= 0)
             {
                 MessageBox.Show("Es sind keine Emotes den Rollen zugewiesen. Ohne diese braucht die Funktion nicht eingerichtet werden", "Keine Rollen", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -1049,8 +1076,10 @@ namespace AntonBot.Fenster
             return true;
         }
 
-        private void CheckbtnEmoteRoleAdd() {
-            if (cmbRoleSelect.Text != "" && cmbEmoteSelect.Text != "" || txtEmoteSelect.Text != "") {
+        private void CheckbtnEmoteRoleAdd()
+        {
+            if (cmbRoleSelect.Text != "" && cmbEmoteSelect.Text != "" || txtEmoteSelect.Text != "")
+            {
                 btnEmoteRoleAdd.Enabled = true;
             }
             else
@@ -1058,7 +1087,7 @@ namespace AntonBot.Fenster
                 btnEmoteRoleAdd.Enabled = false;
             }
             ReactionChange = true;
-            
+
         }
 
         private void cmbEmoteSelect_TextUpdate(object sender, EventArgs e)
@@ -1090,7 +1119,8 @@ namespace AntonBot.Fenster
                 cmbEmoteSelect.Enabled = true;
                 txtEmoteSelect.Enabled = false;
             }
-            else {
+            else
+            {
                 cmbEmoteSelect.Enabled = false;
                 txtEmoteSelect.Enabled = true;
             }
@@ -1107,7 +1137,7 @@ namespace AntonBot.Fenster
             string Pattern2 = "^:\\S*:$"; //ein UnicodeEmote hat 6 Zeichen
 
 
-            Match matche1 = Regex.Match(testname,Pattern2,RegexOptions.IgnoreCase);
+            Match matche1 = Regex.Match(testname, Pattern2, RegexOptions.IgnoreCase);
             if (matche1.Success)
             {
                 Console.WriteLine("Treffer");
@@ -1118,7 +1148,8 @@ namespace AntonBot.Fenster
                 Console.WriteLine("Kein Treffer mit " + testname);
             }
 
-            if (!TimerRun) {
+            if (!TimerRun)
+            {
                 TimerRun = true;
                 TEmoteValidate.Start();
             }
@@ -1131,7 +1162,8 @@ namespace AntonBot.Fenster
             {
                 txtEmoteSelect.BackColor = Color.LightGreen;
             }
-            else {
+            else
+            {
                 txtEmoteSelect.BackColor = Color.LightGray;
             }
             EmoteValidate = false;
@@ -1159,13 +1191,15 @@ namespace AntonBot.Fenster
 
         private void btnSendAllEmbededMessages_Click(object sender, EventArgs e)
         {
-            foreach (var Message in ReactionRoleList) {
+            foreach (var Message in ReactionRoleList)
+            {
                 SendEmbededMessage(Message);
             }
-            
+
         }
 
-        private async void SendEmbededMessage(EmbededMessageReactionRole Message) {
+        private async void SendEmbededMessage(EmbededMessageReactionRole Message)
+        {
 
 
             if (Message.MessageID == 0)
@@ -1179,8 +1213,9 @@ namespace AntonBot.Fenster
                 SaveReactionRole();
 
             }
-            else {
-                await DiscordClient.EditEmbededMessage(Message);            
+            else
+            {
+                await DiscordClient.EditEmbededMessage(Message);
             }
 
         }
@@ -1189,12 +1224,13 @@ namespace AntonBot.Fenster
         {
             if (ReactionChange)
             {
-                if (MessageBox.Show("Es sind noch ungespeicherte Änderungen vorhanden. Fortfahren?","Ungespeicherte Änderungen", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Es sind noch ungespeicherte Änderungen vorhanden. Fortfahren?", "Ungespeicherte Änderungen", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     this.Close();
                 }
             }
-            else {
+            else
+            {
                 this.Close();
             }
         }

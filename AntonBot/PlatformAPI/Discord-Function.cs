@@ -121,10 +121,10 @@ A token cannot be null, empty, or contain only whitespace.
                     await StopBotAsync();
                 }
 
-                
+
             }
         }
-        
+
         public void DiscordWriteGuilds()
         {
             System.Collections.Generic.List<PlatformAPI.DiscordGilde> discordGilde = new System.Collections.Generic.List<PlatformAPI.DiscordGilde>();
@@ -170,7 +170,8 @@ A token cannot be null, empty, or contain only whitespace.
                     System.IO.File.WriteAllText(Path, InhaltJSON);
                 }
             }
-            else {
+            else
+            {
                 KonsolenAusgabe("Client war noch nicht gestartet. DiscordWriteGuilds() wird nicht ausgeführt");
             }
         }
@@ -298,14 +299,19 @@ A token cannot be null, empty, or contain only whitespace.
             OwnEmote ownEmote = new OwnEmote(arg3.Emote.Name);
 
 
-            foreach (var ReaktionRole in ReactionRoleList) {
-                if (Message.Channel.Id == ReaktionRole.ChannelID) {
-                    if (Message.Id == ReaktionRole.MessageID) {
-                        foreach (var Entry in ReaktionRole.RollenEinträge) {
-                            if (Entry.Emote.Name == ownEmote.Name) {
+            foreach (var ReaktionRole in ReactionRoleList)
+            {
+                if (Message.Channel.Id == ReaktionRole.ChannelID)
+                {
+                    if (Message.Id == ReaktionRole.MessageID)
+                    {
+                        foreach (var Entry in ReaktionRole.RollenEinträge)
+                        {
+                            if (Entry.Emote.Name == ownEmote.Name)
+                            {
                                 var role = client.GetGuild(ReaktionRole.ServerID).GetRole(Entry.RoleID);
                                 var GuildUser = client.GetGuild(ReaktionRole.ServerID).GetUser(arg3.UserId);
-                                
+
                                 await GuildUser.AddRoleAsync(role);
                                 KonsolenAusgabe("Rolle " + role.Name + " dem Benutzer " + GuildUser.DisplayName + " hinzugefügt.");
                             }
@@ -313,7 +319,7 @@ A token cannot be null, empty, or contain only whitespace.
                     }
                 }
             }
-           
+
         }
 
         private async Task Client_UserLeft1(SocketGuild arg1, SocketUser arg2)
@@ -495,15 +501,17 @@ A token cannot be null, empty, or contain only whitespace.
             }
         }
 
-        public async Task<ulong> SendEmbededMessage(ulong ChannelID, Embed Message) {
+        public async Task<ulong> SendEmbededMessage(ulong ChannelID, Embed Message)
+        {
 
-        
+
             var Result = await ((ISocketMessageChannel)client.GetChannel(ChannelID)).SendMessageAsync("", embed: Message);
 
             return Result.Id;
         }
 
-        public async Task<ulong> SendReactionRoleMessage(EmbededMessageReactionRole embededMessageReactionRole) {
+        public async Task<ulong> SendReactionRoleMessage(EmbededMessageReactionRole embededMessageReactionRole)
+        {
             var Message = new EmbedBuilder();
             embededMessageReactionRole = ValidateReactionMessage(embededMessageReactionRole);
             Message.WithAuthor(client.CurrentUser)
@@ -514,10 +522,11 @@ A token cannot be null, empty, or contain only whitespace.
                 .WithCurrentTimestamp();
 
             return await SendEmbededMessage(embededMessageReactionRole.ChannelID, Message.Build());
-            
+
         }
 
-        public async Task EditEmbededMessage(EmbededMessageReactionRole Message) {
+        public async Task EditEmbededMessage(EmbededMessageReactionRole Message)
+        {
 
             var MessageBuild = new EmbedBuilder();
             Message = ValidateReactionMessage(Message);
@@ -532,10 +541,12 @@ A token cannot be null, empty, or contain only whitespace.
             await ((ISocketMessageChannel)client.GetChannel(Message.ChannelID)).ModifyMessageAsync(Message.MessageID, msg => msg.Embed = MessageBuild.Build());
         }
 
-        private EmbededMessageReactionRole ValidateReactionMessage(EmbededMessageReactionRole Message) {
+        private EmbededMessageReactionRole ValidateReactionMessage(EmbededMessageReactionRole Message)
+        {
             //Leere Felder werden mit Dummywerten gefüllt
 
-            if (Message.MessageFooter == null) {
+            if (Message.MessageFooter == null)
+            {
                 Message.MessageFooter = "<No Footer>";
             }
             if (Message.MessageTitle == null)
@@ -549,7 +560,8 @@ A token cannot be null, empty, or contain only whitespace.
             return Message;
         }
 
-        public async Task DeleteEmbedeMessage(EmbededMessageReactionRole Message) { 
+        public async Task DeleteEmbedeMessage(EmbededMessageReactionRole Message)
+        {
             await ((ISocketMessageChannel)client.GetChannel(Message.ChannelID)).DeleteMessageAsync(Message.MessageID);
         }
 
@@ -606,9 +618,11 @@ A token cannot be null, empty, or contain only whitespace.
             }
         }
 
-        public List<OwnEmote> getEmotelist() {
+        public List<OwnEmote> getEmotelist()
+        {
 
-            if (Emotelist == null) {
+            if (Emotelist == null)
+            {
                 Emotelist = new List<OwnEmote>();
                 LoadAllEmotes();
             }

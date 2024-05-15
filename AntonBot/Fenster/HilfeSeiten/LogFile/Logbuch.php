@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="refresh" content="10">
     <title>Anzeige Logbuch</title>
     <link rel="icon" href="../PinguinServer.jpg" />
     <link rel="icon" href="../PinguinServer.jpg" />
@@ -60,6 +61,12 @@
                 echo"<div class =\"LogEintrag\">";
                 $InhaltStatInkS3s = file_get_contents('/home/pi/AusgabeS3s.txt');
                 echo str_replace("\n","</br>",$InhaltStatInkS3s);
+                echo"</div>";
+
+                echo"<h3>Letzter Screen des AutoTableTurf</h3>";
+                echo"<a href='../LogFile/SkriptScreen.php'>Screen</a>";
+                echo"<div class =\"LogEintrag\">";				
+                echo"<img src='/WebSite/LogFile/test.jpg' alt='Bild des AutoTableTurf' width='889' height='500' />";
                 echo"</div>";
             ?>
 

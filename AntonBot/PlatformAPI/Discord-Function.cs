@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -64,48 +65,9 @@ A token cannot be null, empty, or contain only whitespace.
                     .AddSingleton(commands)
                     .BuildServiceProvider();
 
-                if (!FirstStart)
-                {
-                    client.Log += Client_Log;
-                    await RegisterCommandsAsync();
 
-                    FirstStart = true;
-                }
-
-                try
-                {
-                    KonsolenAusgabe("LoginSync wird ausgeführt");
-                    await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
-                    Loginerfolgreich = true;
-                }
-                catch (Exception e)
-                {
-                    if (e.Message.Contains("No such host is known"))
-                    {
-                        KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                        Restart = true;
-                    }
-                    else if (e.InnerException.Message.Contains("Der Remotename konnte nicht aufgelöst werden: \'discord.com\'"))
-                    {
-                        KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                        Restart = true;
-                    }
-                    else
-                    {
-                        KonsolenAusgabe("Die Funktion LoginAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                    }
-                }
-
-                try
-                {
-                    KonsolenAusgabe("StartAsync wird ausgeführt");
-                    await client.StartAsync();
-                    Starterfolgreich = true;
-                }
-                catch (Exception e)
-                {
-                    KonsolenAusgabe("Die Funktion StartAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
-                }
+                Loginerfolgreich = await Login();
+                Starterfolgreich = await Start();
 
 
                 if (Loginerfolgreich == true && Starterfolgreich == true)
@@ -118,11 +80,62 @@ A token cannot be null, empty, or contain only whitespace.
                 else
                 {
                     Active = false;
+                    KonsolenAusgabe("Login nicht erfolgreich. Stoppe Discord");
                     await StopBotAsync();
                 }
 
 
             }
+        }
+        private async Task<bool> Start() {
+
+            try
+            {
+                KonsolenAusgabe("StartAsync wird ausgeführt");
+                await client.StartAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                KonsolenAusgabe("Die Funktion StartAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                return false;
+            }
+        }
+
+        private async Task<bool> Login() {
+            if (!FirstStart)
+            {
+                client.Log += Client_Log;
+                await RegisterCommandsAsync();
+
+                FirstStart = true;
+            }
+
+            try
+            {
+                KonsolenAusgabe("LoginSync wird ausgeführt");
+                await client.LoginAsync(TokenType.Bot, SettingsGroup.Instance.DSAccessToken);
+                return true;
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Contains("No such host is known"))
+                {
+                    KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                    Restart = true;
+                }
+                else if (e.InnerException.Message.Contains("Der Remotename konnte nicht aufgelöst werden: \'discord.com\'"))
+                {
+                    KonsolenAusgabe("Login konnte nicht durchgeführt werden, da keine Verbindung ins Internet besteht:" + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                    Restart = true;
+                }
+                else
+                {
+                    KonsolenAusgabe("Die Funktion LoginAsync() konnte nicht durchgeführt werden." + Environment.NewLine + "Exception-Message: " + e.Message + Environment.NewLine + "InnerException: " + e.InnerException);
+                }
+                return false;
+            }
+
         }
 
         public void DiscordWriteGuilds()

@@ -59,15 +59,6 @@ namespace AntonBot
 
         private async void autostart()
         {
-            if (SettingsGroup.Instance.SDiscordAutoStart)
-            {
-                if (!Discord.getActive())
-                {
-                    await Discord.RunBotAsync();
-                    DiscordStop.Enabled = true;
-                    DiscordStart.Enabled = false;
-                }
-            }
             if (SettingsGroup.Instance.STwitchAutoStart)
             {
                 if (!Twitch.getActive())
@@ -76,6 +67,16 @@ namespace AntonBot
                     TwitchStop.Enabled = true;
                     TwitchStart.Enabled = false;
                     chkTwitchZeit.Checked = SettingsGroup.Instance.STwitchAutoMessage;
+                }
+            }
+
+            if (SettingsGroup.Instance.SDiscordAutoStart)
+            {
+                if (!Discord.getActive())
+                {
+                    await Discord.RunBotAsync();
+                    DiscordStop.Enabled = true;
+                    DiscordStart.Enabled = false;
                 }
             }
             LoadBefehle();

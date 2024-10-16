@@ -6,12 +6,13 @@ using System.Text.RegularExpressions;
 using TwitchLib.Api;
 using TwitchLib.Api.Services;
 using TwitchLib.Client;
-using TwitchLib.Client.Events;
-using TwitchLib.Client.Extensions;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Clients;
 using TwitchLib.Communication.Models;
 using TwitchLib.PubSub;
+using TwitchLib.Client.Events;
+using TwitchLib.Client.Extensions;
+
 
 namespace AntonBot
 {

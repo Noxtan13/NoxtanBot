@@ -65,8 +65,13 @@
 
                 echo"<h3>Letzter Screen des AutoTableTurf</h3>";
                 echo"<a href='../LogFile/SkriptScreen.php'>Screen</a>";
-                echo"<div class =\"LogEintrag\">";				
-                echo"<img src='/WebSite/LogFile/test.jpg' alt='Bild des AutoTableTurf' width='889' height='500' />";
+                echo"<div class =\"LogEintrag\">";
+                if (file_exists('var/www/html/WebSite/LogFile/test.jpg')) {
+                    echo"<img src='/WebSite/LogFile/test.jpg' alt='Bild des AutoTableTurf' width='889' height='500' />";
+                
+                } else {
+                    echo "The file does not exist";
+                }
                 echo"</div>";
             ?>
 

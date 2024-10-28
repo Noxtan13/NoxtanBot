@@ -7,6 +7,8 @@ namespace AntonBot.PlatformAPI
     {
         private bool SendOtherChannel = false;
         private List<OtherChannelMessage> ChannelMessages = new List<OtherChannelMessage>();
+        private List<Int16> ID = new List<Int16>(); //Liste um die IDs abzuspeichern, die bereits gesendet worden sind. Wird beim Bot neustart zurückgesetzt
+        private int IDCount = 0; //Aktuelle ID
 
         public void SendMessageToOtherChannel(String Message, String Plattform)
         {
@@ -75,9 +77,9 @@ namespace AntonBot.PlatformAPI
 
     internal class OtherChannelMessage
     {
-        public String MessageOtherChannel = "";
-        public String Destination = "";
-        public ulong Discordchannel = 0;
+        public String MessageOtherChannel = ""; //Die Nachricht, die gesendet wird
+        public String Destination = ""; //Der Channel, zu dem was gesendet wird
+        public ulong Discordchannel = 0; //Die ID des Discord-Channels
 
         public OtherChannelMessage(string message, string destination, ulong discordChannel)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using WMPLib;
 
 namespace AntonBot.PlatformAPI
 {
@@ -18,7 +19,7 @@ namespace AntonBot.PlatformAPI
         {
             if (System.IO.File.Exists(SoundPfad))
             {
-                WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+                WindowsMediaPlayer wplayer = new WindowsMediaPlayer();
 
                 wplayer.URL = SoundPfad;
                 wplayer.controls.play();

@@ -1,4 +1,5 @@
 ﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.PlattformTypen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace AntonBot
         private KonsolenAusgabe Ausgabe1 = new KonsolenAusgabe();
         private bool Ausgeben = false;
 
-        internal OtherChannel OtherChannel = new OtherChannel();
+        //internal OtherChannel OtherChannel = new OtherChannel();
 
         internal List<Befehl> BefehlListe = new List<Befehl>();
         internal List<Zeit_Befehl> ZeitBefehlListe = new List<Zeit_Befehl>();
@@ -695,24 +696,11 @@ namespace AntonBot
 
         public void SendOtherChannel(String Message, String Plattform)
         {
-            OtherChannel.SendMessageToOtherChannel(Message, Plattform);
+            PlattformMessage.Instance.SaveMessage(Message, Plattform);
         }
         public void SendOtherChannel(String Message, String Plattform, ulong DiscordChannel)
         {
-            OtherChannel.SendMessageToOtherChannel(Message, Plattform, DiscordChannel);
+            PlattformMessage.Instance.SaveMessage(Message, Plattform, DiscordChannel);
         }
-        public bool IsOtherChannel()
-        {
-            return OtherChannel.isSendOtherChannel();
-        }
-        public OtherChannel getSendOtherChannel()
-        {
-            return OtherChannel;
-        }
-        public void OtherChannelDone()
-        {
-            OtherChannel.Done();
-        }
-
     }
 }

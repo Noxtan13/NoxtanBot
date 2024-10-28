@@ -1,5 +1,6 @@
 ﻿using AntonBot.Fenster;
 using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.PlattformTypen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,9 +34,12 @@ namespace AntonBot
         private int RestartTimer = 30;
         private string KonsolenLogPath = Application.StartupPath + Path.DirectorySeparatorChar + "KonsolenLogAusgabe.json";
         private List<KonsolenAusgabe> KonsolenAusgabeJSON = new List<KonsolenAusgabe>();
+
         public MainWindow()
         {
             SettingsGroup.Instance.LoadSettings();
+            
+            
             InitializeComponent();
 
         }
@@ -168,87 +172,64 @@ namespace AntonBot
         private async void CheckSendToOtherChannel()
         {
 
-            if (Twitch.IsOtherChannel())
-            {
-                PlatformAPI.OtherChannel otherChannel = Twitch.getSendOtherChannel();
-                if (otherChannel.getNextPlattform().Equals("Discord") && Discord.getActive())
+            if (PlattformMessage.Instance.NeedToSend()) { 
+                PlattformMessage.Instance.StartReadMessage();
+                String Plattform = PlattformMessage.Instance.ReadDestination();
+                String Message = PlattformMessage.Instance.ReadMessage();
+                ulong ChannelID = PlattformMessage.Instance.ReadDiscordChannel();
+
+                if (Plattform.Equals("Discord") && Discord.getActive())
                 {
-                    //753593040731504751 ist die ID des Twitch-Spam-Chat
-                    if (otherChannel.getMessage().Equals(""))
+                    if (ChannelID != 0)
                     {
-                        try
+                        if (Message.Equals(""))
                         {
-                            await Discord.SendMessage(otherChannel.getDiscordChannelID(), "leere Nachricht");
+                            try
+                            {
+                                await Discord.SendMessage(ChannelID, "leere Nachricht");
+                            }
+                            catch (Exception e)
+                            {
+                                AusgabeKonsole(new KonsolenAusgabe("PlattformMessages", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + "leere Nachricht" + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
+                            }
                         }
-                        catch (Exception e)
+                        else if (Message.Length >= 1999)
                         {
-                            AusgabeKonsole(new KonsolenAusgabe("Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + "leere Nachricht" + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException, DateTime.Now.TimeOfDay, "StartFenster"));
+                            try
+                            {
+                                await Discord.SendMessage(ChannelID, Message.Substring(0, 1999));
+                            }
+                            catch (Exception e)
+                            {
+                                AusgabeKonsole(new KonsolenAusgabe("PlattformMessages", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + Message.Substring(0, 1999) + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
+                            }
                         }
-
+                        else
+                        {
+                            try
+                            {
+                                await Discord.SendMessage(ChannelID, Message);
+                            }
+                            catch (Exception e)
+                            {
+                                AusgabeKonsole(new KonsolenAusgabe("PlattformMessages", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + Message + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
+                            }
+                        }
                     }
-                    else if (otherChannel.getMessage().Length >= 1999)
-                    {
-                        try
-                        {
-                            await Discord.SendMessage(otherChannel.getDiscordChannelID(), otherChannel.getMessage().Substring(0, 1999));
-                        }
-                        catch (Exception e)
-                        {
-                            AusgabeKonsole(new KonsolenAusgabe("StartFenster", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + otherChannel.getMessage().Substring(0, 1999) + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
-                        }
-
+                    else {
+                        AusgabeKonsole(new KonsolenAusgabe("PlattformMessages", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + Message + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + "ChannelID ist 0. Das ist kein gültiger Channel"));
                     }
-                    else
-                    {
-                        try
-                        {
-                            await Discord.SendMessage(otherChannel.getDiscordChannelID(), otherChannel.getMessage());
-                        }
-                        catch (Exception e)
-                        {
-                            AusgabeKonsole(new KonsolenAusgabe("StartFenster", DateTime.Now.TimeOfDay, "Discord.SendMessage() vom Startfenster konnte nicht durchgeführt werden." + Environment.NewLine + "Nachricht: " + Environment.NewLine + otherChannel.getMessage() + Environment.NewLine + "Excpetion-Message: " + Environment.NewLine + e.Message + Environment.NewLine + "InnerException: " + Environment.NewLine + e.InnerException));
-                        }
-
-                    }
-                    Twitch.OtherChannelDone();
                 }
-                else
+                else if (Plattform.Equals("Twitch") && Twitch.getActive())
                 {
-                    if (otherChannel.getNextPlattform() == "")
-                    {
-                        AusgabeKonsole(new KonsolenAusgabe("TWITCH", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - ungültiger Channel"));
-                    }
-                    else
-                    {
-                        AusgabeKonsole(new KonsolenAusgabe("TWITCH", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - Plattform: " + otherChannel.getNextPlattform() + " ist nicht aktiv"));
-                    }
-
+                    Twitch.SendMessage(Message, SettingsGroup.Instance.TsStandardChannel);
+                }
+                else {
+                    AusgabeKonsole(new KonsolenAusgabe("PlattformMessages", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - ungültige Plattform"));
                 }
 
+                PlattformMessage.Instance.ReadMessageDone();
             }
-
-
-            if (Discord.IsOtherChannel())
-            {
-                OtherChannel otherChannel = Discord.getSendOtherChannel();
-                if (otherChannel.getNextPlattform().Equals("Twitch") && Twitch.getActive())
-                {
-                    Twitch.SendMessage(otherChannel.getMessage(), SettingsGroup.Instance.TsStandardChannel);
-                }
-                else
-                {
-                    if (otherChannel.getNextPlattform() == "")
-                    {
-                        AusgabeKonsole(new KonsolenAusgabe("DISCORD", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - ungültiger Channel"));
-                    }
-                    else
-                    {
-                        AusgabeKonsole(new KonsolenAusgabe("DISCORD", DateTime.Now.TimeOfDay, "SendMessageToOtherChannel - Plattform: " + otherChannel.getNextPlattform() + " ist nicht aktiv"));
-                    }
-                }
-                Discord.OtherChannelDone();
-            }
-
 
         }
 

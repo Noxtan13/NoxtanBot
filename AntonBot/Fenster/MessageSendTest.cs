@@ -1,4 +1,5 @@
 ﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.PlattformTypen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -108,40 +109,83 @@ namespace AntonBot.Fenster
 
             if (Validierung)
             {
-                if (rdbTwitch.Checked)
+                if (chkPlattformMessage.Checked)
                 {
-                    Twitch.SendMessage(txtMessage.Text, cbbKanal.Text);
-                }
-                else if (rdbDiscord.Checked)
-                {
-                    String Channel = cbbKanal.Text;
-                    String Pattern = @"([\S]*) --- ([\S]*)";
-                    ulong ChannelID = 0;
-
-                    Regex r = new Regex(Pattern, RegexOptions.IgnoreCase);
-                    Match m = r.Match(Channel);
-
-                    foreach (var server in DiscordListe)
+                    if (rdbTwitch.Checked)
                     {
-                        if (m.Groups[1].Value.Equals(server.Name))
+                        PlattformMessage.Instance.SaveMessage(txtMessage.Text, cbbKanal.Text);
+                    }
+                    else if (rdbDiscord.Checked)
+                    {
+                        String Channel = cbbKanal.Text;
+                        String Pattern = @"([\S]*) --- ([\S]*)";
+                        ulong ChannelID = 0;
+
+                        Regex r = new Regex(Pattern, RegexOptions.IgnoreCase);
+                        Match m = r.Match(Channel);
+
+                        foreach (var server in DiscordListe)
                         {
-                            foreach (var channel in server.Channels)
+                            if (m.Groups[1].Value.Equals(server.Name))
                             {
-                                if (m.Groups[2].Value.Equals(channel.Name))
+                                foreach (var channel in server.Channels)
                                 {
-                                    ChannelID = channel.ID;
+                                    if (m.Groups[2].Value.Equals(channel.Name))
+                                    {
+                                        ChannelID = channel.ID;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    if (ChannelID != 0)
-                    {
-                        Discord.SendMessage(ChannelID, txtMessage.Text);
+                        if (ChannelID != 0)
+                        {
+                            PlattformMessage.Instance.SaveMessage(txtMessage.Text, "Discord", ChannelID);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Es konnte der Kanal nicht gefunden werden." + Environment.NewLine + "Ein Kanal muss als Ziel angegeben werden.", "Nicht gefundener Kanal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
                     }
-                    else
+                }
+                else
+                {
+                    if (rdbTwitch.Checked)
                     {
-                        MessageBox.Show("Es konnte der Kanal nicht gefunden werden." + Environment.NewLine + "Ein Kanal muss als Ziel angegeben werden.", "Nicht gefundener Kanal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Twitch.SendMessage(txtMessage.Text, cbbKanal.Text);
+                    }
+                    else if (rdbDiscord.Checked)
+                    {
+                        String Channel = cbbKanal.Text;
+                        String Pattern = @"([\S]*) --- ([\S]*)";
+                        ulong ChannelID = 0;
+
+                        Regex r = new Regex(Pattern, RegexOptions.IgnoreCase);
+                        Match m = r.Match(Channel);
+
+                        foreach (var server in DiscordListe)
+                        {
+                            if (m.Groups[1].Value.Equals(server.Name))
+                            {
+                                foreach (var channel in server.Channels)
+                                {
+                                    if (m.Groups[2].Value.Equals(channel.Name))
+                                    {
+                                        ChannelID = channel.ID;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (ChannelID != 0)
+                        {
+                            Discord.SendMessage(ChannelID, txtMessage.Text);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Es konnte der Kanal nicht gefunden werden." + Environment.NewLine + "Ein Kanal muss als Ziel angegeben werden.", "Nicht gefundener Kanal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }

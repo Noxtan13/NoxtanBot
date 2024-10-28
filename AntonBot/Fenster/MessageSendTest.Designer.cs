@@ -37,13 +37,14 @@ namespace AntonBot.Fenster
             this.rdbDiscord = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.cbbKanal = new System.Windows.Forms.ComboBox();
+            this.chkPlattformMessage = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtMessage
             // 
             this.txtMessage.Location = new System.Drawing.Point(20, 99);
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(446, 42);
+            this.txtMessage.Size = new System.Drawing.Size(446, 35);
             this.txtMessage.TabIndex = 0;
             // 
             // btnSenden
@@ -61,7 +62,7 @@ namespace AntonBot.Fenster
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 37);
+            this.label1.Size = new System.Drawing.Size(109, 30);
             this.label1.TabIndex = 2;
             this.label1.Text = "Plattform:";
             // 
@@ -70,7 +71,7 @@ namespace AntonBot.Fenster
             this.rdbTwitch.AutoSize = true;
             this.rdbTwitch.Location = new System.Drawing.Point(158, 12);
             this.rdbTwitch.Name = "rdbTwitch";
-            this.rdbTwitch.Size = new System.Drawing.Size(116, 41);
+            this.rdbTwitch.Size = new System.Drawing.Size(92, 34);
             this.rdbTwitch.TabIndex = 3;
             this.rdbTwitch.TabStop = true;
             this.rdbTwitch.Text = "Twitch";
@@ -80,9 +81,9 @@ namespace AntonBot.Fenster
             // rdbDiscord
             // 
             this.rdbDiscord.AutoSize = true;
-            this.rdbDiscord.Location = new System.Drawing.Point(280, 12);
+            this.rdbDiscord.Location = new System.Drawing.Point(273, 12);
             this.rdbDiscord.Name = "rdbDiscord";
-            this.rdbDiscord.Size = new System.Drawing.Size(131, 41);
+            this.rdbDiscord.Size = new System.Drawing.Size(104, 34);
             this.rdbDiscord.TabIndex = 4;
             this.rdbDiscord.TabStop = true;
             this.rdbDiscord.Text = "Discord";
@@ -94,7 +95,7 @@ namespace AntonBot.Fenster
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(20, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 37);
+            this.label2.Size = new System.Drawing.Size(70, 30);
             this.label2.TabIndex = 5;
             this.label2.Text = "Kanal:";
             // 
@@ -103,14 +104,25 @@ namespace AntonBot.Fenster
             this.cbbKanal.FormattingEnabled = true;
             this.cbbKanal.Location = new System.Drawing.Point(118, 49);
             this.cbbKanal.Name = "cbbKanal";
-            this.cbbKanal.Size = new System.Drawing.Size(521, 44);
+            this.cbbKanal.Size = new System.Drawing.Size(521, 38);
             this.cbbKanal.TabIndex = 6;
+            // 
+            // chkPlattformMessage
+            // 
+            this.chkPlattformMessage.AutoSize = true;
+            this.chkPlattformMessage.Location = new System.Drawing.Point(383, 13);
+            this.chkPlattformMessage.Name = "chkPlattformMessage";
+            this.chkPlattformMessage.Size = new System.Drawing.Size(256, 34);
+            this.chkPlattformMessage.TabIndex = 7;
+            this.chkPlattformMessage.Text = "über PlattformMessage";
+            this.chkPlattformMessage.UseVisualStyleBackColor = true;
             // 
             // MessageSendTest
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 36F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(651, 157);
+            this.Controls.Add(this.chkPlattformMessage);
             this.Controls.Add(this.cbbKanal);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rdbDiscord);
@@ -139,5 +151,6 @@ namespace AntonBot.Fenster
         private System.Windows.Forms.RadioButton rdbDiscord;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbbKanal;
+        private System.Windows.Forms.CheckBox chkPlattformMessage;
     }
 }

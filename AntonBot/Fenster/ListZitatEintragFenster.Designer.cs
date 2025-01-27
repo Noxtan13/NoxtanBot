@@ -1,7 +1,6 @@
-﻿
-namespace AntonBot.Fenster
+﻿namespace AntonBot.Fenster
 {
-    partial class ListEintragFenster
+    partial class ListZitatEintragFenster
     {
         /// <summary>
         /// Required designer variable.
@@ -36,29 +35,28 @@ namespace AntonBot.Fenster
             // 
             this.TableEinträge.AutoSize = true;
             this.TableEinträge.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
-            this.TableEinträge.ColumnCount = 4;
-            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
-            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.5022F));
-            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.4978F));
-            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 66F));
-            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableEinträge.ColumnCount = 5;
+            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.91421F));
+            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.08579F));
+            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.TableEinträge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
             this.TableEinträge.Location = new System.Drawing.Point(12, 12);
             this.TableEinträge.Name = "TableEinträge";
             this.TableEinträge.RowCount = 1;
-            this.TableEinträge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.TableEinträge.Size = new System.Drawing.Size(820, 36);
-            this.TableEinträge.TabIndex = 0;
+            this.TableEinträge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.TableEinträge.Size = new System.Drawing.Size(1001, 38);
+            this.TableEinträge.TabIndex = 1;
             // 
-            // ListEintragFenster
+            // ListZitatEintragFenster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(862, 651);
+            this.ClientSize = new System.Drawing.Size(1025, 450);
             this.Controls.Add(this.TableEinträge);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Name = "ListEintragFenster";
-            this.Text = "ListEintragFenster";
-            this.Load += new System.EventHandler(this.ListEintragFenster_Load);
+            this.Name = "ListZitatEintragFenster";
+            this.Text = "ListZitatEintragFenster";
+            this.Load += new System.EventHandler(this.ListZitatEintragFenster_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

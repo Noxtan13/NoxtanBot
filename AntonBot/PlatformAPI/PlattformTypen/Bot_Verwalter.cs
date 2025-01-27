@@ -1,5 +1,7 @@
 ﻿using AntonBot.PlatformAPI;
+using AntonBot.PlatformAPI.ListenTypen;
 using AntonBot.PlatformAPI.PlattformTypen;
+using Discord;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -238,6 +240,140 @@ namespace AntonBot
             }
 
             return Message;
+        }
+
+        protected string CheckZitate(string Message, string User, int AdminorVIP, string Plattform) {
+            string Nachricht = null;
+            string BefehlTeil1 = getBefehlTeil(Message);
+            string OptionalerTeilGesamt = getOptionalerTeil(Message);
+
+            string BefehlTeil2 = "UPS";
+            BefehlTeil2 = getBefehlTeil(getOptionalerTeil(Message));
+            string OptionalerTeil = getOptionalerTeil(OptionalerTeilGesamt);
+
+            if(SettingsGroup.Instance.ZitateEintraege == null)
+            {
+                KonsolenAusgabe("Zitateinträge ist leer. Liste wird neu erzeugt");
+                SettingsGroup.Instance.ZitateEintraege = new List<ZitatEintrag>();
+                SettingsGroup.Instance.Save();
+            }
+
+            if (BefehlTeil1.Equals(SettingsGroup.Instance.SBefehlSymbol + SettingsGroup.Instance.sZitateBefehl.ToLower()))
+            {
+                if (BefehlTeil2.ToLower().Equals(SettingsGroup.Instance.sZitateAddText.ToLower()))
+                {
+                    if (ZitatCheckAdd(AdminorVIP))
+                    {
+                        SettingsGroup.Instance.ZitateEintraege.Add(new ZitatEintrag(OptionalerTeil, User, Plattform));
+                        SettingsGroup.Instance.RecountZitate();
+                        SettingsGroup.Instance.Save();
+                        Nachricht = SettingsGroup.Instance.sZitateAddAnswer;
+                    }
+                }
+                else if (BefehlTeil2.ToLower().Equals(SettingsGroup.Instance.sZitateRemoveText.ToLower()))
+                {
+                    if (ZitatCheckRemove(AdminorVIP))
+                    {
+                        bool gefunden = false;
+                        ZitatEintrag Founditem = null;
+                        foreach (var item in SettingsGroup.Instance.ZitateEintraege)
+                        {
+                            if (Convert.ToInt32(OptionalerTeil) == item.Number)
+                            {
+                                gefunden = true;
+                                Founditem = item;
+                            }
+                        }
+                        if (gefunden)
+                        {
+                            SettingsGroup.Instance.ZitateEintraege.Remove(Founditem);
+                            SettingsGroup.Instance.RecountZitate();
+                            SettingsGroup.Instance.Save();
+                            Nachricht = SettingsGroup.Instance.sZitateRemoveAnswer;
+                            Nachricht = ReplaceZitat(Nachricht, Founditem, User);
+
+                        }
+                        //Hier evtl. noch Nachricht hinzufügen, wenn nicht gefunden
+                    }
+                }
+                else {
+                    //Zitat ausgeben oder suchen, wenn aktiv, aber nur wenn Anzahl größer 0 ist
+                    if (SettingsGroup.Instance.ZitateEintraege.Count > 0)
+                    {
+                        Nachricht = SettingsGroup.Instance.sZitateBefehlText;
+                        if (SettingsGroup.Instance.bZitatSuche && !OptionalerTeilGesamt.Equals("§§$%&"))
+                        {
+                            bool gefunden = false;
+                            ZitatEintrag Founditem = null;
+                            foreach (var item in SettingsGroup.Instance.ZitateEintraege)
+                            {
+                                if (item.Zitat.Contains(OptionalerTeilGesamt))
+                                {
+                                    gefunden = true;
+                                    Founditem = item;
+                                }
+                            }
+                            if (gefunden)
+                            {
+                                Nachricht = ReplaceZitat(Nachricht, Founditem, User);
+                            }
+                            else
+                            {
+                                Nachricht = SettingsGroup.Instance.sZitatSucheText + " " + ReplaceZitat(Nachricht, RandomZitat(), User);
+                            }
+                        }
+                        else
+                        {
+                            Nachricht = ReplaceZitat(Nachricht, RandomZitat(), User);
+                        }
+                    }
+                }
+
+            }
+
+            return Nachricht;
+        }
+
+        private bool ZitatCheckAdd(int VIPorMod)
+        {
+            if (SettingsGroup.Instance.bZitateAddAll) return true;
+            if (SettingsGroup.Instance.bZitateAddVIP && VIPorMod == 1) return true;
+            if (SettingsGroup.Instance.bZitateAddMod && VIPorMod==2) return true;
+            if (VIPorMod ==3) return true;
+            return false;
+        }
+        private bool ZitatCheckRemove(int VIPorMod)
+        {
+            if (SettingsGroup.Instance.bZitateRemoveAll) return true;
+            if (SettingsGroup.Instance.bZitateRemoveVIP && VIPorMod == 1) return true;
+            if (SettingsGroup.Instance.bZitateRemoveMod && VIPorMod == 2) return true;
+            if (VIPorMod == 3) return true;
+            return false;
+        }
+
+        private String ReplaceZitat(string Nachricht, ZitatEintrag item, String User)
+        {
+            Nachricht = Nachricht.Replace("°ZitatNr", item.Number.ToString());
+            Nachricht = Nachricht.Replace("°Zitat", item.Zitat);
+            Nachricht = Nachricht.Replace("°Ersteller", item.Ersteller);
+            Nachricht = Nachricht.Replace("°Benutzer", User);
+            Nachricht = Nachricht.Replace("°Datum", item.ZitatZeitpunkt.Date.ToShortDateString());
+            Nachricht = Nachricht.Replace("°Uhrzeit", item.ZitatZeitpunkt.TimeOfDay.ToString());
+
+            return Nachricht;
+        }
+
+        private ZitatEintrag RandomZitat() { 
+            Random random = new Random();
+            int Anzahl = SettingsGroup.Instance.ZitateEintraege.Count;
+            if (Anzahl > 0)
+            {
+                return SettingsGroup.Instance.ZitateEintraege[random.Next(Anzahl)];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         protected string CheckListBefehl(string Message, string User, bool Adminkennzeichen, string Plattform)

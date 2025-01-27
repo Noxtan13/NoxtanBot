@@ -446,6 +446,13 @@ A token cannot be null, empty, or contain only whitespace.
         public async Task ReactToCommand(SocketMessage RecievedMessage)
         {
             string Nachricht = CheckBefehlAllg(RecievedMessage.Content, RecievedMessage.Author.Username);
+            
+            //Dieser Block sollte eig. vor den CheckBefehlAllg kommen
+            if (Nachricht == null && SettingsGroup.Instance.bZitateUse)
+            {
+                //Aktuell nur 0, da ich Stand jetzt keine weiter Möglichkeiten zur überprüfung habe der Rollen in Discord
+                Nachricht = CheckZitate(RecievedMessage.Content, RecievedMessage.Author.Username, 0, "Discord");          
+            }
 
             if (Nachricht == null)
             {

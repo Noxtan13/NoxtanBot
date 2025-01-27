@@ -116,6 +116,7 @@ namespace AntonBot.PlatformAPI
         public List<Zeit_Befehl> InhaltZeitBefehl;
         public List<GameSkill> InhaltSkillList;
         public List<EmbededMessageReactionRole> InhaltReactionRoleList;
+        public List<ZitatEintrag> ZitateEintraege;
         #endregion
 
         #region Skill
@@ -129,12 +130,33 @@ namespace AntonBot.PlatformAPI
         public TwitchAdminBefehl SkillList;
         #endregion
 
+        #region Zitate
+        public bool bZitateUse;
+        public String sZitateBefehl;
+        public String sZitateBefehlText;
+        public bool bZitateAdd;
+        public String sZitateAddText;
+        public String sZitateAddAnswer;
+        public bool bZitateAddAll;
+        public bool bZitateAddVIP;
+        public bool bZitateAddMod;
+        public bool bZitateRemove;
+        public String sZitateRemoveText;
+        public String sZitateRemoveAnswer;
+        public bool bZitateRemoveAll;
+        public bool bZitateRemoveVIP;
+        public bool bZitateRemoveMod;
+        public bool bZitatSuche;
+        public String sZitatSucheText;
+
+        #endregion
+
         private void SetVersion()
         {
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 12;
+            Version = 13;
         }
 
         public void LoadSettings()
@@ -246,6 +268,27 @@ namespace AntonBot.PlatformAPI
                 SkillUpdate = load.SkillUpdate;
                 SkillStatus = load.SkillStatus;
 
+                ZitateEintraege = load.ZitateEintraege;
+
+                bZitateUse = load.bZitateUse;
+                sZitateBefehl = load.sZitateBefehl;
+                sZitateBefehlText = load.sZitateBefehlText;
+                bZitateAdd = load.bZitateAdd;
+                sZitateAddText = load.sZitateAddText;
+                sZitateAddAnswer = load.sZitateAddAnswer;
+                bZitateAddAll = load.bZitateAddAll;
+                bZitateAddVIP = load.bZitateAddVIP;
+                bZitateAddMod = load.bZitateAddMod;
+                bZitateRemove = load.bZitateRemove;
+                sZitateRemoveText = load.sZitateRemoveText;
+                sZitateRemoveAnswer = load.sZitateRemoveAnswer;
+                bZitateRemoveAll = load.bZitateRemoveAll;
+                bZitateRemoveVIP = load.bZitateRemoveVIP;
+                bZitateRemoveMod = load.bZitateRemoveMod;
+                bZitatSuche = load.bZitatSuche;
+                sZitatSucheText = load.sZitatSucheText;
+
+
                 if (Version != load.Version)
                 {
                     Update();
@@ -349,6 +392,24 @@ namespace AntonBot.PlatformAPI
             TsAccessTokenPubSub = "";
             TsPubSubZusatz = false;
             TsOnline = false;
+
+            bZitateUse = false;
+            sZitateBefehl = "";
+            sZitateBefehlText = "";
+            bZitateAdd = false;
+            bZitateAddAll = false;
+            sZitateAddText = "";
+            sZitateAddAnswer = "";
+            bZitateAddVIP = false;
+            bZitateAddMod = false;
+            bZitateRemove = false;
+            sZitateRemoveText = "";
+            sZitateRemoveAnswer = "";
+            bZitateRemoveAll = false;
+            bZitateRemoveVIP = false;
+            bZitateRemoveMod = false;
+            bZitatSuche = false;
+            sZitatSucheText = "";
 
             SkillUse = false;
 
@@ -466,6 +527,24 @@ namespace AntonBot.PlatformAPI
             TsPubSubZusatz = load.TsPubSubZusatz;
             TsOnline = load.TsOnline;
 
+            bZitateUse = load.bZitateUse;
+            sZitateBefehl = load.sZitateBefehl;
+            sZitateBefehlText = load.sZitateBefehlText;
+            bZitateAdd = load.bZitateAdd;
+            sZitateAddText = load.sZitateAddText;
+            sZitateAddAnswer = load.sZitateAddAnswer;
+            bZitateAddAll = load.bZitateAddAll;
+            bZitateAddVIP = load.bZitateAddVIP;
+            bZitateAddMod = load.bZitateAddMod;
+            bZitateRemove = load.bZitateRemove;
+            sZitateRemoveText = load.sZitateRemoveText;
+            sZitateRemoveAnswer = load.sZitateRemoveAnswer;
+            bZitateRemoveAll = load.bZitateRemoveAll;
+            bZitateRemoveVIP = load.bZitateRemoveVIP;
+            bZitateRemoveMod = load.bZitateRemoveMod;
+            bZitatSuche = load.bZitatSuche;
+            sZitatSucheText = load.sZitatSucheText;
+
             SkillUse = load.SkillUse;
 
             SkillMain.UpdateCommand(load.SkillMain);
@@ -527,6 +606,10 @@ namespace AntonBot.PlatformAPI
             {
                 InhaltSkillList = JsonConvert.DeserializeObject<List<GameSkill>>(File.ReadAllText(ApplicationPath + "ReactionRole.json"));
             }
+            if (File.Exists(ApplicationPath + "ZitateListe.json"))
+            {
+                ZitateEintraege = JsonConvert.DeserializeObject<List<ZitatEintrag>>(File.ReadAllText(ApplicationPath + "ZitateListe.json"));
+            }
         }
 
         public String WriteAllSettings()
@@ -540,6 +623,7 @@ namespace AntonBot.PlatformAPI
                 File.WriteAllText(StandardPfad + "List-Befehl.json", JsonConvert.SerializeObject(InhaltListBefehl, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "Zeit-Befehl.json", JsonConvert.SerializeObject(InhaltZeitBefehl, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "SkillListe.json", JsonConvert.SerializeObject(InhaltSkillList, Formatting.Indented));
+                File.WriteAllText(StandardPfad + "ZitateListe.json", JsonConvert.SerializeObject(ZitateEintraege, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "JoinedUsers.json", JsonConvert.SerializeObject(InhaltJoinedUsers, Formatting.Indented));
                 File.WriteAllText(StandardPfad + "ReactionRole.json", JsonConvert.SerializeObject(InhaltReactionRoleList, Formatting.Indented));
                 return "Erfolg";
@@ -634,6 +718,24 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.TsPubSubZusatz = Import.TsPubSubZusatz;
             SettingsGroup.Instance.TsOnline = Import.TsOnline;
 
+            SettingsGroup.Instance.bZitateUse = Import.bZitateUse;
+            SettingsGroup.Instance.sZitateBefehl = Import.sZitateBefehl;
+            SettingsGroup.Instance.sZitateBefehlText = Import.sZitateBefehlText;
+            SettingsGroup.Instance.bZitateAdd = Import.bZitateAdd;
+            SettingsGroup.Instance.sZitateAddText = Import.sZitateAddText;
+            SettingsGroup.Instance.sZitateAddAnswer = Import.sZitateAddAnswer;
+            SettingsGroup.Instance.bZitateAddAll = Import.bZitateAddAll;
+            SettingsGroup.Instance.bZitateAddVIP = Import.bZitateAddVIP;
+            SettingsGroup.Instance.bZitateAddMod = Import.bZitateAddMod;
+            SettingsGroup.Instance.bZitateRemove = Import.bZitateRemove;
+            SettingsGroup.Instance.sZitateRemoveText = Import.sZitateRemoveText;
+            SettingsGroup.Instance.sZitateRemoveAnswer = Import.sZitateRemoveAnswer;
+            SettingsGroup.Instance.bZitateRemoveAll = Import.bZitateRemoveAll;
+            SettingsGroup.Instance.bZitateRemoveVIP = Import.bZitateRemoveVIP;
+            SettingsGroup.Instance.bZitateRemoveMod = Import.bZitateRemoveMod;
+            SettingsGroup.Instance.bZitatSuche = Import.bZitatSuche;
+            SettingsGroup.Instance.sZitatSucheText = Import.sZitatSucheText;
+
             //Skills
             SettingsGroup.Instance.SkillUse = Import.SkillUse;
 
@@ -647,6 +749,16 @@ namespace AntonBot.PlatformAPI
             Save(DefaultSavePath);
 
             WriteAllSettings();
+        }
+
+        public void RecountZitate()
+        {
+            int Zähler = 0;
+            foreach (var item in ZitateEintraege)
+            {
+                item.Number = Zähler;
+                Zähler++;
+            }
         }
     }
 }

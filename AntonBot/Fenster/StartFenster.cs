@@ -907,5 +907,11 @@ namespace AntonBot
             MessageSendTest SendTest = new MessageSendTest(Twitch, Discord);
             SendTest.Show();
         }
+
+        private void zitateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ZitateEinstellungen zitateEinstellungen = new ZitateEinstellungen();
+            zitateEinstellungen.Show();
+        }
     }
 }

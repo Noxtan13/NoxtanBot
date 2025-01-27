@@ -1177,6 +1177,24 @@ namespace AntonBot
                             {
                                 CheckTwitchAdmin(e.ChatMessage);
                             }
+                            if (MessageText == null && SettingsGroup.Instance.bZitateUse) {
+                                if (e.ChatMessage.IsBroadcaster)
+                                {
+                                    MessageText = CheckZitate(e.ChatMessage.Message, e.ChatMessage.Username, 3, "Twitch");
+                                }
+                                else if (e.ChatMessage.IsModerator)
+                                {
+                                    MessageText = CheckZitate(e.ChatMessage.Message, e.ChatMessage.Username, 2, "Twitch");
+                                }
+                                else if (e.ChatMessage.IsVip)
+                                {
+                                    MessageText = CheckZitate(e.ChatMessage.Message, e.ChatMessage.Username, 1, "Twitch");
+                                }
+                                else
+                                {
+                                    MessageText = CheckZitate(e.ChatMessage.Message, e.ChatMessage.Username, 0, "Twitch");
+                                }
+                            }
                             if (MessageText == null)
                             {
                                 MessageText = CheckBefehlAllg(e.ChatMessage.Message, e.ChatMessage.Username);

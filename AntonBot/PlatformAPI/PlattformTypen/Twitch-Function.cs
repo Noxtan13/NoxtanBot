@@ -125,6 +125,8 @@ namespace AntonBot
 
             var Standardchannel = searchOneChannel(SettingsGroup.Instance.TsStandardChannel);
 
+            Plattform = "Twitch";
+
             if (Standardchannel != null)
             {
 
@@ -344,7 +346,7 @@ namespace AntonBot
             KonsolenAusgabe("FsFollower_OnChannelSet: Channels: " + e.Channels.Count);
         }
 
-        private void FollowerlistAufbau()
+        public void FollowerlistAufbau()
         {
             FollowerList = new List<TwitchLib.Api.Helix.Models.Users.GetUserFollows.Follow>();
             try

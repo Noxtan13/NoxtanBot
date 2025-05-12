@@ -151,12 +151,18 @@ namespace AntonBot.PlatformAPI
 
         #endregion
 
+        #region Undefined
+        public bool bPlattformMessageUse;
+        public String sPlattformMessageCommand;
+        public String sPlattformMessageText;
+        #endregion
+
         private void SetVersion()
         {
             //Funktion zum setzen der Version (manuell)
             //Diese wird beim Laden geprüft um festzustellen, ob ein Update der Settings gemacht werden muss oder nicht
             //Keine Ausgabe an die Oberfläche
-            Version = 13;
+            Version = 14;
         }
 
         public void LoadSettings()
@@ -287,6 +293,10 @@ namespace AntonBot.PlatformAPI
                 bZitateRemoveMod = load.bZitateRemoveMod;
                 bZitatSuche = load.bZitatSuche;
                 sZitatSucheText = load.sZitatSucheText;
+
+                bPlattformMessageUse = load.bPlattformMessageUse;
+                sPlattformMessageCommand = load.sPlattformMessageCommand;
+                sPlattformMessageText = load.sPlattformMessageText;
 
 
                 if (Version != load.Version)
@@ -419,6 +429,11 @@ namespace AntonBot.PlatformAPI
             SkillList = new TwitchAdminBefehl("Skill - Status");
             SkillUpdate = new TwitchAdminBefehl("Skill - Update");
             SkillStatus = new TwitchAdminBefehl("Skill - List");
+
+            bPlattformMessageUse = false;
+            sPlattformMessageCommand = "";
+            sPlattformMessageText = "";
+
         }
 
         public void Update()
@@ -553,6 +568,10 @@ namespace AntonBot.PlatformAPI
             SkillList.UpdateCommand(load.SkillList);
             SkillUpdate.UpdateCommand(load.SkillUpdate);
             SkillStatus.UpdateCommand(load.SkillStatus);
+
+            bPlattformMessageUse = load.bPlattformMessageUse;
+            sPlattformMessageCommand = load.sPlattformMessageCommand;
+            sPlattformMessageText = load.sPlattformMessageText;
 
             Save(DefaultSavePath);
         }
@@ -745,6 +764,10 @@ namespace AntonBot.PlatformAPI
             SettingsGroup.Instance.SkillList = Import.SkillList;
             SettingsGroup.Instance.SkillUpdate = Import.SkillUpdate;
             SettingsGroup.Instance.SkillStatus = Import.SkillStatus;
+
+            SettingsGroup.Instance.bPlattformMessageUse = Import.bPlattformMessageUse;
+            SettingsGroup.Instance.sPlattformMessageCommand = Import.sPlattformMessageCommand;
+            SettingsGroup.Instance.sPlattformMessageText = Import.sPlattformMessageText;
 
             Save(DefaultSavePath);
 

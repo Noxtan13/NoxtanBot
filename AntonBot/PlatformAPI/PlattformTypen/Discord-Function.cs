@@ -44,6 +44,8 @@ Exception:
 A token cannot be null, empty, or contain only whitespace.
              */
 
+            Plattform = "Discord";
+
             if (SettingsGroup.Instance.DSAccessToken == null || SettingsGroup.Instance.DSAccessToken == "")
             {
                 KonsolenAusgabe("Es ist kein Token verfügbar!" + Environment.NewLine + "Bitte Einrichtung durchführen");

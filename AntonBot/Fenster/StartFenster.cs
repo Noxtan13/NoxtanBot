@@ -913,5 +913,16 @@ namespace AntonBot
             ZitateEinstellungen zitateEinstellungen = new ZitateEinstellungen();
             zitateEinstellungen.Show();
         }
+
+        private void plattformNachrichtenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PlattFormNachrichtenFenster plattFormNachrichtenFenster = new PlattFormNachrichtenFenster();
+            plattFormNachrichtenFenster.Show();
+        }
+
+        private void followerListeAufbauenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Twitch.FollowerlistAufbau();
+        }
     }
 }

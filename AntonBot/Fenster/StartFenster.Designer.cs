@@ -51,12 +51,13 @@
             this.einstellungenImportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.twitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.übergreifendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.befehleCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nachrichtTestenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zitateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plattformNachrichtenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.twitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.TwitchGroupBox = new System.Windows.Forms.GroupBox();
             this.chkTwitchZeit = new System.Windows.Forms.CheckBox();
@@ -69,6 +70,7 @@
             this.timerOtherChannel = new System.Windows.Forms.Timer(this.components);
             this.sfdEinstellungExport = new System.Windows.Forms.SaveFileDialog();
             this.ofdEinstellungImport = new System.Windows.Forms.OpenFileDialog();
+            this.followerListeAufbauenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DiscordGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.MenuLeiste.SuspendLayout();
@@ -270,6 +272,46 @@
             this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(146, 21);
             this.einstellungenToolStripMenuItem.Text = "Plattform und Befehl";
             // 
+            // übergreifendToolStripMenuItem
+            // 
+            this.übergreifendToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.befehleCommandsToolStripMenuItem,
+            this.nachrichtTestenToolStripMenuItem,
+            this.zitateToolStripMenuItem,
+            this.plattformNachrichtenToolStripMenuItem,
+            this.followerListeAufbauenToolStripMenuItem});
+            this.übergreifendToolStripMenuItem.Name = "übergreifendToolStripMenuItem";
+            this.übergreifendToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.übergreifendToolStripMenuItem.Text = "Übergreifend";
+            // 
+            // befehleCommandsToolStripMenuItem
+            // 
+            this.befehleCommandsToolStripMenuItem.Name = "befehleCommandsToolStripMenuItem";
+            this.befehleCommandsToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.befehleCommandsToolStripMenuItem.Text = "Befehle / Commands";
+            this.befehleCommandsToolStripMenuItem.Click += new System.EventHandler(this.befehleCommandsToolStripMenuItem_Click);
+            // 
+            // nachrichtTestenToolStripMenuItem
+            // 
+            this.nachrichtTestenToolStripMenuItem.Name = "nachrichtTestenToolStripMenuItem";
+            this.nachrichtTestenToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.nachrichtTestenToolStripMenuItem.Text = "Nachricht testen";
+            this.nachrichtTestenToolStripMenuItem.Click += new System.EventHandler(this.nachrichtTestenToolStripMenuItem_Click);
+            // 
+            // zitateToolStripMenuItem
+            // 
+            this.zitateToolStripMenuItem.Name = "zitateToolStripMenuItem";
+            this.zitateToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.zitateToolStripMenuItem.Text = "Zitate";
+            this.zitateToolStripMenuItem.Click += new System.EventHandler(this.zitateToolStripMenuItem_Click);
+            // 
+            // plattformNachrichtenToolStripMenuItem
+            // 
+            this.plattformNachrichtenToolStripMenuItem.Name = "plattformNachrichtenToolStripMenuItem";
+            this.plattformNachrichtenToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.plattformNachrichtenToolStripMenuItem.Text = "Plattform-Nachrichten";
+            this.plattformNachrichtenToolStripMenuItem.Click += new System.EventHandler(this.plattformNachrichtenToolStripMenuItem_Click);
+            // 
             // discordToolStripMenuItem
             // 
             this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
@@ -283,37 +325,6 @@
             this.twitchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.twitchToolStripMenuItem.Text = "Twitch";
             this.twitchToolStripMenuItem.Click += new System.EventHandler(this.twitchToolStripMenuItem_Click);
-            // 
-            // übergreifendToolStripMenuItem
-            // 
-            this.übergreifendToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.befehleCommandsToolStripMenuItem,
-            this.nachrichtTestenToolStripMenuItem,
-            this.zitateToolStripMenuItem});
-            this.übergreifendToolStripMenuItem.Name = "übergreifendToolStripMenuItem";
-            this.übergreifendToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.übergreifendToolStripMenuItem.Text = "Übergreifend";
-            // 
-            // befehleCommandsToolStripMenuItem
-            // 
-            this.befehleCommandsToolStripMenuItem.Name = "befehleCommandsToolStripMenuItem";
-            this.befehleCommandsToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.befehleCommandsToolStripMenuItem.Text = "Befehle / Commands";
-            this.befehleCommandsToolStripMenuItem.Click += new System.EventHandler(this.befehleCommandsToolStripMenuItem_Click);
-            // 
-            // nachrichtTestenToolStripMenuItem
-            // 
-            this.nachrichtTestenToolStripMenuItem.Name = "nachrichtTestenToolStripMenuItem";
-            this.nachrichtTestenToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.nachrichtTestenToolStripMenuItem.Text = "Nachricht testen";
-            this.nachrichtTestenToolStripMenuItem.Click += new System.EventHandler(this.nachrichtTestenToolStripMenuItem_Click);
-            // 
-            // zitateToolStripMenuItem
-            // 
-            this.zitateToolStripMenuItem.Name = "zitateToolStripMenuItem";
-            this.zitateToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.zitateToolStripMenuItem.Text = "Zitate";
-            this.zitateToolStripMenuItem.Click += new System.EventHandler(this.zitateToolStripMenuItem_Click);
             // 
             // UpdateTimer
             // 
@@ -419,6 +430,13 @@
             this.sfdEinstellungExport.FileName = "Einstellung";
             this.sfdEinstellungExport.RestoreDirectory = true;
             // 
+            // followerListeAufbauenToolStripMenuItem
+            // 
+            this.followerListeAufbauenToolStripMenuItem.Name = "followerListeAufbauenToolStripMenuItem";
+            this.followerListeAufbauenToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.followerListeAufbauenToolStripMenuItem.Text = "FollowerListe aufbauen";
+            this.followerListeAufbauenToolStripMenuItem.Click += new System.EventHandler(this.followerListeAufbauenToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -493,6 +511,8 @@
         private System.Windows.Forms.ToolStripMenuItem befehleCommandsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nachrichtTestenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zitateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plattformNachrichtenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem followerListeAufbauenToolStripMenuItem;
     }
 }
 

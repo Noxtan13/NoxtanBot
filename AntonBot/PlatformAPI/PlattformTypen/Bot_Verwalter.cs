@@ -33,6 +33,8 @@ namespace AntonBot
         //Variable zum erneuten Versuchsaufbau, wenn z.B. keine Verbindung ins Internet möglich war
         protected bool Restart = false;
 
+        protected String Plattform = "";
+
 
         public bool getRestart()
         {
@@ -188,52 +190,72 @@ namespace AntonBot
 
             if (BefehlTeil.StartsWith(SettingsGroup.Instance.SBefehlSymbol))
             {
-                int index = 0;
-                foreach (Befehl item in BefehlListe)
-                {
-                    if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
+                
+
+                    int index = 0;
+                    foreach (Befehl item in BefehlListe)
                     {
-                        Message = item.Antwort;
-                        string Ersatzantwort = item.ErsatzAntwort;
-                        //String für die Ersatzantwort, da diese auch bei der Zufallsantwort angepasst werden müsste (auch wenn diese gerade nicht verwenden werden würde)
-
-                        if (item.HatZufallAntowort)
+                        if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol + item.Kommando.ToLower()))
                         {
-                            int Wert = Zufallszahl.Next(item.ZufallAntwort.Count);
+                            Message = item.Antwort;
+                            string Ersatzantwort = item.ErsatzAntwort;
+                            //String für die Ersatzantwort, da diese auch bei der Zufallsantwort angepasst werden müsste (auch wenn diese gerade nicht verwenden werden würde)
 
-                            Message = Message.Replace("°VariablerTeil", item.ZufallAntwort[Wert].Text);
-                            Ersatzantwort = Ersatzantwort.Replace("°VariablerTeil", item.ZufallAntwort[Wert].Text);
-
-                        }
-
-                        if (item.HatErsatzText)
-                        {
-                            if (OptionalerTeil.Contains("§§$%&"))
+                            if (item.HatZufallAntowort)
                             {
-                                Message = Ersatzantwort;
+                                int Wert = Zufallszahl.Next(item.ZufallAntwort.Count);
 
-                                Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
+                                Message = Message.Replace("°VariablerTeil", item.ZufallAntwort[Wert].Text);
+                                Ersatzantwort = Ersatzantwort.Replace("°VariablerTeil", item.ZufallAntwort[Wert].Text);
+
                             }
-                            else
+
+                            if (item.HatErsatzText)
                             {
-                                Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
+                                if (OptionalerTeil.Contains("§§$%&"))
+                                {
+                                    Message = Ersatzantwort;
+
+                                    Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
+                                }
+                                else
+                                {
+                                    Message = Message.Replace("°OptionalerTeil", OptionalerTeil);
+                                }
                             }
+
+                            Message = Message.Replace("°Name", User);
+                            Message = Message.Replace("°KommandosBefehlsKette", Befehlskette(AllCommands));
+
+
+                            BefehlListe[index].IncrementAnzahl(); //Da die Änderung im item in einer foreach-Schleife nicht gespeichert wird, wird die Anzahl über den Index direkt erhöht
+                            Message = Message.Replace("°Zähler", item.Anzahl.ToString());
+
+                            Ausgabe = true;
+                            //ZufallGewichtung(BefehlListe);
                         }
-
-                        Message = Message.Replace("°Name", User);
-                        Message = Message.Replace("°KommandosBefehlsKette", Befehlskette(AllCommands));
-
-
-                        BefehlListe[index].IncrementAnzahl(); //Da die Änderung im item in einer foreach-Schleife nicht gespeichert wird, wird die Anzahl über den Index direkt erhöht
-                        Message = Message.Replace("°Zähler", item.Anzahl.ToString());
-
-                        Ausgabe = true;
-                        //ZufallGewichtung(BefehlListe);
+                        index++;
                     }
-                    index++;
+
+                if (Message == null)
+                {
+                    if (SettingsGroup.Instance.bPlattformMessageUse)
+                    {
+                        if (BefehlTeil.Equals(SettingsGroup.Instance.SBefehlSymbol+SettingsGroup.Instance.sPlattformMessageCommand))
+                        {
+                            Message = SettingsGroup.Instance.sPlattformMessageText;
+                            Message = Message.Replace("°Username", User);
+                            Message = Message.Replace("°Plattform", Plattform);
+                            Message = Message.Replace("°Text", OptionalerTeil);
+
+                            if (Plattform.Equals("Twitch")) { SendOtherChannel(Message, "Discord"); }
+                            else if (Plattform.Equals("Discord")) { SendOtherChannel(Message, "Twitch"); }
+
+                            Message = null;
+                        }
+                    }
                 }
             }
-
             if (Ausgabe)
             {
                 BefehlSpeichern(BefehlListe, "Befehl.json");
@@ -278,7 +300,12 @@ namespace AntonBot
                         ZitatEintrag Founditem = null;
                         foreach (var item in SettingsGroup.Instance.ZitateEintraege)
                         {
-                            if (Convert.ToInt32(OptionalerTeil) == item.Number)
+
+                            if (OptionalerTeil.Contains(item.Zitat)) {
+                                gefunden = true;
+                                Founditem = item;
+                            }
+                            else if (Convert.ToInt32(OptionalerTeil) == item.Number)
                             {
                                 gefunden = true;
                                 Founditem = item;

@@ -126,12 +126,14 @@ namespace AntonBot.Fenster
                     MessageBox.Show("Der Token für den PupSub ist leer. Ein zusätzlicher Token wird nicht verwendet", "leere Eingabe", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
+
                 if (MessageBox.Show("Der Access Token oder Channel wurde geändert. Sollen die Daten übernommen werden?" + Environment.NewLine + "Der Bot muss sich bei Twitch neu anmelden", "Geänderte Daten", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     //Diese Werte werden erst beim Beenden übernommen
                     Scopeübernahme();
                     SettingsGroup.Instance.TsStandardChannel = txtStandardChannel.Text;
                     SettingsGroup.Instance.TsclientID = txtClientID.Text;
+                    SettingsGroup.Instance.TsPubSubZusatz = chk_PubSubToken.Checked;
                     SettingsGroup.Instance.Save();
                 }
                 else
@@ -263,6 +265,10 @@ namespace AntonBot.Fenster
             string erzeugteAnfrage = "";
             bool ersteAnfrage = false;
 
+            //Angabe, damit der Bot als Bot den Channel joint. Ohne Ihn funktionierten die PupSub-Scopes nicht. Zeitpunkt 11.03.2025
+            if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+            erzeugteAnfrage += "channel:bot+user:read:chat";
+
             if (chk_chat_edit.Checked)
             {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
@@ -307,47 +313,48 @@ namespace AntonBot.Fenster
             if (chk_channel_read_redemptions.Checked)
             {
                 if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "channel:read:redemptions";
+                erzeugteAnfrage += "channel:read:redemptions+channel:read:subscriptions";
             }
-            if (chk_channel_manage_redemptions.Checked)
-            {
-                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "channel:manage:redemptions";
-            }
+                if (chk_channel_manage_redemptions.Checked)
+                {
+                    if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                    erzeugteAnfrage += "channel:manage:redemptions";
+                }
 
-            if (chk_user_edit.Checked)
-            {
-                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "user:edit";
-            }
-            /*
-            if (chk_user_read.Checked)
-            {
-                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "user_read";
-            }
-            */
+                if (chk_user_edit.Checked)
+                {
+                    if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                    erzeugteAnfrage += "user:edit";
+                }
+                /*
+                if (chk_user_read.Checked)
+                {
+                    if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                    erzeugteAnfrage += "user_read";
+                }
+                */
 
-            if (chk_user_edit_broadcast.Checked)
-            {
-                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "user:edit:broadcast";
-            }
-            if (chk_channel_editor.Checked)
-            {
-                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "channel_editor";
-            }
+                if (chk_user_edit_broadcast.Checked)
+                {
+                    if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                    erzeugteAnfrage += "user:edit:broadcast";
+                }
+                if (chk_channel_editor.Checked)
+                {
+                    if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                    erzeugteAnfrage += "channel_editor";
+                }
 
-            if (chk_clips_edit.Checked)
-            {
-                if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
-                erzeugteAnfrage += "clips:edit";
-            }
-            erzeugteAnfrage += "&token_type=bearer";
+                if (chk_clips_edit.Checked)
+                {
+                    if (ersteAnfrage) { erzeugteAnfrage += "+"; } else { ersteAnfrage = true; };
+                    erzeugteAnfrage += "clips:edit";
+                }
+                erzeugteAnfrage += "&token_type=bearer";
 
-            return erzeugteAnfrage;
+                return erzeugteAnfrage;
 
+            
         }
 
         private void btnHilfe_Click(object sender, EventArgs e)
@@ -389,6 +396,7 @@ namespace AntonBot.Fenster
             SettingsGroup.Instance.Tsuser_edit_broadcast = chk_user_edit_broadcast.Checked;
             SettingsGroup.Instance.Tschannel_editor = chk_channel_editor.Checked;
 
+            SettingsGroup.Instance.TsPubSubZusatz=chk_PubSubToken.Checked;
             bAccessTokenChange = true;
         }
         private void btnTokenManuell_Click(object sender, EventArgs e)
